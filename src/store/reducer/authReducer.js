@@ -2,6 +2,7 @@ import * as TYPES from '../actionType';
 
 var initValue = {
   isAuthed: false,
+  user: null,
 };
 
 const authReducer = (state = initValue, action) => {
@@ -10,6 +11,8 @@ const authReducer = (state = initValue, action) => {
       return { ...state, isAuthed: action.payload };
     case TYPES.AUTH_SIGN_OUT:
       return { ...state, isAuthed: action.payload };
+    case TYPES.AUTH_SUCCESS:
+      return { ...state, user: action.payload };
     default:
       return { ...state };
   }
