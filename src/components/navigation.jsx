@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { signIn } from '../service/base.service';
 import { PrimaryColor, SecondaryColor } from '../constants';
 import logImg from '../assets/images/app_logo.png';
+import { Routes } from '../routes';
 
 export const Navigation = () => {
   const dispatch = useDispatch();
@@ -44,7 +46,7 @@ export const Navigation = () => {
           {isAuthed ? (
             <a href='#' onClick={handleLogOut} style={{color: PrimaryColor.black}}>LogOut</a>
           ) : (
-            <a href='#' className='page-scroll' onClick={handleSignIn} style={{color: PrimaryColor.black}}>Log in</a>
+            <a href={Routes.Login.path} className='page-scroll' onClick={handleSignIn} style={{color: PrimaryColor.black}}>Log in</a>
           )}
         </div>
       </div>

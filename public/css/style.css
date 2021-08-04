@@ -601,9 +601,6 @@ a:focus,
   padding-bottom: 20px;
   font-weight: 400;
 }
-#subscribe form {
-  padding-top: 20px;
-}
 #subscribe .text-danger {
   color: #cc0033;
   text-align: left;
@@ -613,6 +610,13 @@ a:focus,
 }
 #subscribe .btn-custom:hover {
   opacity: 0.8!important;
+}
+#subscribe .image-container {
+  padding: 0 5rem;
+}
+#subscribe .image-container img {
+  height: 100%;
+  background-color: #C4C4C4;
 }
 
 label {
@@ -724,5 +728,8 @@ label {
   #job {
     max-height: 800px;
     padding: 88px 0;
+  }
+  #subscribe {
+    max-height: 656px;
   }
 }
