@@ -9,6 +9,7 @@ export const Routes = {
     LinkWallet: { path: '/linkWallet' },
     Earning: { path: '/earning' },
     Profile: { path: '/profile' },
+    Introduction: { path: '/introduction' },
 };
 
 export const history = createBrowserHistory();

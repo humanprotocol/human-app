@@ -1,0 +1,20 @@
+#intro>div {
+    height: 44.45vw;
+}
+#intro .section {
+    height: 100%;
+}
+#intro .human-about {
+    background-color: #1F0657;
+    padding: 8rem 0;
+}
+
+#intro .human-about h1 {
+    color: white;
+}
+
+@media (max-width: 1800px) {
+    #intro .container {
+        height: 800px;
+    }
+}

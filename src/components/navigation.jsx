@@ -36,7 +36,7 @@ export const Navigation = () => {
     <nav id='menu' className='navbar navbar-default fixed-top mb-0'>
       <div className='container'>
         <div className='navbar-header'>
-          <a className='navbar-brand page-scroll no-padding' href='#page-top' style={{ color: SecondaryColor.blue, height:'36px', letterSpacing: '4px' }}>
+          <a className='navbar-brand page-scroll no-padding' href='/' style={{ color: SecondaryColor.blue, height:'36px', letterSpacing: '4px' }}>
             <img className='app-logo mr-3' src={logImg} alt='human-app-log'></img>
             HUMAN App
           </a>{' '}

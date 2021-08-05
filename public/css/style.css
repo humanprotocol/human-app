@@ -714,6 +714,15 @@ label {
   line-height: 17px;
 }
 
+#intro .human-about {
+  background: url('../img/human_about_gb.png') no-repeat bottom;
+  background-size: 100% 70%;
+}
+
+#intro .human-about>div {
+  background: url('../img/human_about_dots.png') repeat-y left;
+}
+
 @media (max-width: 768px) {
   #about img {
     margin: 50px 0;
