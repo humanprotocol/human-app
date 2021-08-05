@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import './slider.css';
@@ -11,29 +11,37 @@ const Slider = (props) => {
       setCurrentSlide(s.details().relativeSlide);
     },
   });
-  const [slides, setSlides] = useState([]);
-  useEffect(() => {
-      setSlides(props.slides)
-  }, [])
 
   return (
-    <div className='slider-container'>
-      <div className='navigation-wrapper'>
-        <div ref={sliderRef} className='keen-slider'>
-            { slides && slides.length && slides.map((slide, index) => {
+    <div className='slider-container h-100'>
+      <div className='navigation-wrapper h-100'>
+        <div ref={sliderRef} className='keen-slider h-100'>
+            { props.slides && props.slides.length && props.slides.map((slide, index) => {
               return (
                 <div className='keen-slider__slide' key={index}>
-                  <div className='row'>
-                    <div className='col-md-6'>
-                      <h1 className='title' dangerouslySetInnerHTML={{ __html: slide.title}}></h1>
-                      <h3 className='subtitle'>{slide.subTitle}</h3>
-                      <p className='content'>{slide.content}</p>
+                  <div className='row h-100'>
+                    { props.type && props.type === 'humanJobs' && 
+                    <div className='col-md-6 image h-100'>
+                      <div className='image'>
+                        <img src={slide.image} alt='image'></img>
+                      </div>
                     </div>
+                    }
                     <div className='col-md-6'>
-                      <img src={slide.image} alt='image'></img>
+                      <div className='content'>
+                        <h1 className='title mb-4' dangerouslySetInnerHTML={{ __html: slide.title}}></h1>
+                        <h3 className='subtitle mb-4'>{slide.subTitle}</h3>
+                        <p className=''>{slide.content}</p>
+                      </div>
                     </div>
+                    { props.type && props.type === 'humanAbout' && 
+                    <div className='col-md-6 h-100'>
+                      <div className='image'>
+                        <img src={slide.image} alt='image'></img>
+                      </div>
+                    </div>
+                    }
                   </div>
-                  
                 </div>
               )
             }) }

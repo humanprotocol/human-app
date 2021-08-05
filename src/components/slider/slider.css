@@ -23,8 +23,9 @@ body {
   
   .dots {
     display: flex;
-    padding: 10px 0;
+    padding: 1rem 0;
     justify-content: center;
+    margin-top: 2rem;
   }
   
   .dot {
@@ -69,13 +70,12 @@ body {
   }
   
   .arrow--left {
-    left: 5px;
+    left: -8rem;
   }
   
   .arrow--right {
     left: auto;
-    right: 5px;
-  }
+    right: -8rem;  }
   
   .arrow--disabled {
     fill: rgba(255, 255, 255, 0.5);
