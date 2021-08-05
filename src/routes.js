@@ -1,5 +1,3 @@
-import { createBrowserHistory } from 'history';
-
 export const Routes = {
     // pages
     Home: { path: '/' },
@@ -11,5 +9,3 @@ export const Routes = {
     Profile: { path: '/profile' },
     Introduction: { path: '/introduction' },
 };
-
-export const history = createBrowserHistory();

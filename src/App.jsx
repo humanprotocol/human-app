@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Navigation } from './components/navigation';
 import HomePage from './pages/Home/home';
 import LoginPage from './pages/Login/login';
@@ -8,7 +8,7 @@ import ForgotPasswordPage from './pages/Login/forgotPassword';
 import ProfilePage from './pages/Profile/profile';
 import LinkWalletPage from './pages/Wallet/link';
 import { Footer } from './components/footer';
-import { history, Routes } from './routes';
+import { Routes } from './routes';
 
 import JsonData from './data/data.json';
 import SmoothScroll from 'smooth-scroll';
@@ -28,7 +28,7 @@ const App = () => {
   return (
     <div>
       <Navigation />
-      <Router history={history}>
+      <Router>
         <Switch>
           <Route exact path={Routes.Home.path} component={HomePage} />
           <Route exact path={Routes.Login.path} component={LoginPage} />

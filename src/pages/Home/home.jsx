@@ -10,7 +10,8 @@ const HomePage = ({ data }) => {
   return (
     <>
       <Welcome />
-      {isAuthed && <Job data={data.Features} />}
+      <Job />
+      {/* {isAuthed && <Job data={data.Features} />} */}
       <IntroSection />
       <Subscribe />
     </>
