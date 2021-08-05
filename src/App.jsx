@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { Navigation } from './components/navigation';
+import Navigation from './components/navigation';
 import HomePage from './pages/Home/home';
 import LoginPage from './pages/Login/login';
 import RegisterPage from './pages/Login/register';
@@ -27,8 +27,8 @@ const App = () => {
 
   return (
     <div>
-      <Navigation />
       <Router>
+        <Navigation />
         <Switch>
           <Route exact path={Routes.Home.path} component={HomePage} />
           <Route exact path={Routes.Login.path} component={LoginPage} />
@@ -39,8 +39,8 @@ const App = () => {
           <Route exact path={Routes.Earning.path} component={LinkWalletPage} />
           <Redirect from='*' to='/' />
         </Switch>
+        <Footer />
       </Router>
-      <Footer />
     </div>
   );
 };
