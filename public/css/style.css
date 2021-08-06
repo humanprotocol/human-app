@@ -115,6 +115,10 @@ input {
 .color-white {
   color: #fff;
 }
+.btn.form-control.btn-primary {
+  background-color: #6309FF;
+  font-family: 'Alliance No.1';
+}
 .bg-blue,
 .btn-primary.bg-blue {
   background-color: #6309FF;

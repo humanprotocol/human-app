@@ -52,3 +52,6 @@
     color: #fff;
     opacity: 0.8;
 }
+#register .form-group {
+    margin-bottom: 2rem;
+}

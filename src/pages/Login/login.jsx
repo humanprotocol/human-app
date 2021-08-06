@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { Password } from '../../components/inputs/password/password';
-import { signIn } from '../../service/base.service';
+import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
 import './login.css';
 import { ErrorType, ErrorMessage } from '../../constants';

@@ -63,15 +63,26 @@ export const HumanJobs = [
 export const ErrorType = {
     invaidPassword: 'invalidPassword',
     invalidEmail: 'invalidEmail',
-    requireEmail: 'requireEmail',
-    requirePassword: 'requirePassword',
     invalidWalletAddress: 'invalidWalletAddress',
+    duplicatedEmail: 'duplicatedEmail',
+    duplicatedUserName: 'duplicatedUserName',
+    requireUserName: 'requireUserName',
+    requireFirstName: 'requireFirstName',
+    requireLastName: 'requireLastName',
+    requirePassword: 'requirePassword',
+    requireEmail: 'requireEmail',
+
 }
 
 export const ErrorMessage = {
     invaidPassword: 'Invalid Password',
-    invalidEmail: 'Invalid Email',
-    requireEmail: 'Email required',
-    requirePassword: 'Password required',
     invalidWalletAddress: 'Invalid Wallet Address',
+    invalidEmail: 'Invalid Email',
+    duplicatedUserName: 'username is already used',
+    duplicatedEmail: 'email is already used',
+    requirePassword: 'Password required',
+    requireEmail: 'Email required',
+    requireUserName: 'Username required',
+    requireFirstName: 'First name required',
+    requireLastName: 'Last name required',
 }
