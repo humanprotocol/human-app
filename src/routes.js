@@ -4,6 +4,7 @@ export const Routes = {
     Login: { path: '/login' },
     Register: { path: '/register' },
     ForgotPassword: { path: '/changePassword'},
+    VerifyEmail: { path:' /verifyEmail' },
     LinkWallet: { path: '/linkWallet' },
     Earning: { path: '/earning' },
     Profile: { path: '/profile' },

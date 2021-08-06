@@ -3,12 +3,9 @@ import { Link, withRouter } from "react-router-dom";
 import { signIn } from '../service/base.service';
 import { PrimaryColor, SecondaryColor } from '../constants';
 import logImg from '../assets/images/app_logo.png';
-import { Routes } from '../routes';
 
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
-  // const history = useHistory();
-  
   const isAuthed = useSelector((state) => state.auth.isAuthed);
 
   const handleSignIn = () => {
@@ -18,7 +15,6 @@ const Navigation = ({ history }) => {
           type: 'AUTH_SIGN_IN',
           payload: true,
         });
-        // history.push('/login')
       }
     });
   };
@@ -28,7 +24,6 @@ const Navigation = ({ history }) => {
       type: 'AUTH_SIGN_OUT',
       payload: false,
     });
-    // history.push('/');
   };
 
   return (
@@ -45,7 +40,6 @@ const Navigation = ({ history }) => {
             <Link to={{ pathname:'/' }} onClick={handleLogOut} style={{color: PrimaryColor.black}}>LogOut</Link>
           ) : (
             <Link to={{ pathname:'/login' }} onClick={handleSignIn} style={{color: PrimaryColor.black}} className='page-scroll'>Log In</Link>
-            // <a href={Routes.Login.path} className='page-scroll' onClick={handleSignIn} style={{color: PrimaryColor.black}}>Log in</a>
           )}
         </div>
       </div>

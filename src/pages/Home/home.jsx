@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Welcome } from "./welcome";
+import Welcome  from "./welcome";
 import { Job } from "./job";
 import { Subscribe } from "./subscribe";
 import { IntroSection } from "./intro/intro";

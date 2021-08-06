@@ -7,6 +7,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.21.1",
     "bootstrap": "4.6.0",
+    "email-validator": "^2.0.4",
     "emailjs-com": "^2.6.4",
     "history": "^5.0.0",
     "jquery": "^3.6.0",

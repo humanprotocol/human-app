@@ -13,6 +13,7 @@ import { Routes } from './routes';
 import JsonData from './data/data.json';
 import SmoothScroll from 'smooth-scroll';
 import './App.css';
+import VerifyEmail from './pages/Login/verifyEmail';
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -36,6 +37,7 @@ const App = () => {
           <Route exact path={Routes.Profile.path} component={ProfilePage} />
           <Route exact path={Routes.LinkWallet.path} component={LinkWalletPage} />
           <Route exact path={Routes.ForgotPassword.path} component={ForgotPasswordPage} />
+          <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} />
           <Route exact path={Routes.Earning.path} component={LinkWalletPage} />
           <Redirect from='*' to='/' />
         </Switch>

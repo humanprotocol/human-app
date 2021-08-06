@@ -1,4 +1,5 @@
-import { useState, useSelector } from 'react'
+import { useState } from 'react'
+import { useSelector } from 'react-redux';
 import { Button } from '../../components/button';
 import { URLInput } from '../../components/inputs/url';
 import { JobOptions, PrimaryColor, SecondaryColor } from '../../constants';
@@ -7,7 +8,7 @@ export const Job = (props) => {
   const [option, setOptions] = useState(JobOptions.captcha);
   const [captchaCnt, setCaptchaCnt] = useState(0);
   const [referalCnt, setReferalCnt] = useState(0);
-  // const hmtCounts = useSelector((state) => state.hmt.htmCounts);
+  const hmtCounts = useSelector((state) => state.hmt.htmCounts);
 
   const changeOpt = (opt) => {
     setOptions(opt);
@@ -21,13 +22,18 @@ export const Job = (props) => {
             <h4 className='title mb-4'>Job List</h4>
             <ul className='m-0'>
               <li className='mb-4'>
-                <a href='#' className={`opt ${option && option === JobOptions.captcha ? 'active' :  ''}`} onClick={() => setOptions(JobOptions.captcha)}>
-                  hCaptcha
+                <a className={`opt ${option && option === JobOptions.captcha ? 'active' :  ''}`} onClick={() => setOptions(JobOptions.captcha)}>
+                  Data labeling
                 </a>
               </li>
               <li className='mb-4'>
-                <a href='#' className={`opt ${option && option === JobOptions.referal ? 'active' :  ''}`} onClick={() => setOptions(JobOptions.referal)}>
+                <a className={`opt ${option && option === JobOptions.referal ? 'active' :  ''}`} onClick={() => setOptions(JobOptions.referal)}>
                   Referal
+                </a>
+              </li>
+              <li className='mb-4'>
+                <a className={`opt ${option && option === JobOptions.questionare ? 'active' :  ''}`} onClick={() => setOptions(JobOptions.questionare)}>
+                  Questionare
                 </a>
               </li>
             </ul> 
@@ -39,8 +45,8 @@ export const Job = (props) => {
             { option && option === JobOptions.referal &&
               <div className='text-center'>
                 <URLInput className='text-center mb-3 referal-link'></URLInput>
-                <div class='row'>
-                  <div class='input-group'>
+                <div className='row'>
+                  <div className='input-group'>
                     <Button className='form-control py-2 border-right-0 btn text-white referal-btn' title='Refer now' bgColor={SecondaryColor.blue}></Button>
                     <span className='input-group-append' style={{color: '#ffffff', backgroundColor:SecondaryColor.blue}}>
                         <button className='btn' type='button'>
@@ -51,15 +57,19 @@ export const Job = (props) => {
               </div>
               </div>
             }
+            { option && option === JobOptions.questionare &&
+              <div className='text-center'><h1>Questionare</h1></div>
+            }
           </div>
           <div className='col-md-2 section-details text-left d-flex flex-column justify-content-between'>
             <div className='mb-5'>
-              <p className='mb-4'>Get 1 HMT for completing 1 hCaptcha job.</p>
-              <p>
-                Send the referral code to your friend and earn HMT<br/>
-                0.4 HMT when your friend subscribes to HUMAN.<br/>
-                0.6 HMT when your friend links their wallet to the HUMAN app.
-              </p>
+              <p>Upon successful completion of hCaptcha, user receives an assigned HMT amount.</p>
+            </div>
+            <div>
+              <h4 className='title d-flex justify-content-between'>
+                <span>HMT earned</span>
+                <span>{hmtCounts}</span>
+              </h4>
             </div>
             {/* <div className='job-status'>
               <h4 className='title d-flex justify-content-between'>

@@ -1,0 +1,23 @@
+#welcome .form-control {
+    height: 3rem;
+    border-radius: 0.5rem;
+    font-family: 'Alliance No.1';
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 32px;
+}
+#welcome input {
+    width: 24rem;
+}
+#welcome .form-control.btn {
+    background: #6309FF;
+    border: 0;
+    padding: 0.5rem 3rem;
+}
+
+@media (min-width: 1800px) {
+    #welcome input {
+        max-width: 24rem;
+    }
+}

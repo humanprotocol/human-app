@@ -21,6 +21,7 @@ export const SecondaryColor = {
 export const JobOptions = {
     captcha: 'captcha',
     referal: 'referal',
+    questionare: 'questionare'
 }
 
 export const HumanAbout = [

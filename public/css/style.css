@@ -2,12 +2,26 @@
   font-family: 'Alliance No.1';
   font-style: normal;
   font-weight: normal;
-  src: url('../fonts/fonts/Alliance.woff') format('woff');
+  src: url('../fonts/fonts/Alliance-No-1-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Alliance No.1 SemiBold';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/fonts/Alliance-No-1-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Alliance No.1 ExtraBold';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../fonts/fonts/Alliance-No-1-ExtraBold.otf') format('opentype');
 }
 
 body,
 html {
-  font-family: "Alliance No.1";
+  font-family: "Alliance No.1"!important;
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
   color: #0A060E;
@@ -83,10 +97,11 @@ hr {
 }
 
 input {
-  padding: 8px 12px;
-  height: 48px;
-  width: 384px;
-  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  height: 3rem;
+  width: 24rem;
+  border-radius: 0.5rem!important;
+  border-color: #0A060E!important;
 }
 .v-center {
   text-align: center;
@@ -96,6 +111,20 @@ input {
 }
 .color-blue {
   color: #6309FF;
+}
+.page-title h2 {
+  font-family: "Alliance No.1";
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 79%;
+  letter-spacing: -0.4px;
+  text-transform: none;
+  color: #0A060E;
+}
+.page-title .close {
+  font-size: 3rem;
+  color: #0A060E;
+  opacity: 1;
 }
 /* Navigation */
 #menu {
@@ -312,6 +341,7 @@ a:focus,
   line-height: 36px;
   letter-spacing: 0.2px;
   color: #0A060E;
+  cursor: pointer;
 }
 #job .section-option .opt.active {
   color: #6309FF;
