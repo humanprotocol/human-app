@@ -112,6 +112,42 @@ input {
 .color-blue {
   color: #6309FF;
 }
+.color-white {
+  color: #fff;
+}
+.bg-blue,
+.btn-primary.bg-blue {
+  background-color: #6309FF;
+  font-family: 'Alliance No.1';
+}
+.btn-primary.bg-blue:hover,
+.btn-primary.bg-blue:focus,
+.btn-primary.bg-blue:active,
+.btn-primary.bg-blue:active:focus,
+.btn-primary.bg-blue:visited
+{
+  background-color: #6309FF;
+  opacity: 0.8;
+}
+.bg-white.btn-primary.btn {
+  color: #6309FF;
+  border: 2px solid #6309FF;
+}
+.btn-primary.bg-white:hover {
+  background-color: #6309FF!important;
+  color: #fff;
+}
+.btn-primary.bg-white:focus,
+.btn-primary.bg-white:active,
+.btn-primary.bg-white:active:focus,
+.btn-primary.bg-white:visited {
+  background-color: #6309FF!important;
+  color: #fff;
+  opacity: 0.8;
+}
+.bg-white {
+  background-color: #fff;
+}
 .page-title h2 {
   font-family: "Alliance No.1";
   font-weight: 800;

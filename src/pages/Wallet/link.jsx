@@ -1,6 +1,51 @@
+import { useState } from 'react';
+import { Button, FormControl, FormGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Routes } from '../../routes';
+
 const LinkWalletPage = (props) => {
+    const [submitted, setSubmitted] = useState(false);
+    const [address, setAddress] = useState('')
+    const [status, setStatus] = useState({ address: true, msg: '' });
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSubmitted(true);
+        if(address.length !== 42) {
+            setStatus({ address: false, msg: 'Invalid wallet address' });
+        }
+    }
+
+    const handleChange = (e) => {
+        const { value } = e.target;
+        if(value) setStatus({ address: true, msg: '' });
+        setAddress(value);
+    }
+
     return(
-        <div id='linkWallet'>Link Wallet Page</div>
+        <div id='linkWallet' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
+            <div className='page-title d-flex justify-content-between mb-4'>
+                <h2>Link your wallet</h2>
+                <Link to={Routes.Home.path}><i className='material-icons close'>clear</i></Link>
+            </div>
+            <div>
+                <form name='form' onSubmit={handleSubmit}>
+                    <FormGroup className='mb-5'>
+                        <FormControl placeholder='Wallet address' type='text' value={address} onChange={handleChange}></FormControl>
+                        <FormControl.Feedback className={!status.address ? 'd-block' : ''} type='invalid'>{status.msg}</FormControl.Feedback>
+                    </FormGroup>
+                    <div className='row m-0'>
+                        <p className='mb-2'><Link to={Routes.CreateWallet.path}>Click here</Link> to create your crypto wallet</p>
+                    </div>
+                    <FormGroup className='w-100'>
+                        <Button className='bg-blue color-white form-control' type='default'>Next</Button>
+                    </FormGroup>
+                    <FormGroup className='w-100'>
+                        <Button className='bg-white color-blue form-control'>Skip for now</Button>
+                    </FormGroup>
+                </form>
+            </div>
+        </div>
     )
 }
 

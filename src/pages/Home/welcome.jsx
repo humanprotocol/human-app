@@ -1,25 +1,27 @@
 import { useState } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
-import { EmailInput } from '../../components/inputs/email'
-import { SecondaryColor } from '../../constants';
+import { useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { FormControl, FormGroup, Button } from 'react-bootstrap';
 import './home.css';
+import { Routes } from '../../routes';
 
-const Welcome = (props) => {
-  const history = useHistory()
+const Welcome = ({ history }) => {
   const [email, setEmail] = useState('');
   const [ status, setStatus ] = useState({ email: true, msg: '' })
-  
+  const isAuthed = useSelector((state) => state.auth.isAuthed);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!email) {
+    if(!email && !isAuthed) {
       setStatus({ email: false, msg: 'email is required' })
-    } else if(!EmailValidator.validate(email)) {
+    } else if(!EmailValidator.validate(email) && !isAuthed) {
       setStatus({ email: false, msg: 'Invalid email' });
-    } else {
+    } else if(!isAuthed){
       setStatus({ email: true, msg: '' });
-      history.push({ pathname: '/verifyEmail', state: { email } });
+      history.push({ pathname: Routes.VerifyEmail.path, state: { email } });
+    } else if(isAuthed) {
+      history.push({ pathname: Routes.LinkWallet.path });
     }
   }
   
@@ -36,11 +38,18 @@ const Welcome = (props) => {
           <h3 className='text-center mb-4'>Do interesting jobs and get paid in HMT</h3>
           <p className='text-left mb-4'>Subscribe to HUMAN by verifying your email and complete your KYC by linking your crypto wallet to earn instant 10HMT and earn more HMT by doing hcaptcha jobs, and by sending referral links to your friends.</p>
           <div className='row justify-content-center'>
-            <FormGroup className='mr-2'>
-              <FormControl type='email' placeholder='email' name='email' value={email} onChange={handleChange}/>
-              <FormControl.Feedback className={!status.email ? 'd-block' : ''} type='invalid'>{status.msg}</FormControl.Feedback>
-            </FormGroup>
-            <FormGroup><Button className='form-control' onClick={handleSubmit}>Start earning HMT</Button></FormGroup>
+            { isAuthed && 
+              <FormGroup><Button className='form-control' onClick={handleSubmit}>Link your wallet and start earning HMT</Button></FormGroup>
+            }
+            { !isAuthed &&
+            <>
+              <FormGroup className='mr-2'>
+                <FormControl type='email' placeholder='email' name='email' value={email} onChange={handleChange}/>
+                <FormControl.Feedback className={!status.email ? 'd-block' : ''} type='invalid'>{status.msg}</FormControl.Feedback>
+              </FormGroup>
+              <FormGroup><Button className='form-control' onClick={handleSubmit}>Start earning HMT</Button></FormGroup>
+            </>
+            } 
           </div>
         </div>
       </div>

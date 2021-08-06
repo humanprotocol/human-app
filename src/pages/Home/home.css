@@ -4,8 +4,8 @@
     font-family: 'Alliance No.1';
     letter-spacing: 0.3px;
     font-weight: 600;
-    font-size: 18px;
-    line-height: 32px;
+    font-size: 1.125rem;
+    line-height: 2rem;
 }
 #welcome input {
     width: 24rem;

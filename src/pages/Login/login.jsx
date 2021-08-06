@@ -14,7 +14,6 @@ const LoginPage = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>', { name, value })
     setInputs(inputs => ({ ...inputs, [name]: value }));
   }
 
@@ -48,7 +47,7 @@ const LoginPage = (props) => {
             <Link to='/register' className='btn btn-link'>Register</Link>
           </div>
           <div className='form-group'>
-            <Button className='btn btn-primary' onClick={handleSubmit}>Next</Button>
+            <Button className='btn btn-primary form-control' onClick={handleSubmit}>Next</Button>
           </div>
         </form>
       </div>
