@@ -1,4 +1,4 @@
-export async function signIn() {
+export async function signIn({ email, password }) {
   //fake login
   return true;
 }

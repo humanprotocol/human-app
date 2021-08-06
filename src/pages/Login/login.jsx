@@ -1,10 +1,17 @@
 import { useState } from 'react'
-import { Button, FormControl } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Button, FormControl, FormGroup } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import * as EmailValidator from 'email-validator';
 import { Password } from '../../components/inputs/password/password';
+import { signIn } from '../../service/base.service';
+import { Routes } from '../../routes';
 import './login.css';
+import { ErrorType, ErrorMessage } from '../../constants';
 
 const LoginPage = (props) => {
+  const dispatch = useDispatch();
+  const { history } = props;
   const [inputs, setInputs] = useState({
     email: '',
     password: ''
@@ -19,11 +26,18 @@ const LoginPage = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setSubmitted(true);
-    if (email && password) {
-      console.log('>>>>>>>>>>>>>>>>>>>>>> Login Action. ', { email, password })
-    }
+    if (email && password && EmailValidator.validate(email)) {
+      signIn({ email, password }).then((res) => {
+        if (res) {
+          dispatch({
+            type: 'AUTH_SIGN_IN',
+            payload: true,
+          });
+          history.push({ pathname: Routes.Home.path });
+        }
+      });
+    } 
   }
 
 
@@ -35,19 +49,22 @@ const LoginPage = (props) => {
       </div>
       <div>
         <form name='form' onSubmit={handleSubmit}>
-          <div className='form-group'>
-            <input placeholder='Email' type='email' name='email' value={email} onChange={handleChange} className={'form-control' + (submitted && !email ? ' is-invalid' : '')} />
+          <FormGroup>
+            <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>
             {submitted && !email &&
-              <div className='invalid-feedback'>email is required</div>
+              <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
             }
-          </div>
+            {submitted && email && !EmailValidator.validate(email) &&
+              <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
+            }
+          </FormGroup>
           <Password onChange={handleChange} value={password} submitted={submitted}></Password>
           <div className='d-flex justify-content-between mb-2'>
             <Link to='/changePassword' className='btn btn-link'>Forgot Password?</Link>
             <Link to='/register' className='btn btn-link'>Register</Link>
           </div>
           <div className='form-group'>
-            <Button className='btn btn-primary form-control' onClick={handleSubmit}>Next</Button>
+            <Button className='form-control' onClick={handleSubmit}>Next</Button>
           </div>
         </form>
       </div>
@@ -55,4 +72,4 @@ const LoginPage = (props) => {
   )
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);

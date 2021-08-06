@@ -7,18 +7,6 @@ import logImg from '../assets/images/app_logo.png';
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
   const isAuthed = useSelector((state) => state.auth.isAuthed);
-
-  const handleSignIn = () => {
-    signIn().then((res) => {
-      if (res) {
-        dispatch({
-          type: 'AUTH_SIGN_IN',
-          payload: true,
-        });
-      }
-    });
-  };
-
   const handleLogOut = () => {
     dispatch({
       type: 'AUTH_SIGN_OUT',
@@ -39,7 +27,7 @@ const Navigation = ({ history }) => {
           {isAuthed ? (
             <Link to={{ pathname:'/' }} onClick={handleLogOut} style={{color: PrimaryColor.black}}>LogOut</Link>
           ) : (
-            <Link to={{ pathname:'/login' }} onClick={handleSignIn} style={{color: PrimaryColor.black}} className='page-scroll'>Log In</Link>
+            <Link to={{ pathname:'/login' }} style={{color: PrimaryColor.black}} className='page-scroll'>Log In</Link>
           )}
         </div>
       </div>

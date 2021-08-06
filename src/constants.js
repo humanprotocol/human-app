@@ -59,3 +59,19 @@ export const HumanJobs = [
         image: '',
     },
 ]
+
+export const ErrorType = {
+    invaidPassword: 'invalidPassword',
+    invalidEmail: 'invalidEmail',
+    requireEmail: 'requireEmail',
+    requirePassword: 'requirePassword',
+    invalidWalletAddress: 'invalidWalletAddress',
+}
+
+export const ErrorMessage = {
+    invaidPassword: 'Invalid Password',
+    invalidEmail: 'Invalid Email',
+    requireEmail: 'Email required',
+    requirePassword: 'Password required',
+    invalidWalletAddress: 'Invalid Wallet Address',
+}
