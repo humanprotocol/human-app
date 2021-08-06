@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { FormGroup, FormControl, Button } from "react-bootstrap";
 import * as EmailValidator from 'email-validator';
 import { ErrorMessage } from "../../constants";

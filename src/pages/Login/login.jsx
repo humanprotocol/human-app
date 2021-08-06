@@ -34,6 +34,10 @@ const LoginPage = (props) => {
             type: 'AUTH_SIGN_IN',
             payload: true,
           });
+          dispatch({
+            type: 'AUTH_SUCCESS',
+            payload: { email, password },
+          })
           history.push({ pathname: Routes.Home.path });
         }
       });

@@ -3,6 +3,7 @@ import Welcome  from "./welcome";
 import { Job } from "./job";
 import { Subscribe } from "./subscribe";
 import { IntroSection } from "./intro/intro";
+import { withRouter } from "react-router-dom";
 
 const HomePage = ({ data }) => {
   const isAuthed = useSelector((state) => state.auth.isAuthed);
@@ -17,4 +18,4 @@ const HomePage = ({ data }) => {
   );
 };
 
-export default HomePage;
+export default withRouter(HomePage);

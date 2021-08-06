@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import Navigation from './components/navigation';
 import HomePage from './pages/Home/home';
 import LoginPage from './pages/Login/login';
@@ -22,7 +23,7 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 });
 
 const App = () => {
-  const history = useHistory();
+  const history = createBrowserHistory();
   const [landingPageData, setLandingPageData] = useState({});
   useEffect(() => {
     setLandingPageData(JsonData);

@@ -2,9 +2,6 @@
     max-width: 496px;
     margin: auto;
 }
-#login .form-group {
-    margin-bottom: 2rem;
-}
 .form-control {
     height: 3rem;
     font-family: 'Alliance No.1';
@@ -51,7 +48,4 @@
     background: #6309FF!important;
     color: #fff;
     opacity: 0.8;
-}
-#register .form-group {
-    margin-bottom: 2rem;
 }

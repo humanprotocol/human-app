@@ -11,6 +11,7 @@
     "emailjs-com": "^2.6.4",
     "history": "^5.0.0",
     "jquery": "^3.6.0",
+    "jwt-decode": "^3.1.2",
     "keen-slider": "^5.5.1",
     "popper.js": "^1.16.1",
     "react": "^17.0.1",

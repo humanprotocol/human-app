@@ -71,6 +71,7 @@ export const ErrorType = {
     requireLastName: 'requireLastName',
     requirePassword: 'requirePassword',
     requireEmail: 'requireEmail',
+    requireWalletAddress: 'requireWalletAddress',
 
 }
 
@@ -85,4 +86,5 @@ export const ErrorMessage = {
     requireUserName: 'Username required',
     requireFirstName: 'First name required',
     requireLastName: 'Last name required',
+    requireWalletAddress: 'Wallet Address required'
 }

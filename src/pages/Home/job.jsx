@@ -63,7 +63,15 @@ export const Job = (props) => {
           </div>
           <div className='col-md-2 section-details text-left d-flex flex-column justify-content-between'>
             <div className='mb-5'>
+              { option && option === JobOptions.captcha &&
               <p>Upon successful completion of hCaptcha, user receives an assigned HMT amount.</p>
+              }
+              { option && option === JobOptions.referal &&
+              <p>If you refer a friend you will receive 1 HMT. Note, you will receive the HMT only if your referral successfully signs up with their email and wallet address. Each logged-in user will receive a shareable, unique URL (code) for their profile.</p>
+              }
+              { option && option === JobOptions.questionare &&
+              <p>Upon successful referral (account created/verified), the inviter receives 1 HMT</p>
+              }
             </div>
             <div>
               <h4 className='title d-flex justify-content-between'>
@@ -71,12 +79,6 @@ export const Job = (props) => {
                 <span>{hmtCounts}</span>
               </h4>
             </div>
-            {/* <div className='job-status'>
-              <h4 className='title d-flex justify-content-between'>
-                <span>HMT earned</span>
-                <span>{hmtCounts}</span>
-              </h4>
-            </div> */}
             <div className='job-status'>
               <h4 className='title mb-4'>Jobs Completed</h4>
               <ul className='m-0'>

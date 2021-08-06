@@ -115,6 +115,12 @@ input {
 .color-white {
   color: #fff;
 }
+form .form-group {
+  margin-bottom: 2rem;
+}
+.dropdown-toggle::after {
+  display: none!important;
+}
 .btn.form-control.btn-primary {
   background-color: #6309FF;
   font-family: 'Alliance No.1';
@@ -220,6 +226,30 @@ input {
 }
 #menu.navbar-default .navbar-nav > li > a:hover:after {
   width: 100%;
+}
+#menu #avatar {
+  width: 4rem;
+  height: 4rem;
+  font-weight: 600;
+  font-size: 3rem;
+  line-height: 100%;
+  letter-spacing: 4.5px;
+  border-radius: 50%;
+  border: 0;
+}
+#menu .dropdown .btn-primary {
+  background-color: #6309FF;
+  font-family: 'Alliance No.1';
+}
+.dropdown-item:hover,
+.dropdown-item:focus, 
+.dropdown-item.active, 
+.dropdown-item:active
+{
+  background-color: #6309FF!important;
+  font-family: 'Alliance No.1';
+  color: white!important;
+  opacity: 0.8;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
