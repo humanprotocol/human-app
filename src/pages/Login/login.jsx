@@ -6,7 +6,7 @@ import * as EmailValidator from 'email-validator';
 import { Password } from '../../components/inputs/password/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
-import './login.css';
+import './login.scss';
 import { ErrorType, ErrorMessage } from '../../constants';
 
 const LoginPage = (props) => {
