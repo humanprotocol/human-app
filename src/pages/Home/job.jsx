@@ -1,23 +1,42 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "../../components/button";
 import { URLInput } from "../../components/inputs/url";
 import { JobOptions, PrimaryColor, SecondaryColor } from "../../constants";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export const Job = (props) => {
+  const dispatch = useDispatch();
+  const hmtCounts = useSelector((state) => state.hmt.htmCounts);
+  const captchaToken = useSelector((state) => state.hmt.captchaToken);
+
   const [option, setOptions] = useState(JobOptions.captcha);
   const [captchaCnt, setCaptchaCnt] = useState(0);
   const [referalCnt, setReferalCnt] = useState(0);
-  const hmtCounts = useSelector((state) => state.hmt.htmCounts);
+  const [nextable, setNextable] = useState(false);
+  const [errorText, setErrorText] = useState("");
 
   const changeOpt = (opt) => {
     setOptions(opt);
   };
 
   const handleVerificationSuccess = (token, eKey) => {
-    console.log("token>>>>>>>", token);
-    console.log("eKey>>>>>>", eKey);
+    localStorage.setItem("captchaToken", token);
+
+    dispatch({
+      type: "SET_CAPTCHA_TOKEN",
+      payload: token,
+    });
+  };
+
+  const handleNext = () => {
+    if (captchaToken && captchaToken.length > 0) {
+      setErrorText("");
+      setNextable(true);
+    } else {
+      setErrorText("You need to pass captCha.");
+      setNextable(false);
+    }
   };
 
   return (
@@ -69,8 +88,19 @@ export const Job = (props) => {
                     handleVerificationSuccess(token, ekey)
                   }
                 />
+                {!nextable && errorText.length > 0 && (
+                  <p className="dangerText">{errorText}</p>
+                )}
               </div>
             )}
+            <Button
+              className="btn btn-primary btn-custom"
+              title="Next"
+              className="mt-5"
+              clkFun={handleNext}
+            >
+              Next
+            </Button>
             {option && option === JobOptions.referal && (
               <div className="text-center">
                 <URLInput className="text-center mb-3 referal-link"></URLInput>

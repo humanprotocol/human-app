@@ -16,3 +16,8 @@
     width: 110%;
   }
 }
+
+.dangerText {
+  font-size: 12px;
+  color: red;
+}
