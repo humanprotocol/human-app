@@ -626,7 +626,7 @@ a:focus,
 }
 /* Contact Section */
 #subscribe {
-  height: 36.4vw;
+  min-height: 36.4vw;
   padding: 5.4vw 0;
   background: url("../img/email_subscribe.png") no-repeat;
   background-size: 100% 100%;
@@ -644,12 +644,6 @@ a:focus,
   font-size: 1.125rem;
   line-height: 2rem;
   letter-spacing: 0.1px;
-}
-#subscribe .form-group {
-  max-width: 400px;
-}
-#subscribe .form-group button {
-  max-width: 200px;
 }
 #subscribe .section-title {
   margin-bottom: 40px;
@@ -684,7 +678,8 @@ a:focus,
   text-align: left;
 }
 #subscribe .btn-custom {
-  width: 12rem;
+  width: 12rem!important;
+  margin-left: auto;
 }
 #subscribe .btn-custom:hover {
   opacity: 0.8 !important;
@@ -705,7 +700,9 @@ label {
 }
 #subscribe .form-control {
   display: block;
-  width: 100%;
+  width: 400px;
+  max-width: 400px;
+  margin-left: auto;
   padding: 6px 12px;
   font-size: 16px;
   line-height: 1.42857143;
@@ -806,7 +803,7 @@ label {
   background: url("../img/job_content_dots.png") no-repeat top left;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .intro h1 {
     font-size: 3rem;
   }
@@ -858,7 +855,33 @@ label {
     text-align: center !important;
   }
   #subscribe p {
-    text-align: left !important;
+    text-align: center !important;
+  }
+  #subscribe .form-control {
+    width: 100%!important;
+    margin: auto;
+  }
+}
+
+// @media (max-width: 960px) {
+//   #subscribe .form-control {
+//     width: 400px;
+//     margin: auto;
+//   }
+//   #subscribe .form-control.btn-custom {
+//     width: 12rem!important;
+//   }
+// }
+
+@media (max-width: 1240px) {
+  #subscribe .form-control {
+    width: 100%;
+  }
+  #subscribe .form-control.btn-custom {
+    width: 12rem!important;
+  }
+  #subscribe .image-container {
+    padding: 0;
   }
 }
 
