@@ -13,7 +13,7 @@ const HomePage = ({ data, history }) => {
       <Welcome />
       {isAuthed && <Job history={history}/>}
       <IntroSection />
-      <Subscribe />
+      <Subscribe history={history} />
     </>
   );
 };
