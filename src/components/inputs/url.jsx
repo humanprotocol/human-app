@@ -1,13 +1,13 @@
-export const URLInput = ({ className }) => {
+export const URLInput = ({ className, value, onChange, name }) => {
     return(
-        <div className={`row ${className}`}>
+        <div className={className}>
             <div className='input-group'>
-                <input className='form-control py-2 border-right-0 border' type='url'/>
-                <span className='input-group-append'>
-                    <button className='btn border border-0' type='button'>
+                <input className='form-control py-2' type='url' value={value} onChange={onChange} name={name}/>
+                <div className='input-group-append' onClick={onChange} name={name}>
+                    <button className='btn' type='button'>
                         <i className='material-icons'>refresh</i>
                     </button>
-                </span>
+                </div>
             </div>
         </div>
     )

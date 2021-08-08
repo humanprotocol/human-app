@@ -5,13 +5,13 @@ import { Subscribe } from "./subscribe";
 import { IntroSection } from "./intro/intro";
 import { withRouter } from "react-router-dom";
 
-const HomePage = ({ data }) => {
+const HomePage = ({ data, history }) => {
   const isAuthed = useSelector((state) => state.auth.isAuthed);
 
   return (
     <>
       <Welcome />
-      {isAuthed && <Job />}
+      {isAuthed && <Job history={history}/>}
       <IntroSection />
       <Subscribe />
     </>

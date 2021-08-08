@@ -403,7 +403,6 @@ a:focus,
   color: #6309FF;
 }
 #job .section-content .input-group {
-  width: 400px;
   height: 3rem;
   border: 1px solid #6309FF;
   border-radius: 0.5rem;
@@ -414,8 +413,9 @@ a:focus,
   border: 0;
   color: #0A060E;
 }
-#job .section-content .input-group .form-control:focus {
-  border: 0;
+#job .section-content .input-group .form-control:focus,
+#job .section-content .input-group .input-group-append .btn:focus {
+  box-shadow: none;
 }
 #job .section-content .referal-link {
   margin-top: 64px;

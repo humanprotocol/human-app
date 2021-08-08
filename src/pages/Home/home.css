@@ -15,6 +15,14 @@
     border: 0;
     padding: 0.5rem 3rem;
 }
+#referal .btn:active {
+    background-color: #6309FF;
+    opacity: 0.8;
+}
+#referal .btn i {
+    float: right;
+    margin-top: 0.25em;
+}
 #questions {
     width: 400px;
 }
@@ -24,21 +32,22 @@
     line-height: 2rem;
     letter-spacing: 0.2px;
 }
-#questions select {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    background-image: url('../../assets/icons/arrow_down.png');
-    background-repeat: no-repeat, repeat;
-    background-position: right .7em top 50%, 0 0;
-    background-size: 1em auto, 100%;
+#questions .dropdown .dropdown-toggle{
+    color: #212529;
 }
-#questions option:checked,
-#questions option:hover,
-#questions option:active
-{
-    background-color: #6309FF;
-    color: #fff;
+#questions .dropdown .dropdown-toggle .fa {
+    float: right;
+    font-size: 2em;
+}
+#questions .dropdown .dropdown-toggle:hover,
+#questions .dropdown .dropdown-toggle:focus,
+#questions .dropdown .dropdown-toggle:visited,
+#questions .dropdown .dropdown-toggle:active:focus,
+#questions .dropdown .dropdown-toggle:active {
+    background-color: #fff!important;
+}
+#qeustions a {
+    font-size: 1rem;
 }
 #questions select:focus>option:focus:hover {
     background-color: #6309FF;
@@ -47,9 +56,15 @@
 #questions .radio .form-label {
     font-size: 1rem;
 }
-
+#questions button {
+    background-color: #6309FF;
+    opacity: 0.8;
+}
 @media (min-width: 1800px) {
     #welcome input {
         max-width: 24rem;
+    }
+    #referal {
+        width: 25rem;
     }
 }
