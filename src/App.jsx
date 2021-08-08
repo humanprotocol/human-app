@@ -1,21 +1,26 @@
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
-import Navigation from './components/navigation';
-import HomePage from './pages/Home/home';
-import LoginPage from './pages/Login/login';
-import RegisterPage from './pages/Login/register';
-import ForgotPasswordPage from './pages/Login/forgotPassword';
-import ProfilePage from './pages/Profile/profile';
-import LinkWalletPage from './pages/Wallet/link';
-import VerifyEmail from './pages/Login/verifyEmail';
+import { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import { createBrowserHistory } from "history";
+import Navigation from "./components/navigation";
+import HomePage from "./pages/Home/home";
+import LoginPage from "./pages/Login/login";
+import RegisterPage from "./pages/Login/register";
+import ForgotPasswordPage from "./pages/Login/forgotPassword";
+import ProfilePage from "./pages/Profile/profile";
+import LinkWalletPage from "./pages/Wallet/link";
+import VerifyEmail from "./pages/Login/verifyEmail";
 
-import { Footer } from './components/footer';
-import { Routes } from './routes';
+import { Footer } from "./components/footer";
+import { Routes } from "./routes";
 
-import JsonData from './data/data.json';
-import SmoothScroll from 'smooth-scroll';
-import './App.css';
+import JsonData from "./data/data.json";
+import SmoothScroll from "smooth-scroll";
+import "./App.scss";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -38,11 +43,19 @@ const App = () => {
           <Route exact path={Routes.Login.path} component={LoginPage} />
           <Route exact path={Routes.Register.path} component={RegisterPage} />
           <Route exact path={Routes.Profile.path} component={ProfilePage} />
-          <Route exact path={Routes.LinkWallet.path} component={LinkWalletPage} />
-          <Route exact path={Routes.ForgotPassword.path} component={ForgotPasswordPage} />
+          <Route
+            exact
+            path={Routes.LinkWallet.path}
+            component={LinkWalletPage}
+          />
+          <Route
+            exact
+            path={Routes.ForgotPassword.path}
+            component={ForgotPasswordPage}
+          />
           <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} />
           <Route exact path={Routes.Earning.path} component={LinkWalletPage} />
-          <Redirect from='*' to='/' />
+          <Redirect from="*" to="/" />
         </Switch>
         <Footer />
       </Router>
