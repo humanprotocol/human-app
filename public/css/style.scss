@@ -86,15 +86,6 @@ ol {
   webkit-padding: 0;
   moz-padding: 0;
 }
-hr {
-  height: 2px;
-  width: 70px;
-  text-align: center;
-  position: relative;
-  background: #1e7a46;
-  margin-bottom: 20px;
-  border: 0;
-}
 
 .form-control {
   padding: 0.5rem 0.75rem;
@@ -656,7 +647,7 @@ a:focus,
   letter-spacing: 0.1px;
 }
 #subscribe .input-group {
-  width: 400px;
+  max-width: 400px;
 }
 #subscribe .section-title {
   margin-bottom: 40px;
@@ -814,8 +805,36 @@ label {
 }
 
 @media (max-width: 768px) {
+  .page-title h2,
+  .page-title .close {
+    font-size: 2rem;
+  }
+  form .form-group {
+    margin-bottom: 1rem!important;
+  }
   #about img {
     margin: 50px 0;
+  }
+  #menu {
+    padding: 0.5rem 0;
+    height: 4rem;
+  }
+  #login .password span {
+    font-size: 1rem!important;
+  }
+  #register {
+    height: auto!important;
+    margin-top: 4rem!important;
+  }
+  #register .page-title {
+    margin-bottom: 1rem!important;
+  }
+  #welcome,
+  #profile {
+    margin-top: 4rem!important;
+  }
+  #profile {
+    height: auto!important;
   }
 }
 

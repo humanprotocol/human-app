@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Button } from "react-bootstrap";
 import * as EmailValidator from 'email-validator';
 import { ErrorMessage } from "../../constants";
 import { Password } from "../../components/inputs/password/password";
-import './login.css';
+import './login.scss';
 import { register } from "../../service/user.service";
 import { Routes } from "../../routes";
 
