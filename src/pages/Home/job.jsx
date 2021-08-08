@@ -21,8 +21,6 @@ export const Job = (props) => {
   };
 
   const handleVerificationSuccess = (token, eKey) => {
-    localStorage.setItem("captchaToken", token);
-
     dispatch({
       type: "SET_CAPTCHA_TOKEN",
       payload: token,

@@ -2,7 +2,7 @@ import * as TYPES from "../actionType";
 
 var initValue = {
   htmCounts: 0,
-  captchaToken: "" || localStorage.getItem("captchaToken"),
+  captchaToken: "",
 };
 
 const hmtReducer = (state = initValue, action) => {
