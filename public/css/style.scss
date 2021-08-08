@@ -646,8 +646,11 @@ a:focus,
   line-height: 2rem;
   letter-spacing: 0.1px;
 }
-#subscribe .input-group {
+#subscribe .form-group {
   max-width: 400px;
+}
+#subscribe .form-group button {
+  max-width: 200px;
 }
 #subscribe .section-title {
   margin-bottom: 40px;
@@ -805,6 +808,18 @@ label {
 }
 
 @media (max-width: 768px) {
+  .intro h1 {
+    font-size: 3rem;
+  }
+  #welcome .intro-text {
+    padding-top: 3rem !important;
+  }
+  .arrow {
+    display: none;
+  }
+  .page-scroll {
+    font-size: 18px !important;
+  }
   .page-title h2,
   .page-title .close {
     font-size: 2rem;
@@ -836,6 +851,16 @@ label {
   #profile {
     height: auto!important;
   }
+  #subscribe {
+    height: auto!important;
+  }
+  #subscribe h1 {
+    font-size: 3rem!important;
+    text-align: center!important;
+  }
+  #subscribe p {
+    text-align: left!important;
+  }
 }
 
 @media (min-width: 1800px) {
@@ -849,30 +874,5 @@ label {
   }
   #subscribe {
     max-height: 656px;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .intro h1 {
-    font-size: 40px;
-  }
-  #welcome {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  #welcome .intro-text {
-    padding-top: 3rem !important;
-  }
-  .arrow {
-    display: none;
-  }
-  .page-scroll {
-    font-size: 18px !important;
-  }
-
-  .intro p {
-    width: 83vw;
-    text-align: center;
-    font-size: 16px;
   }
 }
