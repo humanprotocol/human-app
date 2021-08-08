@@ -18,7 +18,8 @@
   background-color: #1f0657;
   padding: 5% 0;
 }
-#intro .human-about .container {
+#intro .human-about .container,
+#intro .human-jobs .container {
   max-width: 960px;
 }
 // #intro .content {
@@ -44,10 +45,10 @@
   letter-spacing: 0.1px;
 }
 #intro .human-jobs {
-  padding: 8rem 0;
+  padding: 5% 0;
 }
 #intro .human-jobs .content {
-  padding-left: 5rem;
+  padding-left: 10%;
 }
 
 @media (max-width: 1800px) {
@@ -60,7 +61,7 @@
   max-height: 100%;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
   #intro .human-about .section {
     background-size: 20%;
   }
@@ -69,5 +70,17 @@
   }
   #intro .human-about .keen-slider__slide .image {
     padding-left: unset !important;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  #intro .human-about .section {
+    background-size: 10%;
+  }
+}
+
+@media only screen and (max-width: 1240px) {
+  #intro .human-jobs .content {
+    padding-left: 10%;
   }
 }

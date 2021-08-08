@@ -60,6 +60,10 @@ body {
   cursor: pointer;
   opacity: 0.8;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 0.5rem 2rem;
+  @media screen and (max-width: 1120px) {
+    width: 3rem;
+    height: 3rem;
+  }
 }
 
 .arrow .fa {
@@ -67,15 +71,24 @@ body {
   height: 100%;
   line-height: 2;
   font-size: 2rem;
+  @media screen and (max-width: 1120px) {
+    font-size: 1.5rem;
+  }
 }
 
 .arrow--left {
   left: -8rem;
+  @media screen and (max-width: 1120px) {
+    left: -4rem;
+  }
 }
 
 .arrow--right {
   left: auto;
   right: -8rem;
+  @media screen and (max-width: 1120px) {
+    right: -4rem;
+  }
 }
 
 .arrow--disabled {
@@ -124,6 +137,7 @@ body {
     }
   }
   @media screen and (max-width: 768px) {
+    background-size: 40%;
     .title {
       font-size: 32px !important;
     }
@@ -133,5 +147,25 @@ body {
     .description {
       font-size: 16px !important;
     }
+  }
+  @media screen and (min-width: 768px) {
+    background-size: 40%!important;
+  }
+}
+
+.slider-container {
+  max-width: 960px;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
+  @media only screen and (min-width: 600px) {
+    width: 80%;
+    margin: auto;
+  }
+  @media only screen and (min-width: 1120px) {
+    width: 70%;
+  }
+  @media only screen and (min-width: 1400px) {
+    width: 960px;
   }
 }

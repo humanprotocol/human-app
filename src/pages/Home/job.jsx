@@ -111,8 +111,7 @@ export const Job = (props) => {
     <div id="job" className="text-center">
       <div className="container w-100 mw-100">
         <div className="row">
-          <div className="col-md-2 col-sm-none"></div>
-          <div className="col-md-2 section-option text-right col-sm-12">
+          <div className="col-md-3 section-option text-right col-sm-12">
             <h4 className="title mb-4">Job List</h4>
             <ul className="m-0">
               <li className="mb-4">
@@ -147,9 +146,9 @@ export const Job = (props) => {
               </li>
             </ul>
           </div>
-          <div className="col-md-4 section-content col-sm-12">
+          <div className="col-md-6 section-content col-sm-12">
             {option && option === JobOptions.captcha && (
-              <div>
+              <div id='hcaptcha'>
                 <HCaptcha
                   sitekey="64fd34e8-c20f-4312-ab15-9b28a2ff3343"
                   onVerify={(token, ekey) =>
@@ -159,9 +158,9 @@ export const Job = (props) => {
                 {!nextable && errorText.length > 0 && (
                   <p className="dangerText">{errorText}</p>
                 )}
-                <Button className="btn-cutom mt-5" onClick={handleNext}>
-                  Next
-                </Button>
+                <FormGroup>
+                  <Button className='btn-custom mt-5' onClick={handleNext}>Next</Button>
+                </FormGroup>
               </div>
             )}
             {option && option === JobOptions.referal && (
@@ -331,7 +330,7 @@ export const Job = (props) => {
               </div>
             )}
           </div>
-          <div className="col-md-2 section-details text-left d-flex flex-column justify-content-between col-sm-12">
+          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12">
             <div className="mb-5">
               {option && option === JobOptions.captcha && (
                 <p>
@@ -374,7 +373,6 @@ export const Job = (props) => {
               </ul>
             </div>
           </div>
-          <div className="col-md-2 col-sm-none"></div>
         </div>
       </div>
     </div>

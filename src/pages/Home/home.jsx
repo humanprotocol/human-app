@@ -4,6 +4,7 @@ import { Job } from "./job";
 import { Subscribe } from "./subscribe";
 import { IntroSection } from "./intro/intro";
 import { withRouter } from "react-router-dom";
+import './home.scss';
 
 const HomePage = ({ data, history }) => {
   const isAuthed = useSelector((state) => state.auth.isAuthed);

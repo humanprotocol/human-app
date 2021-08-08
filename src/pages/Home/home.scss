@@ -15,6 +15,9 @@
     border: 0;
     padding: 0.5rem 3rem;
 }
+#hcaptcha .btn {
+    width: 50%;
+}
 #referal .btn:active {
     background-color: #6309FF;
     opacity: 0.8;
@@ -60,6 +63,11 @@
     background-color: #6309FF;
     opacity: 0.8;
 }
+#job .section-option,
+#job .section-option h3,
+#job .section-option p {
+    font-family: 'Alliance No.1';
+}
 @media (min-width: 1800px) {
     #welcome input {
         max-width: 24rem;
@@ -80,10 +88,17 @@
     #welcome .earning-container .form-group .form-control {
         width: 100%;
     }
+    #job div.section-option {
+        text-align: left!important;
+        ul {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }
 
 @media only screen and (max-width: 400px) {
     #welcome .earning-container .form-group {
         width: 80%;
-    } 
+    }
 }

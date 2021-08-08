@@ -13,8 +13,8 @@ const Slider = (props) => {
   });
 
   return (
-    <div className="slider-container  ">
-      <div className="navigation-wrapper  ">
+    <div className="slider-container">
+      <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider  ">
           {props.slides &&
             props.slides.length &&

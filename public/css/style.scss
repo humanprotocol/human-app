@@ -364,9 +364,12 @@ a:focus,
 #job {
   background: #fff;
   padding: 4% 0;
+  font-family: "Alliance No.1";
+
 }
 
 #job .title {
+  font-family: "Alliance No.1";
   font-style: normal;
   font-weight: normal;
   font-size: 26px;
@@ -375,8 +378,9 @@ a:focus,
 }
 
 #job .section-option .title {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 600;
+  font-family: "Alliance No.1";
 }
 
 #job .section-option .opt {
@@ -387,9 +391,11 @@ a:focus,
   letter-spacing: 0.2px;
   color: #0a060e;
   cursor: pointer;
+  font-family: "Alliance No.1";
 }
 #job .section-option .opt.active {
   color: #6309ff;
+  font-family: "Alliance No.1";
 }
 #job .section-content .input-group {
   height: 3rem;
@@ -626,8 +632,8 @@ a:focus,
 }
 /* Contact Section */
 #subscribe {
-  min-height: 36.4vw;
-  padding: 5.4vw 0;
+  min-height: 30vw;
+  padding: 5% 0;
   background: url("../img/email_subscribe.png") no-repeat;
   background-size: 100% 100%;
 }
