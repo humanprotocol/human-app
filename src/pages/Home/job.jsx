@@ -110,7 +110,7 @@ export const Job = (props) => {
   return (
     <div id="job" className="text-center">
       <div className="container w-100 mw-100">
-        <div className="row h-100">
+        <div className="row">
           <div className="col-md-2 col-sm-none"></div>
           <div className="col-md-2 section-option text-right col-sm-12">
             <h4 className="title mb-4">Job List</h4>
