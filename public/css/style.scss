@@ -835,7 +835,11 @@ label {
 
 @media screen and (max-width: 768px) {
   .intro h1 {
-    font-size: 3rem;
+    font-size: 40px;
+  }
+  #welcome {
+    padding-left: 15px;
+    padding-right: 15px;
   }
   #welcome .intro-text {
     padding-top: 3rem !important;
@@ -845,5 +849,11 @@ label {
   }
   .page-scroll {
     font-size: 18px !important;
+  }
+
+  .intro p {
+    width: 83vw;
+    text-align: center;
+    font-size: 16px;
   }
 }
