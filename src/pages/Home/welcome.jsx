@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as EmailValidator from "email-validator";
 import { FormControl, FormGroup, Button } from "react-bootstrap";
-import "./home.css";
+import "./home.scss";
 import { Routes } from "../../routes";
 
 const Welcome = ({ history }) => {
@@ -46,7 +46,8 @@ const Welcome = ({ history }) => {
             by doing hcaptcha jobs, and by sending referral links to your
             friends.
           </p>
-          <div className="row justify-content-center">
+
+          <div className="row justify-content-center earning-container">
             {isAuthed && (
               <FormGroup>
                 <Button className="form-control" onClick={handleSubmit}>

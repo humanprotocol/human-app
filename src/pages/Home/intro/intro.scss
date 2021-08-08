@@ -18,6 +18,9 @@
   background-color: #1f0657;
   padding: 5% 0;
 }
+#intro .human-about .container {
+  max-width: 960px;
+}
 // #intro .content {
 //   padding-top: 4rem;
 // }
@@ -57,7 +60,13 @@
   max-height: 100%;
 }
 
-@media screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
+  #intro .human-about .section {
+    background-size: 20%;
+  }
+  #intro .human-about .keen-slider__slide .content {
+    background-size: 40%;
+  }
   #intro .human-about .keen-slider__slide .image {
     padding-left: unset !important;
   }
