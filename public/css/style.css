@@ -96,7 +96,7 @@ hr {
   border: 0;
 }
 
-input {
+.form-control {
   padding: 0.5rem 0.75rem;
   height: 3rem;
   width: 24rem;
@@ -174,14 +174,14 @@ form .form-group {
 }
 /* Navigation */
 #menu {
-  padding: 15px;
+  padding: 1rem;
   transition: all 0.8s;
-  height: 72px;
-  opacity: 0.8;
+  height: 6rem;
+  opacity: 0.9;
   background-color: #fff;
-  backdrop-filter: blur(20px);;
-  font-size: 24px;
-  line-height: 32px;
+  backdrop-filter: blur(1.5rem);;
+  font-size: 1.5rem;
+  line-height: 2rem;
   font-style: normal;
   letter-spacing: 0.3px;
   font-weight: 600;
@@ -207,31 +207,18 @@ form .form-group {
   font-family: "Lato", sans-serif;
   text-transform: uppercase;
   color: #555;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 400;
-  padding: 8px 2px;
+  padding: 0.5rem 0.125rem;
   border-radius: 0;
-  margin: 9px 20px 0;
+  margin: 0.5rem 1.25rem 0;
 }
-#menu.navbar-default .navbar-nav > li > a:after {
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(to right, #6372ff 0%, #5ca9fb 100%);
-  content: "";
-  transition: width 0.2s;
-}
-#menu.navbar-default .navbar-nav > li > a:hover:after {
-  width: 100%;
-}
+
 #menu #avatar {
-  width: 4rem;
-  height: 4rem;
+  width: 2.5rem;
+  height: 2.5rem;
   font-weight: 600;
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 100%;
   letter-spacing: 4.5px;
   border-radius: 50%;
@@ -249,7 +236,6 @@ form .form-group {
   background-color: #6309FF!important;
   font-family: 'Alliance No.1';
   color: white!important;
-  opacity: 0.8;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,

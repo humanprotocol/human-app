@@ -27,16 +27,16 @@ const Navigation = ({ history }) => {
     <nav id='menu' className='navbar navbar-default fixed-top mb-0'>
       <div className='container'>
         <div className='navbar-header'>
-          <Link to={{ pathname: Routes.Home.path}} className='navbar-brand page-scroll no-padding' style={{ color: SecondaryColor.blue, height:'36px', letterSpacing: '4px' }}>
+          <Link to={{ pathname: Routes.Home.path}} className='navbar-brand page-scroll no-padding' style={{ color: SecondaryColor.blue, letterSpacing: '4px' }}>
             <img className='app-logo mr-3' src={logImg} alt='human-app-log'></img>
             HUMAN App
           </Link>
         </div>
-        <div style={{ width: '87px' }}>
+        <div className='row'>
           { !isAuthed && <Link to={{ pathname:'/login' }} style={{color: PrimaryColor.black}} className='page-scroll'>Log In</Link> }
           {isAuthed &&
           <Dropdown>
-            <Dropdown.Toggle id="avatar" className='bg-blue text-center'><span className='ml-1'>{avatar}</span></Dropdown.Toggle>
+            <Dropdown.Toggle id="avatar" className='bg-blue text-center p-0'><span className='ml-1'>{avatar}</span></Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item href={Routes.Profile.path}>Profile</Dropdown.Item>
               <Dropdown.Item onClick={LogOut}>Log out</Dropdown.Item>

@@ -15,6 +15,38 @@
     border: 0;
     padding: 0.5rem 3rem;
 }
+#questions {
+    width: 400px;
+}
+#questions .form-label {
+    font-family: 'Alliance No.1';
+    font-size: 1.25rem;
+    line-height: 2rem;
+    letter-spacing: 0.2px;
+}
+#questions select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('../../assets/icons/arrow_down.png');
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: 1em auto, 100%;
+}
+#questions option:checked,
+#questions option:hover,
+#questions option:active
+{
+    background-color: #6309FF;
+    color: #fff;
+}
+#questions select:focus>option:focus:hover {
+    background-color: #6309FF;
+    color: #fff;
+}
+#questions .radio .form-label {
+    font-size: 1rem;
+}
 
 @media (min-width: 1800px) {
     #welcome input {
