@@ -3,10 +3,9 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { FormGroup, FormControl, Button, FormLabel, Dropdown } from 'react-bootstrap';
 import { URLInput } from '../../components/inputs/url';
-import { JobOptions, PrimaryColor, SecondaryColor } from '../../constants';
+import { JobOptions } from '../../constants';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { Routes } from '../../routes';
-import { queries } from '@testing-library/react';
 
 export const Job = (props) => {
   const dispatch = useDispatch();
@@ -16,6 +15,8 @@ export const Job = (props) => {
   const [captchaCnt, setCaptchaCnt] = useState(0);
   const [referalCnt, setReferalCnt] = useState(0);
   const [submitted, setSubmitted] = useState(false);
+  const [nextable, setNextable] = useState(false);
+  const [errorText, setErrorText] = useState('');
   const hmtCounts = useSelector((state) => state.hmt.htmCounts);
   const [radios, setRadios] = useState([
     { checked: false, value: 'opt_1', label: 'Option 1', name: 'question_4' },
@@ -45,7 +46,6 @@ export const Job = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log('>>>>>>>>>>>>>>>>>>>>>>', { target: e.target})
     if(name === 'question_4') {
       const newRadios = radios.map((radio) => {
         if(radio.value === value) {
@@ -59,18 +59,11 @@ export const Job = (props) => {
       setQuestions(questions => ({ ...questions, [name]: value }));
     }
   }
+
   const handleRefer = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>', { questions: questions.referal })
   }
-
-  const [nextable, setNextable] = useState(false);
-  const [errorText, setErrorText] = useState('');
-
-  const changeOpt = (opt) => {
-    setOptions(opt);
-  };
 
   const handleSelect = (value) => {
     const newOptItems= optItems.map((item) => {
@@ -79,6 +72,11 @@ export const Job = (props) => {
     });
     setQuestions(questions => ({ ...questions, question_3: value }));
     setOptItems(newOptItems);
+  }
+
+  const handleRefresh = () => {
+    setSubmitted(false);
+    setQuestions({ ...questions, referal: '' });
   }
 
   const handleVerificationSuccess = (token, eKey) => {
@@ -155,8 +153,8 @@ export const Job = (props) => {
             }
             {option && option === JobOptions.referal &&
               <div id='referal' className='text-center col-md-8 offset-md-2'>
-                <URLInput className='text-center mb-3 referal-link' onChange={handleChange} name='referal' value={questions.referal} />
-                <FormControl.Feedback type='invalid' className={ submitted && !questions.referal ? 'd-block' : '' }>Referal link required</FormControl.Feedback>
+                <URLInput className='text-center mb-3 referal-link' reset={handleRefresh} onChange={handleChange} name='referal' value={questions.referal} />
+                <FormControl.Feedback type='invalid' className={ submitted && !questions.referal ? 'd-block text-left' : '' }>Referal link required</FormControl.Feedback>
                 <Button className='mt-4 bg-blue w-100 form-control' onClick={handleRefer}>Refer Now <i className='material-icons text-white'>share</i></Button>
               </div>
             }
