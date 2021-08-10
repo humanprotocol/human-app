@@ -29,18 +29,7 @@ html {
   width: 100% !important;
   height: 100% !important;
 }
-h2,
-h3,
-h4 {
-  font-family: "Raleway", sans-serif;
-}
-h2 {
-  text-transform: uppercase;
-  margin: 0 0 20px;
-  font-weight: 800;
-  font-size: 36px;
-  color: #333;
-}
+
 h3 {
   font-size: 20px;
   font-weight: 600;
@@ -50,11 +39,6 @@ h4 {
   font-size: 18px;
   color: #333;
   font-weight: 600;
-}
-h5 {
-  text-transform: uppercase;
-  font-weight: 700;
-  line-height: 20px;
 }
 p {
   font-size: 1rem;
@@ -796,14 +780,10 @@ label {
 }
 
 #intro .human-about {
-  background: url("../img/human_about_gb.png") no-repeat bottom;
-  background-size: 100% 70%;
-}
-#intro .human-about > div {
-  background: url("../img/human_about_dots.png") repeat-y left;
-}
-#intro .human-about .keen-slider__slide .content {
-  background: url("../img/content_dots.png") no-repeat top right;
+  background: url("../img/human_about_gb.png"), url('../img/dots.png'), url('../img/bottom_dots.png');
+  background-size: 100% 70%, auto 20%, 20%;
+  background-position: bottom, top center, bottom center;
+  background-repeat: no-repeat, no-repeat, no-repeat;
 }
 #intro .human-jobs .keen-slider__slide .content {
   background: url("../img/job_content_dots.png") no-repeat top left;

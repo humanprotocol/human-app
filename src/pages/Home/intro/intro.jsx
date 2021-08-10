@@ -6,7 +6,8 @@ export const IntroSection = (props) => {
     <div id="intro">
       <div className="human-about">
         <div className="section">
-          <div className="container h-100">
+          <div className="container">
+            <h1 className='title text-center'>What is <span class='highlight'>Human</span>?</h1>
             <Slider slides={HumanAbout} type="humanAbout"></Slider>
           </div>
         </div>

@@ -1,3 +1,5 @@
+import humanAboutImg from './assets/images/human_about_slider.png';
+
 export const PrimaryColor = {
   deepPink: "#781956",
   pink: "#BE2988",
@@ -26,25 +28,28 @@ export const JobOptions = {
 
 export const HumanAbout = [
   {
-    title: `What is <span class='highlight'>Human</span>?`,
-    subTitle: "Subtitle",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    image: "",
+    title: '',
+    subTitle: "A new way to work",
+    content: "HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across distributed workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets.",
+    image: humanAboutImg,
   },
   {
-    title: `What is <span class='highlight'>Human</span>?`,
-    subTitle: "Subtitle",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    image: "",
+    title: '',
+    subTitle: "A new way to work",
+    content: "HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across distributed workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets.",
+    image: humanAboutImg,
   },
   {
-    title: `What is <span class='highlight'>Human</span>?`,
-    subTitle: "Subtitle",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    image: "",
+    title: '',
+    subTitle: "A new way to work",
+    content: "HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across distributed workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets.",
+    image: humanAboutImg,
+  },
+  {
+    title: '',
+    subTitle: "A new way to work",
+    content: "HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across distributed workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets.",
+    image: humanAboutImg,
   },
 ];
 
