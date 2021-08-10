@@ -1,0 +1,51 @@
+#login {
+    max-width: 496px;
+    margin: auto;
+}
+.form-control {
+    height: 3rem;
+    font-family: 'Alliance No.1';
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 2rem;
+}
+.form-control.btn {
+    border: 0;
+    border-radius: 0.5rem;
+}
+#login .btn-link {
+    color: #6309FF;
+    padding: 0.5rem 0;
+}
+#login .btn-link:focus {
+    border: 0;
+    box-shadow: none;
+}
+#login button {
+    width: 100%;
+    color: white;
+    background: #6309FF;
+    height: 3rem;
+}
+#login button:hover {
+    opacity: 0.8;
+}
+#login .password span {
+    font-size: 2rem;
+}
+#verifyEmail .btn.bg-blue {
+    background: #6309FF;
+}
+#verifyEmail .btn.bg-blue:focus {
+    opacity: 0.8;
+}
+#verifyEmail .btn.bg-white {
+    color: #6309FF;
+    border: 2px solid #6309FF;
+}
+#verifyEmail .btn.bg-white:focus {
+    background: #6309FF!important;
+    color: #fff;
+    opacity: 0.8;
+}
