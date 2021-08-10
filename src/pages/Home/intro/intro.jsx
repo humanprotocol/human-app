@@ -14,7 +14,7 @@ export const IntroSection = (props) => {
       </div>
       <div className="human-jobs">
         <div className="section">
-          <div className="container h-100">
+          <div className="container">
             <Slider slides={HumanJobs} type="humanJobs"></Slider>
           </div>
         </div>

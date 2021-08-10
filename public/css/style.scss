@@ -785,6 +785,12 @@ label {
   background-position: bottom, top center, bottom center;
   background-repeat: no-repeat, no-repeat, no-repeat;
 }
+#intro .human-jobs {
+  background: url("../img/blurs.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
 #intro .human-jobs .keen-slider__slide .content {
   background: url("../img/job_content_dots.png") no-repeat top left;
 }

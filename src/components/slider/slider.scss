@@ -103,7 +103,7 @@ body {
 .keen-slider__slide h1 {
   font-style: normal;
   font-weight: 800;
-  line-height: 140%;
+  line-height: 120%;
   align-items: center;
   letter-spacing: -0.4px;
 }
@@ -118,7 +118,8 @@ body {
 
 .content {
   .title {
-    font-size: 4vw !important;
+    font-size: 2.5rem !important;
+
   }
   .subtitle {
     font-size: 1.5vw !important;
@@ -153,11 +154,7 @@ body {
     background-size: 40%!important;
   }
 }
-#human-jobs {
-  .slider-container {
-    max-width: 960px;
-  }
-}
+
 .slider-container {
   @media only screen and (max-width: 600px) {
     width: 100%;

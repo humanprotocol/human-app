@@ -1,48 +1,65 @@
-#intro > div {
-  //   height: 44.45vw;
-}
-#intro .human-jobs .section {
-  height: 60%;
-}
 #intro .human-about .keen-slider__slide .image {
   padding-left: 3rem;
 }
 #intro .human-jobs .keen-slider__slide .image {
-  padding-right: 3rem;
+  // padding-right: 3rem;
 }
 #intro .keen-slider__slide .image img {
   width: 100%;
 }
+#intro {
+  .container {
+    .slider-container {
+      width: 100%;
+    }
+  }
+}
 #intro .human-about {
   background-color: #1f0657;
   padding: 5% 0;
-}
-#intro .human-about .container {
-  width: 80%;
-  max-width: none;
-  .title {
-    background: #1f0657;
+  .container {
+    width: 80%;
+    max-width: none;
+    
+    .slider-container {
+      .content {
+        max-width: 32rem;
+        margin-left: auto;
+        justify-content: left!important;
+        .title {
+          background: #1f0657;
+        }
+      }
+      .image {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
   }
-  .slider-container {
-    width: 100%;
+}
+
+#intro .human-jobs {
+  padding: 10% 0 5%;
+  .container {
+    width: 80%;
+    max-width: none;
+    .dot {
+      background-color: #6309ff;
+    }
     .content {
-      max-width: 32rem;
-      margin-left: auto;
-    }
-    .image {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      padding-top: 10%;
+      padding-left: 10%;
+      display: block!important;
+      .title {
+        max-width: 22rem;
+        margin-bottom: 10%;
+      }
     }
   }
 }
-#intro .human-jobs .container {
-  max-width: 960px;
-}
-// #intro .content {
-//   padding-top: 4rem;
-// }
+
 #intro .human-about h1,
 #intro .human-about h3,
 #intro .human-about p {
@@ -75,19 +92,6 @@
   line-height: 178%;
   letter-spacing: 0.1px;
 }
-#intro .human-jobs {
-  padding: 5% 0;
-}
-#intro .human-jobs .content {
-  padding-left: 10%;
-}
-
-@media (max-width: 1800px) {
-  #intro .human-jobs .container {
-    height: 800px;
-  }
-}
-
 .keen-slider {
   max-height: 100%;
 }
