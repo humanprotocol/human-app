@@ -21,7 +21,7 @@ const Slider = (props) => {
             props.slides.map((slide, index) => {
               return (
                 <div className="keen-slider__slide" key={index}>
-                  <div className="row  max-height-100">
+                  <div className="row  max-height-100 h-100">
                     {props.type && props.type === "humanJobs" && (
                       <div className=" col-md-6 col-sm-12 image d-none d-md-block">
                         <div className="image">
@@ -30,7 +30,7 @@ const Slider = (props) => {
                       </div>
                     )}
                     <div className="col-md-6 col-sm-12">
-                      <div className="content d-flex flex-column justify-content-between">
+                      <div className="content d-flex flex-column justify-content-center h-100">
                         <h1
                           className="title"
                           dangerouslySetInnerHTML={{ __html: slide.title }}
