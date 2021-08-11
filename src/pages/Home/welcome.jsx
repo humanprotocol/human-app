@@ -35,7 +35,7 @@ const Welcome = ({ history }) => {
       <div className="text-center">
         <div className="intro-text">
           <h1 className="text-center mb-4">
-            Welcome to <span className="color-blue">Human App</span>
+            Welcome to the <span className="color-blue">Human App</span>
           </h1>
           <h4 className="text-center mb-4 font-weight-bold">
             Do interesting jobs and get paid in HMT
