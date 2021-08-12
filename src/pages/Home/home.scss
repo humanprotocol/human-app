@@ -1,3 +1,19 @@
+#welcome {
+    .intro-text {
+        h1 {
+            font-size: 2.5rem;
+            line-height: 224%;
+            font-style: normal;
+            font-family: 'Alliance No.1 ExtraBold'!important;
+            font-weight: 800;
+            margin-top: 0;
+            letter-spacing: -0.4px;
+        }
+        p {
+            max-width: 504px;
+        }
+    }
+}
 #welcome .form-control {
     height: 3rem;
     border-radius: 0.5rem;
@@ -63,17 +79,128 @@
     background-color: #6309FF;
     opacity: 0.8;
 }
-#job .section-option,
-#job .section-option h3,
-#job .section-option p {
-    font-family: 'Alliance No.1';
+#job {
+    .section-option {
+        font-family: "Alliance No.1";
+        .title {
+            font-size: 2rem;
+            font-weight: 600;
+            max-width: 288px;
+            margin-left: auto;
+        }
+    }
 }
+#subscribe {
+    .container {
+        width: 80%;
+        h1 {
+          line-height: 128%;
+        }
+        h2 {
+          color: #fff;
+          margin-top: 10px;
+          margin-bottom: 15px;
+          padding-bottom: 15px;
+        }
+        h3 {
+          color: #fff;
+          margin-top: 80px;
+          margin-bottom: 25px;
+          padding-bottom: 20px;
+          font-weight: 400;
+        }
+        p {
+          font-style: normal;
+          font-weight: normal;
+          font-size: 1.125rem;
+          line-height: 2rem;
+          letter-spacing: 0.1px;
+        }
+        .section-title {
+            margin-bottom: 40px;
+            h2 {
+              ::after {
+                position: absolute;
+                content: "";
+                background: rgba(255, 255, 255, 0.3);
+                height: 4px;
+                width: 60px;
+                bottom: 0;
+                left: 30px;
+              }
+            }
+            p {
+              font-size: 1rem;
+            }
+        }
+        .text-danger {
+            color: #cc0033;
+            text-align: left;
+        }
+        .btn-custom {
+            width: 12rem!important;
+            margin-left: auto;
+            :hover {
+                opacity: 0.8 !important;
+            }
+        }
+        .image-container {
+            padding-left: 5rem;
+            img {
+                width: 100%;
+            }
+        }
+        .contact-item {
+            margin: 20px 0;
+            span {
+              color: rgba(255, 255, 255, 1);
+              margin-bottom: 10px;
+              display: block;
+            }
+            i.fa {
+              margin-right: 10px;
+            }
+          }
+        .form-group {
+            input {
+                &.form-control {
+                    margin-right: 5%;
+                }
+            }
+
+            button {
+                &.btn-custom {
+                    max-width: 176px;
+                    width: 12rem!important;
+                    margin-left: auto;
+                    :hover {
+                        opacity: 0.8 !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media (min-width: 1800px) {
     #welcome input {
         max-width: 24rem;
     }
     #referal {
         width: 25rem;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    #subscribe {
+        .container {
+            .form-group {
+                display: block!important;
+                .form-control {
+                    margin-bottom: 10px;
+                }
+            }
+        }
     }
 }
 
@@ -93,6 +220,16 @@
         ul {
             display: flex;
             justify-content: space-between;
+        }
+    }
+    #subscribe {
+        .container {
+            .form-group {
+                display: flex!important;
+            }
+            .image-container {
+                padding: 0;
+            }
         }
     }
 }

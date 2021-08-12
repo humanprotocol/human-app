@@ -35,16 +35,13 @@ const Welcome = ({ history }) => {
       <div className="text-center">
         <div className="intro-text">
           <h1 className="text-center mb-4">
-            Welcome to the <span className="color-blue">Human App</span>
+            Welcome to <span className="color-blue">HUMAN App</span>
           </h1>
           <h4 className="text-center mb-4 font-weight-bold">
-            Do interesting jobs and get paid in HMT
+            Gateway to the HUMAN experience
           </h4>
-          <p className="text-left mb-4">
-            Subscribe to HUMAN by verifying your email and complete your KYC by
-            linking your crypto wallet to earn instant 10HMT and earn more HMT
-            by doing hcaptcha jobs, and by sending referral links to your
-            friends.
+          <p className="text-center mb-4">
+            Verify your email - we will also need a crypto wallet for security, and to send you HMT - you will receive 1 HMT for free when you register. To earn more, complete tasks, or refer friends. If you don’t have a wallet, follow this link.
           </p>
 
           <div className="row justify-content-center earning-container">

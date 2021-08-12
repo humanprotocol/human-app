@@ -112,7 +112,7 @@ export const Job = (props) => {
       <div className="container w-100 mw-100">
         <div className="row">
           <div className="col-md-3 section-option text-right col-sm-12">
-            <h4 className="title mb-4">Job List</h4>
+            <h4 className="title mb-4">This is the demo version of the Human App</h4>
             <ul className="m-0">
               <li className="mb-4">
                 <a

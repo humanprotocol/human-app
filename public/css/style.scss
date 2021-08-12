@@ -30,6 +30,14 @@ html {
   height: 100% !important;
 }
 
+h1 {
+  font-family: "Alliance No.1 ExtraBold"!important;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 2.5rem;
+  letter-spacing: 0.4px;
+}
+
 h3 {
   font-size: 20px;
   font-weight: 600;
@@ -311,15 +319,6 @@ a:focus,
   padding: 0;
 }
 
-.intro h1 {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 5rem;
-  line-height: 4rem;
-  margin-top: 0;
-  letter-spacing: -0.4px;
-}
-
 .intro p {
   width: 55vw;
   font-style: normal;
@@ -359,12 +358,6 @@ a:focus,
   font-size: 26px;
   line-height: 36px;
   letter-spacing: 0.2px;
-}
-
-#job .section-option .title {
-  font-size: 2rem;
-  font-weight: 600;
-  font-family: "Alliance No.1";
 }
 
 #job .section-option .opt {
@@ -616,70 +609,9 @@ a:focus,
 }
 /* Contact Section */
 #subscribe {
-  min-height: 30vw;
   padding: 5% 0;
-  background: url("../img/email_subscribe.png") no-repeat;
-  background-size: 100% 100%;
-}
-#subscribe h1 {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 4rem;
-  line-height: 4rem;
-  letter-spacing: -0.4px;
-}
-#subscribe p {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1.125rem;
-  line-height: 2rem;
-  letter-spacing: 0.1px;
-}
-#subscribe .section-title {
-  margin-bottom: 40px;
-}
-#subscribe .section-title p {
-  font-size: 16px;
-}
-#subscribe h2 {
-  color: #fff;
-  margin-top: 10px;
-  margin-bottom: 15px;
-  padding-bottom: 15px;
-}
-#subscribe .section-title h2::after {
-  position: absolute;
-  content: "";
-  background: rgba(255, 255, 255, 0.3);
-  height: 4px;
-  width: 60px;
-  bottom: 0;
-  left: 30px;
-}
-#subscribe h3 {
-  color: #fff;
-  margin-top: 80px;
-  margin-bottom: 25px;
-  padding-bottom: 20px;
-  font-weight: 400;
-}
-#subscribe .text-danger {
-  color: #cc0033;
-  text-align: left;
-}
-#subscribe .btn-custom {
-  width: 12rem!important;
-  margin-left: auto;
-}
-#subscribe .btn-custom:hover {
-  opacity: 0.8 !important;
-}
-#subscribe .image-container {
-  padding: 0 5rem;
-}
-#subscribe .image-container img {
-  height: 100%;
-  background-color: #c4c4c4;
+  background: url("../img/email_subscribe.png") no-repeat bottom center;
+  background-size: 100%;
 }
 
 label {
@@ -687,31 +619,6 @@ label {
   font-weight: 400;
   font-family: "Open Sans", sans-serif;
   float: left;
-}
-#subscribe .form-control {
-  display: block;
-  width: 400px;
-  max-width: 400px;
-  margin-left: auto;
-  padding: 6px 12px;
-  font-size: 16px;
-  line-height: 1.42857143;
-  color: #444;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ddd;
-  border-radius: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  -webkit-transition: none;
-  -o-transition: none;
-  transition: none;
-}
-#subscribe .form-control:focus {
-  border-color: #999;
-  outline: 0;
-  -webkit-box-shadow: transparent;
-  box-shadow: transparent;
 }
 .form-control::-webkit-input-placeholder {
   color: #777;
@@ -725,17 +632,7 @@ label {
 .form-control:-ms-input-placeholder {
   color: #777;
 }
-#subscribe .contact-item {
-  margin: 20px 0;
-}
-#subscribe .contact-item span {
-  color: rgba(255, 255, 255, 1);
-  margin-bottom: 10px;
-  display: block;
-}
-#subscribe .contact-item i.fa {
-  margin-right: 10px;
-}
+
 #subscribe .social {
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding-top: 50px;
@@ -796,9 +693,6 @@ label {
 }
 
 @media screen and (max-width: 768px) {
-  .intro h1 {
-    font-size: 3rem;
-  }
   #welcome .intro-text {
     padding-top: 3rem !important;
   }
@@ -842,11 +736,8 @@ label {
   #subscribe {
     height: auto !important;
   }
+  #subscribe p,
   #subscribe h1 {
-    font-size: 3rem !important;
-    text-align: center !important;
-  }
-  #subscribe p {
     text-align: center !important;
   }
   #subscribe .form-control {
@@ -855,22 +746,23 @@ label {
   }
 }
 
-// @media (max-width: 960px) {
-//   #subscribe .form-control {
-//     width: 400px;
-//     margin: auto;
-//   }
-//   #subscribe .form-control.btn-custom {
-//     width: 12rem!important;
-//   }
-// }
+@media (max-width: 960px) {
+  #subscribe .form-control {
+    width: 400px;
+    margin: auto;
+  }
+  #subscribe .form-control.btn-custom {
+    width: 12rem!important;
+  }
+}
 
 @media (max-width: 1240px) {
   #subscribe .form-control {
     width: 100%;
   }
   #subscribe .form-control.btn-custom {
-    width: 12rem!important;
+    // width: 12rem!important;
+    max-width: 176px;
   }
   #subscribe .image-container {
     padding: 0;
