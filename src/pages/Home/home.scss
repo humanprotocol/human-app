@@ -116,6 +116,14 @@
           line-height: 2rem;
           letter-spacing: 0.1px;
         }
+        input {
+            border: none;
+            box-shadow: rgba(99, 9, 255, 0.2) 0px 8px 16px;
+            border-radius: 10px;
+            &::placeholder {
+                color: #6309FF;
+            }
+        }
         .section-title {
             margin-bottom: 40px;
             h2 {
@@ -175,6 +183,59 @@
                     margin-left: auto;
                     :hover {
                         opacity: 0.8 !important;
+                    }
+                }
+            }
+        }
+        .social {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            margin-top: 2%x;
+            text-align: left;
+            display: flex;
+            .social-icon {
+                margin-right: 4.5%;
+                width: 40px;
+                height: 40px;
+                text-align: center;
+                font-size: 40px;
+                color: #0A060E;
+                cursor: pointer;
+                .fa-telegram {
+                    font-size: 35px;
+                    margin: 3px 0;
+                }
+                &.icon-twitter,
+                &.icon-linkedin {
+                    margin-right: 4.5%;
+                    border: 2px white solid;
+                    border-radius: 50%;
+                    background-color: #0A060E;
+                    padding: 6px 0;
+                    font-size: 24px;
+                    color: white;
+                    .fa-linkedin {
+                        font-size: 22px;
+                    }
+                }
+            }
+            .btn-primary {
+                color: #0A060E;
+                border: 0;
+                background-color: none;
+                i {
+                    &.fa {
+                        font-size: 22px;
+                        width: 48px;
+                        height: 48px;
+                        padding: 12px 0;
+                        border: 2px solid #fff;
+                        color: #fff;
+                        border-radius: 50%;
+                        transition: all 0.3s;
+                        &:hover {
+                            color: #608dfd;
+                            background: #fff;
+                        }
                     }
                 }
             }

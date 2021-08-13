@@ -67,13 +67,13 @@ export const HumanAbout = [
 
 export const HumanJobs = [
   {
-    title: `The Future of <span class='highlight'>HUMAN jobs</span>`,
+    title: `The Future of <span className='highlight'>HUMAN jobs</span>`,
     subTitle: "",
     content: "hCaptcha is only the first application on which HUMAN jobs can be completed. The Protocol supports other applications - such as Intel CVAT and INCEpTION - and the potential for many more; HUMAN Protocol is simply the blockchain-based infrastructure which allows distributed parties to work together trustlessly.",
     image: humanJobImg_1,
   },
   {
-    title: `The Future of <span class='highlight'>HUMAN jobs</span>`,
+    title: `The Future of <span className='highlight'>HUMAN jobs</span>`,
     subTitle: "",
     content: "Many kinds of application can run on the Protocol, delivering the potential for many more jobs for Workers, and new datasets to those who need them.",
     image: humanJobImg_2,

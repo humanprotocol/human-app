@@ -610,7 +610,6 @@ a:focus,
 /* Contact Section */
 #subscribe {
   padding: 5% 0;
-  background: url("../img/email_subscribe.png") no-repeat bottom center;
   background-size: 100%;
 }
 
@@ -633,30 +632,6 @@ label {
   color: #777;
 }
 
-#subscribe .social {
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding-top: 50px;
-  margin-top: 50px;
-  text-align: center;
-}
-#subscribe .social ul li {
-  display: inline-block;
-  margin: 0 20px;
-}
-#subscribe .social i.fa {
-  font-size: 22px;
-  width: 48px;
-  height: 48px;
-  padding: 12px 0;
-  border: 2px solid #fff;
-  color: #fff;
-  border-radius: 50%;
-  transition: all 0.3s;
-}
-#subscribe .social i.fa:hover {
-  color: #608dfd;
-  background: #fff;
-}
 /* Footer Section*/
 #footer {
   background: #fff;

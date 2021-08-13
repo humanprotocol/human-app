@@ -18,6 +18,11 @@ export const Subscribe = ({ history }) => {
     setSubmitted(true);
     if(EmailValidator.validate(email)) history.push({ pathname: Routes.Profile.path });
   }
+
+  const handleSocial = (e) => {
+    console.log(e.target.value);
+  }
+
   return (
     <div id='subscribe'>
       <div className='container'>
@@ -31,6 +36,12 @@ export const Subscribe = ({ history }) => {
                 <FormControl.Feedback type='invalid' className='d-block text-left'>{ email ? ErrorMessage.invalidEmail : ErrorMessage.requireEmail }</FormControl.Feedback>
               }
               <Button className='btn btn-custom form-control' onClick={handleSubmit}>Subscribe</Button>
+            </FormGroup>
+            <FormGroup className='social'>
+              <div className='social-icon icon-github' onClick={handleSocial}><i className='fa fa-github'></i></div>
+              <div className='social-icon icon-twitter' onClick={handleSocial}><i className='fa fa-twitter'></i></div>
+              <div className='social-icon icon-telegram' onClick={handleSocial}><i className='fa fa-telegram'></i></div>
+              <div className='social-icon icon-linkedin' onClick={handleSocial}><i className='fa fa-linkedin'></i></div>
             </FormGroup>
           </div>
           <div className='col-md-6 d-none d-sm-block'>
