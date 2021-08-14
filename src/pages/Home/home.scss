@@ -292,6 +292,9 @@
 }
 
 @media only screen and (max-width: 768px) {
+    .btn-primary {
+        height: auto!important;
+    }
     #welcome .earning-container {
         display: block;
     }

@@ -345,12 +345,11 @@ a:focus,
 }
 /* job Section */
 #job {
-  background: #fff;
   padding: 4% 0;
   font-family: "Alliance No.1";
-  background: url('../img/job_list_bg.png') no-repeat;
-  background-position: bottom center;
-  background-size: cover;
+  background: url('../img/job_list_bg.png') no-repeat, rgba(255, 255, 255, 0.5);
+  background-position: bottom center, center left;
+  background-size: cover, 100%;
 }
 
 #job .title {
