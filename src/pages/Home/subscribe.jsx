@@ -44,7 +44,7 @@ export const Subscribe = ({ history }) => {
               <div className='social-icon icon-linkedin' onClick={handleSocial}><i className='fa fa-linkedin'></i></div>
             </FormGroup>
           </div>
-          <div className='col-md-6 d-none d-sm-block'>
+          <div className='col-md-6 d-none d-md-block'>
             <div className='image-container d-flex flex-column justify-content-center h-100'>
               <img src={SubscribeImg} alt='subscribe-img'></img>
             </div>

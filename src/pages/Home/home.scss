@@ -31,59 +31,81 @@
     border: 0;
     padding: 0.5rem 3rem;
 }
-#hcaptcha .btn {
-    width: 50%;
+#hcaptcha {
+    p {
+        width: 50%;
+        max-width: 400px;
+        margin: auto;
+        margin-bottom: 5%;
+        text-align: left;
+    }
+
+    .btn {
+        width: 50%;
+        max-width: 400px;
+    }
+
 }
-#referal .btn:active {
-    background-color: #6309FF;
-    opacity: 0.8;
-}
-#referal .btn i {
-    float: right;
-    margin-top: 0.25em;
+#referal {
+    p {
+        text-align: left;
+    }
+    .btn {
+        &:active {
+            background-color: #6309FF;
+            opacity: 0.8;
+        }
+        i {
+            float: right;
+            margin-top: 0.25em;
+        }
+    }
 }
 #questions {
-    width: 400px;
-}
-#questions .form-label {
-    font-family: 'Alliance No.1';
-    font-size: 1.25rem;
-    line-height: 2rem;
-    letter-spacing: 0.2px;
-}
-#questions .dropdown .dropdown-toggle{
-    color: #212529;
-}
-#questions .dropdown .dropdown-toggle .fa {
-    float: right;
-    font-size: 2em;
-}
-#questions .dropdown .dropdown-toggle:hover,
-#questions .dropdown .dropdown-toggle:focus,
-#questions .dropdown .dropdown-toggle:visited,
-#questions .dropdown .dropdown-toggle:active:focus,
-#questions .dropdown .dropdown-toggle:active {
-    background-color: #fff!important;
-}
-#qeustions a {
-    font-size: 1rem;
-}
-#questions select:focus>option:focus:hover {
-    background-color: #6309FF;
-    color: #fff;
-}
-#questions .radio .form-label {
-    font-size: 1rem;
-}
-#questions button {
-    background-color: #6309FF;
-    opacity: 0.8;
+    max-width: 400px;
+    padding: 0;
+    p {
+        font-size: 18px;
+    }
+    .question-list {
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        box-shadow: 0px 23px 35px -12px rgba(31, 6, 87, 0.08);
+        background: linear-gradient(359.93deg, #FFFFFF 10.95%, #FCFBFF 121.59%);
+        padding: 32px 16px;
+        margin-bottom: 32px;
+        p {
+            font-size: 16px;
+        }
+        .form-group {
+            padding: 0 12px;
+            margin-bottom: 16px;
+            .form-check {
+                .form-check-label {
+                    font-size: 18px;
+                    float: none;
+                }
+            }  
+            &.other-question {
+                padding-left: 32px;
+            }  
+        }
+    }
+
+    .form-group {
+        .btn-primary {
+            &:active,
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
 }
 #job {
     .section-option {
         font-family: "Alliance No.1";
         .title {
-            font-size: 2rem;
+            font-size: 20px;
             font-weight: 600;
             max-width: 288px;
             margin-left: auto;
@@ -249,6 +271,7 @@
     }
     #referal {
         width: 25rem;
+        margin: auto;
     }
 }
 
@@ -257,6 +280,9 @@
         .container {
             .form-group {
                 display: block!important;
+                &.social {
+                    display: flex!important;
+                }
                 .form-control {
                     margin-bottom: 10px;
                 }
@@ -276,13 +302,30 @@
     #welcome .earning-container .form-group .form-control {
         width: 100%;
     }
-    #job div.section-option {
-        text-align: left!important;
-        ul {
-            display: flex;
-            justify-content: space-between;
+    #job {
+        div.section-option {
+            text-align: left!important;
+            margin-bottom:40px;
+            .title {
+                text-align: center;
+                margin: auto;
+            }
+            ul {
+                display: flex;
+                justify-content: center;
+                li {
+                    margin: 0 10px;
+                }
+            }
+        }
+        .section-details {
+            p {
+                max-width: 300px;
+                margin: auto;
+            }
         }
     }
+   
     #subscribe {
         .container {
             .form-group {

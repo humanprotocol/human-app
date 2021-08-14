@@ -7,6 +7,7 @@ import {
   Button,
   FormLabel,
   Dropdown,
+  Form,
 } from "react-bootstrap";
 import { URLInput } from "../../components/inputs/url";
 import { JobOptions } from "../../constants";
@@ -35,11 +36,7 @@ export const Job = (props) => {
     { value: "Option 3", checked: false },
   ]);
   const [questions, setQuestions] = useState({
-    question_1: "",
-    question_2: "",
-    question_3: "",
-    question_4: "",
-    referal: "",
+    question_1: true
   });
 
   const submitQuestions = (e) => {
@@ -76,15 +73,6 @@ export const Job = (props) => {
     setSubmitted(true);
   };
 
-  const handleSelect = (value) => {
-    const newOptItems = optItems.map((item) => {
-      item.checked = item.value === value ? true : false;
-      return item;
-    });
-    setQuestions((questions) => ({ ...questions, question_3: value }));
-    setOptItems(newOptItems);
-  };
-
   const handleRefresh = () => {
     setSubmitted(false);
     setQuestions({ ...questions, referal: "" });
@@ -96,6 +84,11 @@ export const Job = (props) => {
       payload: token,
     });
   };
+
+  const handleQuestions = (e) => {
+    e.preventDefault();
+    console.log({ name: e.target.name, value: e.target.value });
+  }
 
   const handleNext = () => {
     if (captchaToken && captchaToken.length > 0) {
@@ -114,7 +107,7 @@ export const Job = (props) => {
           <div className="col-md-3 section-option text-right col-sm-12">
             <h4 className="title mb-4">Job list</h4>
             <ul className="m-0">
-              <li className="mb-4">
+              <li className="">
                 <a
                   className={`opt ${
                     option && option === JobOptions.captcha ? "active" : ""
@@ -124,7 +117,7 @@ export const Job = (props) => {
                   Data labeling
                 </a>
               </li>
-              <li className="mb-4">
+              <li className="">
                 <a
                   className={`opt ${
                     option && option === JobOptions.referal ? "active" : ""
@@ -134,7 +127,7 @@ export const Job = (props) => {
                   Referal
                 </a>
               </li>
-              <li className="mb-4">
+              <li className="">
                 <a
                   className={`opt ${
                     option && option === JobOptions.questionare ? "active" : ""
@@ -149,6 +142,7 @@ export const Job = (props) => {
           <div className="col-md-6 section-content col-sm-12">
             {option && option === JobOptions.captcha && (
               <div id='hcaptcha'>
+                <p>For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.</p>
                 <HCaptcha
                   sitekey="64fd34e8-c20f-4312-ab15-9b28a2ff3343"
                   onVerify={(token, ekey) =>
@@ -165,6 +159,7 @@ export const Job = (props) => {
             )}
             {option && option === JobOptions.referal && (
               <div id="referal" className="text-center col-md-8 offset-md-2">
+                <p>For every friend you refer who successfully signs up, you will receive 1 HMT.</p>
                 <URLInput
                   className="text-center mb-3 referal-link"
                   reset={handleRefresh}
@@ -193,184 +188,35 @@ export const Job = (props) => {
                 id="questions"
                 className="m-auto text-left col-md-8 offset-md-2"
               >
-                <form name="form">
-                  <FormGroup>
-                    <FormLabel>Question 1</FormLabel>
-                    <FormControl
-                      placeholder=""
-                      type="text"
-                      name="question_1"
-                      value={questions.question_1}
-                      onChange={handleChange}
-                    ></FormControl>
-                    <FormControl.Feedback
-                      type="invalid"
-                      className={
-                        submitted && !questions.question_1 ? "d-block" : ""
-                      }
-                    >
-                      Question 1 required
-                    </FormControl.Feedback>
-                  </FormGroup>
-                  <FormGroup>
-                    <FormLabel>Question 2</FormLabel>
-                    <FormControl
-                      placeholder=""
-                      type="text"
-                      name="question_2"
-                      value={questions.question_2}
-                      onChange={handleChange}
-                    ></FormControl>
-                    <FormControl.Feedback
-                      type="invalid"
-                      className={
-                        submitted && !questions.question_2 ? "d-block" : ""
-                      }
-                    >
-                      Question 2 required
-                    </FormControl.Feedback>
-                  </FormGroup>
-                  <FormGroup>
-                    <FormLabel>Question 3</FormLabel>
-                    <Dropdown drop="down">
-                      <Dropdown.Toggle className="form-control text-left bg-white">
-                        {questions.question_3 || "Select"}
-                        <i className="fa fa-angle-down text-right" />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu className="w-100">
-                        <Dropdown.Item
-                          className="w-100"
-                          onClick={(e) => {
-                            handleSelect("");
-                          }}
-                        >
-                          Select
-                        </Dropdown.Item>
-                        {optItems &&
-                          optItems.length &&
-                          optItems.map((optItem, index) => {
-                            return (
-                              <Dropdown.Item
-                                key={index}
-                                className="w-100"
-                                onClick={(e) => {
-                                  handleSelect(optItem.value);
-                                }}
-                                active={optItem.checked}
-                              >
-                                {optItem.value}
-                              </Dropdown.Item>
-                            );
-                          })}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    <FormControl.Feedback
-                      type="invalid"
-                      className={
-                        submitted && !questions.question_3 ? "d-block" : ""
-                      }
-                    >
-                      Question 3 required
-                    </FormControl.Feedback>
-                  </FormGroup>
-                  <FormGroup className="d-flex flex-column">
-                    <FormLabel className="">Qquestion 4</FormLabel>
-                    <div className="row m-0 justify-content-between">
-                      {radios &&
-                        radios.length &&
-                        radios.map((radio, index) => {
-                          return (
-                            <div
-                              className="radio d-flex flex-column"
-                              key={index}
-                            >
-                              <FormLabel>{radio.label}</FormLabel>
-                              {radio.checked && (
-                                <input
-                                  type="radio"
-                                  name={radio.name}
-                                  className="m-auto"
-                                  value={radio.value}
-                                  checked
-                                  onChange={handleChange}
-                                ></input>
-                              )}
-                              {!radio.checked && (
-                                <input
-                                  type="radio"
-                                  name={radio.name}
-                                  className="m-auto"
-                                  value={radio.value}
-                                  onChange={handleChange}
-                                ></input>
-                              )}
-                            </div>
-                          );
-                        })}
-                    </div>
-                    <FormControl.Feedback
-                      type="invalid"
-                      className={
-                        submitted && !questions.question_4 ? "d-block" : ""
-                      }
-                    >
-                      Question 4 required
-                    </FormControl.Feedback>
-                  </FormGroup>
-                  <FormGroup>
-                    <Button
-                      className="form-control bg-blue"
-                      onClick={submitQuestions}
-                    >
-                      Submit
-                    </Button>
-                  </FormGroup>
-                  <div className="form-group"></div>
-                </form>
+                <p>Complete the questionnaire to receive 1 HMT.</p>
+                <div className='question-list'>
+                  <p>What tasks would you prefer to do on the HUMAN App?</p>
+                  <Form name="form">
+                    <FormGroup>
+                      <Form.Check type="checkbox" label="Solve captchas" />
+                      <Form.Check type="checkbox" label="Provide feedback on A/B tests." />
+                      <Form.Check type="checkbox" label="Code review and Bug bounties." />
+                      <Form.Check type="checkbox" label="Market research surveys." />
+                      <Form.Check type="checkbox" label="Data labelling on video and/or text." />
+                      <Form.Check type="checkbox" label="Partake in predictions markets." />
+                    </FormGroup>
+                    <FormGroup className='other-question'>
+                        <FormControl className='m-0'></FormControl>
+                    </FormGroup>
+                  </Form>
+                </div>
+                <FormGroup>
+                  <Button className='form-control'>Next</Button>
+                </FormGroup>
               </div>
             )}
           </div>
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12">
             <div className="mb-5">
-              {option && option === JobOptions.captcha && (
-                <p>
-                  Upon successful completion of hCaptcha, user receives an
-                  assigned HMT amount.
-                </p>
-              )}
-              {option && option === JobOptions.referal && (
-                <p>
-                  If you refer a friend you will receive 1 HMT. Note, you will
-                  receive the HMT only if your referral successfully signs up
-                  with their email and wallet address. Each logged-in user will
-                  receive a shareable, unique URL (code) for their profile.
-                </p>
-              )}
-              {option && option === JobOptions.questionare && (
-                <p>
-                  Upon successful referral (account created/verified), the
-                  inviter receives 1 HMT
-                </p>
-              )}
-            </div>
-            <div>
-              <h4 className="title d-flex justify-content-between">
-                <span>HMT earned</span>
-                <span>{hmtCounts}</span>
-              </h4>
-            </div>
-            <div className="job-status">
-              <h4 className="title mb-4">Jobs Completed</h4>
-              <ul className="m-0">
-                <li className="d-flex justify-content-between mb-4">
-                  <p>Captchas</p>
-                  <p>{captchaCnt}</p>
-                </li>
-                <li className="d-flex justify-content-between">
-                  <p>Referlas</p>
-                  <p>{referalCnt}</p>
-                </li>
-              </ul>
+              <p>X HMT</p>
+              <p>Captchas solved : XXXX</p>
+              <p>Referrals sent : XXXX </p>
+              <p>Questionnaire : solved/unsolved</p>
             </div>
           </div>
         </div>

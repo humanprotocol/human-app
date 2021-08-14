@@ -105,7 +105,7 @@ form .form-group {
   display: none !important;
 }
 .btn.form-control.btn-primary {
-  background-color: #6309ff;
+  background-color: #6309ff!important;
   font-family: "Alliance No.1";
 }
 .bg-blue,
@@ -348,7 +348,9 @@ a:focus,
   background: #fff;
   padding: 4% 0;
   font-family: "Alliance No.1";
-
+  background: url('../img/job_list_bg.png') no-repeat;
+  background-position: bottom center;
+  background-size: cover;
 }
 
 #job .title {
@@ -363,7 +365,7 @@ a:focus,
 #job .section-option .opt {
   font-style: normal;
   font-weight: normal;
-  font-size: 24px;
+  font-size: 16px;
   line-height: 36px;
   letter-spacing: 0.2px;
   color: #0a060e;
@@ -401,8 +403,8 @@ a:focus,
 #job .section-details p {
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
-  line-height: 32px;
+  font-size: 16px;
+  line-height: 36px;
   letter-spacing: 0.1px;
   color: #0a060e;
 }
@@ -616,7 +618,6 @@ a:focus,
 label {
   font-size: 12px;
   font-weight: 400;
-  font-family: "Open Sans", sans-serif;
   float: left;
 }
 .form-control::-webkit-input-placeholder {
