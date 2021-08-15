@@ -5,8 +5,8 @@ import * as EmailValidator from 'email-validator';
 import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
-import { Password } from '../../components/inputs/password/password';
 import { ErrorMessage } from '../../constants';
+import './profile.scss';
 
 const ProfilePage = (props) => {
   const auth = useSelector((state) => state.auth);
@@ -60,60 +60,75 @@ const ProfilePage = (props) => {
   }
   return (
     <div id='profile' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
-      <div className='page-title d-flex justify-content-between mb-4'>
-        <h2>{ editing ? 'Edit Profile' : 'Profile' }</h2>
-        <Link to='/'><i className='material-icons close'>clear</i></Link>
-      </div>
-      <div>
-        <form name='form'>
-          <FormGroup>
-            <FormControl placeholder='Username' type='text' name='userName' value={inputs.userName} onChange={handleChange} readOnly={!editing}></FormControl>
-            {submitted && !inputs.userName &&
-            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireUserName}</FormControl.Feedback>
-            }
-          </FormGroup>
-          <FormGroup>
-            <FormControl placeholder='Email' type='email' name='email' value={inputs.email} onChange={handleChange} readOnly={!editing}></FormControl>
-            {submitted && !inputs.email &&
-            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
-            }
-            {submitted && !inputs.email && !EmailValidator.validate(inputs.email) &&
-            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
-            }
-          </FormGroup>
-          <FormGroup>
-            <div className='row'>
+      <div className='container'>
+        <div className='page-title d-flex justify-content-between mb-4'>
+          <h2>{ editing ? 'Edit Profile' : 'Profile' }</h2>
+          <Link to='/'><i className='material-icons close'>clear</i></Link>
+        </div>
+        <div>
+          <form name='form' className='m-0'>
+            <FormGroup>
+              { !editing && 
+              <p>{inputs.firstName || 'First Name'} {inputs.lastName || 'Last Name'}</p>
+              }
+              { editing &&
+              <div className='row'>
                 <div className='col'>
-                    <FormControl placeholder='First Name' type='text' name='firstName' value={inputs.firstName} onChange={handleChange} readOnly={!editing}></FormControl>
-                    {submitted && !inputs.firstName &&
-                    <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireFirstName}</FormControl.Feedback>
-                    }
+                  <FormControl placeholder='First Name' type='text' name='firstName' value={inputs.firstName} onChange={handleChange} readOnly={!editing}></FormControl>
+                  {submitted && !inputs.firstName &&
+                  <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireFirstName}</FormControl.Feedback>
+                  }
                 </div>
                 <div className='col'>
-                    <FormControl placeholder='Last Name' type='text' name='lastName' value={inputs.lastName} onChange={handleChange} readOnly={!editing}></FormControl>
-                    {submitted && !inputs.firstName &&
-                    <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireLastName}</FormControl.Feedback>
-                    }
+                  <FormControl placeholder='Last Name' type='text' name='lastName' value={inputs.lastName} onChange={handleChange} readOnly={!editing}></FormControl>
+                  {submitted && !inputs.firstName &&
+                  <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireLastName}</FormControl.Feedback>
+                  }
                 </div>
-            </div>
-          </FormGroup>
-          <Password onChange={handleChange} value={inputs.password} submitted={submitted} className='mb-5' readOnly={!editing}></Password>
-          <FormGroup>
-            <FormControl placeholder='Wallet address' type='text' name='walletAddress' value={inputs.walletAddress} onChange={handleChange} readOnly={!editing}></FormControl>
-            {submitted && !inputs.walletAddress &&
-            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireWalletAddress}</FormControl.Feedback>
+              </div>
+              }
+            </FormGroup>
+            <FormGroup>
+              { !editing && 
+              <p>{inputs.email || 'Email'}</p>
+              }
+              { editing &&
+              <>
+              <FormControl placeholder='Email' type='email' name='email' value={inputs.email} onChange={handleChange}></FormControl>
+              {submitted && !inputs.email &&
+              <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
+              }
+              {submitted && !inputs.email && !EmailValidator.validate(inputs.email) &&
+              <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
+              }
+              </>
+              }
+            </FormGroup>
+            <FormGroup>
+              { !editing && 
+                <p>{inputs.walletAddress || 'Wallet address'}</p>
+              }
+              { editing && 
+                <>
+                  <FormControl placeholder='Wallet address' type='text' name='walletAddress' value={inputs.walletAddress} onChange={handleChange} readOnly={!editing}></FormControl>
+                  {submitted && !inputs.walletAddress &&
+                  <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireWalletAddress}</FormControl.Feedback>
+                  }
+                  {submitted && inputs.walletAddress && inputs.walletAddress.length !== 42 &&
+                  <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidWalletAddress}</FormControl.Feedback>
+                  }
+                </>
+              }
+            </FormGroup>
+            { editing && 
+            <div className='mb-2'><Link to={Routes.ForgotPassword.path}>Change password</Link></div>
             }
-            {submitted && inputs.walletAddress && inputs.walletAddress.length !== 42 &&
-            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidWalletAddress}</FormControl.Feedback>
-            }
-          </FormGroup>
-          <FormGroup>
-            <Button className='form-control bg-blue' onClick={editing ? updateProfile : logout}>{ editing ? 'Confirm changes' : 'Log out' }</Button>
-          </FormGroup>
-          <FormGroup>
-            <Button className='form-control bg-white' onClick={toggleEditProfile}>{ editing ? 'Back' : 'Edit Profile' }</Button>
-          </FormGroup>
-        </form>
+            <FormGroup className='actions d-flex justify-content-between m-0'>
+              <Link className='btn' to={Routes.Home.path}>Back</Link>
+              <Button className='form-control bg-blue' onClick={editing ? updateProfile : toggleEditProfile}>{ editing ? 'Save changes' : 'Edit' }</Button>
+            </FormGroup>
+          </form>
+        </div>
       </div>
     </div>
   );

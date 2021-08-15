@@ -102,6 +102,7 @@ export const Job = (props) => {
 
   return (
     <div id="job" className="text-center">
+      <div className='blur-bg'></div>
       <div className="container w-100 mw-100">
         <div className="row">
           <div className="col-md-3 section-option text-right col-sm-12">

@@ -42,7 +42,7 @@ const Navigation = ({ history }) => {
           <Dropdown>
             <Dropdown.Toggle id="avatar" className='bg-blue text-center p-0'><span className='ml-1'>{avatar}</span></Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href={Routes.Profile.path}>Profile</Dropdown.Item>
+              <Dropdown.Item href={Routes.Profile.path}>Edit profile</Dropdown.Item>
               <Dropdown.Item onClick={LogOut}>Log out</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

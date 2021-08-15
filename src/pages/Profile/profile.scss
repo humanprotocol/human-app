@@ -1,0 +1,37 @@
+#profile {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 4rem !important;
+    .container {
+        background: linear-gradient(359.93deg, #FFFFFF 10.95%, #FCFBFF 121.59%);
+        border: 1px solid #EEEEEE;
+        box-shadow: 0px 23px 35px -12px rgba(31, 6, 87, 0.08);
+        border-radius: 10px;
+        padding: 32px 16px 24px;
+        p {
+            font-size: 16px;
+            line-height: 200%;
+            letter-spacing: 0.2px
+        }
+        a {
+            color: #6309FF;
+            font-size: 16px;
+            line-height: 200%;
+            letter-spacing: 0.2px;
+        }
+        .actions {
+            .btn {
+                width: 50%;
+                max-width: 160px;
+                font-size: 16px;
+                letter-spacing: 0.2px;
+            }
+            a {
+                width: 40%;
+                background: #FFFFFF;
+                border: 1px solid #6309FF;
+                border-radius: 10px;;
+            }
+        }
+    }
+}

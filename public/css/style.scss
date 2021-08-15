@@ -142,17 +142,17 @@ form .form-group {
 }
 .page-title h2 {
   font-family: "Alliance No.1";
-  font-weight: 800;
-  font-size: 3rem;
-  line-height: 79%;
-  letter-spacing: -0.4px;
+  font-weight: 600;
+  font-size: 24px;
   text-transform: none;
   color: #0a060e;
 }
 .page-title .close {
-  font-size: 3rem;
-  color: #0a060e;
   opacity: 1;
+  font-weight: 600;
+  font-size: 24px;
+  text-transform: none;
+  color: #0a060e;
 }
 /* Navigation */
 #menu {
@@ -210,13 +210,25 @@ form .form-group {
   background-color: #6309ff;
   font-family: "Alliance No.1";
 }
+.dropdown-menu {
+  padding: 16px!important;
+}
+.dropdown-item {
+  padding: 16px!important;
+  font-weight: 600;
+  font-size: 14px!important;
+  line-height: 200%;
+  letter-spacing: 0.2px;
+}
 .dropdown-item:hover,
 .dropdown-item:focus,
 .dropdown-item.active,
 .dropdown-item:active {
-  background-color: #6309ff !important;
+  background-color: white !important;
   font-family: "Alliance No.1";
-  color: white !important;
+  color: #0a060e !important;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 14px rgba(99, 9, 255, 0.05);
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -347,11 +359,10 @@ a:focus,
 #job {
   padding: 4% 0;
   font-family: "Alliance No.1";
-  background: url('../img/job_list_bg.png') no-repeat, rgba(255, 255, 255, 0.5);
+  background: url('../img/job_list_bg.png') no-repeat linear-gradient(to right, white 50%, transparent 50%) no-repeat;
   background-position: bottom center, center left;
-  background-size: cover, 100%;
+  background-size: cover, 60%;
 }
-
 #job .title {
   font-family: "Alliance No.1";
   font-style: normal;
@@ -679,7 +690,10 @@ label {
   }
   .page-title h2,
   .page-title .close {
-    font-size: 2rem;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 158%;
+    letter-spacing: -0.4px;
   }
   form .form-group {
     margin-bottom: 1rem !important;
