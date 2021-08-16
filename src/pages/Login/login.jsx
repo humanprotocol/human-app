@@ -7,7 +7,7 @@ import { Password } from '../../components/inputs/password/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
 import './login.scss';
-import { ErrorType, ErrorMessage } from '../../constants';
+import { ErrorType, ErrorMessage, SignUpOpt } from '../../constants';
 
 const LoginPage = (props) => {
   const dispatch = useDispatch();
@@ -73,10 +73,6 @@ const LoginPage = (props) => {
               }
             </FormGroup>
             <Password onChange={handleChange} value={password} submitted={submitted}></Password>
-            <div className='d-flex justify-content-between mb-2'>
-              <Link to='/changePassword' className='btn btn-link'>Forgot Password?</Link>
-              <Link to='/register' className='btn btn-link'>Register</Link>
-            </div>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
               <Button className='form-control bg-blue' onClick={handleSubmit}>Next</Button>

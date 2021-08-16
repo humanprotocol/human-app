@@ -76,6 +76,24 @@ const LinkWalletPage = (props) => {
                 </div>
             </>
             }
+
+            {/* <FormGroup>
+                <p>The wallet address must be KYC-verified. We’ll need this to send you HMT!</p>
+            </FormGroup>
+            <FormGroup>
+                <FormControl placeholder='Wallet address' type='text' name='walletAddress' value={walletAddress} onChange={handleChange}></FormControl>
+                {submitted && !walletAddress &&
+                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireWalletAddress}</FormControl.Feedback>
+                }
+                {submitted && walletAddress && walletAddress.length !== 42 &&
+                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidWalletAddress}</FormControl.Feedback>
+                }
+            </FormGroup>
+            <p><Link>Click here</Link> to create your crypto wallet</p>
+            <FormGroup className='actions d-flex justify-content-between m-0'>
+                <Link className='btn' to={{ pathname:Routes.Register.path, state: SignUpOpt.register}}>Back</Link>
+                <Button className='form-control bg-blue' onClick={handleLinkWallet}>Next</Button>
+            </FormGroup> */}
             
         </div>
     )

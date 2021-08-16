@@ -1,88 +1,105 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { FormGroup, FormControl, Button, Alert } from "react-bootstrap";
 import * as EmailValidator from 'email-validator';
+import countryList from "react-select-country-list";
 import { ErrorMessage, SignUpOpt } from "../../constants";
 import { Password } from "../../components/inputs/password/password";
 import './login.scss';
-import { register, linkWallet } from "../../service/user.service";
+import { register, linkWallet, verifyEmail } from "../../service/user.service";
 import { Routes } from "../../routes";
 
 const RegisterPage = (props) => {
     const { history } = props;
     const dispatch = useDispatch();
-    const [option, setOption] = useState(SignUpOpt.verifyEmail)
+    const { user, isAuthed } = useSelector((state) => state.auth);
+    const [option, setOption] = useState(SignUpOpt.register)
     const [emailVerified, setEmailVerified] = useState(false)
+    const [coutries, setCoutries] = useState([])
+    const [confirm, setConfirm] = useState(true)
+     
     const [inputs, setInputs] = useState({
         email: '',
         userName: '',
         firstName: '',
         lastName: '',
         password: '',
+        repeatPassword: '',
         walletAddress: '',
         verificationToken: '',
     });
     const [alertMsg, setAlertMsg] = useState('');
     useEffect(() => {
-        if(history.location.state) 
-            setOption(history.location.state);
-    }, [])
+        const countries = countryList().getData();
+        setCoutries(countries);
+        if(history.location.state.email) {
+            setInputs({ ...inputs, email: history.location.state.email })
+        }
+    }, []);
+
     const [submitted, setSubmitted] = useState(false);
-    const { email, password, userName, firstName, lastName, walletAddress, verificationToken } = inputs;
+    const { email, password, repeatPassword, userName,  verificationToken } = inputs;
     
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInputs(inputs => ({ ...inputs, [name]: value }));
     }
 
-    const handleSubmit = (e) => {
+    const handleRegister = (e) => {
         e.preventDefault();
         setSubmitted(true);
-        if(email && password && userName && firstName && lastName && EmailValidator.validate(email)) {
-            register(inputs).then((user) => {
+
+        if(password && repeatPassword && password !== repeatPassword) {
+            setConfirm(false);
+        }
+
+        if(email && password && userName && confirm && EmailValidator.validate(email)) {
+            return register({ name: userName, email, password }).then((response) => {
                 dispatch({
                     type: 'AUTH_SIGN_IN',
                     payload: true,
                 });
                 dispatch({
                     type: 'AUTH_SUCCESS',
-                    payload: user,
+                    payload: response,
                 });
-                history.push({ pathname: Routes.Home.path });
-            })
-        }
-    }
-
-    const handleLinkWallet = (e) => {
-        e.preventDefault();
-        setSubmitted(true);
-        if(walletAddress && walletAddress.length === 42) {
-            linkWallet(walletAddress).then(() => {
-                console.log('Success to link Wallet');
-                setAlertMsg('');
-                setOption(SignUpOpt.complete);
+                setOption(SignUpOpt.verifyEmail);
+                setSubmitted(false);
             }).catch((err) => {
                 setAlertMsg(err.message);
             })
         }
     }
 
-    const startQuestionnaire = (e) => {
+    const resendVerification = (e) => {
         e.preventDefault();
-        setSubmitted(false);
-        history.push({ pathname: Routes.Home.path });
+
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSubmitted(true);
+        if(emailVerified) {
+            history.push({ pathname: Routes.Profile.path });
+        }
+    }
+
+    const handleVerification = (e) => {
+        e.preventDefault()
+        setSubmitted(true);
+
+        if(verificationToken) {
+            return verifyEmail(verificationToken)
+                .then(() => {
+                    setAlertMsg('');
+                    setEmailVerified(true);
+                }).catch((err) => { setAlertMsg(err.message) });
+        }
     }
 
     return (
         <div id='register' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
-            { option !== SignUpOpt.complete &&
-            <div className='d-flex justify-content-between'>
-                <div className={ option === SignUpOpt.verifyEmail ? 'opt active' : 'opt' } onClick={(e) => setOption(SignUpOpt.verifyEmail)}>Verify Email</div>
-                <div className={ option === SignUpOpt.register ? 'opt active' : 'opt' } onClick={(e) => setOption(SignUpOpt.register)}>Create Account</div>
-                <div className={ option === SignUpOpt.linkWallet ? 'opt active' : 'opt' } onClick={(e) => setOption(SignUpOpt.linkWallet)}>Link Wallet</div>
-            </div>
-            }
             <div className='container'>
                 <div className='page-title d-flex justify-content-between mb-4'>
                     { option === SignUpOpt.verifyEmail && !emailVerified &&
@@ -94,19 +111,10 @@ const RegisterPage = (props) => {
                     { option === SignUpOpt.register && 
                        <h2>Create account</h2>
                     }
-                    { option === SignUpOpt.linkWallet && 
-                       <h2>Link wallet</h2>
-                    }
-                    { option === SignUpOpt.complete && 
-                       <h2>Start earning HMT</h2>
-                    }
                     <Link to='/'><i className='material-icons close'>clear</i></Link>
                 </div>
                 { alertMsg && alertMsg.length &&
                 <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
-                    { option === SignUpOpt.linkWallet && 
-                    <Alert.Heading>Link wallet failed!</Alert.Heading>
-                    }
                     { option === SignUpOpt.register && 
                     <Alert.Heading>Register failed!</Alert.Heading>
                     }
@@ -117,8 +125,8 @@ const RegisterPage = (props) => {
                 </Alert>
                 }
                 <div>
-                    <form name='form' onSubmit={handleSubmit}>
-                        { option === SignUpOpt.verifyEmail && 
+                    <form name='form'>
+                        { option === SignUpOpt.verifyEmail && !emailVerified && 
                         <>
                         <FormGroup>
                             <FormControl placeholder='Token' type='text' name='verificationToken' value={verificationToken} onChange={handleChange}></FormControl>
@@ -127,83 +135,33 @@ const RegisterPage = (props) => {
                             }
                         </FormGroup>
                         <FormGroup className='actions d-flex justify-content-between m-0'>
-                            <Link className='btn' to={{ pathname:Routes.Register.path, state: SignUpOpt.register}}>Back</Link>
-                            <Button className='form-control bg-blue' onClick={handleLinkWallet}>Next</Button>
+                            <Link className='btn' onClick={resendVerification}>Re-send</Link>
+                            <Button className='form-control bg-blue' onClick={handleVerification}>Verify email</Button>
                         </FormGroup>
                         </>
                         }
-                        { option === SignUpOpt.complete && 
-                        <>
-                        <FormGroup>
-                            <p>Complete the questionnaire to receive 1 HMT.</p>
-                        </FormGroup>
+                        { option === SignUpOpt.verifyEmail && emailVerified && 
                         <FormGroup className='actions d-flex justify-content-between m-0'>
-                            <Link className='btn' to={Routes.Home.path}>Skip</Link>
-                            <Button className='form-control bg-blue' onClick={startQuestionnaire}>Questionnaire</Button>
+                            <Link className='btn' onClick={() => setOption(SignUpOpt.register)}>Back</Link>
+                            <Button className='form-control bg-blue' onClick={handleSubmit}>Next</Button>
                         </FormGroup>
-                        </>
-                        }
-                        { option === SignUpOpt.linkWallet &&
-                        <>
-                        <FormGroup>
-                            <p>The wallet address must be KYC-verified. We’ll need this to send you HMT!</p>
-                        </FormGroup>
-                        <FormGroup>
-                            <FormControl placeholder='Wallet address' type='text' name='walletAddress' value={walletAddress} onChange={handleChange}></FormControl>
-                            {submitted && !walletAddress &&
-                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireWalletAddress}</FormControl.Feedback>
-                            }
-                            {submitted && walletAddress && walletAddress.length !== 42 &&
-                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidWalletAddress}</FormControl.Feedback>
-                            }
-                        </FormGroup>
-                        <p><Link>Click here</Link> to create your crypto wallet</p>
-                        <FormGroup className='actions d-flex justify-content-between m-0'>
-                            <Link className='btn' to={{ pathname:Routes.Register.path, state: SignUpOpt.register}}>Back</Link>
-                            <Button className='form-control bg-blue' onClick={handleLinkWallet}>Next</Button>
-                        </FormGroup>
-                        </> 
                         }
                         { option === SignUpOpt.register && 
                         <>
-                        <FormGroup>
-                            <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>
-                            {submitted && !email &&
-                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
-                            }
-                            {submitted && email && !EmailValidator.validate(email) &&
-                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
-                            }
-                        </FormGroup>
                         <FormGroup>
                             <FormControl placeholder='Username' type='text' name='userName' value={userName} onChange={handleChange}></FormControl>
                             {submitted && !userName &&
                             <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireUserName}</FormControl.Feedback>
                             }
                         </FormGroup>
-                        <FormGroup className='mb-5'>
-                            <div className='row'>
-                                <div className='col'>
-                                    <FormControl placeholder='First Name' type='text' name='firstName' value={firstName} onChange={handleChange}></FormControl>
-                                    {submitted && !firstName &&
-                                    <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireFirstName}</FormControl.Feedback>
-                                    }
-                                </div>
-                                <div className='col'>
-                                    <FormControl placeholder='Last Name' type='text' name='lastName' value={lastName} onChange={handleChange}></FormControl>
-                                    {submitted && !firstName &&
-                                    <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireLastName}</FormControl.Feedback>
-                                    }
-                                </div>
-                            </div>
+                        <Password onChange={handleChange} name='password' value={password} placeholder='Create password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
+                        <Password onChange={handleChange} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
+                        <FormGroup className='actions d-flex justify-content-between m-0'>
+                            <Link className='btn' to={Routes.Home.path}>Back</Link>
+                            <Button className='form-control bg-blue' onClick={handleRegister}>Next</Button>
                         </FormGroup>
-                        <Password onChange={handleChange} value={password} submitted={submitted} className='mb-5'></Password>
                         </>
                         }
-                        {/* <FormGroup className='actions d-flex justify-content-between m-0'>
-                            <Link className='btn' to={Routes.Home.path}>Back</Link>
-                            <Button className='form-control bg-blue'>Next</Button>
-                        </FormGroup> */}
                     </form>
                 </div>
             </div>

@@ -36,7 +36,7 @@ const Navigation = ({ history }) => {
         { isAuthed &&  
         <div className='d-block d-sm-none'>{hmtCounts} HMT</div>
         }
-        <div className='row m-0'>
+        {/* <div className='row m-0'>
           { !isAuthed && <Link to={{ pathname:'/login' }} style={{color: PrimaryColor.black}} className='page-scroll'>Log In</Link> }
           {isAuthed &&
           <Dropdown>
@@ -47,7 +47,7 @@ const Navigation = ({ history }) => {
             </Dropdown.Menu>
           </Dropdown>
           }
-        </div>
+        </div> */}
       </div>
     </nav>
   );

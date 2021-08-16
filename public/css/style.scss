@@ -670,6 +670,13 @@ label {
   background: url("../img/job_content_dots.png") no-repeat top left;
 }
 
+.modal-content {
+  border-radius: 10px!important;
+  max-width: 400px;
+}
+.modal-header {
+  border: 0!important;
+}
 @media screen and (max-width: 768px) {
   #welcome .intro-text {
     padding-top: 3rem !important;

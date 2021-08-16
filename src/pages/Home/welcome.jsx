@@ -2,10 +2,9 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
-import { FormControl, FormGroup, Button } from 'react-bootstrap';
+import { FormControl, FormGroup, Button  } from 'react-bootstrap';
 import './home.scss';
 import { Routes } from '../../routes';
-import { SignUpOpt } from '../../constants';
 import { sendVerificationEmail } from '../../service/user.service';
 
 const Welcome = ({ history }) => {
@@ -15,26 +14,17 @@ const Welcome = ({ history }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!isAuthed) {
-      setStatus({ email: false, msg: 'You shold login' });
-    } else if(isAuthed && !user) {
-      setStatus({ email: false, msg: 'You should login again' });
-    } else if(isAuthed && user && !token) {
-      setStatus({ email: false, msg: 'Access token required' });
-    } else if (isAuthed && user && token) {
-      return sendVerificationEmail(token)
-        .then(() => history.push({ pathname: Routes.Register.path, state: SignUpOpt.verifyEmail }))
+    if (!email && !isAuthed) {
+      setStatus({ email: false, msg: 'email is required' });
+    } else if (!EmailValidator.validate(email) && !isAuthed) {
+      setStatus({ email: false, msg: 'Invalid email' });
+    } else if (isAuthed && !user && !email) {
+      setStatus({ email: false, msg: 'email is required' });
+    } else {
+      return sendVerificationEmail({ email, newsletter: false })
+        .then(() => history.push({ pathname: Routes.Register.path, state: { email } }))
         .catch((err) => setStatus({ email: false, msg: err.message }));
     }
-    // if (!email && !isAuthed) {
-    //   setStatus({ email: false, msg: 'email is required' });
-    // } else if (!EmailValidator.validate(email) && !isAuthed) {
-    //   setStatus({ email: false, msg: 'Invalid email' });
-    // } else if (isAuthed && !user && !email) {
-    //   setStatus({ email: false, msg: 'email is required' });
-    // } else {
-    //   history.push({ pathname: Routes.Register.path, state: SignUpOpt.verifyEmail });
-    // }
   };
 
   const handleChange = (e) => {
