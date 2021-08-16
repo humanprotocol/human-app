@@ -107,3 +107,9 @@ export const ErrorMessage = {
   requireLastName: "Last name required",
   requireWalletAddress: "Wallet Address required",
 };
+
+export const SignUpOpt = {
+  verifyEmail: 'verifyEmail',
+  register: 'register',
+  linkWallet: 'linkWallet',
+}

@@ -1,6 +1,23 @@
 #login {
     max-width: 496px;
     margin: auto;
+    .btn-link {
+        color: #6309FF;
+        padding: 0.5rem 0;
+        &:focus {
+            border: 0;
+            box-shadow: none;
+        }
+    }
+    button {
+        width: 100%;
+        color: white;
+        background: #6309FF;
+        height: 3rem;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
 }
 .form-control {
     height: 46px;
@@ -19,23 +36,6 @@
     border: 0;
     border-radius: 0.5rem;
 }
-#login .btn-link {
-    color: #6309FF;
-    padding: 0.5rem 0;
-}
-#login .btn-link:focus {
-    border: 0;
-    box-shadow: none;
-}
-#login button {
-    width: 100%;
-    color: white;
-    background: #6309FF;
-    height: 3rem;
-}
-#login button:hover {
-    opacity: 0.8;
-}
 #login .password span {
     font-size: 20px;
 }
@@ -53,4 +53,20 @@
     background: #6309FF!important;
     color: #fff;
     opacity: 0.8;
+}
+#register {
+    max-width: 400px;
+    margin: auto;
+    .opt {
+        font-size: 16px;
+        line-height: 237%;
+        letter-spacing: -0.4px;
+        cursor: pointer;
+        &.active {
+            color:#6309FF ;
+        }
+    }
+    .container {
+        margin-top: 36px;
+    }
 }

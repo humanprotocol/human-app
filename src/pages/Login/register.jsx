@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { FormGroup, FormControl, Button } from "react-bootstrap";
 import * as EmailValidator from 'email-validator';
-import { ErrorMessage } from "../../constants";
+import { ErrorMessage, SignUpOpt } from "../../constants";
 import { Password } from "../../components/inputs/password/password";
 import './login.scss';
 import { register } from "../../service/user.service";
@@ -12,6 +12,8 @@ import { Routes } from "../../routes";
 const RegisterPage = (props) => {
     const { history } = props;
     const dispatch = useDispatch();
+    const [option, setOption] = useState(SignUpOpt.verifyEmail)
+    const [emailVerified, setEmailVerified] = useState(false)
     const [inputs, setInputs] = useState({
         email: '',
         userName: '',
@@ -19,6 +21,10 @@ const RegisterPage = (props) => {
         lastName: '',
         password: '',
     });
+    useEffect(() => {
+        if(history.location.state) 
+            setOption(history.location.state);
+    }, [])
     const [submitted, setSubmitted] = useState(false);
     const { email, password, userName, firstName, lastName } = inputs;
     
@@ -47,50 +53,72 @@ const RegisterPage = (props) => {
 
     return (
         <div id='register' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
-            <div className='page-title d-flex justify-content-between mb-4'>
-                <h2>Sign Up</h2>
-                <Link to='/'><i className='material-icons close'>clear</i></Link>
+            <div className='d-flex justify-content-between'>
+                <div className={ option === SignUpOpt.verifyEmail ? 'opt active' : 'opt' } onClick={(e) => setOption(SignUpOpt.verifyEmail)}>Verify Email</div>
+                <div className={ option === SignUpOpt.register ? 'opt active' : 'opt' } onClick={(e) => setOption(SignUpOpt.register)}>Create Account</div>
+                <div className={ option === SignUpOpt.linkWallet ? 'opt active' : 'opt' } onClick={(e) => setOption(SignUpOpt.linkWallet)}>Link Wallet</div>
             </div>
-            <div>
-                <form name='form' onSubmit={handleSubmit}>
-                    <FormGroup>
-                        <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>
-                        {submitted && !email &&
-                        <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
-                        }
-                        {submitted && email && !EmailValidator.validate(email) &&
-                        <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
-                        }
-                    </FormGroup>
-                    <FormGroup>
-                        <FormControl placeholder='Username' type='text' name='userName' value={userName} onChange={handleChange}></FormControl>
-                        {submitted && !userName &&
-                        <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireUserName}</FormControl.Feedback>
-                        }
-                    </FormGroup>
-                    <FormGroup className='mb-5'>
-                        <div className='row'>
-                            <div className='col'>
-                                <FormControl placeholder='First Name' type='text' name='firstName' value={firstName} onChange={handleChange}></FormControl>
-                                {submitted && !firstName &&
-                                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireFirstName}</FormControl.Feedback>
-                                }
+            <div className='container'>
+                <div className='page-title d-flex justify-content-between mb-4'>
+                    { option === SignUpOpt.verifyEmail && !emailVerified &&
+                       <h2>Verify Email</h2>
+                    }
+                    { option === SignUpOpt.verifyEmail && emailVerified &&
+                       <h2>Verify Email</h2>
+                    }
+                    { option === SignUpOpt.register && 
+                       <h2>Create account</h2>
+                    }
+                    { option === SignUpOpt.linkWallet && 
+                       <h2>Link wallet</h2>
+                    }
+                    <Link to='/'><i className='material-icons close'>clear</i></Link>
+                </div>
+                <div>
+                    <form name='form' onSubmit={handleSubmit}>
+                        <FormGroup>
+                            <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>
+                            {submitted && !email &&
+                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
+                            }
+                            {submitted && email && !EmailValidator.validate(email) &&
+                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
+                            }
+                        </FormGroup>
+                        <FormGroup>
+                            <FormControl placeholder='Username' type='text' name='userName' value={userName} onChange={handleChange}></FormControl>
+                            {submitted && !userName &&
+                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireUserName}</FormControl.Feedback>
+                            }
+                        </FormGroup>
+                        <FormGroup className='mb-5'>
+                            <div className='row'>
+                                <div className='col'>
+                                    <FormControl placeholder='First Name' type='text' name='firstName' value={firstName} onChange={handleChange}></FormControl>
+                                    {submitted && !firstName &&
+                                    <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireFirstName}</FormControl.Feedback>
+                                    }
+                                </div>
+                                <div className='col'>
+                                    <FormControl placeholder='Last Name' type='text' name='lastName' value={lastName} onChange={handleChange}></FormControl>
+                                    {submitted && !firstName &&
+                                    <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireLastName}</FormControl.Feedback>
+                                    }
+                                </div>
                             </div>
-                            <div className='col'>
-                                <FormControl placeholder='Last Name' type='text' name='lastName' value={lastName} onChange={handleChange}></FormControl>
-                                {submitted && !firstName &&
-                                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireLastName}</FormControl.Feedback>
-                                }
-                            </div>
-                        </div>
-                    </FormGroup>
-                    <Password onChange={handleChange} value={password} submitted={submitted} className='mb-5'></Password>
-                    <FormGroup>
-                        <Button className='form-control' onClick={handleSubmit}>Next</Button>
-                    </FormGroup>
-                </form>
+                        </FormGroup>
+                        <Password onChange={handleChange} value={password} submitted={submitted} className='mb-5'></Password>
+                        <FormGroup>
+                            <Button className='form-control' onClick={handleSubmit}>Next</Button>
+                        </FormGroup>
+                        <FormGroup className='actions d-flex justify-content-between m-0'>
+                            <Link className='btn' to={Routes.Home.path}>Back</Link>
+                            <Button className='form-control bg-blue'>Next</Button>
+                        </FormGroup>
+                    </form>
+                </div>
             </div>
-            </div>
+        </div>
     )
 }
 
