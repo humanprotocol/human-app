@@ -27,7 +27,7 @@ export const Subscribe = ({ history }) => {
         .then(() => {
           setError('')
           setModalShow(true)})
-        .catch((err) => { setError(`Failed to send email verfication`) })
+        .catch((err) => { setError(err.message) })
     }
   }
 
