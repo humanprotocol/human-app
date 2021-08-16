@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, FormControl, FormGroup } from 'react-bootstrap';
+import { Button, FormControl, FormGroup, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
@@ -16,6 +16,7 @@ const LoginPage = (props) => {
     email: '',
     password: ''
   }); 
+  const [alertMsg, setAlertMsg] = useState('')
   const [submitted, setSubmitted] = useState(false);
   const { email, password } = inputs;
 
@@ -36,10 +37,12 @@ const LoginPage = (props) => {
           });
           dispatch({
             type: 'AUTH_SUCCESS',
-            payload: { email, password },
+            payload: res,
           })
           history.push({ pathname: Routes.Home.path });
         }
+      }).catch((err) => {
+        setAlertMsg(err.message);
       });
     } 
   }
@@ -47,30 +50,39 @@ const LoginPage = (props) => {
 
   return (
     <div id='login' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
-      <div className='page-title d-flex justify-content-between mb-4'>
-        <h2>Log in</h2>
-        <Link to='/'><i className='material-icons close'>clear</i></Link>
-      </div>
-      <div>
-        <form name='form' onSubmit={handleSubmit}>
-          <FormGroup>
-            <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>
-            {submitted && !email &&
-              <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
-            }
-            {submitted && email && !EmailValidator.validate(email) &&
-              <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
-            }
-          </FormGroup>
-          <Password onChange={handleChange} value={password} submitted={submitted}></Password>
-          <div className='d-flex justify-content-between mb-2'>
-            <Link to='/changePassword' className='btn btn-link'>Forgot Password?</Link>
-            <Link to='/register' className='btn btn-link'>Register</Link>
-          </div>
-          <div className='form-group'>
-            <Button className='form-control' onClick={handleSubmit}>Next</Button>
-          </div>
-        </form>
+      <div className='container'>
+        <div className='page-title d-flex justify-content-between mb-4'>
+          <h2>Log in</h2>
+          <Link to='/'><i className='material-icons close'>clear</i></Link>
+        </div>
+        { alertMsg && alertMsg.length &&
+          <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
+            <Alert.Heading>Login Failed!</Alert.Heading>
+            <p>{alertMsg}</p>
+          </Alert>
+        }
+        <div>
+          <form name='form' onSubmit={handleSubmit}>
+            <FormGroup>
+              <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>
+              {submitted && !email &&
+                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
+              }
+              {submitted && email && !EmailValidator.validate(email) &&
+                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
+              }
+            </FormGroup>
+            <Password onChange={handleChange} value={password} submitted={submitted}></Password>
+            <div className='d-flex justify-content-between mb-2'>
+              <Link to='/changePassword' className='btn btn-link'>Forgot Password?</Link>
+              <Link to='/register' className='btn btn-link'>Register</Link>
+            </div>
+            <FormGroup className='actions d-flex justify-content-between m-0'>
+              <Link className='btn' to={Routes.Home.path}>Back</Link>
+              <Button className='form-control bg-blue' onClick={handleSubmit}>Next</Button>
+            </FormGroup>
+          </form>
+        </div>
       </div>
     </div>
   )

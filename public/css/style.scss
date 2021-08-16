@@ -602,22 +602,14 @@ a:focus,
   color: #666;
 }
 /* Team Section */
-#team {
-  padding: 100px 0;
-}
-#team h4 {
-  margin: 5px 0;
-}
-#team .team-img {
-  width: 240px;
-}
-#team .thumbnail {
-  background: transparent;
-  border: 0;
-}
-#team .thumbnail .caption {
-  padding: 10px 0 0;
-  color: #888;
+#profile .container,
+#login .container,
+#register .container {
+  background: linear-gradient(359.93deg, #FFFFFF 10.95%, #FCFBFF 121.59%);
+  border: 1px solid #EEEEEE;
+  box-shadow: 0px 23px 35px -12px rgba(31, 6, 87, 0.08);
+  border-radius: 10px;
+  padding: 32px 16px 24px;
 }
 /* Contact Section */
 #subscribe {
@@ -718,8 +710,6 @@ label {
   #welcome,
   #profile {
     margin-top: 4rem !important;
-  }
-  #profile {
     height: auto !important;
   }
   #subscribe {

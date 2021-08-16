@@ -1,5 +1,5 @@
 #login {
-    max-width: 496px;
+    max-width: 400px;
     margin: auto;
     .btn-link {
         color: #6309FF;
@@ -70,3 +70,46 @@
         margin-top: 36px;
     }
 }
+
+.alert  {
+    button {
+        &.close {
+            width: auto!important;
+            background: transparent!important;
+            color: #0a060e!important;
+            padding: 0.5rem!important;
+            height: 2rem!important;
+        }
+    }
+    .alert-heading {
+        font-size: 20px;
+    }
+    p {
+        font-size: 14px;
+        margin: 0;
+    }
+}
+
+form {
+    .form-group {
+        &.actions {
+            .btn {
+                width: 50%;
+                max-width: 160px;
+                font-size: 16px;
+                letter-spacing: 0.2px;
+            }
+            a {
+                width: 40%;
+                background: #FFFFFF;
+                border: 1px solid #6309FF;
+                border-radius: 10px;
+                color: #6309FF;
+                font-size: 16px;
+                line-height: 200%;
+                letter-spacing: 0.2px;
+            }
+        }
+    }
+}
+

@@ -1,3 +1,6 @@
+import axios from 'axios';
+import * as EmailValidator from "email-validator";
+
 export const authHeader = () => {
   // return authorization header with jwt token
   let user = JSON.parse(localStorage.getItem('user'));
@@ -7,17 +10,42 @@ export const authHeader = () => {
   } else {
       return {};
   }
+
 }
 
 export const register = async (user) => {
-  localStorage.setItem('user', JSON.stringify(user));  
-  return user;
+  if(!user.name) throw new Error(`name required`);
+  if(!user.password) throw new Error(`password required`);
+  if(user.password.length < 5 ) throw new Error(`password is at least 5 length`);
+  if(!user.email) throw new Error(`email required`);
+  if(user.email && !EmailValidator.validate(user.email))
+    throw new Error(`Invalid email`);
+  
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/register`,
+    user,
+  ).then((response) => {
+    if(response) {
+      const { user, tokens } = response.data;
+      localStorage.setItem('token', tokens.access.token);
+      localStorage.setItem('refreshToken', tokens.refresh.token);
+      return user;
+    }
+  })
 }
 
 export const signIn = async ({email, password}) => {
-  localStorage.setItem("token", 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3QudXNlckBnbWFpbC5jb20iLCJ1c2VyTmFtZSI6InN0YXJEdXN0IiwiZmlyc3ROYW1lIjoiSmFtZXMiLCJsYXN0TmFtZSI6IkFsZXgiLCJwYXNzd29yZCI6IlFXRTEyMyFAIyJ9.7f7ATho1Qd0e-IO3OhoE-oiCGSPYaKGuKHQgf3bJ7Oo');
-  localStorage.setItem('user', JSON.stringify({ email, password }));
-  return true;
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/login`,
+    { email, password },
+  ).then((response) => {
+    const { user, tokens } = response.data;
+    localStorage.setItem('token', tokens.access.token);
+    localStorage.setItem('refreshToken', tokens.refresh.token);
+    return user;
+  }).catch((err) => {
+    throw new Error(err.response.data.message);
+  });
 }
 
 export const update = async (user) => {
@@ -26,6 +54,26 @@ export const update = async (user) => {
 }
 
 export const logOut = async () => {
-  localStorage.removeItem('user');
-  return true;
+  const refreshToken = localStorage.getItem('refreshToken');
+  if(refreshToken && refreshToken.length) {
+    return axios.post(
+      `${process.env.REACT_APP_API_URL}/auth/logout`,
+      { refreshToken },
+    );
+  } else {
+    throw new Error('refreshToken required.')
+  }
 }
+
+export const forgotPassword = async (email) => {
+  if(!email) throw new Error(`email required`);
+  if(email && EmailValidator.validate(email))
+    throw new Error(`Invalid email`);
+
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/forgot-password`,
+    { email },
+  ).catch((err) => {
+    // throw new Error(err.response.data.)
+  })
+} 
