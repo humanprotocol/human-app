@@ -108,7 +108,6 @@ export const getMyAccount = async (token) => {
 }
 
 export const verifyEmail = async (token) => {
-  return true;
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/verify-email`,
     null,
@@ -121,15 +120,14 @@ export const verifyEmail = async (token) => {
 }
 
 export const sendVerificationEmail = async (data) => {
-  return true;
-  // return axios.post(
-  //   `${process.env.REACT_APP_API_URL}/auth/register-interest`,
-  //   data,
-  // ).then((response) => {
-  //   if(response && response.status === 204)
-  //     return true;
-  //   else throw new Error(`Failed to send email verification`);
-  // }).catch((err) => {
-  //   throw new Error(err.response.data.message);
-  // });
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/register-interest`,
+    data,
+  ).then((response) => {
+    if(response && response.status === 204)
+      return true;
+    else throw new Error(`Failed to send email verification`);
+  }).catch((err) => {
+    throw new Error(err.response.data.message);
+  });
 }

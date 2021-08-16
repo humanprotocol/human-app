@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
-import { FormGroup, FormControl, Button, Alert } from "react-bootstrap";
+import { FormGroup, FormControl, Button, Alert, Dropdown } from "react-bootstrap";
 import * as EmailValidator from 'email-validator';
 import countryList from "react-select-country-list";
 import { ErrorMessage, SignUpOpt } from "../../constants";
 import { Password } from "../../components/inputs/password/password";
 import './login.scss';
-import { register, linkWallet, verifyEmail } from "../../service/user.service";
+import { register, verifyEmail } from "../../service/user.service";
 import { Routes } from "../../routes";
 
 const RegisterPage = (props) => {
@@ -154,6 +154,48 @@ const RegisterPage = (props) => {
                             <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireUserName}</FormControl.Feedback>
                             }
                         </FormGroup>
+                        {/* <FormGroup>
+                            <Dropdown drop="down">
+                            <Dropdown.Toggle className="form-control text-left bg-white">
+                                {inputs.question_3 || "Select"}
+                                <i className="fa fa-angle-down text-right" />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu className="w-100">
+                                <Dropdown.Item
+                                className="w-100"
+                                onClick={(e) => {
+                                    handleSelect("");
+                                }}
+                                >
+                                Select
+                                </Dropdown.Item>
+                                {coutries &&
+                                coutries.length &&
+                                optItems.map((optItem, index) => {
+                                    return (
+                                    <Dropdown.Item
+                                        key={index}
+                                        className="w-100"
+                                        onClick={(e) => {
+                                        handleSelect(optItem.value);
+                                        }}
+                                        active={optItem.checked}
+                                    >
+                                        {optItem.value}
+                                    </Dropdown.Item>
+                                    );
+                                })}
+                            </Dropdown.Menu>
+                            </Dropdown>
+                            <FormControl.Feedback
+                            type="invalid"
+                            className={
+                                submitted && !questions.question_3 ? "d-block" : ""
+                            }
+                            >
+                            Question 3 required
+                            </FormControl.Feedback>
+                        </FormGroup> */}
                         <Password onChange={handleChange} name='password' value={password} placeholder='Create password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
                         <Password onChange={handleChange} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
                         <FormGroup className='actions d-flex justify-content-between m-0'>
