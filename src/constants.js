@@ -106,6 +106,8 @@ export const ErrorMessage = {
   requireFirstName: "First name required",
   requireLastName: "Last name required",
   requireWalletAddress: "Wallet Address required",
+  requireVerificationToken: 'Verification token required',
+  invalidVerificationToken: 'invalid verification token',
 };
 
 export const SignUpOpt = {

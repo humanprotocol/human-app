@@ -21,6 +21,7 @@ const RegisterPage = (props) => {
         lastName: '',
         password: '',
         walletAddress: '',
+        verificationToken: '',
     });
     const [alertMsg, setAlertMsg] = useState('');
     useEffect(() => {
@@ -28,7 +29,7 @@ const RegisterPage = (props) => {
             setOption(history.location.state);
     }, [])
     const [submitted, setSubmitted] = useState(false);
-    const { email, password, userName, firstName, lastName, walletAddress } = inputs;
+    const { email, password, userName, firstName, lastName, walletAddress, verificationToken } = inputs;
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -118,7 +119,18 @@ const RegisterPage = (props) => {
                 <div>
                     <form name='form' onSubmit={handleSubmit}>
                         { option === SignUpOpt.verifyEmail && 
-                        <FormGroup></FormGroup>
+                        <>
+                        <FormGroup>
+                            <FormControl placeholder='Token' type='text' name='verificationToken' value={verificationToken} onChange={handleChange}></FormControl>
+                            {submitted && !verificationToken &&
+                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireVerificationToken}</FormControl.Feedback>
+                            }
+                        </FormGroup>
+                        <FormGroup className='actions d-flex justify-content-between m-0'>
+                            <Link className='btn' to={{ pathname:Routes.Register.path, state: SignUpOpt.register}}>Back</Link>
+                            <Button className='form-control bg-blue' onClick={handleLinkWallet}>Next</Button>
+                        </FormGroup>
+                        </>
                         }
                         { option === SignUpOpt.complete && 
                         <>
