@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as EmailValidator from "email-validator";
+import * as EmailValidator from 'email-validator';
 
 export const authHeader = () => {
   // return authorization header with jwt token
@@ -42,7 +42,7 @@ export const signIn = async ({email, password}) => {
     const { user, tokens } = response.data;
     localStorage.setItem('token', tokens.access.token);
     localStorage.setItem('refreshToken', tokens.refresh.token);
-    return user;
+    return { user, token: tokens.access.token };
   }).catch((err) => {
     throw new Error(err.response.data.message);
   });
@@ -81,4 +81,30 @@ export const forgotPassword = async (email) => {
 export const linkWallet = async (address) => {
   // throw new Error(`Failed to link wallet`);
   return true;
+}
+
+export const getMyAccount = async (token) => {
+  return {
+    id: '5ebac534954b54139806c112',
+    email: 'fake@example.com',
+    name: 'fake name',
+    role: 'user'
+  }
+}
+
+export const sendVerificationEmail = async (token) => {
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/send-verification-email`,
+    '',
+    { headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    }
+  ).then((response) => {
+    if(response && response.status === 204)
+      return true;
+    else throw new Error(`Failed to send verification email`);
+  }).catch((err) => {
+    throw new Error(err.response.data.message);
+  })
 }
