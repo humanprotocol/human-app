@@ -5,6 +5,8 @@ import { Routes } from '../../routes';
 import { ErrorMessage } from '../../constants';
 import SubscribeImg from '../../assets/images/subscribe.png';
 import { sendVerificationEmail } from '../../service/user.service';
+import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export const Subscribe = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -29,8 +31,8 @@ export const Subscribe = ({ history }) => {
     }
   }
 
-  const handleSocial = (e) => {
-    console.log(e.target.value);
+  const handleSocial = (link) => {
+    return <Redirect to={{ pathname: link}}></Redirect>
   }
 
   return (
@@ -53,10 +55,10 @@ export const Subscribe = ({ history }) => {
               <Button className='btn btn-custom form-control' onClick={handleSubmit}>Subscribe</Button>
             </FormGroup>
             <FormGroup className='social'>
-              <div className='social-icon icon-github' onClick={handleSocial}><i className='fa fa-github'></i></div>
-              <div className='social-icon icon-twitter' onClick={handleSocial}><i className='fa fa-twitter'></i></div>
-              <div className='social-icon icon-telegram' onClick={handleSocial}><i className='fa fa-telegram'></i></div>
-              <div className='social-icon icon-linkedin' onClick={handleSocial}><i className='fa fa-linkedin'></i></div>
+              <a href='https://github.com/humanprotocol' className='social-icon icon-github'><i className='fa fa-github'></i></a>
+              <a href='https://twitter.com/human_protocol/' className='social-icon icon-twitter'><i className='fa fa-twitter'></i></a>
+              <a href='https://t.me/hcaptchachat' className='social-icon icon-telegram'><i className='fa fa-telegram'></i></a>
+              <a href='https://www.linkedin.com/company/human-protocol/' className='social-icon icon-linkedin'><i className='fa fa-linkedin'></i></a>
             </FormGroup>
           </div>
           <div className='col-md-6 d-none d-md-block'>
