@@ -89,27 +89,36 @@
         margin: 0;
     }
 }
-
-form {
-    .form-group {
-        &.actions {
-            .btn {
-                width: 50%;
-                max-width: 160px;
-                font-size: 16px;
-                letter-spacing: 0.2px;
-            }
-            a {
-                width: 40%;
-                background: #FFFFFF;
-                border: 1px solid #6309FF;
-                border-radius: 10px;
-                color: #6309FF;
-                font-size: 16px;
-                line-height: 200%;
-                letter-spacing: 0.2px;
+.container {
+    form {
+        p {
+            font-size: 16px;
+            line-height: 200%;
+            letter-spacing: 0.2px
+        }
+        a {
+            color: #6309FF;
+            font-size: 16px;
+            line-height: 200%;
+            letter-spacing: 0.2px;
+        }
+        .form-group {
+            &.actions {
+                .btn {
+                    width: 50%;
+                    max-width: 160px;
+                    font-size: 16px;
+                    letter-spacing: 0.2px;
+                }
+                a {
+                    width: 40%;
+                    background: #FFFFFF;
+                    border: 1px solid #6309FF;
+                    border-radius: 10px;
+                }
             }
         }
     }
 }
+
 

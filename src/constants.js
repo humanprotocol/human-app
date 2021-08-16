@@ -112,4 +112,5 @@ export const SignUpOpt = {
   verifyEmail: 'verifyEmail',
   register: 'register',
   linkWallet: 'linkWallet',
+  complete: 'complete',
 }

@@ -57,7 +57,7 @@ const LoginPage = (props) => {
         </div>
         { alertMsg && alertMsg.length &&
           <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
-            <Alert.Heading>Login Failed!</Alert.Heading>
+            <Alert.Heading>Login failed!</Alert.Heading>
             <p>{alertMsg}</p>
           </Alert>
         }

@@ -77,3 +77,8 @@ export const forgotPassword = async (email) => {
     // throw new Error(err.response.data.)
   })
 } 
+
+export const linkWallet = async (address) => {
+  // throw new Error(`Failed to link wallet`);
+  return true;
+}
