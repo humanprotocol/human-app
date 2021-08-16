@@ -149,6 +149,12 @@
 #subscribe {
     .container {
         width: 80%;
+        @media screen and (max-width: 768px) {
+            padding: 80px 0px !important;
+            box-sizing: border-box;
+            width: 85%;
+            margin: 0 auto;
+        }
         h1 {
           line-height: 128%;
         }
@@ -168,9 +174,13 @@
         p {
           font-style: normal;
           font-weight: normal;
-          font-size: 1.125rem;
+          font-size: 18px;
           line-height: 2rem;
           letter-spacing: 0.1px;
+          @media screen and (max-width: 1200px) {
+              font-size: 16px;
+              line-height: 1.6;
+          }
         }
         input {
             border: none;
@@ -240,6 +250,10 @@
                     margin-left: auto;
                     :hover {
                         opacity: 0.8 !important;
+                    }
+                    @media screen and (max-width: 1000px) {
+                        width: 100% !important;
+                        max-width: none !important;
                     }
                 }
             }
@@ -366,9 +380,6 @@
    
     #subscribe {
         .container {
-            .form-group {
-                display: flex!important;
-            }
             .image-container {
                 padding: 0;
             }
