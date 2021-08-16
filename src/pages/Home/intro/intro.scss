@@ -16,12 +16,17 @@
 }
 #intro .human-about {
   background-color: #1f0657;
-  padding: 5% 0;
+  padding: 100px 0px;
+  @media screen and (max-width: 768px) {
+    padding: 60px 0px;
+  }
   .container {
     width: 80%;
     max-width: none;
-    
-    .slider-container {
+    @media screen and (max-width: 768px) {
+      width: 90%;
+    }
+        .slider-container {
       .content {
         max-width: 32rem;
         margin-left: auto;
@@ -41,10 +46,16 @@
 }
 
 #intro .human-jobs {
-  padding: 10% 0 5%;
+  padding: 100px 0px;
+  @media screen and (max-width: 768px) {
+    padding: 60px 0px;
+  }
   .container {
     width: 80%;
     max-width: none;
+    @media screen and (max-width: 768px) {
+      width: 90%;
+    }
     .dot {
       background-color: #6309ff;
     }

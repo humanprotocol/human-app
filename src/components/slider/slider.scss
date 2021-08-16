@@ -23,9 +23,8 @@ body {
 
 .dots {
   display: flex;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   justify-content: center;
-  margin-top: 2rem;
 }
 
 .dot {
@@ -126,7 +125,7 @@ body {
     font-size: 1.5vw !important;
   }
   .description {
-    font-size: 1vw !important;
+    font-size: 18px !important;
   }
   @media screen and (max-width: 1120px) {
     .title {
@@ -136,7 +135,7 @@ body {
       font-size: 2vw !important;
     }
     .description {
-      font-size: 1.5vw !important;
+      font-size: 16px !important;
     }
   }
   @media screen and (max-width: 768px) {
@@ -148,7 +147,7 @@ body {
       font-size: 20px !important;
     }
     .description {
-      font-size: 16px !important;
+      font-size: 14px !important;
     }
   }
   @media screen and (min-width: 768px) {

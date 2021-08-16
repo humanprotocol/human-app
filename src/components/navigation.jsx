@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter } from "react-router-dom";
 import { PrimaryColor, SecondaryColor } from '../constants';
-import logImg from '../assets/images/app_logo.png';
+import logImg from '../assets/images/app_logo.svg';
 import { Routes } from '../routes';
 import { Dropdown, Button } from 'react-bootstrap';
 import { logOut } from '../service/user.service';
@@ -30,7 +30,6 @@ const Navigation = ({ history }) => {
         <div className='navbar-header'>
           <Link to={{ pathname: Routes.Home.path}} className='navbar-brand page-scroll no-padding' style={{ color: SecondaryColor.blue, letterSpacing: '4px' }}>
             <img className='app-logo mr-3' src={logImg} alt='human-app-log'></img>
-            <span className='d-none d-sm-block'>HUMAN App</span>
           </Link>
         </div>
         { isAuthed &&  
