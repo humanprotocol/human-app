@@ -533,12 +533,6 @@ a:focus,
   border-radius: 10px;
   padding: 32px 16px 24px;
 }
-/* Contact Section */
-#subscribe {
-  padding: 5% 0;
-  background-size: 100%;
-}
-
 label {
   font-size: 12px;
   font-weight: 400;
@@ -617,16 +611,5 @@ label {
   #profile {
     margin-top: 4rem !important;
     height: auto !important;
-  }
-  #subscribe {
-    height: auto !important;
-  }
-  #subscribe p,
-  #subscribe h1 {
-    text-align: center !important;
-  }
-  #subscribe .form-control {
-    width: 100%!important;
-    margin: auto;
   }
 }

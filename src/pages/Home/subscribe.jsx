@@ -39,7 +39,7 @@ export const Subscribe = ({ history }) => {
     <div id='subscribe'>
       <div className='container'>
         <div className='row'>
-        <div className='col-md-6 text-right'>
+          <div className='col-md-6 text-right'>
             <h1 className='mb-4'>Subscribe to <span className='color-blue'>HUMAN</span></h1>
             <p className='mb-4'>To recieve updates about latest developments in HUMAN please subscribe by entering your email id.</p>
             <FormGroup className='d-flex text-center'>
@@ -61,11 +61,15 @@ export const Subscribe = ({ history }) => {
               <a href='https://www.linkedin.com/company/human-protocol/' className='social-icon icon-linkedin'><i className='fa fa-linkedin'></i></a>
             </FormGroup>
           </div>
-          <div className='col-md-6 d-none d-md-block'>
+          <div className='col-md-6'>
             <div className='image-container d-flex flex-column justify-content-center h-100'>
               <img src={SubscribeImg} alt='subscribe-img'></img>
             </div>
           </div>
+        </div>
+        <div className='terms col-md-6'>
+          <a className='terms-item'>Terms and conditions</a>
+          <p className='terms-item'>© 2021 HPF. HUMAN Protocol® is a registered trademark</p>
         </div>
       </div>
       <Modal show={modalShow} onHide={() => setModalShow(false)} centered>

@@ -186,6 +186,14 @@
     }
 }
 #subscribe {
+    padding: 5% 0;
+    background-size: 100%;
+    @media screen and (max-width: 768px) {
+        height: auto !important;
+    }
+    @media (min-width: 1800px) {
+        max-height: 656px;
+    }
     .container {
         width: 80%;
         @media screen and (max-width: 768px) {
@@ -195,31 +203,24 @@
             margin: 0 auto;
         }
         h1 {
-          line-height: 128%;
-        }
-        h2 {
-          color: #fff;
-          margin-top: 10px;
-          margin-bottom: 15px;
-          padding-bottom: 15px;
-        }
-        h3 {
-          color: #fff;
-          margin-top: 80px;
-          margin-bottom: 25px;
-          padding-bottom: 20px;
-          font-weight: 400;
+          line-height: 128%; 
+          @media screen and (max-width: 768px) {
+            text-align: center !important;
+          }
         }
         p {
-          font-style: normal;
-          font-weight: normal;
-          font-size: 18px;
-          line-height: 2rem;
-          letter-spacing: 0.1px;
-          @media screen and (max-width: 1200px) {
-              font-size: 16px;
-              line-height: 1.6;
-          }
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 2rem;
+            letter-spacing: 0.1px;
+             @media screen and (max-width: 1200px) {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+            @media only screen and (max-width: 768px) {
+                text-align: left!important;
+            }
         }
         input {
             border: none;
@@ -229,64 +230,27 @@
                 color: #6309FF;
             }
         }
-        .section-title {
-            margin-bottom: 40px;
-            h2 {
-              ::after {
-                position: absolute;
-                content: "";
-                background: rgba(255, 255, 255, 0.3);
-                height: 4px;
-                width: 60px;
-                bottom: 0;
-                left: 30px;
-              }
-            }
-            p {
-              font-size: 1rem;
-            }
-        }
-        .text-danger {
-            color: #cc0033;
-            text-align: left;
-        }
-        .btn-custom {
-            width: 12rem!important;
-            margin-left: auto;
-            height: 46px!important;
-            :hover {
-                opacity: 0.8 !important;
-            }
-        }
         .image-container {
             padding-left: 5rem;
             img {
                 width: 100%;
             }
+            @media (max-width: 1240px) {
+                padding: 0;
+            }
         }
-        .contact-item {
-            margin: 20px 0;
-            span {
-              color: rgba(255, 255, 255, 1);
-              margin-bottom: 10px;
-              display: block;
-            }
-            i.fa {
-              margin-right: 10px;
-            }
-          }
         .form-group {
             input {
                 &.form-control {
                     margin-right: 5%;
                 }
             }
-
             button {
                 &.btn-custom {
                     max-width: 176px;
                     width: 12rem!important;
                     margin-left: auto;
+                    height: 46px!important;
                     :hover {
                         opacity: 0.8 !important;
                     }
@@ -294,6 +258,22 @@
                         width: 100% !important;
                         max-width: none !important;
                     }
+                }
+            }
+            @media only screen and (max-width: 768px) {
+                .form-control {
+                    margin: auto;
+                }
+            }
+            @media only screen and (max-width: 960px) {
+                display: block!important;
+                .form-control {
+                    margin-bottom: 10px;
+                }
+            }
+            @media only screen and (max-width: 1240px) {
+                .form-control {
+                    width: 100%;
                 }
             }
         }
@@ -349,6 +329,31 @@
                     }
                 }
             }
+            @media only screen and (max-width: 768px) {
+                justify-content: center;
+            }
+            @media only screen and (max-width: 960px) {
+                display: flex!important;
+            }
+        }
+        .terms {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2%;
+            .terms-item {
+                font-size: 12px;
+                line-height: 200%;
+                letter-spacing: 0.2px;
+                color: #0A060E;
+            }
+            @media screen and (max-width: 768px) {
+                margin-top: 20px;
+                display: block;
+                text-align: center;
+                .terms-item {
+                    text-align: center!important;
+                }
+            }
         }
     }
 }
@@ -362,65 +367,11 @@
         width: 25rem;
         margin: auto;
     }
-    #subscribe {
-        max-height: 656px;
-    }
-}
-
-@media (max-width: 1240px) {
-    #subscribe {
-        .image-container {
-            padding: 0;
-        }
-        .form-control {
-            width: 100%;
-            &.btn-custom {
-                max-width: 176px;
-            }
-        }
-    }
-}
-@media (max-width: 960px) {
-    #subscribe .form-control {
-      width: 400px;
-      margin: auto;
-    }
-    #subscribe .form-control.btn-custom {
-      width: 12rem!important;
-    }
-  }
-
-@media only screen and (max-width: 960px) {
-    #subscribe {
-        .container {
-            .form-group {
-                display: block!important;
-                &.social {
-                    display: flex!important;
-                }
-                .form-control {
-                    margin-bottom: 10px;
-                }
-            }
-        }
-    }
 }
 
 @media only screen and (max-width: 768px) {
     .btn-primary {
         height: auto!important;
-    }
-    #welcome {
-        .earning-container {
-            display: block;
-            .form-group {
-                width: 400px;
-                margin: 1rem auto!important;
-                .form-control {
-                    width: 100%;
-                }
-            }
-        }
     }
     #job {
         div.section-option {
@@ -442,14 +393,6 @@
             p {
                 max-width: 300px;
                 margin: auto;
-            }
-        }
-    }
-   
-    #subscribe {
-        .container {
-            .image-container {
-                padding: 0;
             }
         }
     }
