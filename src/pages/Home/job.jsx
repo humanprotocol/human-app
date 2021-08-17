@@ -105,6 +105,14 @@ export const Job = (props) => {
       <div className='blur-bg'></div>
       <div className="container w-100 mw-100">
         <div className="row">
+          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 d-block d-md-none">
+            <div className="mb-5">
+              <p>X HMT</p>
+              <p>Captchas solved : XXXX</p>
+              <p>Referrals sent : XXXX </p>
+              <p>Questionnaire : solved/unsolved</p>
+            </div>
+          </div>
           <div className="col-md-3 section-option text-right col-sm-12">
             <h4 className="title mb-4">Job list</h4>
             <ul className="m-0">
@@ -143,7 +151,7 @@ export const Job = (props) => {
           <div className="col-md-6 section-content col-sm-12">
             {option && option === JobOptions.captcha && (
               <div id='hcaptcha'>
-                <p>For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.</p>
+                <p className='d-none d-md-block'>For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.</p>
                 <HCaptcha
                   sitekey="64fd34e8-c20f-4312-ab15-9b28a2ff3343"
                   onVerify={(token, ekey) =>
@@ -160,7 +168,7 @@ export const Job = (props) => {
             )}
             {option && option === JobOptions.referal && (
               <div id="referal" className="text-center col-md-8 offset-md-2">
-                <p>For every friend you refer who successfully signs up, you will receive 1 HMT.</p>
+                <p className='d-none d-md-block'>For every friend you refer who successfully signs up, you will receive 1 HMT.</p>
                 <URLInput
                   className="text-center mb-3 referal-link"
                   reset={handleRefresh}
@@ -189,7 +197,7 @@ export const Job = (props) => {
                 id="questions"
                 className="m-auto text-left col-md-8 offset-md-2"
               >
-                <p>Complete the questionnaire to receive 1 HMT.</p>
+                <p className='d-none d-md-block'>Complete the questionnaire to receive 1 HMT.</p>
                 <div className='question-list'>
                   <p>What tasks would you prefer to do on the HUMAN App?</p>
                   <Form name="form">
@@ -212,7 +220,7 @@ export const Job = (props) => {
               </div>
             )}
           </div>
-          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12">
+          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 d-none d-md-block">
             <div className="mb-5">
               <p>X HMT</p>
               <p>Captchas solved : XXXX</p>

@@ -13,6 +13,7 @@ const HomePage = ({ data, history }) => {
     <>
       <Welcome />
       {isAuthed && <Job history={history}/>}
+      <Job history={history}></Job>
       <IntroSection />
       <Subscribe history={history} />
     </>
