@@ -105,14 +105,6 @@ export const Job = (props) => {
       <div className='blur-bg'></div>
       <div className="container w-100 mw-100">
         <div className="row">
-          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 d-block d-md-none">
-            <div className="mb-5">
-              <p>X HMT</p>
-              <p>Captchas solved : XXXX</p>
-              <p>Referrals sent : XXXX </p>
-              <p>Questionnaire : solved/unsolved</p>
-            </div>
-          </div>
           <div className="col-md-3 section-option text-right col-sm-12">
             <h4 className="title mb-4">Job list</h4>
             <ul className="m-0">
@@ -220,7 +212,7 @@ export const Job = (props) => {
               </div>
             )}
           </div>
-          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 d-none d-md-block">
+          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12">
             <div className="mb-5">
               <p>X HMT</p>
               <p>Captchas solved : XXXX</p>
