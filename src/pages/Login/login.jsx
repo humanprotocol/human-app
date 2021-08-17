@@ -39,7 +39,7 @@ const LoginPage = (props) => {
             type: 'AUTH_SUCCESS',
             payload: res,
           })
-          history.push({ pathname: Routes.Home.path });
+          history.push({ pathname: Routes.Job.path });
         }
       }).catch((err) => {
         setAlertMsg(err.message);
@@ -75,7 +75,7 @@ const LoginPage = (props) => {
             <Password onChange={handleChange} value={password} submitted={submitted} name='password'></Password>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
-              <Button className='form-control bg-blue' onClick={handleSubmit}>Next</Button>
+              <Button className='form-control bg-blue' onClick={handleSubmit}>Log in</Button>
             </FormGroup>
           </form>
         </div>

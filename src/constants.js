@@ -30,6 +30,7 @@ export const JobOptions = {
   captcha: "captcha",
   referal: "referal",
   questionare: "questionare",
+  profile: 'profile',
 };
 
 export const HumanAbout = [

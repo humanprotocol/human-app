@@ -84,7 +84,7 @@ const ProfilePage = (props) => {
       <div className='container'>
         <div className='page-title d-flex justify-content-between mb-4'>
           <h2>{ editing ? 'Edit Profile' : 'Profile' }</h2>
-          <Link to='/'><i className='material-icons close'>clear</i></Link>
+          {/* <Link to='/'><i className='material-icons close'>clear</i></Link> */}
         </div>
         { alertMsg &&
           <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
@@ -179,7 +179,7 @@ const ProfilePage = (props) => {
               }
             </FormGroup>
             { editing && 
-            <div className='mb-2'><Link to={Routes.ForgotPassword.path}>Change password</Link></div>
+            <div className='mb-2 text-left'><Link to={Routes.ForgotPassword.path}>Change password</Link></div>
             }
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>

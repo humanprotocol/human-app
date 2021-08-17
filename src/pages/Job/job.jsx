@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { withRouter } from "react-router";
 import {
   FormGroup,
   FormControl,
@@ -13,12 +14,16 @@ import { URLInput } from "../../components/inputs/url";
 import { JobOptions } from "../../constants";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Routes } from "../../routes";
-import '../Home/home.scss';
-import { withRouter } from "react-router";
+import Profile from '../Profile/profile';
+import './job.scss';
 
 const Job = (props) => {
-  const dispatch = useDispatch();
   const { history } = props;
+  const dispatch = useDispatch();
+  const { user, isAuthed, token, refreshToken} = useSelector((state) => state.auth);
+  if(!isAuthed) {
+    history.push({ pathname: Routes.Home.path });
+  }
   const captchaToken = useSelector((state) => state.hmt.captchaToken);
   const [option, setOptions] = useState(JobOptions.captcha);
   const [captchaCnt, setCaptchaCnt] = useState(0);
@@ -40,6 +45,12 @@ const Job = (props) => {
   const [questions, setQuestions] = useState({
     question_1: true
   });
+
+  useEffect(() => {
+    if(history.location.state && history.location.state.jobOption) {
+      setOptions(history.location.state.jobOption);
+    }
+  }, [])
 
   const submitQuestions = (e) => {
     e.preventDefault();
@@ -140,6 +151,16 @@ const Job = (props) => {
                   Questionare
                 </a>
               </li>
+              <li className="">
+                <a
+                  className={`opt ${
+                    option && option === JobOptions.profile ? "active" : ""
+                  }`}
+                  onClick={() => setOptions(JobOptions.profile)}
+                >
+                  profile
+                </a>
+              </li>
             </ul>
           </div>
           <div className="col-md-6 section-content col-sm-12">
@@ -213,6 +234,9 @@ const Job = (props) => {
                 </FormGroup>
               </div>
             )}
+            {option && option === JobOptions.profile && 
+            <Profile></Profile>
+            }
           </div>
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12">
             <div className="mb-5">

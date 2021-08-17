@@ -1,0 +1,71 @@
+#job {
+    margin-top: 96px;
+    .container {
+        .section-option {
+            font-family: 'Alliance No.1';
+            .title {
+                font-size: 20px;
+                font-weight: 600;
+                max-width: 288px;
+                margin-left: auto;
+                @media only screen and (max-width: 768px) {
+                    text-align: center;
+                    margin: auto;
+                }
+            }
+            ul {
+                @media only screen and (max-width: 768px) {
+                    text-align: center;
+                    margin: auto;
+                    display: flex;
+                    justify-content: space-between;
+                    li {
+                        margin: 0 10px;
+                    }
+                }
+            }
+            @media only screen and (max-width: 768px) {
+                text-align: left!important;
+                margin-bottom:40px;
+            }
+        }
+        .section-details {
+            p {
+                @media only screen and (max-width: 768px) {
+                    max-width: 300px;
+                    margin: auto;
+                }
+            }
+        }
+    }
+    @media (min-width: 1800px) {
+        max-height: 800px;
+        padding: 88px 0;
+    }
+    @media only screen and (max-width: 768px) {
+        .btn-primary {
+            height: auto!important;
+        }
+        #job {
+            div.section-option {
+                
+                .title {
+                    
+                }
+                ul {
+                    display: flex;
+                    justify-content: center;
+                    li {
+                        margin: 0 10px;
+                    }
+                }
+            }
+            .section-details {
+                p {
+                    max-width: 300px;
+                    margin: auto;
+                }
+            }
+        }
+    }
+}
