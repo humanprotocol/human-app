@@ -45,7 +45,7 @@ const Welcome = ({ history }) => {
             Gateway to the HUMAN experience
           </h4>
           <p className='text-center mb-4'>
-            Verify your email - we will also need a crypto wallet for security, and to send you HMT - you will receive 1 HMT for free when you register. To earn more, complete tasks, or refer friends.
+            Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT for free when you register. To earn more, complete tasks, or refer friends. If you don’t have a wallet, follow <Link to={Routes.Register.path}>this link.</Link>
           </p>
 
           <div className='row justify-content-center earning-container'>

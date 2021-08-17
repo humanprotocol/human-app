@@ -23,7 +23,7 @@ const Slider = (props) => {
                 <div className="keen-slider__slide" key={index}>
                   <div className="row  max-height-100 h-100">
                     {props.type && props.type === "humanJobs" && (
-                      <div className=" col-md-6 col-sm-12 image d-none d-md-block">
+                      <div className=" col-md-6 col-sm-12 image">
                         <div className="image">
                           <img src={slide.image} alt="image"></img>
                         </div>
@@ -36,7 +36,7 @@ const Slider = (props) => {
                       </div>
                     </div>
                     {props.type && props.type === "humanAbout" && (
-                      <div className=" col-md-6 col-sm-12 d-none d-md-block">
+                      <div className=" col-md-6 col-sm-12">
                         <div className="image">
                           <img src={slide.image} alt="image"></img>
                         </div>

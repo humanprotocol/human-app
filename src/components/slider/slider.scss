@@ -1,10 +1,3 @@
-body {
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 [class^="number-slide"],
 [class*=" number-slide"] {
   background: grey;
@@ -15,36 +8,6 @@ body {
   color: #fff;
   font-weight: 500;
   height: 200px;
-}
-
-.navigation-wrapper {
-  position: relative;
-}
-
-.dots {
-  display: flex;
-  padding: 0.5rem 0;
-  justify-content: center;
-}
-
-.dot {
-  border: none;
-  width: 5px;
-  height: 5px;
-  background: #fff;
-  border-radius: 50%;
-  margin: 0 5px;
-  padding: 3px;
-  cursor: pointer;
-}
-
-.dot:focus {
-  outline: none;
-}
-
-.dot.active {
-  padding: 5px;
-  margin-top: -2px;
 }
 
 .arrow {
@@ -64,94 +27,31 @@ body {
     width: 3rem;
     height: 3rem;
   }
-}
-
-.arrow .fa {
-  width: 100%;
-  height: 100%;
-  line-height: 2.6;
-  font-size: 1.5rem;
-  @media screen and (max-width: 1120px) {
+  .fa {
+    width: 100%;
+    height: 100%;
+    line-height: 2.6;
     font-size: 1.5rem;
-    line-height: 2;
-  }
-}
-
-.arrow--left {
-  left: -8rem;
-  @media screen and (max-width: 1120px) {
-    left: -4rem;
-  }
-}
-
-.arrow--right {
-  left: auto;
-  right: -8rem;
-  @media screen and (max-width: 1120px) {
-    right: -4rem;
-  }
-}
-
-.arrow--disabled {
-  fill: rgba(255, 255, 255, 0.5);
-}
-
-#profile {
-  margin-top: 100px;
-}
-
-.keen-slider__slide h1 {
-  font-style: normal;
-  font-weight: 800;
-  line-height: 120%;
-  align-items: center;
-  letter-spacing: -0.4px;
-}
-
-.keen-slider__slide h1 .highlight {
-  color: #6309ff;
-}
-
-.max-height-100 {
-  max-height: 100%;
-}
-
-.content {
-  .title {
-    font-size: 2.5rem !important;
-
-  }
-  .subtitle {
-    font-size: 1.5vw !important;
-  }
-  .description {
-    font-size: 18px !important;
-  }
-  @media screen and (max-width: 1120px) {
-    .title {
-      font-size: 4vw !important;
-    }
-    .subtitle {
-      font-size: 2vw !important;
-    }
-    .description {
-      font-size: 16px !important;
+    @media screen and (max-width: 1120px) {
+      font-size: 1.5rem;
+      line-height: 2;
     }
   }
-  @media screen and (max-width: 768px) {
-    background-size: 40%;
-    .title {
-      font-size: 32px !important;
-    }
-    .subtitle {
-      font-size: 20px !important;
-    }
-    .description {
-      font-size: 14px !important;
+  &.arrow--left {
+    left: -8rem;
+    @media screen and (max-width: 1120px) {
+      left: -4rem;
     }
   }
-  @media screen and (min-width: 768px) {
-    background-size: 40%!important;
+  &.arrow--right {
+    left: auto;
+    right: -8rem;
+    @media screen and (max-width: 1120px) {
+      right: -4rem;
+    }
+  }
+  &.arrow--disabled {
+    fill: rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -168,5 +68,73 @@ body {
   }
   @media only screen and (min-width: 1400px) {
     width: 960px;
+  }
+  .navigation-wrapper {
+    position: relative;
+    .keen-slider__slide {
+      .max-height-100 {
+        max-height: 100%;
+        @media only screen and (max-width: 600px) {
+          height: auto!important;
+        }
+        .content {
+          .title {
+            font-size: 2.5rem !important;
+        
+          }
+          .subtitle {
+            font-size: 1.5vw !important;
+          }
+          .description {
+            font-size: 18px !important;
+          }
+          @media screen and (max-width: 1120px) {
+            .title {
+              font-size: 4vw !important;
+            }
+            .subtitle {
+              font-size: 2vw !important;
+            }
+            .description {
+              font-size: 16px !important;
+            }
+          }
+          @media screen and (max-width: 768px) {
+            background-size: 40%!important;
+            .title {
+              font-size: 32px !important;
+            }
+            .subtitle {
+              font-size: 20px !important;
+            }
+            .description {
+              font-size: 14px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  .dots {
+    display: flex;
+    padding: 0.5rem 0;
+    justify-content: center;
+    .dot {
+      border: none;
+      width: 5px;
+      height: 5px;
+      background: #fff;
+      border-radius: 50%;
+      margin: 0 5px;
+      padding: 3px;
+      cursor: pointer;
+      &:focus {
+        outline: none;
+      }
+      &.active {
+        padding: 5px;
+        margin-top: -2px;
+      }
+    }
   }
 }

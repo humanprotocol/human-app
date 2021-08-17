@@ -41,7 +41,7 @@ export const Subscribe = ({ history }) => {
         <div className='row'>
           <div className='col-md-6 text-right'>
             <h1 className='mb-4'>Subscribe to <span className='color-blue'>HUMAN</span></h1>
-            <p className='mb-4'>To recieve updates about latest developments in HUMAN please subscribe by entering your email id.</p>
+            <p className='mb-4'>To receive the latest updates on HUMAN, please subscribe by entering your email below.</p>
             <FormGroup className='d-flex text-center'>
               <div className='w-100 mr-4'>
               <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>

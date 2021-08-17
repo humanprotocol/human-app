@@ -36,7 +36,7 @@ export const HumanAbout = [
   {
     title: '',
     subTitle: "A new way to work",
-    content: "HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across distributed workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets.",
+    content: 'HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across global workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets. Within HUMAN, users complete tasks – such as a CAPTCHA puzzle – that are issued by Requesters (the individuals, organizations, or machines that want work done.) Each successfully completed task rewards HMT.',
     image: humanAboutImg_1,
   },
   {

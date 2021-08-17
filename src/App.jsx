@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
 } from "react-router-dom";
+import SmoothScroll from "smooth-scroll";
 import { createBrowserHistory } from "history";
 import Navigation from "./components/navigation/navigation";
 import HomePage from "./pages/Home/home";
@@ -18,8 +18,6 @@ import VerifyEmail from "./pages/Login/verifyEmail";
 import { Footer } from "./components/footer/footer";
 import { Routes } from "./routes";
 
-import JsonData from "./data/data.json";
-import SmoothScroll from "smooth-scroll";
 import "./App.scss";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
@@ -29,10 +27,6 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 
 const App = () => {
   const history = createBrowserHistory();
-  const [landingPageData, setLandingPageData] = useState({});
-  useEffect(() => {
-    setLandingPageData(JsonData);
-  }, []);
 
   return (
     <div>

@@ -2,3 +2,12 @@
   font-size: 12px;
   color: red;
 }
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 28px;
+    line-height: 114%;
+    text-align: center;
+    letter-spacing: -0.4px;
+  }
+}
