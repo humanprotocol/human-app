@@ -10,4 +10,5 @@ export const Routes = {
     Profile: { path: '/profile' },
     Introduction: { path: '/introduction' },
     CreateWallet: { path: '/createWallet' },
+    Job: { path: '/job' },
 };

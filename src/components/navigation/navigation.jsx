@@ -1,28 +1,34 @@
-import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter } from "react-router-dom";
 import { PrimaryColor, SecondaryColor } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
-import { Dropdown, Button } from 'react-bootstrap';
 import { logOut } from '../../service/user.service';
 import './navigation.scss';
 
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
   const { user, isAuthed } = useSelector((state) => state.auth);
-  const [ avatar, setAvatar ] = useState('X');
   const hmtCounts = useSelector((state) => state.hmt.htmCounts);
 
+  const handleLogIn = (e) => {
+    e.preventDefault()
+    if(!isAuthed) {
+      return history.push({ pathname: Routes.Login.path });
+    } else {
+      return logOut()
+      .then(() => {
+        dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
+        history.push({ pathname: Routes.Home.path });
+      }).catch((err) => {
+        alert('Failed to log out');
+      });
+      
+    }
+  }
   const LogOut = (e) => {
     e.preventDefault();
-    logOut().then(() => {
-      dispatch({
-        type: 'AUTH_SIGN_OUT',
-        payload: false,
-      });
-    });
-    history.push({ pathname: Routes.Home.path });
+    
   };
 
   return (
@@ -36,18 +42,9 @@ const Navigation = ({ history }) => {
         { isAuthed &&  
         <div className='d-block d-sm-none'>{hmtCounts} HMT</div>
         }
-        {/* <div className='row m-0'>
-          { !isAuthed && <Link to={{ pathname:'/login' }} style={{color: PrimaryColor.black}} className='page-scroll'>Log In</Link> }
-          {isAuthed &&
-          <Dropdown>
-            <Dropdown.Toggle id="avatar" className='bg-blue text-center p-0'><span className='ml-1'>{avatar}</span></Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href={Routes.Profile.path}>Edit profile</Dropdown.Item>
-              <Dropdown.Item onClick={LogOut}>Log out</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          }
-        </div> */}
+        <div className='row m-0'>
+          <Link style={{color: PrimaryColor.black}} className='page-scroll' onClick={handleLogIn}>{ isAuthed ? 'Log in' : 'Log out' }</Link>
+        </div>
       </div>
     </nav>
   );

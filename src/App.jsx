@@ -19,6 +19,7 @@ import { Footer } from "./components/footer/footer";
 import { Routes } from "./routes";
 
 import "./App.scss";
+import Job from "./pages/Job/job";
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -49,6 +50,7 @@ const App = () => {
           />
           <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} />
           <Route exact path={Routes.Earning.path} component={LinkWalletPage} />
+          <Route exact path={Routes.Job.path} component={Job} />
           <Redirect from="*" to="/" />
         </Switch>
         <Footer />

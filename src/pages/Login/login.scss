@@ -123,6 +123,11 @@
                     &:hover {
                         color: #6309FF;
                     }
+                    &.bg-blue {
+                        &:hover {
+                            color: #fff;
+                        }
+                    }
                 }
                 a {
                     width: 40%;

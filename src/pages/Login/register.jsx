@@ -31,8 +31,9 @@ const RegisterPage = (props) => {
         repeatPassword: '',
         walletAddress: '',
         verificationToken: '',
-        country: ''
-,    });
+        country: '',
+        refCode: '',
+    });
     const [submitted, setSubmitted] = useState(false);
     const [alertMsg, setAlertMsg] = useState('');
     useEffect(() => {
@@ -40,7 +41,7 @@ const RegisterPage = (props) => {
         setCountries(countries);
     }, []);
 
-    const { email, password, repeatPassword, userName,  verificationToken, country } = inputs;
+    const { email, password, repeatPassword, userName,  verificationToken, country, refCode } = inputs;
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -59,9 +60,19 @@ const RegisterPage = (props) => {
             setConfirm(false);
         }
 
-        if(email && password && userName && confirm && EmailValidator.validate(email)) {
-            return register({ name: userName, email, password }).then((response) => {
-                // return register({ name: userName, email, password, country: country.value }).then((response) => {
+        if(email && password && country && userName && confirm && EmailValidator.validate(email)) {
+            const newUser = {
+                name: userName, 
+                email, 
+                password, 
+                country: country.value
+            }
+            
+            if(refCode) {
+                newUser['refCode'] = refCode;
+            }
+
+            return register(newUser).then((response) => {
                 dispatch({
                     type: 'AUTH_SIGN_IN',
                     payload: true,
@@ -71,6 +82,7 @@ const RegisterPage = (props) => {
                     payload: response,
                 });
                 setSubmitted(false);
+                setAlertMsg('');
                 return response.token;
             })
             .then(() => setOption(SignUpOpt.verifyEmail))
@@ -169,6 +181,9 @@ const RegisterPage = (props) => {
                             {submitted && !userName &&
                             <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireUserName}</FormControl.Feedback>
                             }
+                        </FormGroup>
+                        <FormGroup>
+                            <FormControl placeholder='refCode' type='text' name='ref' value={refCode} onChange={handleChange}></FormControl>
                         </FormGroup>
                         <FormGroup>
                             <Dropdown drop="down">

@@ -98,16 +98,13 @@ export const ErrorMessage = {
   invaidPassword: "Invalid Password",
   invalidWalletAddress: "Invalid Wallet Address",
   invalidEmail: "Invalid Email",
-  duplicatedUserName: "username is already used",
   duplicatedEmail: "email is already used",
   requirePassword: "Password required",
   requireEmail: "Email required",
-  requireUserName: "Username required",
-  requireFirstName: "First name required",
-  requireLastName: "Last name required",
+  requireUserName: "User name required",
   requireWalletAddress: "Wallet Address required",
   requireVerificationToken: 'Verification token required',
-  invalidVerificationToken: 'invalid verification token',
+  invalidVerificationToken: 'Invalid verification token',
 };
 
 export const SignUpOpt = {

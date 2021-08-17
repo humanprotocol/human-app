@@ -48,9 +48,19 @@ export const signIn = async ({email, password}) => {
   });
 }
 
-export const update = async (user) => {
-  localStorage.setItem('user', JSON.stringify(user));  
-  return user;
+export const update = async (id, token, user) => {
+  return axios.patch(
+    `${process.env.REACT_APP_API_URL}/users/${id}`,
+    user,
+    { headers: { 
+      Authorization: `Bearer ${token}`,
+    } }
+  ).then((response) => {
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+    if(response) {
+      return response.data;
+    }
+  }).catch((err) => { console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', err.response); throw new Error(err.response.data.message) });
 }
 
 export const logOut = async () => {
@@ -74,7 +84,7 @@ export const forgotPassword = async (email) => {
     `${process.env.REACT_APP_API_URL}/auth/forgot-password`,
     { email },
   ).catch((err) => {
-    // throw new Error(err.response.data.)
+    throw new Error(err.response.data.message)
   })
 } 
 
@@ -93,6 +103,7 @@ export const getMyAccount = async (token) => {
 }
 
 export const verifyEmail = async (token) => {
+  return true;
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/verify-email`,
     null,
