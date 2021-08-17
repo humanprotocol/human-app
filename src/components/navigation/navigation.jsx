@@ -8,7 +8,7 @@ import './navigation.scss';
 
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
-  const { user, isAuthed, token } = useSelector((state) => state.auth);
+  const { user, isAuthed, token, refreshToken } = useSelector((state) => state.auth);
   const hmtCounts = useSelector((state) => state.hmt.htmCounts);
 
   const handleLogIn = (e) => {
@@ -16,7 +16,7 @@ const Navigation = ({ history }) => {
     if(!isAuthed) {
       return history.push({ pathname: Routes.Login.path });
     } else {
-      return logOut(token)
+      return logOut(token, refreshToken)
       .then(() => {
         dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
         history.push({ pathname: Routes.Home.path });
@@ -26,10 +26,6 @@ const Navigation = ({ history }) => {
       
     }
   }
-  const LogOut = (e) => {
-    e.preventDefault();
-    
-  };
 
   return (
     <nav id='menu' className='navbar navbar-default fixed-top mb-0'>
@@ -43,7 +39,7 @@ const Navigation = ({ history }) => {
         <div className='d-block d-sm-none'>{hmtCounts} HMT</div>
         }
         <div className='row m-0'>
-          <Link style={{color: PrimaryColor.black}} className='page-scroll' onClick={handleLogIn}>{ isAuthed ? 'Log in' : 'Log out' }</Link>
+          <Link to='' style={{color: PrimaryColor.black}} className='page-scroll' onClick={handleLogIn}>{ !isAuthed ? 'Log in' : 'Log out' }</Link>
         </div>
       </div>
     </nav>

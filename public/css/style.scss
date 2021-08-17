@@ -101,6 +101,9 @@ ol {
 form .form-group {
   margin-bottom: 2rem;
 }
+form .form-group p {
+  word-break: break-all;
+}
 .dropdown-toggle::after {
   display: none !important;
 }

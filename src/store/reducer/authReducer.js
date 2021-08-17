@@ -1,18 +1,10 @@
-import jwt from 'jwt-decode';
 import * as TYPES from '../actionType';
-import { getMyAccount } from '../../service/user.service';
 const token = localStorage.getItem('token');
-let user = null;
-if(token) {
-  const jwtDoc = jwt
-  getMyAccount(token)
-  .then((response) => user = response)
-  .catch((err) => user = null);
-}
 
 var initValue = {
-  isAuthed: user ? true : false,
-  user: user,
+  isAuthed: false,
+  // isAuthed: token ? true : false,
+  user: null,
   token: token || null,
   refreshToken: null,
 };

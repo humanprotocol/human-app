@@ -183,7 +183,7 @@ const RegisterPage = (props) => {
                             }
                         </FormGroup>
                         <FormGroup>
-                            <FormControl placeholder='refCode' type='text' name='ref' value={refCode} onChange={handleChange}></FormControl>
+                            <FormControl placeholder='refCode' type='text' name='refCode' value={refCode} onChange={handleChange}></FormControl>
                         </FormGroup>
                         <FormGroup>
                             <Dropdown drop="down">

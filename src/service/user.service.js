@@ -60,10 +60,10 @@ export const update = async (id, token, user) => {
   }).catch((err) => { throw new Error(err.response.data.message); });
 }
 
-export const logOut = async (token) => {
+export const logOut = async (token, refreshToken) => {
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/logout`,
-    null,
+    { refreshToken },
     { headers: { Authorization: `Bearer ${token}` } }
   ).then((response) => {
     if(response && response.status === 204) {
@@ -92,13 +92,14 @@ export const linkWallet = async (address) => {
   return true;
 }
 
-export const getMyAccount = async (token) => {
-  return {
-    id: '5ebac534954b54139806c112',
-    email: 'fake@example.com',
-    name: 'fake name',
-    role: 'user'
-  }
+export const getMyAccount = async (id, token) => {
+  return axios.get(
+    `${process.env.REACT_APP_API_URL}/users/${id}`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  ).then((response) => {
+    if(response) return response.data;
+    else return null;
+  }).catch((err) => { throw new Error(err.response.data.message) });
 }
 
 export const verifyEmail = async (token) => {

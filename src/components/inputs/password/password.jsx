@@ -8,7 +8,6 @@ export const Password = (props) => {
         e.preventDefault();
         setHidden(!hidden);
     }
-
     return (
         <div className='form-group password'>
             <div className='input-group'>
