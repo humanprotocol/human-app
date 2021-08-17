@@ -23,6 +23,8 @@ const authReducer = (state = initValue, action) => {
       return { ...state, isAuthed: action.payload, user: null, token: null };
     case TYPES.AUTH_SUCCESS:
       return { ...state, user: action.payload.user, token: action.payload.token };
+    case TYPES.SET_USER:
+      return { ...state, user: action.payload };
     default:
       return { ...state };
   }

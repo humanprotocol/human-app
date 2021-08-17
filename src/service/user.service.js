@@ -10,7 +10,6 @@ export const authHeader = () => {
   } else {
       return {};
   }
-
 }
 
 export const register = async (user) => {
@@ -20,33 +19,19 @@ export const register = async (user) => {
   if(!user.email) throw new Error(`email required`);
   if(user.email && !EmailValidator.validate(user.email))
     throw new Error(`Invalid email`);
-
-  return {
-    "user": {
-      "id": "5ebac534954b54139806c112",
-      "email": "fake@example.com",
-      "name": "fake name",
-      "role": "user",
-      "kyc": false,
-      "referralCode": "Xt13",
-      "walletAddr": "0x00000000000000011020000000000000022333",
-      "earnedTokens": 4,
-      "pendingTokens": 1
-    },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZWJhYzUzNDk1NGI1NDEzOTgwNmMxMTIiLCJpYXQiOjE1ODkyOTg0ODQsImV4cCI6MTU4OTMwMDI4NH0.m1U63blB0MLej_WfB7yC2FTMnCziif9X8yzwDEfJXAg"
-  }
-  
-  // return axios.post(
-  //   `${process.env.REACT_APP_API_URL}/auth/register`,
-  //   user,
-  // ).then((response) => {
-  //   if(response) {
-  //     const { user, tokens } = response.data;
-  //     localStorage.setItem('token', tokens.access.token);
-  //     localStorage.setItem('refreshToken', tokens.refresh.token);
-  //     return { user, token: tokens.access.token };
-  //   }
-  // })
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/register`,
+    user,
+  ).then((response) => {
+    if(response) {
+      const { user, tokens } = response.data;
+      localStorage.setItem('token', tokens.access.token);
+      localStorage.setItem('refreshToken', tokens.refresh.token);
+      return { user, token: tokens.access.token };
+    }
+  }).catch((err) => {
+    throw new Error(err.response.data.message);
+  })
 }
 
 export const signIn = async ({email, password}) => {
@@ -111,7 +96,7 @@ export const verifyEmail = async (token) => {
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/verify-email`,
     null,
-    { params: { token } }
+    { params: { token }, headers: { Authorization: `Bearer ${token}`} }
   ).then((response) => {
     if(response && response.status === 204)
       return true;
@@ -123,6 +108,20 @@ export const sendVerificationEmail = async (data) => {
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/register-interest`,
     data,
+  ).then((response) => {
+    if(response && response.status === 204)
+      return true;
+    else throw new Error(`Failed to send email verification`);
+  }).catch((err) => {
+    throw new Error(err.response.data.message);
+  });
+}
+
+export const resendEmailVerification = async (token) => {
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/send-verification-email`,
+    null,
+    { headers: { Authorization: `Bearer ${token}` } }
   ).then((response) => {
     if(response && response.status === 204)
       return true;

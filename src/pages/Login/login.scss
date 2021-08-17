@@ -57,17 +57,28 @@
 #register {
     max-width: 400px;
     margin: auto;
-    .opt {
-        font-size: 16px;
-        line-height: 237%;
-        letter-spacing: -0.4px;
-        cursor: pointer;
-        &.active {
-            color:#6309FF ;
-        }
-    }
     .container {
         margin-top: 36px;
+        .dropdown {
+            .dropdown-toggle {
+                color: #0a060e;
+                background-color: white!important;
+                display: flex;
+                justify-content: space-between;
+                .fa {
+                    font-size: 26px;
+                }
+            }
+            .dropdown-menu {
+                a {
+                    color: #0a060e;
+                }
+                &.show {
+                    height: 300px;
+                    overflow: auto;
+                }
+            }
+        }
     }
 }
 
@@ -109,6 +120,9 @@
                     max-width: 160px;
                     font-size: 16px;
                     letter-spacing: 0.2px;
+                    &:hover {
+                        color: #6309FF;
+                    }
                 }
                 a {
                     width: 40%;

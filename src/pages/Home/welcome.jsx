@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { FormControl, FormGroup, Button, Modal  } from 'react-bootstrap';
@@ -10,8 +10,8 @@ import { sendVerificationEmail } from '../../service/user.service';
 const Welcome = ({ history }) => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState({ email: true, msg: '' });
-  const [showModal, setShowModal] = useState(false);
   const { isAuthed, user, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,8 +23,11 @@ const Welcome = ({ history }) => {
       setStatus({ email: false, msg: 'email is required' });
     } else {
       return sendVerificationEmail({ email, newsletter: false })
-        // .then(() => history.push({ pathname: Routes.Register.path, state: { email } }))
-        .then(() => setShowModal(true))
+        .then(() => {
+          const newUser = { ...user, email };
+          dispatch({ type: 'SET_USER', payload: newUser });
+          history.push({ pathname: Routes.Register.path });
+        })
         .catch((err) => setStatus({ email: false, msg: err.message }));
     }
   };
@@ -34,6 +37,7 @@ const Welcome = ({ history }) => {
     if (value) setStatus({ email: true, msg: '' });
     setEmail(value);
   };
+
   return (
     <div id='welcome' className='intro'>
       <div className='text-center'>
@@ -45,7 +49,7 @@ const Welcome = ({ history }) => {
             Gateway to the HUMAN experience
           </h4>
           <p className='text-center mb-4'>
-            Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT for free when you register. To earn more, complete tasks, or refer friends. If you don’t have a wallet, follow <Link to={Routes.Register.path}>this link.</Link>
+            Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT for free when you register. To earn more, complete tasks, or refer friends. If you don’t have a wallet, follow <Link to={{ pathname:Routes.Register.path }}>this link.</Link>
           </p>
 
           <div className='row justify-content-center earning-container'>
@@ -83,13 +87,6 @@ const Welcome = ({ history }) => {
           </div>
         </div>
       </div>
-      <Modal centered show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Thank you for expressing interest in The Human App. Since we are experiencing a large volume of traffic, it might take us a few days to get your account setup. We will be in touch via your registered email address.</p>
-        </Modal.Body>
-      </Modal>
     </div>
   );
 };
