@@ -26,8 +26,7 @@ export const register = async (user) => {
     if(response) {
       const { user, tokens } = response.data;
       localStorage.setItem('token', tokens.access.token);
-      localStorage.setItem('refreshToken', tokens.refresh.token);
-      return { user, token: tokens.access.token };
+      return { user, token: tokens.access.token, refreshToken: tokens.refresh.token };
     }
   }).catch((err) => {
     throw new Error(err.response.data.message);
@@ -41,8 +40,7 @@ export const signIn = async ({email, password}) => {
   ).then((response) => {
     const { user, tokens } = response.data;
     localStorage.setItem('token', tokens.access.token);
-    localStorage.setItem('refreshToken', tokens.refresh.token);
-    return { user, token: tokens.access.token };
+    return { user, token: tokens.access.token, refreshToken: tokens.refresh.token };
   }).catch((err) => {
     throw new Error(err.response.data.message);
   });
@@ -56,23 +54,24 @@ export const update = async (id, token, user) => {
       Authorization: `Bearer ${token}`,
     } }
   ).then((response) => {
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
     if(response) {
       return response.data;
     }
-  }).catch((err) => { console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', err.response); throw new Error(err.response.data.message) });
+  }).catch((err) => { throw new Error(err.response.data.message); });
 }
 
-export const logOut = async () => {
-  const refreshToken = localStorage.getItem('refreshToken');
-  if(refreshToken && refreshToken.length) {
-    return axios.post(
-      `${process.env.REACT_APP_API_URL}/auth/logout`,
-      { refreshToken },
-    );
-  } else {
-    throw new Error('refreshToken required.')
-  }
+export const logOut = async (token) => {
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/logout`,
+    null,
+    { headers: { Authorization: `Bearer ${token}` } }
+  ).then((response) => {
+    if(response && response.status === 204) {
+      localStorage.removeItem('token');
+      return true;
+    }
+    else return false;
+  }).catch((err) => { throw new Error(err.response.data.message) });
 }
 
 export const forgotPassword = async (email) => {

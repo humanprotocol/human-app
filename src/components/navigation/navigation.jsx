@@ -8,7 +8,7 @@ import './navigation.scss';
 
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
-  const { user, isAuthed } = useSelector((state) => state.auth);
+  const { user, isAuthed, token } = useSelector((state) => state.auth);
   const hmtCounts = useSelector((state) => state.hmt.htmCounts);
 
   const handleLogIn = (e) => {
@@ -16,7 +16,7 @@ const Navigation = ({ history }) => {
     if(!isAuthed) {
       return history.push({ pathname: Routes.Login.path });
     } else {
-      return logOut()
+      return logOut(token)
       .then(() => {
         dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
         history.push({ pathname: Routes.Home.path });
