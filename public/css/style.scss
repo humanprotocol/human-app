@@ -261,15 +261,6 @@ a:focus,
   outline-offset: none;
 }
 /* welcome Section */
-#welcome {
-  background: url("../img/welcome_bg.png") no-repeat;
-  -webkit-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  background-size: 100% 100%;
-  margin-top: 72px;
-  height: 36.44vw;
-}
 .intro {
   display: table;
   width: 100%;
@@ -285,20 +276,6 @@ a:focus,
   text-align: center;
   margin: auto;
   letter-spacing: 0.1px;
-}
-#welcome .intro-text {
-  padding-top: 10rem;
-  text-align: center;
-}
-
-#welcome .intro-text h3 {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 2rem;
-  line-height: 2.25rem;
-  align-items: center;
-  text-align: center;
-  letter-spacing: 0.2px;
 }
 /* job Section */
 #job {
@@ -604,9 +581,6 @@ label {
   border: 0!important;
 }
 @media screen and (max-width: 768px) {
-  #welcome .intro-text {
-    padding-top: 3rem !important;
-  }
   .arrow {
     display: none;
   }
@@ -640,7 +614,6 @@ label {
   #register .page-title {
     margin-bottom: 1rem !important;
   }
-  #welcome,
   #profile {
     margin-top: 4rem !important;
     height: auto !important;
@@ -655,42 +628,5 @@ label {
   #subscribe .form-control {
     width: 100%!important;
     margin: auto;
-  }
-}
-
-@media (max-width: 960px) {
-  #subscribe .form-control {
-    width: 400px;
-    margin: auto;
-  }
-  #subscribe .form-control.btn-custom {
-    width: 12rem!important;
-  }
-}
-
-@media (max-width: 1240px) {
-  #subscribe .form-control {
-    width: 100%;
-  }
-  #subscribe .form-control.btn-custom {
-    // width: 12rem!important;
-    max-width: 176px;
-  }
-  #subscribe .image-container {
-    padding: 0;
-  }
-}
-
-@media (min-width: 1800px) {
-  #welcome {
-    max-height: 656px;
-    margin-top: 72px;
-  }
-  #job {
-    max-height: 800px;
-    padding: 88px 0;
-  }
-  #subscribe {
-    max-height: 656px;
   }
 }

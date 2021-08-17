@@ -1,6 +1,62 @@
 #welcome {
+    background: url("../../assets/images/welcome_bg.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    background-size: 100% 100%;
+    margin-top: 72px;
+    height: 36.44vw;
+    @media screen and (max-width: 768px) {
+        margin-top: 4rem !important;
+        height: auto !important;
+    }
+    @media screen and (min-width: 1800px) {
+        max-height: 656px;
+        margin-top: 72px;
+    }
+    input {
+        width: 24rem;
+        @media screen and (min-width: 1800px) {
+            max-width: 24rem;
+        }
+    }
+    .earning-container  {
+        @media only screen and (max-width: 768px) {
+            display: block;
+        }
+        .form-group {
+            @media only screen and (max-width: 480px) { 
+                width: 90%;
+            }
+            @media only screen and (max-width: 768px) {
+                width: 400px;
+                margin: 1rem auto!important;
+                .form-control {
+                    width: 100%;
+                }
+            }
+        }
+    }
+    .form-control {
+        height: 3rem;
+        border-radius: 0.5rem;
+        font-family: 'Alliance No.1';
+        letter-spacing: 0.3px;
+        font-weight: 600;
+        font-size: 1.125rem;
+        line-height: 2rem;
+        &.btn {
+            background: #6309FF;
+            border: 0;
+            padding: 0.5rem 3rem;
+        }
+        @media only screen and (max-width: 480px) {
+            font-size: 14px;
+        }
+    }
     .intro-text {
         padding: 100px 0;
+        text-align: center;
         @media screen and (max-width: 768px) {
             padding: 80px 0px !important;
             box-sizing: border-box;
@@ -21,6 +77,15 @@
             @media screen and (max-width: 768px) {
                 line-height: 1.2;
             }
+        }
+        h3 {
+            font-style: normal;
+            font-weight: 800;
+            font-size: 2rem;
+            line-height: 2.25rem;
+            align-items: center;
+            text-align: center;
+            letter-spacing: 0.2px;
         }
         h4 {
             @media screen and (max-width: 480px) {
@@ -47,23 +112,6 @@
             }
         }
     }
-}
-#welcome .form-control {
-    height: 3rem;
-    border-radius: 0.5rem;
-    font-family: 'Alliance No.1';
-    letter-spacing: 0.3px;
-    font-weight: 600;
-    font-size: 1.125rem;
-    line-height: 2rem;
-}
-#welcome input {
-    width: 24rem;
-}
-#welcome .form-control.btn {
-    background: #6309FF;
-    border: 0;
-    padding: 0.5rem 3rem;
 }
 #hcaptcha {
     p {
@@ -315,14 +363,41 @@
 }
 
 @media (min-width: 1800px) {
-    #welcome input {
-        max-width: 24rem;
+    #job {
+        max-height: 800px;
+        padding: 88px 0;
     }
     #referal {
         width: 25rem;
         margin: auto;
     }
+    #subscribe {
+        max-height: 656px;
+    }
 }
+
+@media (max-width: 1240px) {
+    #subscribe {
+        .image-container {
+            padding: 0;
+        }
+        .form-control {
+            width: 100%;
+            &.btn-custom {
+                max-width: 176px;
+            }
+        }
+    }
+}
+@media (max-width: 960px) {
+    #subscribe .form-control {
+      width: 400px;
+      margin: auto;
+    }
+    #subscribe .form-control.btn-custom {
+      width: 12rem!important;
+    }
+  }
 
 @media only screen and (max-width: 960px) {
     #subscribe {
@@ -344,15 +419,17 @@
     .btn-primary {
         height: auto!important;
     }
-    #welcome .earning-container {
-        display: block;
-    }
-    #welcome .earning-container .form-group {
-        width: 400px;
-        margin: 1rem auto!important;
-    }
-    #welcome .earning-container .form-group .form-control {
-        width: 100%;
+    #welcome {
+        .earning-container {
+            display: block;
+            .form-group {
+                width: 400px;
+                margin: 1rem auto!important;
+                .form-control {
+                    width: 100%;
+                }
+            }
+        }
     }
     #job {
         div.section-option {
@@ -384,14 +461,5 @@
                 padding: 0;
             }
         }
-    }
-}
-
-@media only screen and (max-width: 480px) {
-    #welcome .earning-container .form-group {
-        width: 90%;
-    }
-    #welcome .form-control {
-        font-size: 14px;
     }
 }
