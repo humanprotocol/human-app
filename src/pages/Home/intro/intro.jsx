@@ -7,7 +7,7 @@ export const IntroSection = (props) => {
       <div className="human-about">
         <div className="section">
           <div className="container">
-            <h1 className='title text-center'>What is <span className='highlight'>Human</span>?</h1>
+            <h1 className='title text-center'>What is <span className='highlight'>HUMAN ?</span></h1>
             <Slider slides={HumanAbout} type="humanAbout"></Slider>
           </div>
         </div>
@@ -15,6 +15,7 @@ export const IntroSection = (props) => {
       <div className="human-jobs">
         <div className="section">
           <div className="container">
+            <h1 className='title text-center'>The future of <span className='highlight'>HUMAN Jobs</span>?</h1>
             <Slider slides={HumanJobs} type="humanJobs"></Slider>
           </div>
         </div>

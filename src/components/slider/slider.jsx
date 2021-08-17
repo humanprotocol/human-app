@@ -31,10 +31,6 @@ const Slider = (props) => {
                     )}
                     <div className="col-md-6 col-sm-12">
                       <div className="content d-flex flex-column justify-content-center h-100">
-                        <h1
-                          className="title"
-                          dangerouslySetInnerHTML={{ __html: slide.title }}
-                        ></h1>
                         <h3 className="subtitle">{slide.subTitle}</h3>
                         <p className="description">{slide.content}</p>
                       </div>

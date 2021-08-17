@@ -550,23 +550,6 @@ label {
 .form-control:-ms-input-placeholder {
   color: #777;
 }
-
-#intro .human-about {
-  background: url("../img/human_about_gb.png"), url('../img/dots.png'), url('../img/bottom_dots.png');
-  background-size: 100% 70%, auto 20%, 20%;
-  background-position: bottom, top center, bottom center;
-  background-repeat: no-repeat, no-repeat, no-repeat;
-}
-#intro .human-jobs {
-  background: url("../img/blurs.png");
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: bottom;
-}
-#intro .human-jobs .keen-slider__slide .content {
-  background: url("../img/job_content_dots.png") no-repeat top left;
-}
-
 .modal-content {
   border-radius: 10px!important;
   max-width: 400px;

@@ -1,5 +1,5 @@
 #welcome {
-    background: url("../../assets/images/welcome_bg.png") no-repeat;
+    background: url('../../assets/images/welcome_bg.png') no-repeat;
     -webkit-background-size: 100% 100%;
     -moz-background-size: 100% 100%;
     -o-background-size: 100% 100%;
@@ -176,7 +176,7 @@
 }
 #job {
     .section-option {
-        font-family: "Alliance No.1";
+        font-family: 'Alliance No.1';
         .title {
             font-size: 20px;
             font-weight: 600;
@@ -357,7 +357,6 @@
         }
     }
 }
-
 @media (min-width: 1800px) {
     #job {
         max-height: 800px;

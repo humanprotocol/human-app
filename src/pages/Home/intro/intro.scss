@@ -14,98 +14,115 @@
     }
   }
 }
-#intro .human-about {
-  background-color: #1f0657;
-  padding: 100px 0px;
-  @media screen and (max-width: 768px) {
-    padding: 60px 0px;
+#intro {
+  h1 {
+    font-family: Alliance No.1;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 2.5rem;
+    line-height: 120%;
+    text-align: center;
+    letter-spacing: 0.4px;
   }
-  .container {
-    width: 80%;
-    max-width: none;
-    @media screen and (max-width: 768px) {
-      width: 90%;
-    }
-        .slider-container {
-      .content {
-        max-width: 32rem;
-        margin-left: auto;
-        // justify-content: left!important;
-        .title {
-          background: #1f0657;
+  h3 {
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 280%;
+    align-items: center;
+    letter-spacing: -0.4px;
+  }
+  p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.125rem;
+    line-height: 178%;
+    letter-spacing: 0.1px;
+  }
+  .keen-slider {
+    max-height: 100%;
+  }
+  .section {
+    .container {
+      .title {
+        .highlight {
+          color: #6309ff;
         }
       }
-      .image {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    }
+  }
+  .human-about {
+    background: url('../../../assets/images/human_about_bg.png'), url('../../../assets/images/dots.png'), url('../../../assets/images/bottom_dots.png');
+    background-size: 100% 70%, auto 20%, 20%;
+    background-position: bottom, top center, bottom center;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-color: #1f0657;
+    padding: 100px 0px;
+    color: white;
+    .section {
+      .container {
+        width: 80%;
+        max-width: none;
+        @media screen and (max-width: 768px) {
+          width: 90%;
+        }
+        h1 {
+          background-color: #1f0657;
+  
+        }
+        .slider-container {
+          .content {
+            max-width: 32rem;
+            margin-left: auto;
+            .subtitle {
+              color: white;
+            }
+          }
+          .image {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+        }
+      }
+      @media screen and (max-width: 768px) {
+        padding: 60px 0px;
       }
     }
   }
-}
-
-#intro .human-jobs {
-  padding: 100px 0px;
-  @media screen and (max-width: 768px) {
-    padding: 60px 0px;
-  }
-  .container {
-    width: 80%;
-    max-width: none;
-    @media screen and (max-width: 768px) {
-      width: 90%;
-    }
-    .dot {
-      background-color: #6309ff;
-    }
-    .content {
-      padding-top: 10%;
-      padding-left: 10%;
-      display: block!important;
-      .title {
-        max-width: 22rem;
-        margin-bottom: 10%;
+  .human-jobs {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding: 100px 0px;
+    .section {
+      .container {
+        width: 80%;
+        max-width: none;
+        @media screen and (max-width: 768px) {
+          width: 90%;
+        }
+        .dot {
+          background-color: #6309ff;
+        }
+        .content {
+          padding-top: 10%;
+          padding-left: 10%;
+          display: block!important;
+          @media only screen and (max-width: 1240px) {
+            padding-left: 10%;
+          }
+          .title {
+            max-width: 22rem;
+            margin-bottom: 10%;
+          }
+        }
+      }
+      @media screen and (max-width: 768px) {
+        padding: 60px 0px;
       }
     }
   }
-}
-
-#intro .human-about h1,
-#intro .human-about h3,
-#intro .human-about p {
-  color: white;
-}
-#intro .human-about h1.title.text-center {
-  font-family: Alliance No.1;
-  font-style: normal;
-  font-weight: 800;
-  font-size: 2.5rem;
-  line-height: 120%;
-  text-align: center;
-  letter-spacing: 0.4px;
-  background-color: #1f0657;
-}
-#intro .human-about h1.title.text-center .highlight {
-  color: #6309ff;
-  text-transform: uppercase;
-}
-#intro h3 {
-  font-weight: 800;
-  font-size: 2rem;
-  line-height: 280%;
-  align-items: center;
-  letter-spacing: -0.4px;
-}
-#intro p {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1.125rem;
-  line-height: 178%;
-  letter-spacing: 0.1px;
-}
-.keen-slider {
-  max-height: 100%;
 }
 
 @media only screen and (max-width: 768px) {
@@ -123,11 +140,5 @@
 @media only screen and (min-width: 600px) {
   #intro .human-about .section {
     background-size: 10%;
-  }
-}
-
-@media only screen and (max-width: 1240px) {
-  #intro .human-jobs .content {
-    padding-left: 10%;
   }
 }
