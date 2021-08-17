@@ -1,0 +1,46 @@
+/* Navigation */
+#menu {
+    padding: 1rem;
+    transition: all 0.8s;
+    height: 6rem;
+    opacity: 0.9;
+    background-color: #fff;
+    backdrop-filter: blur(1.5rem);
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-style: normal;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    .container {
+        display: flex;
+        justify-content: space-between;
+        a {
+            &.navbar-brand {
+                font-size: 24px;
+                line-height: 32px;
+                font-weight: 800;
+                color: #333;
+                display: flex;
+                .app-logo {
+                    height: 36px;
+                }
+            }
+        }
+        #avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-weight: 600;
+            font-size: 2rem;
+            line-height: 100%;
+            letter-spacing: 4.5px;
+            border-radius: 50%;
+            border: 0;
+        }
+        .dropdown {
+            .btn-primary {
+                background-color: #6309ff;
+                font-family: "Alliance No.1";
+            }
+        }
+    }
+}

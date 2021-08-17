@@ -1,4 +1,5 @@
-import ReadMoreIcon from '../assets/icons/readmore.svg';
+import ReadMoreIcon from '../../assets/icons/readmore.svg';
+import './footer.scss';
 export const Footer = () => {
     return (
         <div id='footer' className='py-2'>

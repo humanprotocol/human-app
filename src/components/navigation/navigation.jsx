@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter } from "react-router-dom";
-import { PrimaryColor, SecondaryColor } from '../constants';
-import logImg from '../assets/images/app_logo.svg';
-import { Routes } from '../routes';
+import { PrimaryColor, SecondaryColor } from '../../constants';
+import logImg from '../../assets/images/app_logo.svg';
+import { Routes } from '../../routes';
 import { Dropdown, Button } from 'react-bootstrap';
-import { logOut } from '../service/user.service';
+import { logOut } from '../../service/user.service';
+import './navigation.scss';
 
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
