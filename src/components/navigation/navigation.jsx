@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useLocation } from "react-router-dom";
 import { PrimaryColor, SecondaryColor } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
@@ -8,6 +8,7 @@ import './navigation.scss';
 
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const { user, isAuthed, token, refreshToken } = useSelector((state) => state.auth);
   const hmtCounts = useSelector((state) => state.hmt.htmCounts);
 
@@ -39,7 +40,9 @@ const Navigation = ({ history }) => {
         <div className='d-block d-sm-none'>{hmtCounts} HMT</div>
         }
         <div className='row m-0'>
+          { !pathname.includes('verify-email') && 
           <Link to='' style={{color: PrimaryColor.black}} className='page-scroll' onClick={handleLogIn}>{ !isAuthed ? 'Log in' : 'Log out' }</Link>
+          }
         </div>
       </div>
     </nav>
