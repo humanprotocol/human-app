@@ -74,7 +74,7 @@ const LoginPage = (props) => {
                 <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
               }
             </FormGroup>
-            <Password onChange={handleChange} value={password} submitted={submitted} name='password'></Password>
+            <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} ></Password>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
               <Button className='form-control bg-blue' onClick={handleSubmit}>Log in</Button>

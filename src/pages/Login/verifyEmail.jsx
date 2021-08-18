@@ -26,7 +26,7 @@ const VerifyEmail = ({ history }) => {
                     setAlertMsg('');
                     dispatch({ type: 'AUTH_SIGN_IN', payload: true });
                     dispatch({ type: 'SET_USER', payload: { ...user, isEmailVerified: true } });
-                    history.push({ pathname: Routes.Job.path });
+                    history.push({ pathname: Routes.Login.path });
                 }).catch((err) => setAlertMsg(err.message));
         }
     }
