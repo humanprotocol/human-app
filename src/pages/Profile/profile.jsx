@@ -20,7 +20,7 @@ const ProfilePage = (props) => {
   const [ inputs, setInputs ] = useState({
     email: user ? user.email || '' : '',
     name: user? user.name || '' : '',
-    walletAddress: user ? user.walletAddress || '' : '',
+    walletAddress: user ? user.walletAddr || '' : '',
     country: user ? user.country || '' : '',
   })
   const [countries, setCountries] = useState([])
