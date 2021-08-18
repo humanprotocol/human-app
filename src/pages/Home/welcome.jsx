@@ -42,7 +42,7 @@ const Welcome = ({ history }) => {
             Welcome to the <span className='color-blue'>HUMAN App</span>
           </h1>
           <h4 className='text-center mb-4 font-weight-bold'>
-            Gateway to the HUMAN experience
+            Complete jobs; earn HMT.
           </h4>
           {!isAuthed && 
             <p className='text-center mb-4'>

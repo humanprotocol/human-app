@@ -211,12 +211,12 @@ const Job = (props) => {
           <div className="col-md-6 section-content col-sm-12 job__col__main">
             { user && !user.walletAddr &&
             <Alert variant="primary">
-              <p>Please setup your wallet address in the Profile page.</p>
+              <p>Please setup your wallet address in the Profile page. We’ll need this to send you HMT!</p>
             </Alert>
             }
             { user && user.walletAddr && !user.isKYCed &&
             <Alert variant="primary">
-              <p>Pending KYC. Note: You won't be able to receive HMT until KYC is completed.</p>
+              <p>Pending KYC. Note: You won't be able to receive HMT until our KYC-verification are completed.</p>
             </Alert>
             }
             {option && option === JobOptions.captcha && (
@@ -238,7 +238,7 @@ const Job = (props) => {
             )}
             {option && option === JobOptions.referral && (
               <div id="referral" className="text-center col-md-8 offset-md-2">
-                <p className='d-md-block'>For every friend you refer who successfully signs up, you will receive 1 HMT.</p>
+                <p className='d-md-block'>If you refer a friend you will receive 1 HMT. Note, you will receive the HMT only if your referral successfully signs up with their email and wallet address.</p>
                 <p className='d-md-block'>Copy the code below & ask your friend to use it while Signing up!</p>
                 <URLInput
                   className="text-center mb-3 referral-link"

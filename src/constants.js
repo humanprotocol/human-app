@@ -59,7 +59,7 @@ export const HumanAbout = [
   {
     title: '',
     subTitle: "A new way to work",
-    content: 'HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across global workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets. Within HUMAN, users complete tasks – such as a CAPTCHA puzzle – that are issued by Requesters (the individuals, organizations, or machines that want work done.) Each successfully completed task rewards HMT.',
+    content: 'HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across global workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets.',
     image: humanAboutImg_1,
   },
   {
@@ -71,7 +71,7 @@ export const HumanAbout = [
   {
     title: '',
     subTitle: "Improved human-machine collaboration",
-    content: "HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across distributed workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets.",
+    content: "Software takes care of everything in HUMAN Protocol, and that can include data labeling. Collaboration on HUMAN means leveraging machines to take care of the details and routine tasks, allowing humans to work on more interesting, subjective tasks to power a new generation of AI products.",
     image: humanAboutImg_3,
   },
   {
@@ -92,7 +92,7 @@ export const HumanJobs = [
   {
     title: `The future of <span className='highlight'>HUMAN jobs</span>`,
     subTitle: "",
-    content: "hCaptcha is only the first application on which HUMAN jobs can be completed. The Protocol supports other applications – such as Intel CVAT and INCEpTION - and the potential for many more; HUMAN Protocol is simply the blockchain-based infrastructure which allows distributed parties to work together trustlessly.",
+    content: "Data labeling is only the first task type available on the HUMAN App. As more applications are supported by HUMAN Protocol – which currently includes support for Intel CVAT and INCEpTION – the range of task types will increase.",
     image: humanJobImg_1,
   },
   {
