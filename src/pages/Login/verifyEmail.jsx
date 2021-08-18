@@ -19,14 +19,14 @@ const VerifyEmail = ({ history }) => {
     const handleVerification = (e) => {
         e.preventDefault();
         if(!token) setAlertMsg('token requried');
-        else if(!accessToken) setAlertMsg('Please login again');
         else {
-            return verifyEmail(token, accessToken)
+            return verifyEmail(token)
                 .then(() => {
                     setAlertMsg('');
                     dispatch({ type: 'AUTH_SIGN_IN', payload: true });
                     dispatch({ type: 'SET_USER', payload: { ...user, isEmailVerified: true } });
-                    history.push({ pathname: Routes.Login.path });
+                    setVerified(true);
+                    setTimeout(() => {history.push({ pathname: Routes.Login.path })}, 3000);
                 }).catch((err) => setAlertMsg(err.message));
         }
     }
@@ -55,19 +55,27 @@ const VerifyEmail = ({ history }) => {
                 }
                 <div>
                     { verified && 
-                    <p>Email verified. proceed to app (you take them to profile page if they're logged in, or login page if they're not logged in)</p>
+                    <p>Redirecting you to login.</p>
                     }
-                    { !verified && !resentVerification && 
+                    { !verified && !resentVerification && !token && accessToken &&
                     <p>Verification email is sent. Please check your email.</p>
                     }
-                    { !verified && resentVerification && 
+                    { !verified && resentVerification && !token && accessToken && 
                     <p>Verification email is resent. Please check your email.</p>
+                    }
+                    {
+                      !verified && token &&
+                      <p> Please click Verify Email below to continue </p>
                     }
                     <form name='form'>
                         { !verified &&
                         <FormGroup className='actions d-flex justify-content-between m-0'>
-                            <Link className='btn' onClick={resendVerification}>Re-send</Link>
-                            <Button className='form-control bg-blue' onClick={handleVerification}>Verify email</Button>
+                           {    !token && accessToken && 
+                                <Link className='btn' onClick={resendVerification}>Re-send</Link>
+                           }
+                           { token &&  
+                                <Button className='form-control bg-blue' onClick={handleVerification}>Verify email</Button> 
+                            }
                         </FormGroup>
                         }
                     </form>
