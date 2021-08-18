@@ -7,7 +7,7 @@ import countryList from "react-select-country-list";
 import { ErrorMessage, SignUpOpt } from "../../constants";
 import { Password } from "../../components/inputs/password/password";
 import './login.scss';
-import { register, resendEmailVerification, sendVerificationEmail, verifyEmail } from "../../service/user.service";
+import { register, resendEmailVerification, sendNewsletterSignup, verifyEmail } from "../../service/user.service";
 import { Routes } from "../../routes";
 
 const RegisterPage = (props) => {
