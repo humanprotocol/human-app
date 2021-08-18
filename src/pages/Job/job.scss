@@ -23,6 +23,13 @@
                         margin: 0 10px;
                     }
                 }
+                li {
+                    .opt {
+                        &.disabled {
+                            cursor:not-allowed;
+                        }
+                    }
+                }
             }
             @media only screen and (max-width: 768px) {
                 text-align: left!important;
@@ -78,7 +85,23 @@
         }
     }
 }
-
+#questions {
+    .form-group {
+        .btn {
+            margin-bottom: 16px;
+            &.bg-white {
+                background-color: #FFFFFF!important;
+                border: 1px solid #6309ff!important;
+                color: #6309ff;
+                &:hover {
+                    background-color: #6309ff!important;
+                    color: #FFFFFF;
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}
 // Stats CSS
 .stats {
     font-size: 16px;

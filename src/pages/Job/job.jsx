@@ -195,7 +195,10 @@ const Job = (props) => {
                 </a>
               </li> */}
               <li className="">
+                { user && user.misc && user.misc.questionnaire ?
+                <a className='opt disabled'>Questionnaire</a> :
                 <a className={`opt ${ option && option === JobOptions.questionare ? "active" : "" }`} onClick={() => setOptions(JobOptions.questionare)}>Questionnaire</a>
+                }
               </li>
               <li className="">
                 <a className={`opt ${ option && option === JobOptions.profile ? "active" : "" }`} onClick={() => setOptions(JobOptions.profile)}>Profile</a>
@@ -307,7 +310,7 @@ const Job = (props) => {
                 { currentQuestion === 'refer' &&
                 <FormGroup>
                   <Button className='form-control' onClick={submitQuestions}>Submit</Button>
-                  <Button className='form-control' onClick={() => { setOtherQuestion(''); setCurrentQuestion('task');}}>Back</Button>
+                  <Button className='form-control bg-white' onClick={() => { setOtherQuestion(''); setCurrentQuestion('task');}}>Back</Button>
                 </FormGroup>
                 }
               </div>
