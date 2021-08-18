@@ -322,7 +322,7 @@ const Job = (props) => {
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container job__col__stats">
             <div className="mb-5">
               <p className="stats stats__secondary"><span>Total HMT earned: </span>{user? user.earnedTokens : 0} </p>
-              <p className="stats stats__secondary"><span>HMT Pending transfer: </span> {user? user.pendingTokens : 0}</p>
+              <p className="stats stats__secondary"><span>HMT Pending withdrawal: </span> {user? user.pendingTokens : 0}</p>
               <p className="stats stats__secondary"><span>Successful Referrals: </span>{user? user.referredUsers.length : 0} </p>
               <p className="stats stats__secondary"><span>Questionnaire: </span> {user && user.misc.questionnaire? `Completed` : `Incomplete`}</p>
               <Button className='bg-white stats__withdraw' onClick={() => alert("Cannot withdraw until KYC Process is complete")}>Withdraw</Button>
