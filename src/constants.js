@@ -59,7 +59,7 @@ export const HumanAbout = [
   {
     title: '',
     subTitle: "A new way to work",
-    content: 'HUMAN Protocol tokenizes and automates the secure publishing of data labeling jobs, and manages the distribution of the work - and its rewards - across global workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets.',
+    content: 'HUMAN Protocol tokenizes and automates the distribution of work - and its rewards - across global workforces. The Protocol offers a new way for humans and machines to collaborate, and functions as a blockchain-based infrastructure for the creation and settlement of secure, globally accessible job markets.',
     image: humanAboutImg_1,
   },
   {
@@ -83,7 +83,7 @@ export const HumanAbout = [
   {
     title: '',
     subTitle: "Jobs and tasks",
-    content: "A single job can be made up of millions of tasks. In a HUMAN-Protocol-powered application, an individual task may represent any point of human-to-machine interaction: the labeling of data, or sign-off on machine labeling (known as feedback learning). HUMAN Protocol is designed to create a more human world: disintermediated yet connected, with many viewpoints and backgrounds accounted for and represented, in which value produced is rewarded.",
+    content: "A single job can be made up of millions of tasks. In a HUMAN-Protocol application, an individual task may represent any point of human-to-machine interaction: the labeling of data, or sign-off on machine labeling (known as feedback learning). HUMAN Protocol is designed to create a more human world: disintermediated yet connected, with many viewpoints and backgrounds accounted for and represented, in which value produced is rewarded.",
     image: humanAboutImg_5,
   },
 ];
