@@ -26,14 +26,13 @@ const Job = (props) => {
     history.push({ pathname: Routes.Home.path });
   }
   const captchaToken = useSelector((state) => state.hmt.captchaToken);
-  const [option, setOptions] = useState(JobOptions.referal);
+  const [option, setOptions] = useState(JobOptions.referral);
   const [referralCode, setReferralCode] = useState(user ? user.referralCode || '' : '');
-  const [captchaCnt, setCaptchaCnt] = useState(0);
-  const [referalCnt, setReferalCnt] = useState(0);
+  // const [captchaCnt, setCaptchaCnt] = useState(0);
+  // const [referralCnt, setReferralCnt] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [nextable, setNextable] = useState(false);
   const [errorText, setErrorText] = useState("");
-  const hmtCounts = useSelector((state) => state.hmt.htmCounts);
   const [radios, setRadios] = useState([
     { checked: false, value: "opt_1", label: "Option 1", name: "question_4" },
     { checked: false, value: "opt_2", label: "Option 2", name: "question_4" },
@@ -70,7 +69,7 @@ const Job = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case 'referal':
+      case 'referral':
         setReferralCode(value);
         break;
       default:
@@ -92,7 +91,9 @@ const Job = (props) => {
 
   const handleRefer = (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    // setSubmitted(true);
+    navigator.clipboard.writeText(referralCode);
+    alert(`Copied code: ${referralCode}.`);
   };
 
   const handleRefresh = () => {
@@ -143,11 +144,11 @@ const Job = (props) => {
               <li className="">
                 <a
                   className={`opt ${
-                    option && option === JobOptions.referal ? "active" : ""
+                    option && option === JobOptions.referral ? "active" : ""
                   }`}
-                  onClick={() => setOptions(JobOptions.referal)}
+                  onClick={() => setOptions(JobOptions.referral)}
                 >
-                  Referal
+                  Referral
                 </a>
               </li>
               <li className="">
@@ -175,7 +176,7 @@ const Job = (props) => {
           <div className="col-md-6 section-content col-sm-12">
             {option && option === JobOptions.captcha && (
               <div id='hcaptcha'>
-                <p className='d-none d-md-block'>For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.</p>
+                <p className='d-md-block'>For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.</p>
                 <HCaptcha
                   sitekey="64fd34e8-c20f-4312-ab15-9b28a2ff3343"
                   onVerify={(token, ekey) =>
@@ -190,29 +191,31 @@ const Job = (props) => {
                 </FormGroup>
               </div>
             )}
-            {option && option === JobOptions.referal && (
-              <div id="referal" className="text-center col-md-8 offset-md-2">
-                <p className='d-none d-md-block'>For every friend you refer who successfully signs up, you will receive 1 HMT.</p>
+            {option && option === JobOptions.referral && (
+              <div id="referral" className="text-center col-md-8 offset-md-2">
+                <p className='d-md-block'>For every friend you refer who successfully signs up, you will receive 1 HMT.</p>
+                <p className='d-md-block'>Copy the cody below & ask your friend to use it while Signing up!</p>
                 <URLInput
-                  className="text-center mb-3 referal-link"
+                  className="text-center mb-3 referral-link"
                   reset={handleRefresh}
                   onChange={handleChange}
-                  name="referal"
+                  name="referral"
                   value={referralCode}
                 />
-                <FormControl.Feedback
-                  type="invalid"
-                  className={
-                    submitted && !questions.referal ? "d-block text-left" : ""
-                  }
-                >
-                  Referal link required
-                </FormControl.Feedback>
+               { // <FormControl.Feedback
+                //   type="invalid"
+                //   className={
+                //     submitted && !questions.referral ? "d-block text-left" : ""
+                //   }
+                // >
+                //   Referral link required
+                // </FormControl.Feedback>
+               }
                 <Button
                   className="mt-4 bg-blue w-100 form-control"
                   onClick={handleRefer}
                 >
-                  Refer Now <i className="material-icons text-white">share</i>
+                  Copy Referral Code<i className="material-icons text-white">share</i>
                 </Button>
               </div>
             )}
@@ -221,7 +224,7 @@ const Job = (props) => {
                 id="questions"
                 className="m-auto text-left col-md-8 offset-md-2"
               >
-                <p className='d-none d-md-block'>Complete the questionnaire to receive 1 HMT.</p>
+                <p className='d-md-block'>Complete the questionnaire to receive 1 HMT.</p>
                 <div className='question-list'>
                   <p>What tasks would you prefer to do on the HUMAN App?</p>
                   <Form name="form">
@@ -247,12 +250,12 @@ const Job = (props) => {
             <Profile />
             }
           </div>
-          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12">
+          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container">
             <div className="mb-5">
-              <p>X HMT</p>
-              <p>Captchas solved : XXXX</p>
-              <p>Referrals sent : XXXX </p>
-              <p>Questionnaire : solved/unsolved</p>
+              <p class="stats stats__main">{user.earnedTokens} <span>HMT earned</span></p>
+              <p class="stats stats__secondary"><span>HMT Pending transfer: </span> {user.pendingTokens}</p>
+              <p class="stats stats__secondary"><span>Successful Referrals: </span>{user.referredUsers.length} </p>
+              <p class="stats stats__secondary"><span>Questionnaire: </span> {user.misc.questionnaire? `Completed` : `Incomplete`}</p>
             </div>
           </div>
         </div>
