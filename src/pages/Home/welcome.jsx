@@ -55,7 +55,7 @@ const Welcome = ({ history }) => {
           <div className='row justify-content-center earning-container'>
             {isAuthed && (
               <FormGroup>
-                <Button className='form-control' onClick={handleSubmit}>
+                <Button className='form-control' onClick={() => history.push({ pathname: Routes.Job.path })}>
                   Link your wallet and start earning HMT
                 </Button>
               </FormGroup>
