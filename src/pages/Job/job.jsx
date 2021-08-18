@@ -235,7 +235,7 @@ const Job = (props) => {
               </div>
             )}
             {option && option === JobOptions.profile && 
-            <Profile></Profile>
+            <Profile />
             }
           </div>
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12">
