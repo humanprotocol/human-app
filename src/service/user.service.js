@@ -102,12 +102,11 @@ export const getMyAccount = async (id, token) => {
   }).catch((err) => { throw new Error(err.response.data.message) });
 }
 
-export const verifyEmail = async (token) => {
-  return true;
+export const verifyEmail = async (token, accessToken) => {
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/verify-email`,
     null,
-    { params: { token }, headers: { Authorization: `Bearer ${token}`} }
+    { params: { token }, headers: { Authorization: `Bearer ${accessToken}`} }
   ).then((response) => {
     if(response && response.status === 204)
       return true;

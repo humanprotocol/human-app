@@ -108,7 +108,7 @@ const RegisterPage = (props) => {
         e.preventDefault();
         setSubmitted(true);
         if(emailVerified) {
-            history.push({ pathname: Routes.Profile.path });
+            history.push({ pathname: Routes.Job.path });
         }
     }
 
@@ -177,7 +177,7 @@ const RegisterPage = (props) => {
                         { option === SignUpOpt.register && 
                         <>
                         <FormGroup>
-                            <FormControl placeholder='Username' type='text' name='userName' value={userName} onChange={handleChange}></FormControl>
+                            <FormControl placeholder='Full name' type='text' name='userName' value={userName} onChange={handleChange}></FormControl>
                             {submitted && !userName &&
                             <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireUserName}</FormControl.Feedback>
                             }

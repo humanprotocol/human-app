@@ -31,15 +31,17 @@ const LoginPage = (props) => {
     if (email && password && EmailValidator.validate(email)) {
       signIn({ email, password }).then((res) => {
         if (res) {
-          dispatch({
-            type: 'AUTH_SIGN_IN',
-            payload: true,
-          });
+          let { user } = res;
           dispatch({
             type: 'AUTH_SUCCESS',
             payload: res,
           })
-          history.push({ pathname: Routes.Job.path });
+          dispatch({
+            type: 'AUTH_SIGN_IN',
+            payload: user.isEmailVerified,
+          });
+          if(user.isEmailVerified) history.push({ pathname: Routes.Job.path });
+          else history.push({ pathname: Routes.VerifyEmail.path });
         }
       }).catch((err) => {
         setAlertMsg(err.message);
