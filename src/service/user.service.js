@@ -140,3 +140,15 @@ export const resendEmailVerification = async (token) => {
     throw new Error(err.response.data.message);
   });
 }
+
+export const updateMisc = async (id, token, questionnaire) => {
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/users/${id}/misc`,
+    { questionnaire },
+    { headers: { Authorization: `Bearer ${token}` } }
+  ).then((response) => {
+    if(response) {
+      return response.data;
+    } 
+  }).catch((err) => { throw new Error(err.response.data.message) });
+}

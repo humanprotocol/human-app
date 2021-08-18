@@ -33,6 +33,28 @@ export const JobOptions = {
   profile: 'profile',
 };
 
+export const Questions = {
+  task: 'What tasks would you prefer to do on the HUMAN App?',
+  refer: 'How did you get to know about the Human Protocol?',
+}
+
+export const ReferOptions = [
+  { value: "Twitter", label: "Twitter" },
+  { value: "Telegram groups", label: "Telegram groups" },
+  { value: "Reddit", label: "Reddit" },
+  { value: "Google Search", label: "Google Search" },
+  { value: "Crypto news website", label: "Crypto news website" },
+]
+
+export const TaskOptions = [
+  { label: "Solve captchas", value: "Solve captchas" },
+  { label: "Provide feedback on A/B tests.", value: "Provide feedback on A/B tests." },
+  { label: "Code review and Bug bounties.", value: "Code review and Bug bounties." },
+  { label: "Market research surveys.", value: "Market research surveys." },
+  { label: "Partake in predictions markets.", value: "Partake in predictions markets." },
+  { label: "Data labelling on video and/or text.", value: "Data labelling on video and/or text." },
+]
+
 export const HumanAbout = [
   {
     title: '',
