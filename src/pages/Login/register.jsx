@@ -59,7 +59,9 @@ const RegisterPage = (props) => {
         if(password && repeatPassword && password !== repeatPassword) {
             setConfirm(false);
         }
-
+        setConfirm(true);
+        console.log(password);
+        console.log(repeatPassword);
         if(email && password && country && userName && confirm && EmailValidator.validate(email)) {
             const newUser = {
                 name: userName, 
