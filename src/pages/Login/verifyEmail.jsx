@@ -45,7 +45,6 @@ const VerifyEmail = ({ history }) => {
             <div className='container'>
                 <div className='page-title d-flex justify-content-between mb-4'>
                     <h2>{ verified ? 'Email verified' : 'Verify email'}</h2>
-                    <Link to='/'><i className='material-icons close'>clear</i></Link>
                 </div>
                 { alertMsg && alertMsg.length &&
                 <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>

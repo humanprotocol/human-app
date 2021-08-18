@@ -1,7 +1,33 @@
 #job {
     margin-top: 96px;
-    .job__container {
-        padding-bottom: 100px;
+    @media screen and (max-width: 768px) {
+        margin-top: 6rem !important;
+        height: auto !important;
+    }
+    @media screen and (max-width: 420px) {
+        margin-top: 9rem !important;
+    }
+    .job {
+        &__container {
+            margin-bottom: 100px;
+            @media screen and (max-width: 768px) {
+                margin-bottom: 60px;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            &__col {
+                &__nav {
+                    order: 1;
+                }
+                &__stats {
+                    order: 2;
+                    margin-top: 0;
+                }
+                &__main {
+                    order: 3;
+                }
+            }
+        }
     }
     .container {
         .section-option {
@@ -113,15 +139,14 @@
             margin-top: 50px;
         }
     }
-    &__main {
-        font-size: 32px !important;
-        font-weight: 600;
-        > span {
-            font-size: 20px !important;
-        }
+    @media screen and (max-width: 768px) {
+        margin: 0 !important;
     }
     > span {
         font-weight: 600;
+    }
+    &__withdraw {
+        margin-top: 20px !important;
     }
 }
 

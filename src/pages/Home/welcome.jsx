@@ -44,14 +44,16 @@ const Welcome = ({ history }) => {
           <h4 className='text-center mb-4 font-weight-bold'>
             Gateway to the HUMAN experience
           </h4>
-          <p className='text-center mb-4'>
-          Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT when you register. To earn more, complete tasks, or refer friends.
-          </p>
+          {!isAuthed && 
+            <p className='text-center mb-4'>
+            Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT when you register. To earn more, complete tasks, or refer friends.
+            </p>
+          }
 
           <div className='row justify-content-center earning-container'>
             {isAuthed && (
               <FormGroup>
-                <Button className='form-control' onClick={() => history.push({ pathname: Routes.Job.path })}>
+                <Button className='form-control earn-hmt-btn' onClick={() => history.push({ pathname: Routes.Job.path })}>
                   Earn HMT
                 </Button>
               </FormGroup>
@@ -74,7 +76,7 @@ const Welcome = ({ history }) => {
                   </FormControl.Feedback>
                 </FormGroup>
                 <FormGroup>
-                  <Button className='form-control' onClick={handleSubmit}>
+                  <Button className='form-control earn-hmt-btn' onClick={handleSubmit}>
                     Start earning HMT
                   </Button>
                 </FormGroup>

@@ -10,6 +10,9 @@
         margin-top: 4rem !important;
         height: auto !important;
     }
+    @media screen and (max-width: 420px) {
+        margin-top: 7rem !important;
+    }
     @media screen and (min-width: 1800px) {
         max-height: 656px;
         margin-top: 72px;
@@ -36,6 +39,7 @@
             }
             @media screen and (max-width: 768px) {
                 line-height: 1.2;
+                text-align: left !important;
             }
         }
         h4 {
@@ -46,6 +50,7 @@
             }
             @media screen and (max-width: 768px) {
                 line-height: 1.4;
+                text-align: left !important;
             }
         }
         p {
@@ -55,6 +60,7 @@
                 width: 100% !important;
                 font-size: 16px;
                 line-height: 1.5rem;
+                text-align: left !important;
             }
             @media screen and (max-width: 480px) {
                 font-size: 18px;
@@ -66,6 +72,14 @@
         }
         input {
             width: 24rem;
+            box-shadow: rgba(99, 9, 255, 0.2) 0px 8px 16px;
+            border: 0;
+            color: #6309ff !important;
+            border-radius: 10px;
+            &:hover {
+                box-shadow: 0 8px 30px -4px rgba(99,9,255,0.4);
+                color: rgba(99, 9, 255, 0.9);
+            }
             @media screen and (min-width: 1800px) {
                 max-width: 24rem;
             }
@@ -90,6 +104,9 @@
                         background: #6309FF;
                         border: 0;
                         padding: 0.5rem 3rem;
+                        &:hover {
+                            opacity: 0.8 !important;
+                        }
                     }
                     @media only screen and (max-width: 480px) {
                         font-size: 14px;
@@ -108,6 +125,7 @@
             }
         }
     }
+
 }
 #hcaptcha {
     p {
@@ -161,13 +179,15 @@
         margin-bottom: 32px;
         p {
             font-size: 16px;
+            font-weight: 700;
         }
         .form-group {
             padding: 0 12px;
             margin-bottom: 16px;
             .form-check {
+                margin-bottom: 5px;
                 .form-check-label {
-                    font-size: 18px;
+                    font-size: 16px;
                     float: none;
                 }
             }  
@@ -353,7 +373,7 @@
             margin-top: 2%;
             .terms-item {
                 display: block;
-                font-size: 12px;
+                font-size: 13px;
                 line-height: 200%;
                 letter-spacing: 0.2px;
                 color: #0A060E;

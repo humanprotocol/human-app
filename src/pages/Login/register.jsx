@@ -103,7 +103,6 @@ const RegisterPage = (props) => {
             <div className='container'>
                 <div className='page-title d-flex justify-content-between mb-4'>
                     <h2>Create account</h2>
-                    <Link to='/'><i className='material-icons close'>clear</i></Link>
                 </div>
                 { alertMsg && alertMsg.length &&
                 <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>

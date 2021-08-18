@@ -179,10 +179,10 @@ const Job = (props) => {
   return (
     <div id="job" className="text-center">
       <div className='blur-bg'></div>
-      <div className="container w-100 mw-100 job__container">
+      <div className="container job__container">
         <div className="row">
-          <div className="col-md-3 section-option text-right col-sm-12">
-            <h4 className="title mb-4">Job list</h4>
+          <div className="col-md-3 section-option text-right col-sm-12 job__col__nav">
+            <h4 className="title mb-4">More jobs coming soon</h4>
             <ul className="m-0">
               {/* <li className="">
                 <a
@@ -208,7 +208,7 @@ const Job = (props) => {
               </li>
             </ul>
           </div>
-          <div className="col-md-6 section-content col-sm-12">
+          <div className="col-md-6 section-content col-sm-12 job__col__main">
             { user && !user.walletAddr &&
             <Alert variant="primary">
               <p>Please setup your wallet address in the Profile page.</p>
@@ -239,7 +239,7 @@ const Job = (props) => {
             {option && option === JobOptions.referral && (
               <div id="referral" className="text-center col-md-8 offset-md-2">
                 <p className='d-md-block'>For every friend you refer who successfully signs up, you will receive 1 HMT.</p>
-                <p className='d-md-block'>Copy the cody below & ask your friend to use it while Signing up!</p>
+                <p className='d-md-block'>Copy the code below & ask your friend to use it while Signing up!</p>
                 <URLInput
                   className="text-center mb-3 referral-link"
                   reset={handleRefresh}
@@ -297,7 +297,7 @@ const Job = (props) => {
                       )}
                     </FormGroup>
                     <FormGroup className='other-question'>
-                        <FormControl className='m-0' name='otherQuestion' value={otherQuestion} type='text' onChange={handleChange} />
+                        <FormControl className='m-0' name='otherQuestion' value={otherQuestion} type='text' onChange={handleChange} placeholder='Something else'/>
                     </FormGroup>
                   </Form>
                   }
@@ -319,12 +319,13 @@ const Job = (props) => {
             <Profile />
             }
           </div>
-          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container">
+          <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container job__col__stats">
             <div className="mb-5">
-              <p className="stats stats__main">{user?.earnedTokens || 0} <span>HMT earned</span></p>
+              <p className="stats stats__secondary"><span>Total HMT earned: </span>{user? user.earnedTokens : 0} </p>
               <p className="stats stats__secondary"><span>HMT Pending transfer: </span> {user? user.pendingTokens : 0}</p>
               <p className="stats stats__secondary"><span>Successful Referrals: </span>{user? user.referredUsers.length : 0} </p>
               <p className="stats stats__secondary"><span>Questionnaire: </span> {user && user.misc.questionnaire? `Completed` : `Incomplete`}</p>
+              <Button className='bg-white stats__withdraw' onClick={() => alert("Cannot withdraw until KYC Process is complete")}>Withdraw</Button>
             </div>
           </div>
         </div>

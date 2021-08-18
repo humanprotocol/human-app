@@ -42,7 +42,7 @@ const Navigation = ({ history }) => {
         }
         <div className='row m-0'>
           { !pathname.includes('verify-email') && 
-          <Link to='' style={{color: PrimaryColor.black}} className='page-scroll' onClick={handleLogIn}>{ !isAuthed ? 'Log in' : 'Log out' }</Link>
+          <Link to='' style={{color: PrimaryColor.black}} className='page-scroll login-btn' onClick={handleLogIn}>{ !isAuthed ? 'Log in' : 'Log out' }</Link>
           }
         </div>
       </div>

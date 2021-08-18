@@ -55,7 +55,6 @@ const LoginPage = (props) => {
       <div className='container'>
         <div className='page-title d-flex justify-content-between mb-4'>
           <h2>Log in</h2>
-          <Link to='/'><i className='material-icons close'>clear</i></Link>
         </div>
         { alertMsg && alertMsg.length &&
           <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
@@ -74,7 +73,7 @@ const LoginPage = (props) => {
                 <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
               }
             </FormGroup>
-            <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} ></Password>
+            <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} placeholder="Password"></Password>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
               <Button className='form-control bg-blue' onClick={handleSubmit}>Log in</Button>

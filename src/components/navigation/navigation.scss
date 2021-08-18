@@ -11,6 +11,10 @@
     font-style: normal;
     letter-spacing: 0.3px;
     font-weight: 600;
+    border-bottom: 1px solid #f6f6f6;
+    @media screen and (max-width: 420px) {
+        height: 9rem;
+    }
     .container {
         display: flex;
         justify-content: space-between;
@@ -43,4 +47,23 @@
             }
         }
     }
+
+    .login-btn {
+        color: #6309ff !important;
+        font-family: "Alliance No.1";
+        font-size: 16px;
+        padding: 10px 15px;
+        // color: white !important;
+        // border-radius: 10px;
+        box-shadow: rgba(99, 9, 255, 0.2) 0px 8px 16px;
+        border-radius: 10px;
+        &:hover {
+            box-shadow: 0 8px 30px -4px rgba(99,9,255,0.4);
+            color: rgba(99, 9, 255, 0.9);
+        }
+        @media screen and (max-width: 420px) {
+            margin-top: 10px;
+            font-size: 14px !important;
+        }
+    } 
 }
