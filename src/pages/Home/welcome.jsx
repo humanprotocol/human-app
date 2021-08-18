@@ -5,7 +5,7 @@ import * as EmailValidator from 'email-validator';
 import { FormControl, FormGroup, Button, Modal  } from 'react-bootstrap';
 import './home.scss';
 import { Routes } from '../../routes';
-import { sendVerificationEmail } from '../../service/user.service';
+import { sendNewsletterSignup } from '../../service/user.service';
 
 const Welcome = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ const Welcome = ({ history }) => {
     } else if (isAuthed && !user && !email) {
       setStatus({ email: false, msg: 'email is required' });
     } else {
-      return sendVerificationEmail({ email, newsletter: false })
+      return sendNewsletterSignup({ email, newsletter: false })
         .then(() => {
           const newUser = { ...user, email };
           dispatch({ type: 'SET_USER', payload: newUser });

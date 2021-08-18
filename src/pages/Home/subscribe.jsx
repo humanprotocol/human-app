@@ -4,7 +4,7 @@ import * as EmailValidator from "email-validator";
 import { Routes } from '../../routes';
 import { ErrorMessage } from '../../constants';
 import SubscribeImg from '../../assets/images/subscribe.png';
-import { sendVerificationEmail } from '../../service/user.service';
+import { sendNewsletterSignup } from '../../service/user.service';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -23,7 +23,7 @@ export const Subscribe = ({ history }) => {
     e.preventDefault();
     setSubmitted(true);
     if(EmailValidator.validate(email)) {
-      return sendVerificationEmail({ email, newsletter: true })
+      return sendNewsletterSignup({ email, newsletter: true })
         .then(() => {
           setError('')
           setModalShow(true)})

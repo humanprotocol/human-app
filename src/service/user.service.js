@@ -114,7 +114,7 @@ export const verifyEmail = async (token) => {
   }).catch((err) => { throw new Error(err.response.data.message) });
 }
 
-export const sendVerificationEmail = async (data) => {
+export const sendNewsletterSignup = async (data) => {
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/register-interest`,
     data,
