@@ -22,13 +22,9 @@ const Welcome = ({ history }) => {
     } else if (isAuthed && !user && !email) {
       setStatus({ email: false, msg: 'email is required' });
     } else {
-      return sendNewsletterSignup({ email, newsletter: false })
-        .then(() => {
-          const newUser = { ...user, email };
-          dispatch({ type: 'SET_USER', payload: newUser });
-          history.push({ pathname: Routes.Register.path });
-        })
-        .catch((err) => setStatus({ email: false, msg: err.message }));
+      const newUser = { ...user, email };
+      dispatch({ type: 'SET_USER', payload: newUser });
+      history.push({ pathname: Routes.Register.path });
     }
   };
 
@@ -49,14 +45,14 @@ const Welcome = ({ history }) => {
             Gateway to the HUMAN experience
           </h4>
           <p className='text-center mb-4'>
-            Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT for free when you register. To earn more, complete tasks, or refer friends.
+          Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT when you register. To earn more, complete tasks, or refer friends.
           </p>
 
           <div className='row justify-content-center earning-container'>
             {isAuthed && (
               <FormGroup>
-                <Button className='form-control' onClick={handleSubmit}>
-                  Go to wallet
+                <Button className='form-control' onClick={() => history.push({ pathname: Routes.Job.path })}>
+                  Earn HMT
                 </Button>
               </FormGroup>
             )}
@@ -65,7 +61,7 @@ const Welcome = ({ history }) => {
                 <FormGroup className='mr-2'>
                   <FormControl
                     type='email'
-                    placeholder='email'
+                    placeholder='Email'
                     name='email'
                     value={email}
                     onChange={handleChange}

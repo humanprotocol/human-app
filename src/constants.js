@@ -92,7 +92,7 @@ export const HumanJobs = [
   {
     title: `The future of <span className='highlight'>HUMAN jobs</span>`,
     subTitle: "",
-    content: "hCaptcha is only the first application on which HUMAN jobs can be completed. The Protocol supports other applications - such as Intel CVAT and INCEpTION - and the potential for many more; HUMAN Protocol is simply the blockchain-based infrastructure which allows distributed parties to work together trustlessly.",
+    content: "hCaptcha is only the first application on which HUMAN jobs can be completed. The Protocol supports other applications – such as Intel CVAT and INCEpTION - and the potential for many more; HUMAN Protocol is simply the blockchain-based infrastructure which allows distributed parties to work together trustlessly.",
     image: humanJobImg_1,
   },
   {

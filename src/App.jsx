@@ -4,8 +4,10 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import ReactGA from 'react-ga4';
 import SmoothScroll from "smooth-scroll";
 import { createBrowserHistory } from "history";
+
 import Navigation from "./components/navigation/navigation";
 import HomePage from "./pages/Home/home";
 import LoginPage from "./pages/Login/login";
@@ -21,6 +23,7 @@ import { Routes } from "./routes";
 import "./App.scss";
 import Job from "./pages/Job/job";
 
+
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
   speedAsDuration: true,
@@ -28,6 +31,12 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 
 const App = () => {
   const history = createBrowserHistory();
+  // Google Analytics Setup
+  ReactGA.initialize("G-YGBRX2Z0WB");
+  history.listen(location => {
+    ReactGA.set({ page: location.pathname }); // Update the user's current page
+    ReactGA.pageview(location.pathname); // Record a pageview for the given page
+  });
 
   return (
     <div>

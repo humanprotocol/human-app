@@ -74,7 +74,7 @@ export const Subscribe = ({ history }) => {
       </div>
       <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
         <Modal.Header closeButton></Modal.Header>
-        <Modal.Body>Thank you for expressing interest in The Human App. Since we are experiencing a large volume of traffic, it might take us a few days to get your account setup. We will be in touch via your registered email address.</Modal.Body>
+        <Modal.Body>Thank you for expressing interest in the HUMAN App. We are currently experiencing a large volume of traffic, and it may take a few days to get your account setup. We will be in touch through your registered email address.</Modal.Body>
       </Modal>
     </div>
   )
