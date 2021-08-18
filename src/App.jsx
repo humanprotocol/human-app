@@ -17,7 +17,7 @@ import ProfilePage from "./pages/Profile/profile";
 import LinkWalletPage from "./pages/Wallet/link";
 import VerifyEmail from "./pages/Login/verifyEmail";
 
-import { Footer } from "./components/footer/footer";
+import { Subscribe } from "./pages/Home/subscribe";
 import { Routes } from "./routes";
 
 import "./App.scss";
@@ -62,7 +62,7 @@ const App = () => {
           <Route exact path={Routes.Job.path} component={Job} />
           <Redirect from="*" to="/" />
         </Switch>
-        <Footer />
+        <Subscribe history={history} />
       </Router>
     </div>
   );

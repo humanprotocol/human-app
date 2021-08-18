@@ -187,8 +187,9 @@
     }
 }
 #subscribe {
-    padding: 5% 0;
+    padding: 100px 0 0 0;
     background-size: 100%;
+    border-top: 1px solid #f6f6f6;
     @media screen and (max-width: 768px) {
         height: auto !important;
     }
@@ -349,14 +350,15 @@
             }
         }
         .terms {
-            display: flex;
-            justify-content: space-between;
             margin-top: 2%;
             .terms-item {
+                display: block;
                 font-size: 12px;
                 line-height: 200%;
                 letter-spacing: 0.2px;
                 color: #0A060E;
+                padding: 10px 0px;
+                text-align: right;
             }
             @media screen and (max-width: 768px) {
                 margin-top: 20px;

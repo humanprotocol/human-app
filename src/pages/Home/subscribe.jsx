@@ -7,6 +7,7 @@ import SubscribeImg from '../../assets/images/subscribe.png';
 import { sendNewsletterSignup } from '../../service/user.service';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
+import ReadMoreIcon from '../../assets/icons/readmore.svg';
 
 export const Subscribe = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -68,7 +69,9 @@ export const Subscribe = ({ history }) => {
           </div>
         </div>
         <div className='terms col-md-6'>
-          <a className='terms-item'>Terms and conditions</a>
+          <a className='terms-item' href="https://humanprotocol.org/app/terms-and-conditions" target="_blank" rel="noreferrer">Terms and conditions</a>
+          <a className='terms-item' href="https://humanprotocol.org/app/privacy-policy" target="_blank" rel="noreferrer">Privacy policy</a>
+          <a className='terms-item' href='https://humanprotocol.org/'><img src={ReadMoreIcon} className='mr-2 ml-n1'/>Read more on HUMAN Protocol</a>
           <p className='terms-item'>© 2021 HPF. HUMAN Protocol® is a registered trademark</p>
         </div>
       </div>

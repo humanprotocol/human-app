@@ -179,7 +179,7 @@ const Job = (props) => {
   return (
     <div id="job" className="text-center">
       <div className='blur-bg'></div>
-      <div className="container w-100 mw-100">
+      <div className="container w-100 mw-100 job__container">
         <div className="row">
           <div className="col-md-3 section-option text-right col-sm-12">
             <h4 className="title mb-4">Job list</h4>
@@ -322,9 +322,9 @@ const Job = (props) => {
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container">
             <div className="mb-5">
               <p className="stats stats__main">{user?.earnedTokens || 0} <span>HMT earned</span></p>
-              <p className="stats stats__secondary"><span>HMT Pending transfer: </span> {user?.pendingTokens || 0}</p>
-              <p className="stats stats__secondary"><span>Successful Referrals: </span>{user?.referredUsers.length || 0} </p>
-              <p className="stats stats__secondary"><span>Questionnaire: </span> {user?.misc.questionnaire? `Completed` : `Incomplete`}</p>
+              <p className="stats stats__secondary"><span>HMT Pending transfer: </span> {user? user.pendingTokens : 0}</p>
+              <p className="stats stats__secondary"><span>Successful Referrals: </span>{user? user.referredUsers.length : 0} </p>
+              <p className="stats stats__secondary"><span>Questionnaire: </span> {user && user.misc.questionnaire? `Completed` : `Incomplete`}</p>
             </div>
           </div>
         </div>
