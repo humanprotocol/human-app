@@ -21,11 +21,13 @@ const Job = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
   const { user, isAuthed, token, refreshToken} = useSelector((state) => state.auth);
+
   if(!isAuthed) {
     history.push({ pathname: Routes.Home.path });
   }
   const captchaToken = useSelector((state) => state.hmt.captchaToken);
-  const [option, setOptions] = useState(JobOptions.captcha);
+  const [option, setOptions] = useState(JobOptions.referal);
+  const [referralCode, setReferralCode] = useState(user ? user.referralCode || '' : '');
   const [captchaCnt, setCaptchaCnt] = useState(0);
   const [referalCnt, setReferalCnt] = useState(0);
   const [submitted, setSubmitted] = useState(false);
@@ -67,6 +69,13 @@ const Job = (props) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    switch (name) {
+      case 'referal':
+        setReferralCode(value);
+        break;
+      default:
+        break;
+    }
     if (name === "question_4") {
       const newRadios = radios.map((radio) => {
         if (radio.value === value) {
@@ -88,7 +97,7 @@ const Job = (props) => {
 
   const handleRefresh = () => {
     setSubmitted(false);
-    setQuestions({ ...questions, referal: "" });
+    setReferralCode(user ? user.referralCode || '' : '');
   };
 
   const handleVerificationSuccess = (token, eKey) => {
@@ -121,7 +130,7 @@ const Job = (props) => {
           <div className="col-md-3 section-option text-right col-sm-12">
             <h4 className="title mb-4">Job list</h4>
             <ul className="m-0">
-              <li className="">
+              {/* <li className="">
                 <a
                   className={`opt ${
                     option && option === JobOptions.captcha ? "active" : ""
@@ -130,7 +139,7 @@ const Job = (props) => {
                 >
                   Data labeling
                 </a>
-              </li>
+              </li> */}
               <li className="">
                 <a
                   className={`opt ${
@@ -189,7 +198,7 @@ const Job = (props) => {
                   reset={handleRefresh}
                   onChange={handleChange}
                   name="referal"
-                  value={questions.referal}
+                  value={referralCode}
                 />
                 <FormControl.Feedback
                   type="invalid"
