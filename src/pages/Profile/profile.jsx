@@ -178,9 +178,6 @@ const ProfilePage = (props) => {
                 </>
               }
             </FormGroup>
-            { editing && 
-            <div className='mb-2 text-left'><Link to={Routes.ForgotPassword.path}>Change password</Link></div>
-            }
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
               <Button className='form-control bg-blue' onClick={editing ? updateProfile : toggleEditProfile}>{ editing ? 'Save changes' : 'Edit' }</Button>
