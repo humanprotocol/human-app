@@ -22,6 +22,7 @@ const Navigation = ({ history }) => {
         dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
         history.push({ pathname: Routes.Home.path });
       }).catch((err) => {
+        console.log('>>>>>>>>>>>>>>>>>>>>>>', err.message);
         alert('Failed to log out');
       });
       

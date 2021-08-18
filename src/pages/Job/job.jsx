@@ -51,6 +51,10 @@ const Job = (props) => {
       setOptions(history.location.state.jobOption);
     }
 
+    if(user && user.misc && user.misc.questionnaire) {
+      setOptions(JobOptions.profile);
+    }
+
     let taskOptions = TaskOptions.map((taskOpt) => ({ checked: false, ...taskOpt }));
     setTaskOptions(taskOptions);
 
@@ -78,7 +82,7 @@ const Job = (props) => {
           if(response) {
             dispatch({ type: 'SET_USER', payload: response });
             setErrorText('');
-            history.push({ pathname: Routes.Home.path });
+            setOptions(JobOptions.profile);
           } else {
             setErrorText('Failed to submit questions');
           }
@@ -314,10 +318,10 @@ const Job = (props) => {
           </div>
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container">
             <div className="mb-5">
-              <p className="stats stats__main">{user.earnedTokens} <span>HMT earned</span></p>
-              <p className="stats stats__secondary"><span>HMT Pending transfer: </span> {user.pendingTokens}</p>
-              <p className="stats stats__secondary"><span>Successful Referrals: </span>{user.referredUsers.length} </p>
-              <p className="stats stats__secondary"><span>Questionnaire: </span> {user.misc.questionnaire? `Completed` : `Incomplete`}</p>
+              <p className="stats stats__main">{user?.earnedTokens || 0} <span>HMT earned</span></p>
+              <p className="stats stats__secondary"><span>HMT Pending transfer: </span> {user?.pendingTokens || 0}</p>
+              <p className="stats stats__secondary"><span>Successful Referrals: </span>{user?.referredUsers.length || 0} </p>
+              <p className="stats stats__secondary"><span>Questionnaire: </span> {user?.misc.questionnaire? `Completed` : `Incomplete`}</p>
             </div>
           </div>
         </div>
