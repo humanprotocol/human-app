@@ -7,7 +7,7 @@ import countryList from "react-select-country-list";
 import { ErrorMessage, SignUpOpt } from "../../constants";
 import { Password } from "../../components/inputs/password/password";
 import './login.scss';
-import { register, resendEmailVerification, verifyEmail } from "../../service/user.service";
+import { register, resendEmailVerification, sendVerificationEmail, verifyEmail } from "../../service/user.service";
 import { Routes } from "../../routes";
 
 const RegisterPage = (props) => {
@@ -75,7 +75,7 @@ const RegisterPage = (props) => {
             return register(newUser).then((response) => {
                 dispatch({
                     type: 'AUTH_SIGN_IN',
-                    payload: true,
+                    payload: response.isEmailVerified,
                 });
                 dispatch({
                     type: 'AUTH_SUCCESS',
@@ -85,44 +85,14 @@ const RegisterPage = (props) => {
                 setAlertMsg('');
                 return response.token;
             })
-            .then(() => setOption(SignUpOpt.verifyEmail))
+            .then((token) => resendEmailVerification(token))
+            .then(() => {
+                setAlertMsg('');
+                history.push({ pathname: Routes.VerifyEmail.path });
+            })
             .catch((err) => {
                 setAlertMsg(err.message);
             })
-        }
-    }
-
-    const resendVerification = (e) => {
-        e.preventDefault();
-        if(!token) {
-            setAlertMsg('token required')
-        } else {
-            return resendEmailVerification(token)
-                .then(() => alert('Resend verification to email successfully'))
-                .catch((err) => setAlertMsg(err.message));
-        }
-        
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setSubmitted(true);
-        if(emailVerified) {
-            history.push({ pathname: Routes.Job.path });
-        }
-    }
-
-    const handleVerification = (e) => {
-        e.preventDefault()
-        setSubmitted(true);
-
-        if(token) {
-            return verifyEmail(token)
-            // return verifyEmail(verificationToken)
-                .then(() => {
-                    setAlertMsg('');
-                    setEmailVerified(true);
-                }).catch((err) => { setAlertMsg(err.message) });
         }
     }
 
@@ -130,52 +100,17 @@ const RegisterPage = (props) => {
         <div id='register' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
             <div className='container'>
                 <div className='page-title d-flex justify-content-between mb-4'>
-                    { option === SignUpOpt.verifyEmail && !emailVerified &&
-                       <h2>Verify email</h2>
-                    }
-                    { option === SignUpOpt.verifyEmail && emailVerified &&
-                       <h2>Email verified</h2>
-                    }
-                    { option === SignUpOpt.register && 
-                       <h2>Create account</h2>
-                    }
+                    <h2>Create account</h2>
                     <Link to='/'><i className='material-icons close'>clear</i></Link>
                 </div>
                 { alertMsg && alertMsg.length &&
                 <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
-                    { option === SignUpOpt.register && 
                     <Alert.Heading>Register failed!</Alert.Heading>
-                    }
-                    { option === SignUpOpt.verifyEmail && 
-                    <Alert.Heading>Email verification failed!</Alert.Heading>
-                    }
                     <p>{alertMsg}</p>
                 </Alert>
                 }
                 <div>
                     <form name='form'>
-                        { option === SignUpOpt.verifyEmail && !emailVerified && 
-                        <>
-                        {/* <FormGroup>
-                            <FormControl placeholder='Token' type='text' name='verificationToken' value={verificationToken} onChange={handleChange}></FormControl>
-                            {submitted && !verificationToken &&
-                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireVerificationToken}</FormControl.Feedback>
-                            }
-                        </FormGroup> */}
-                        <FormGroup className='actions d-flex justify-content-between m-0'>
-                            <Link className='btn' onClick={resendVerification}>Re-send</Link>
-                            <Button className='form-control bg-blue' onClick={handleVerification}>Verify email</Button>
-                        </FormGroup>
-                        </>
-                        }
-                        { option === SignUpOpt.verifyEmail && emailVerified && 
-                        <FormGroup className='actions d-flex justify-content-between m-0'>
-                            <Link className='btn' onClick={() => setOption(SignUpOpt.register)}>Back</Link>
-                            <Button className='form-control bg-blue' onClick={handleSubmit}>Next</Button>
-                        </FormGroup>
-                        }
-                        { option === SignUpOpt.register && 
-                        <>
                         <FormGroup>
                             <FormControl placeholder='Full name' type='text' name='userName' value={userName} onChange={handleChange}></FormControl>
                             {submitted && !userName &&
@@ -228,8 +163,6 @@ const RegisterPage = (props) => {
                             <Link className='btn' to={Routes.Home.path}>Back</Link>
                             <Button className='form-control bg-blue' onClick={handleRegister}>Next</Button>
                         </FormGroup>
-                        </>
-                        }
                     </form>
                 </div>
             </div>
