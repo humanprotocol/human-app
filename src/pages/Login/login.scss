@@ -124,6 +124,9 @@
                     max-width: 160px;
                     font-size: 16px;
                     letter-spacing: 0.2px;
+                    @media screen and (max-width: 420px) {
+                        width: 47.5%!important;
+                    }
                     &:hover {
                         color: #6309FF;
                     }
