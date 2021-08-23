@@ -1,1 +1,7 @@
-# human-app
+### human-app
+
+### Run project
+```
+yarn start
+
+```
