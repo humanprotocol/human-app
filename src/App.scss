@@ -19,6 +19,52 @@ label {
   }
 }
 
+.btn-custom {
+  color: #fff !important;
+  background-color: #6309ff !important;
+  padding: 0.5px 2rem !important;
+  margin: 0;
+  font-style: normal;
+  font-weight: 600 !important;
+  font-size: 1.125rem !important;
+  line-height: 2rem !important;
+  height: 3rem !important;
+  letter-spacing: 0.3px !important;
+  border-radius: 0.5rem !important;
+  border: 0 !important;
+  &:hover {
+    opacity: 0.8 !important;
+  }
+}
+.page-title {
+  h2 {
+    font-family: "Alliance No.1";
+    font-weight: 600;
+    font-size: 24px;
+    text-transform: none;
+    color: #0a060e;
+    @media screen and (max-width: 768px) {
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 158%;
+      letter-spacing: -0.4px;
+    }
+  }
+  .close {
+    opacity: 1;
+    font-weight: 600;
+    font-size: 24px;
+    text-transform: none;
+    color: #0a060e;
+    @media screen and (max-width: 768px) {
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 158%;
+      letter-spacing: -0.4px;
+    }
+  }
+}
+
 @media screen and (max-width: 480px) {
   h1 {
     font-size: 28px;

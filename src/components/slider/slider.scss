@@ -28,6 +28,9 @@
     width: 3rem;
     height: 3rem;
   }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
   .fa {
     width: 100%;
     height: 100%;
