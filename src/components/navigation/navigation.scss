@@ -12,6 +12,10 @@
     letter-spacing: 0.3px;
     font-weight: 600;
     border-bottom: 1px solid #f6f6f6;
+    @media screen and (max-width: 768px) {
+        padding: 0.5rem 0;
+        height: 4rem;
+    }
     @media screen and (max-width: 420px) {
         padding: 1rem 0;
     }

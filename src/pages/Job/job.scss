@@ -1,5 +1,8 @@
 #job {
     margin-top: 96px;
+    padding: 4% 0;
+    background-position: bottom center, center left;
+    background-size: cover, 60%;
     @media screen and (max-width: 768px) {
         margin-top: 6rem !important;
         height: auto !important;
@@ -31,12 +34,15 @@
     }
     .container {
         .section-option {
-            font-family: 'Alliance No.1';
             .title {
+                font-family: "Alliance No.1";
                 font-size: 20px;
+                font-style: normal;
                 font-weight: 600;
                 max-width: 288px;
                 margin-left: auto;
+                line-height: 36px;
+                letter-spacing: 0.2px;
                 @media only screen and (max-width: 768px) {
                     text-align: center;
                     margin: auto;
@@ -54,8 +60,18 @@
                 }
                 li {
                     .opt {
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 16px;
+                        line-height: 36px;
+                        letter-spacing: 0.2px;
+                        color: #0a060e;
+                        cursor: pointer;
                         &.disabled {
                             cursor:not-allowed;
+                        }
+                        &.active {
+                            color: #6309ff;
                         }
                     }
                 }
@@ -67,6 +83,12 @@
         }
         .section-details {
             p {
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 36px;
+                letter-spacing: 0.1px;
+                color: #0a060e;
                 @media only screen and (max-width: 768px) {
                     max-width: 300px;
                     margin: auto;
@@ -74,6 +96,27 @@
             }
         }
         .section-content {
+            .input-group {
+                height: 3rem;
+                border: 1px solid #6309ff;
+                border-radius: 0.5rem;
+                margin: auto;
+                .form-control {
+                    height: 100%;
+                    border: 0;
+                    color: #0a060e;
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+                .input-group-append {
+                    .btn {
+                        &:focus {
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
             .alert { 
                 &.alert-primary {
                     max-width: 400px;
@@ -93,9 +136,7 @@
         }
         #job {
             div.section-option {
-                
                 .title {
-                    
                 }
                 ul {
                     display: flex;
@@ -129,6 +170,28 @@
                 }
             }
         }
+    }
+}
+#referral {
+    p {
+        text-align: left;
+    }
+    .referral-link {
+        margin-top: 64px;
+    }
+    .btn {
+        &:active {
+            background-color: #6309FF;
+            opacity: 0.8;
+        }
+        i {
+            float: right;
+            margin-top: 0.25em;
+        }
+    }
+    @media (min-width: 1800px) {
+        width: 25rem;
+        margin: auto;
     }
 }
 // Stats CSS

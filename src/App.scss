@@ -1,6 +1,22 @@
+label {
+  font-size: 12px;
+  font-weight: 400;
+  float: left;
+}
 .dangerText {
   font-size: 12px;
   color: red;
+}
+.form-control {
+  &::-webkit-input-placeholder {
+    color: #777;
+  }
+  &::-moz-placeholder {
+    color: #777;
+  }
+  &::-ms-input-placeholder {
+    color: #777;
+  }
 }
 
 @media screen and (max-width: 480px) {

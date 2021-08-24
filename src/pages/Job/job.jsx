@@ -24,9 +24,9 @@ const Job = (props) => {
   const dispatch = useDispatch();
   const { user, isAuthed, token, refreshToken} = useSelector((state) => state.auth);
 
-  if(!isAuthed) {
-    history.push({ pathname: Routes.Home.path });
-  }
+  // if(!isAuthed) {
+  //   history.push({ pathname: Routes.Home.path });
+  // }
   const captchaToken = useSelector((state) => state.hmt.captchaToken);
   const [option, setOptions] = useState(JobOptions.questionare);
   const [referralCode, setReferralCode] = useState(user ? user.referralCode || '' : '');

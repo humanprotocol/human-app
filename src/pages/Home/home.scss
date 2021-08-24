@@ -145,25 +145,6 @@
     }
 
 }
-#referral {
-    p {
-        text-align: left;
-    }
-    .btn {
-        &:active {
-            background-color: #6309FF;
-            opacity: 0.8;
-        }
-        i {
-            float: right;
-            margin-top: 0.25em;
-        }
-    }
-    @media (min-width: 1800px) {
-        width: 25rem;
-        margin: auto;
-    }
-}
 #questions {
     max-width: 400px;
     padding: 0;
