@@ -370,7 +370,8 @@
             }
         }
         .terms {
-            margin-top: 2%;
+            margin-top: 2%!important;
+            justify-content: space-between;
             .terms-item {
                 display: block;
                 font-size: 13px;
@@ -378,7 +379,6 @@
                 letter-spacing: 0.2px;
                 color: #0A060E;
                 padding: 10px 0px;
-                // text-align: right;
             }
             @media screen and (max-width: 768px) {
                 margin-top: 20px;
