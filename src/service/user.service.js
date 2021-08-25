@@ -50,17 +50,16 @@ export const register = async (user) => {
 export const signIn = async ({email, password}) => {
   const currentTime = new Date().getTime();
   const locationData = {logins: {}};
-  
-  try {
-    const ipData = await axios.get('https://geolocation-db.com/json/')
-    if (ipData.status === 200) {
-      locationData.logins[currentTime] = ipData.data;
-    }
-  }
-  catch (e) {
-    locationData.logins[currentTime].error = "Unable to get location data"
-    console.log(e);
-  }
+
+  await axios.get('https://geolocation-db.com/json/')
+    .then((ipData) => {
+      if (ipData.status === 200) {
+        locationData.logins[currentTime] = ipData.data;
+      }
+    }).catch((err) => {
+      locationData.logins[currentTime] = { error:  'Unable to get location data'};
+    });
+
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/login`,
     { email, password, misc: locationData},
