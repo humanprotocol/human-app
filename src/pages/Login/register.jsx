@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { FormGroup, FormControl, Button, Alert, Dropdown } from "react-bootstrap";
 import * as EmailValidator from 'email-validator';
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import countryList from "react-select-country-list";
 import { ErrorMessage, SignUpOpt } from "../../constants";
 import { Password } from "../../components/inputs/password/password";
@@ -36,6 +37,8 @@ const RegisterPage = (props) => {
     });
     const [submitted, setSubmitted] = useState(false);
     const [alertMsg, setAlertMsg] = useState('');
+    const [captchaPassed, setCaptchaPassed] = useState(false);
+
     useEffect(() => {
         const countries = countryList().getData();
         setCountries(countries);
@@ -52,6 +55,10 @@ const RegisterPage = (props) => {
         setInputs({ ...inputs, country });
     } 
 
+    const handleVerificationSuccess = (token, ekey) => {
+        if(token) setCaptchaPassed(true);
+      }
+
     const handleRegister = (e) => {
         e.preventDefault();
         setSubmitted(true);
@@ -60,9 +67,7 @@ const RegisterPage = (props) => {
             setConfirm(false);
         }
         setConfirm(true);
-        console.log(password);
-        console.log(repeatPassword);
-        if(email && password && country && userName && confirm && EmailValidator.validate(email)) {
+        if(email && password && country && userName && confirm && EmailValidator.validate(email) && captchaPassed) {
             const newUser = {
                 name: userName, 
                 email, 
@@ -160,6 +165,17 @@ const RegisterPage = (props) => {
                         </FormGroup>
                         <Password onChange={handleChange} name='password' value={password} placeholder='Create password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
                         <Password onChange={handleChange} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
+                        <FormGroup className='text-center'>
+                        <HCaptcha
+                            sitekey="64fd34e8-c20f-4312-ab15-9b28a2ff3343"
+                            onVerify={(token, ekey) =>
+                            handleVerificationSuccess(token, ekey)
+                            }
+                        />
+                        {submitted && !captchaPassed &&
+                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.captchPassRequired}</FormControl.Feedback>
+                        }
+                        </FormGroup>
                         <FormGroup className='actions d-flex justify-content-between m-0'>
                             <Link className='btn' to={Routes.Home.path}>Back</Link>
                             <Button className='form-control bg-blue' onClick={handleRegister}>Next</Button>

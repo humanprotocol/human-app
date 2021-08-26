@@ -3,6 +3,7 @@ import { Button, FormControl, FormGroup, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Password } from '../../components/inputs/password/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
@@ -18,6 +19,7 @@ const LoginPage = (props) => {
   }); 
   const [alertMsg, setAlertMsg] = useState('')
   const [submitted, setSubmitted] = useState(false);
+  const [captchaPassed, setCaptchaPassed] = useState(false);
   const { email, password } = inputs;
 
   const handleChange = (e) => {
@@ -25,10 +27,14 @@ const LoginPage = (props) => {
     setInputs(inputs => ({ ...inputs, [name]: value }));
   }
 
+  const handleVerificationSuccess = (token, ekey) => {
+    if(token) setCaptchaPassed(true);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    if (email && password && EmailValidator.validate(email)) {
+    if (email && password && EmailValidator.validate(email) && captchaPassed) {
       signIn({ email, password }).then((res) => {
         if (res) {
           let { user } = res;
@@ -74,6 +80,17 @@ const LoginPage = (props) => {
               }
             </FormGroup>
             <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} placeholder="Password"></Password>
+            <FormGroup className='text-center'>
+              <HCaptcha
+                sitekey="64fd34e8-c20f-4312-ab15-9b28a2ff3343"
+                onVerify={(token, ekey) =>
+                  handleVerificationSuccess(token, ekey)
+                }
+              />
+              {submitted && !captchaPassed &&
+                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.captchPassRequired}</FormControl.Feedback>
+              }
+            </FormGroup>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
               <Button className='form-control bg-blue' onClick={handleSubmit}>Log in</Button>
