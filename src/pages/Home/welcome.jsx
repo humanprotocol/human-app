@@ -42,11 +42,11 @@ const Welcome = ({ history }) => {
             Welcome to the <span className='color-blue'>HUMAN App</span>
           </h1>
           <h4 className='text-center mb-4 font-weight-bold'>
-            Gateway to the HUMAN experience
+            Complete jobs; earn HMT.
           </h4>
           {!isAuthed && 
             <p className='text-center mb-4'>
-            Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT when you register. To earn more, complete tasks, or refer friends.
+            Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT when you register <a href="https://humanprotocol.org/app/terms-and-conditions" rel="noreferrer" target="_blank">(Only once per person)<span>&#42;</span></a> To earn more, complete tasks, or refer friends.
             </p>
           }
 
