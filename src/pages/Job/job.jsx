@@ -223,7 +223,7 @@ const Job = (props) => {
               <div id='hcaptcha'>
                 <p className='d-md-block'>For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.</p>
                 <HCaptcha
-                  sitekey="64fd34e8-c20f-4312-ab15-9b28a2ff3343"
+                  sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
                   onVerify={(token, ekey) =>
                     handleVerificationSuccess(token, ekey)
                   }

@@ -167,7 +167,7 @@ const RegisterPage = (props) => {
                         <Password onChange={handleChange} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
                         <FormGroup className='text-center'>
                         <HCaptcha
-                            sitekey="64fd34e8-c20f-4312-ab15-9b28a2ff3343"
+                            sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
                             onVerify={(token, ekey) =>
                             handleVerificationSuccess(token, ekey)
                             }
