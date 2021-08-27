@@ -124,6 +124,9 @@ form .form-group p {
   background-color: #6309ff;
   opacity: 0.8;
 }
+.btn:disabled:hover {
+  opacity: 0.65;
+}
 .bg-white.btn-primary.btn {
   color: #6309ff;
   border: 2px solid #6309ff;
