@@ -38,6 +38,7 @@ const RegisterPage = (props) => {
     const [submitted, setSubmitted] = useState(false);
     const [alertMsg, setAlertMsg] = useState('');
     const [captchaPassed, setCaptchaPassed] = useState(false);
+    const [hcaptchaToken, setHcaptchaToken] = useState('');
 
     useEffect(() => {
         const countries = countryList().getData();
@@ -56,7 +57,10 @@ const RegisterPage = (props) => {
     } 
 
     const handleVerificationSuccess = (token, ekey) => {
-        if(token) setCaptchaPassed(true);
+        if(token) {
+            setCaptchaPassed(true);
+            setHcaptchaToken(token);
+        }
       }
 
     const handleRegister = (e) => {
@@ -72,7 +76,8 @@ const RegisterPage = (props) => {
                 name: userName, 
                 email, 
                 password, 
-                country: country.value
+                country: country.value,
+                hcaptchaToken,
             }
             
             if(refCode) {
@@ -90,6 +95,8 @@ const RegisterPage = (props) => {
                 });
                 setSubmitted(false);
                 setAlertMsg('');
+                setCaptchaPassed(false);
+                setHcaptchaToken('');
                 return response.token;
             })
             .then((token) => resendEmailVerification(token))

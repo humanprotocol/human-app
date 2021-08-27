@@ -47,7 +47,7 @@ export const register = async (user) => {
   })
 }
 
-export const signIn = async ({email, password}) => {
+export const signIn = async ({email, password, hcaptchaToken}) => {
   const currentTime = new Date().getTime();
   const locationData = {logins: {}};
 
@@ -62,7 +62,7 @@ export const signIn = async ({email, password}) => {
 
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/login`,
-    { email, password, misc: locationData},
+    { email, password, misc: locationData, hcaptchaToken},
   ).then((response) => {
     const { user, tokens } = response.data;
     localStorage.setItem('token', tokens.access.token);

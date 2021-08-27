@@ -20,6 +20,7 @@ const LoginPage = (props) => {
   const [alertMsg, setAlertMsg] = useState('')
   const [submitted, setSubmitted] = useState(false);
   const [captchaPassed, setCaptchaPassed] = useState(false);
+  const [hcaptchaToken, setHcaptchaToken] = useState('');
   const { email, password } = inputs;
 
   const handleChange = (e) => {
@@ -28,14 +29,17 @@ const LoginPage = (props) => {
   }
 
   const handleVerificationSuccess = (token, ekey) => {
-    if(token) setCaptchaPassed(true);
+    if(token) { 
+      setCaptchaPassed(true);
+      setHcaptchaToken(token);
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
     if (email && password && EmailValidator.validate(email) && captchaPassed) {
-      signIn({ email, password }).then((res) => {
+      signIn({ email, password, hcaptchaToken }).then((res) => {
         if (res) {
           let { user } = res;
           dispatch({
@@ -46,6 +50,8 @@ const LoginPage = (props) => {
             type: 'AUTH_SIGN_IN',
             payload: user.isEmailVerified,
           });
+          setCaptchaPassed(false);
+          setHcaptchaToken('');
           if(user.isEmailVerified) history.push({ pathname: Routes.Job.path });
           else history.push({ pathname: Routes.VerifyEmail.path });
         }
