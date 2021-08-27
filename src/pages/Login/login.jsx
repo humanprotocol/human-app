@@ -93,7 +93,7 @@ const LoginPage = (props) => {
             </FormGroup>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
-              <Button className='form-control bg-blue' onClick={handleSubmit}>Log in</Button>
+              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!captchaPassed}>Log in</Button>
             </FormGroup>
           </form>
         </div>

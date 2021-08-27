@@ -178,7 +178,7 @@ const RegisterPage = (props) => {
                         </FormGroup>
                         <FormGroup className='actions d-flex justify-content-between m-0'>
                             <Link className='btn' to={Routes.Home.path}>Back</Link>
-                            <Button className='form-control bg-blue' onClick={handleRegister}>Next</Button>
+                            <Button className='form-control bg-blue' onClick={handleRegister} disabled={!captchaPassed}>Next</Button>
                         </FormGroup>
                     </form>
                 </div>

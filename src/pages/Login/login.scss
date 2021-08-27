@@ -17,6 +17,11 @@
         &:hover {
             opacity: 0.8;
         }
+        &:disabled {
+            &:hover {
+                opacity: 0.65;
+            }
+        }
     }
 }
 .form-control {
