@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Button, FormControl, FormGroup, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Password } from '../../components/inputs/password/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
@@ -18,18 +19,28 @@ const LoginPage = (props) => {
   }); 
   const [alertMsg, setAlertMsg] = useState('')
   const [submitted, setSubmitted] = useState(false);
+  const [captchaPassed, setCaptchaPassed] = useState(false);
+  const [hcaptchaToken, setHcaptchaToken] = useState('');
   const { email, password } = inputs;
+  const captchaRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputs(inputs => ({ ...inputs, [name]: value }));
   }
 
+  const handleVerificationSuccess = (token) => {
+    if(token) { 
+      setCaptchaPassed(true);
+      setHcaptchaToken(token);
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    if (email && password && EmailValidator.validate(email)) {
-      signIn({ email, password }).then((res) => {
+    if (email && password && EmailValidator.validate(email) && captchaPassed) {
+      signIn({ email, password, hcaptchaToken }).then((res) => {
         if (res) {
           let { user } = res;
           dispatch({
@@ -40,15 +51,24 @@ const LoginPage = (props) => {
             type: 'AUTH_SIGN_IN',
             payload: user.isEmailVerified,
           });
+          setCaptchaPassed(false);
+          setHcaptchaToken('');
           if(user.isEmailVerified) history.push({ pathname: Routes.Job.path });
           else history.push({ pathname: Routes.VerifyEmail.path });
         }
       }).catch((err) => {
         setAlertMsg(err.message);
+        setCaptchaPassed(false);
+        setHcaptchaToken('');
+        setSubmitted(false);
+        captchaRef.current.resetCaptcha();
       });
-    } 
+    } else {
+      setCaptchaPassed(false);
+      setHcaptchaToken('');
+      captchaRef.current.resetCaptcha();
+    }
   }
-
 
   return (
     <div id='login' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
@@ -74,9 +94,21 @@ const LoginPage = (props) => {
               }
             </FormGroup>
             <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} placeholder="Password"></Password>
+            <FormGroup className='text-center'>
+              <HCaptcha
+                sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+                onVerify={(token, ekey) =>
+                  handleVerificationSuccess(token)
+                }
+                ref={captchaRef}
+              />
+              {submitted && !captchaPassed &&
+                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.captchaPassRequired}</FormControl.Feedback>
+              }
+            </FormGroup>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
-              <Button className='form-control bg-blue' onClick={handleSubmit}>Log in</Button>
+              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!captchaPassed}>Log in</Button>
             </FormGroup>
           </form>
         </div>
