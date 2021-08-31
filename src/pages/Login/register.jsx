@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import { FormGroup, FormControl, Button, Alert, Dropdown } from "react-bootstrap";
@@ -31,7 +31,6 @@ const RegisterPage = (props) => {
         password: '',
         repeatPassword: '',
         walletAddress: '',
-        verificationToken: '',
         country: '',
         refCode: '',
     });
@@ -39,13 +38,14 @@ const RegisterPage = (props) => {
     const [alertMsg, setAlertMsg] = useState('');
     const [captchaPassed, setCaptchaPassed] = useState(false);
     const [hcaptchaToken, setHcaptchaToken] = useState('');
+    const captchaRef = useRef(null);
 
     useEffect(() => {
         const countries = countryList().getData();
         setCountries(countries);
     }, []);
 
-    const { email, password, repeatPassword, userName,  verificationToken, country, refCode } = inputs;
+    const { email, password, repeatPassword, userName, country, refCode } = inputs;
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -69,6 +69,9 @@ const RegisterPage = (props) => {
 
         if(password && repeatPassword && password !== repeatPassword) {
             setConfirm(false);
+            setCaptchaPassed(false);
+            setHcaptchaToken('');
+            captchaRef.current.resetCaptcha();
         }
         setConfirm(true);
         if(email && password && country && userName && confirm && EmailValidator.validate(email) && captchaPassed) {
@@ -106,7 +109,14 @@ const RegisterPage = (props) => {
             })
             .catch((err) => {
                 setAlertMsg(err.message);
+                setCaptchaPassed(false);
+                setHcaptchaToken('');
+                captchaRef.current.resetCaptcha();
             })
+        } else {
+            setCaptchaPassed(false);
+            setHcaptchaToken('');
+            captchaRef.current.resetCaptcha();
         }
     }
 
@@ -178,6 +188,7 @@ const RegisterPage = (props) => {
                             onVerify={(token, ekey) =>
                             handleVerificationSuccess(token)
                             }
+                            ref={captchaRef}
                         />
                         {submitted && !captchaPassed &&
                             <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.captchPassRequired}</FormControl.Feedback>

@@ -128,7 +128,7 @@ export const ErrorMessage = {
   requireWalletAddress: "Wallet Address required",
   requireVerificationToken: 'Verification token required',
   invalidVerificationToken: 'Invalid verification token',
-  captchPassRequired: 'You need to pass captcha',
+  captchaPassRequired: 'You need to solve captcha',
 };
 
 export const SignUpOpt = {
