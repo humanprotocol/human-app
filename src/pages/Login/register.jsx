@@ -56,7 +56,7 @@ const RegisterPage = (props) => {
         setInputs({ ...inputs, country });
     } 
 
-    const handleVerificationSuccess = (token, ekey) => {
+    const handleVerificationSuccess = (token) => {
         if(token) {
             setCaptchaPassed(true);
             setHcaptchaToken(token);
@@ -176,7 +176,7 @@ const RegisterPage = (props) => {
                         <HCaptcha
                             sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
                             onVerify={(token, ekey) =>
-                            handleVerificationSuccess(token, ekey)
+                            handleVerificationSuccess(token)
                             }
                         />
                         {submitted && !captchaPassed &&
