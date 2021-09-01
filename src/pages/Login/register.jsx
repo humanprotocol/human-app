@@ -19,8 +19,6 @@ const RegisterPage = (props) => {
         history.push({ pathname: Routes.Home.path });
     }
 
-    const [option, setOption] = useState(SignUpOpt.register)
-    const [emailVerified, setEmailVerified] = useState(false)
     const [countries, setCountries] = useState([])
     const [confirm, setConfirm] = useState(false)     
     const [inputs, setInputs] = useState({
@@ -35,11 +33,12 @@ const RegisterPage = (props) => {
         refCode: '',
     });
     const [submitted, setSubmitted] = useState(false);
-    const [submitable, setSubmitable] = useState(false);
+    const [submittable, setsubmittable] = useState(false);
     const [alertMsg, setAlertMsg] = useState('');
     const [captchaPassed, setCaptchaPassed] = useState(false);
     const [hcaptchaToken, setHcaptchaToken] = useState('');
     const captchaRef = useRef(null);
+    const { email, password, repeatPassword, userName, country, refCode } = inputs;
 
     useEffect(() => {
         const countries = countryList().getData();
@@ -47,12 +46,29 @@ const RegisterPage = (props) => {
     }, []);
 
     useEffect(() => {
-        if(email && password && repeatPassword && userName && country && captchaPassed)
-        // if(email && password && country && userName && confirm && EmailValidator.validate(email) && captchaPassed) {
-            setSubmitable(true);
+        if(email && password && repeatPassword && userName && country && captchaPassed && EmailValidator.validate(email) && password === repeatPassword && validatePassword(password))
+            setsubmittable(true);
+        else setsubmittable(false);
     }, [inputs, captchaPassed]);
 
-    const { email, password, repeatPassword, userName, country, refCode } = inputs;
+    useEffect(() => {
+        validatePassword(password);
+    }, [password, repeatPassword])
+
+
+    const validatePassword = (password) => {
+        if (password.length < 8) {
+            return false;
+        } else if (!password.match(/\d/) || !password.match(/[a-zA-Z]/)) {
+            return false;
+        } else if(repeatPassword && repeatPassword !== password) {
+            setConfirm(false);
+            return false;
+        } else {
+            setConfirm(true);
+            return true;
+        }
+    }
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -67,8 +83,9 @@ const RegisterPage = (props) => {
         if(token) {
             setCaptchaPassed(true);
             setHcaptchaToken(token);
+            setSubmitted(true);
         }
-      }
+    }
 
     const handleRegister = (e) => {
         e.preventDefault();
@@ -78,8 +95,8 @@ const RegisterPage = (props) => {
             setCaptchaPassed(false);
             setHcaptchaToken('');
             captchaRef.current.resetCaptcha();
-            setSubmitable(false);
-        } else if(submitable && EmailValidator.validate(email)){
+            setsubmittable(false);
+        } else if(submittable && EmailValidator.validate(email)){
             setConfirm(true);
             const newUser = {
                 name: userName, 
@@ -122,56 +139,9 @@ const RegisterPage = (props) => {
         } else {
             setCaptchaPassed(false);
             setHcaptchaToken('');
-            setSubmitable(false);
+            setsubmittable(false);
             captchaRef.current.resetCaptcha();
         };
-
-
-        // if(submitable && confirm && EmailValidator.validate(email)) {
-        //     const newUser = {
-        //         name: userName, 
-        //         email, 
-        //         password, 
-        //         country: country.value,
-        //         hcaptchaToken,
-        //     }
-            
-        //     if(refCode) {
-        //         newUser['refCode'] = refCode;
-        //     }
-
-        //     return register(newUser).then((response) => {
-        //         dispatch({
-        //             type: 'AUTH_SIGN_IN',
-        //             payload: response.isEmailVerified,
-        //         });
-        //         dispatch({
-        //             type: 'AUTH_SUCCESS',
-        //             payload: response,
-        //         });
-        //         setSubmitted(false);
-        //         setAlertMsg('');
-        //         setCaptchaPassed(false);
-        //         setHcaptchaToken('');
-        //         return response.token;
-        //     })
-        //     .then((token) => resendEmailVerification(token))
-        //     .then(() => {
-        //         setAlertMsg('');
-        //         history.push({ pathname: Routes.VerifyEmail.path });
-        //     })
-        //     .catch((err) => {
-        //         setAlertMsg(err.message);
-        //         setCaptchaPassed(false);
-        //         setHcaptchaToken('');
-        //         captchaRef.current.resetCaptcha();
-        //     });
-        // } else {
-        //     setCaptchaPassed(false);
-        //     setHcaptchaToken('');
-        //     setSubmitable(false);
-        //     captchaRef.current.resetCaptcha();
-        // }
     }
 
     return (
@@ -234,8 +204,8 @@ const RegisterPage = (props) => {
                                 Country required
                             </FormControl.Feedback>
                         </FormGroup>
-                        <Password onChange={handleChange} name='password' value={password} placeholder='Create password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
-                        <Password onChange={handleChange} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
+                        <Password onChange={handleChange} name='password' value={password} placeholder='Create password' submitted={submitted} className='mb-5' confirm={confirm} enableValidation={true}></Password>
+                        <Password onChange={handleChange} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' submitted={submitted} className='mb-5' confirm={confirm} enableValidation={true}></Password>
                         <FormGroup className='text-center'>
                         <HCaptcha
                             sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
@@ -250,7 +220,7 @@ const RegisterPage = (props) => {
                         </FormGroup>
                         <FormGroup className='actions d-flex justify-content-between m-0'>
                             <Link className='btn' to={Routes.Home.path}>Back</Link>
-                            <Button className='form-control bg-blue' onClick={handleRegister} disabled={!submitable}>Next</Button>
+                            <Button className='form-control bg-blue' onClick={handleRegister} disabled={!submittable}>Next</Button>
                         </FormGroup>
                     </form>
                 </div>

@@ -19,16 +19,16 @@ const LoginPage = (props) => {
   }); 
   const [alertMsg, setAlertMsg] = useState('')
   const [submitted, setSubmitted] = useState(false);
-  const [submitable, setSubmitable] = useState(false);
+  const [submittable, setsubmittable] = useState(false);
   const [captchaPassed, setCaptchaPassed] = useState(false);
   const [hcaptchaToken, setHcaptchaToken] = useState('');
   const { email, password } = inputs;
   const captchaRef = useRef(null);
 
   useEffect(() => {
-    if (email && password && captchaPassed) {
-      setSubmitable(true);
-    } else setSubmitable(false);
+    if (email && password && captchaPassed && EmailValidator.validate(email)) {
+      setsubmittable(true);
+    } else setsubmittable(false);
   }, [captchaPassed, inputs])
 
   const handleChange = (e) => {
@@ -46,36 +46,29 @@ const LoginPage = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    if (email && password && EmailValidator.validate(email) && captchaPassed) {
-      signIn({ email, password, hcaptchaToken }).then((res) => {
-        if (res) {
-          let { user } = res;
-          dispatch({
-            type: 'AUTH_SUCCESS',
-            payload: res,
-          })
-          dispatch({
-            type: 'AUTH_SIGN_IN',
-            payload: user.isEmailVerified,
-          });
-          setCaptchaPassed(false);
-          setHcaptchaToken('');
-          if(user.isEmailVerified) history.push({ pathname: Routes.Job.path });
-          else history.push({ pathname: Routes.VerifyEmail.path });
-        }
-      }).catch((err) => {
-        setAlertMsg(err.message);
+    signIn({ email, password, hcaptchaToken }).then((res) => {
+      if (res) {
+        let { user } = res;
+        dispatch({
+          type: 'AUTH_SUCCESS',
+          payload: res,
+        })
+        dispatch({
+          type: 'AUTH_SIGN_IN',
+          payload: user.isEmailVerified,
+        });
         setCaptchaPassed(false);
         setHcaptchaToken('');
-        setSubmitted(false);
-        captchaRef.current.resetCaptcha();
-      });
-    } else {
+        if(user.isEmailVerified) history.push({ pathname: Routes.Job.path });
+        else history.push({ pathname: Routes.VerifyEmail.path });
+      }
+    }).catch((err) => {
+      setAlertMsg(err.message);
       setCaptchaPassed(false);
       setHcaptchaToken('');
-      setSubmitable(false);
+      setSubmitted(false);
       captchaRef.current.resetCaptcha();
-    }
+    });
   }
 
   return (
@@ -97,11 +90,11 @@ const LoginPage = (props) => {
               {submitted && !email &&
                 <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
               }
-              {submitted && email && !EmailValidator.validate(email) &&
+              { email && !EmailValidator.validate(email) &&
                 <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
               }
             </FormGroup>
-            <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} placeholder="Password"></Password>
+            <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} placeholder="Password" enableValidation={false}></Password>
             <FormGroup className='text-center'>
               <HCaptcha
                 sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
@@ -116,7 +109,7 @@ const LoginPage = (props) => {
             </FormGroup>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
-              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!submitable}>Log in</Button>
+              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!submittable}>Log in</Button>
             </FormGroup>
           </form>
         </div>
