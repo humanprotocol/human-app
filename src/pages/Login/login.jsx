@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Button, FormControl, FormGroup, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -19,10 +19,17 @@ const LoginPage = (props) => {
   }); 
   const [alertMsg, setAlertMsg] = useState('')
   const [submitted, setSubmitted] = useState(false);
+  const [submitable, setSubmitable] = useState(false);
   const [captchaPassed, setCaptchaPassed] = useState(false);
   const [hcaptchaToken, setHcaptchaToken] = useState('');
   const { email, password } = inputs;
   const captchaRef = useRef(null);
+
+  useEffect(() => {
+    if (email && password && captchaPassed) {
+      setSubmitable(true);
+    } else setSubmitable(false);
+  }, [captchaPassed, inputs])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,6 +73,7 @@ const LoginPage = (props) => {
     } else {
       setCaptchaPassed(false);
       setHcaptchaToken('');
+      setSubmitable(false);
       captchaRef.current.resetCaptcha();
     }
   }
@@ -108,7 +116,7 @@ const LoginPage = (props) => {
             </FormGroup>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
-              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!captchaPassed}>Log in</Button>
+              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!submitable}>Log in</Button>
             </FormGroup>
           </form>
         </div>

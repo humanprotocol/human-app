@@ -22,7 +22,7 @@ const RegisterPage = (props) => {
     const [option, setOption] = useState(SignUpOpt.register)
     const [emailVerified, setEmailVerified] = useState(false)
     const [countries, setCountries] = useState([])
-    const [confirm, setConfirm] = useState(true)     
+    const [confirm, setConfirm] = useState(false)     
     const [inputs, setInputs] = useState({
         email: user ? user.email : '',
         userName: '',
@@ -35,6 +35,7 @@ const RegisterPage = (props) => {
         refCode: '',
     });
     const [submitted, setSubmitted] = useState(false);
+    const [submitable, setSubmitable] = useState(false);
     const [alertMsg, setAlertMsg] = useState('');
     const [captchaPassed, setCaptchaPassed] = useState(false);
     const [hcaptchaToken, setHcaptchaToken] = useState('');
@@ -44,6 +45,12 @@ const RegisterPage = (props) => {
         const countries = countryList().getData();
         setCountries(countries);
     }, []);
+
+    useEffect(() => {
+        if(email && password && repeatPassword && userName && country && captchaPassed)
+        // if(email && password && country && userName && confirm && EmailValidator.validate(email) && captchaPassed) {
+            setSubmitable(true);
+    }, [inputs, captchaPassed]);
 
     const { email, password, repeatPassword, userName, country, refCode } = inputs;
     
@@ -68,13 +75,12 @@ const RegisterPage = (props) => {
         setSubmitted(true);
 
         if(password && repeatPassword && password !== repeatPassword) {
-            setConfirm(false);
             setCaptchaPassed(false);
             setHcaptchaToken('');
             captchaRef.current.resetCaptcha();
-        }
-        setConfirm(true);
-        if(email && password && country && userName && confirm && EmailValidator.validate(email) && captchaPassed) {
+            setSubmitable(false);
+        } else if(submitable && EmailValidator.validate(email)){
+            setConfirm(true);
             const newUser = {
                 name: userName, 
                 email, 
@@ -112,12 +118,60 @@ const RegisterPage = (props) => {
                 setCaptchaPassed(false);
                 setHcaptchaToken('');
                 captchaRef.current.resetCaptcha();
-            })
+            });
         } else {
             setCaptchaPassed(false);
             setHcaptchaToken('');
+            setSubmitable(false);
             captchaRef.current.resetCaptcha();
-        }
+        };
+
+
+        // if(submitable && confirm && EmailValidator.validate(email)) {
+        //     const newUser = {
+        //         name: userName, 
+        //         email, 
+        //         password, 
+        //         country: country.value,
+        //         hcaptchaToken,
+        //     }
+            
+        //     if(refCode) {
+        //         newUser['refCode'] = refCode;
+        //     }
+
+        //     return register(newUser).then((response) => {
+        //         dispatch({
+        //             type: 'AUTH_SIGN_IN',
+        //             payload: response.isEmailVerified,
+        //         });
+        //         dispatch({
+        //             type: 'AUTH_SUCCESS',
+        //             payload: response,
+        //         });
+        //         setSubmitted(false);
+        //         setAlertMsg('');
+        //         setCaptchaPassed(false);
+        //         setHcaptchaToken('');
+        //         return response.token;
+        //     })
+        //     .then((token) => resendEmailVerification(token))
+        //     .then(() => {
+        //         setAlertMsg('');
+        //         history.push({ pathname: Routes.VerifyEmail.path });
+        //     })
+        //     .catch((err) => {
+        //         setAlertMsg(err.message);
+        //         setCaptchaPassed(false);
+        //         setHcaptchaToken('');
+        //         captchaRef.current.resetCaptcha();
+        //     });
+        // } else {
+        //     setCaptchaPassed(false);
+        //     setHcaptchaToken('');
+        //     setSubmitable(false);
+        //     captchaRef.current.resetCaptcha();
+        // }
     }
 
     return (
@@ -196,7 +250,7 @@ const RegisterPage = (props) => {
                         </FormGroup>
                         <FormGroup className='actions d-flex justify-content-between m-0'>
                             <Link className='btn' to={Routes.Home.path}>Back</Link>
-                            <Button className='form-control bg-blue' onClick={handleRegister} disabled={!captchaPassed}>Next</Button>
+                            <Button className='form-control bg-blue' onClick={handleRegister} disabled={!submitable}>Next</Button>
                         </FormGroup>
                     </form>
                 </div>
