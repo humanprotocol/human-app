@@ -1,18 +1,23 @@
 import { useEffect, useState } from 'react';
 import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, useLocation, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { useSelector } from 'react-redux';
 import './login.scss';
 import { ResetPasswordStep } from '../../constants';
 import { Routes } from '../../routes';
 import { forgotPassword } from '../../service/user.service';
+import { Password } from '../../components/inputs/password/password';
+import { validatePassword } from '../../service/base.service';
 
 const ForgotPasswordPage = (props) => {
-  const { user, isAuthed, token, refreshToken } = useSelector((state) => state.auth);
+  const { search } = useLocation();
+  const verificationToken = search.replace('?token=', '');
+  const { token } = useSelector((state) => state.auth);
   const [alertMsg, setAlertMsg] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [submittable, setSubmittable] = useState(false)
+  const [confirm, setConfirm] = useState(false);
   const [step, setStep] = useState(ResetPasswordStep.verifyEmail);
   const [inputs, setInputs] = useState({
     email: '',
@@ -24,7 +29,7 @@ const ForgotPasswordPage = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     switch (step) {
-      case ResetPasswordStep.verifyEmail:
+      case ResetPasswordStep.resetPassword:
         if(email && EmailValidator.validate(email)) {
           forgotPassword(email, token)
             .then(() => setStep(ResetPasswordStep.pending))
@@ -32,26 +37,54 @@ const ForgotPasswordPage = (props) => {
         }
         break;
       default:
+        if(email && EmailValidator.validate(email)) {
+          forgotPassword(email, token)
+            .then(() => {
+              setStep(ResetPasswordStep.pending);
+              setAlertMsg('');
+              setSubmittable(false);
+            })
+            .catch((err) => setAlertMsg(err.message));
+        }
         break;
     }
   }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log('>>>>>>>>>>>>>>>>', { name, value })
-
     setInputs(inputs => ({ ...inputs, [name]: value }));
   }
 
   const resendEmail = (e) => {
     e.preventDefault();
+    if(step === ResetPasswordStep.pending && email && EmailValidator.validate(email)) {
+
+    }
   }
 
+  useEffect(() => {
+    if(verificationToken) setStep(ResetPasswordStep.resetPassword);
+  }, [])
   useEffect(() => {
     switch (step) {
       case ResetPasswordStep.verifyEmail:
           if(email && EmailValidator.validate(email)) setSubmittable(true);
           else setSubmittable(false);        
+        break;
+      case ResetPasswordStep.resetPassword:
+        if(password || repeatPassword) setSubmitted(true)
+        else setSubmitted(false);
+        
+        if(password && repeatPassword && password === repeatPassword && validatePassword(password)) {
+          setConfirm(true);
+          setSubmittable(true);
+        } else if(password && repeatPassword && password === repeatPassword) {
+          setConfirm(true);
+          setSubmittable(false);
+        } else {
+          setConfirm(false);
+          setSubmittable(false);
+        }
         break;
       default:
         break;
@@ -108,14 +141,18 @@ const ForgotPasswordPage = (props) => {
             }
             { step === ResetPasswordStep.pending &&
             <FormGroup>
-              <p>Did not recieve mail? <a href='' onClick={resendEmail}>Re-send.</a></p>
+              <p>Did not recieve mail? <a href='' onClick={handleSubmit}>Re-send.</a></p>
             </FormGroup>
             }
             { step === ResetPasswordStep.resetPassword  &&
-            <FormGroup className='actions d-flex justify-content-between m-0'>
-              <Link className='btn' to={Routes.Login.path}>Cancel</Link>
-              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={true}>Save</Button>
-            </FormGroup>
+            <>
+              <Password onChange={handleChange} name='password' value={password} placeholder='New password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
+              <Password onChange={handleChange} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
+              <FormGroup className='actions d-flex justify-content-between m-0'>
+                <Link className='btn' to={Routes.Login.path}>Cancel</Link>
+                <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!submittable}>Save</Button>
+              </FormGroup>
+            </>
             }
           </form>
         </div>

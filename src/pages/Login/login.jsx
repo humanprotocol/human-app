@@ -107,7 +107,7 @@ const LoginPage = (props) => {
               }
             </FormGroup>
             <div className='d-flex justify-content-between mb-2'>
-              <Link to='/changePassword' className='btn btn-link'>Forgot Password?</Link>
+              <Link to='/reset-password' className='btn btn-link'>Forgot Password?</Link>
             </div>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>

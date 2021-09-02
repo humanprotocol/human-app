@@ -1,15 +1,16 @@
-export async function signIn({ email, password }) {
-  //fake login
-  return true;
-}
-
-export function authHeader() {
-  // return authorization header with jwt token
-  let user = JSON.parse(localStorage.getItem('user'));
-
-  if (user && user.token) {
-      return { 'Authorization': 'Bearer ' + user.token };
-  } else {
-      return {};
+export const validatePassword = (password) => {
+  if (password.length < 8) {
+    return {
+      valid: false,
+      message: 'Password must be at least 8 characters'
+    };
   }
+  if (!password.match(/\d/) || !password.match(/[a-zA-Z]/)) {
+    return {
+      valid: false,
+      message: 'Password must contain at least 1 letter and 1 number'
+    }
+  }
+
+  return { valid: true, message: '' };
 }
