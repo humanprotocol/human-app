@@ -184,16 +184,6 @@ const Job = (props) => {
           <div className="col-md-3 section-option text-right col-sm-12 job__col__nav">
             <h4 className="title mb-4">More jobs coming soon</h4>
             <ul className="m-0">
-              {/* <li className="">
-                <a
-                  className={`opt ${
-                    option && option === JobOptions.captcha ? "active" : ""
-                  }`}
-                  onClick={() => setOptions(JobOptions.captcha)}
-                >
-                  Data labeling
-                </a>
-              </li> */}
               <li className="">
                 { user && user.misc && user.misc.questionnaire ?
                 <a className='opt disabled'>Questionnaire</a> :
@@ -215,8 +205,8 @@ const Job = (props) => {
             </Alert>
             }
             { user && user.walletAddr && !user.isKYCed &&
-            <Alert variant="primary">
-              <p className='text-left'>Unfortunately, there has been a problem with our third-party KYC provider, which we’re working to resolve. Don’t worry. You don’t need to do anything more unless we specifically reach out to you.Please be patient while we get everything sorted on our end, and we’ll let you know once we have an update. Note: You won't be able to receive HMT until our KYC-verification are completed.</p>
+            <Alert variant="danger">
+              <p className='text-left'>Pending KYC. Note: You won't be able to receive HMT until our KYC-verification are completed.</p>
             </Alert>
             }
             {option && option === JobOptions.captcha && (
