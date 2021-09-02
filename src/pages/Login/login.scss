@@ -32,6 +32,11 @@
                 }
             }
         }
+        &:disabled {
+            &:hover {
+                opacity: 0.65;
+            }
+        }
     }
 }
 .form-control {

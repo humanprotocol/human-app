@@ -48,7 +48,7 @@ export const register = async (user) => {
   })
 }
 
-export const signIn = async ({email, password}) => {
+export const signIn = async ({email, password, hcaptchaToken}) => {
   const currentTime = new Date().getTime();
   const locationData = {logins: {}};
 
@@ -63,14 +63,15 @@ export const signIn = async ({email, password}) => {
 
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/login`,
-    { email, password, misc: locationData},
+    { email, password, misc: locationData, hcaptchaToken},
   ).then((response) => {
     const { user, tokens } = response.data;
     localStorage.setItem('token', tokens.access.token);
     localStorage.setItem('refreshToken', tokens.refresh.token);
     return { user, token: tokens.access.token, refreshToken: tokens.refresh.token };
   }).catch((err) => {
-    throw new Error(err.response.data.message);
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
   });
 }
 
@@ -85,7 +86,10 @@ export const update = async (id, token, user) => {
     if(response) {
       return response.data;
     }
-  }).catch((err) => { throw new Error(err.response.data.message); });
+  }).catch((err) => { 
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
+  });
 }
 
 export const logOut = async (token, refreshToken) => {
@@ -100,7 +104,10 @@ export const logOut = async (token, refreshToken) => {
       return true;
     }
     else return false;
-  }).catch((err) => { throw new Error(err.response.data.message) });
+  }).catch((err) => {
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
+  });
 }
 
 export const forgotPassword = async (email) => {
@@ -112,7 +119,8 @@ export const forgotPassword = async (email) => {
     `${process.env.REACT_APP_API_URL}/auth/forgot-password`,
     { email },
   ).catch((err) => {
-    throw new Error(err.response.data.message)
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
   })
 } 
 
@@ -128,7 +136,10 @@ export const getMyAccount = async (id, token) => {
   ).then((response) => {
     if(response) return response.data;
     else return null;
-  }).catch((err) => { throw new Error(err.response.data.message) });
+  }).catch((err) => { 
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
+  });
 }
 
 export const verifyEmail = async (token) => {
@@ -140,7 +151,10 @@ export const verifyEmail = async (token) => {
     if(response && response.status === 204)
       return true;
     else throw new Error(`Failed to verify email`);
-  }).catch((err) => { throw new Error(err.response.data.message) });
+  }).catch((err) => { 
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
+  });
 }
 
 export const sendNewsletterSignup = async (data) => {
@@ -152,7 +166,8 @@ export const sendNewsletterSignup = async (data) => {
       return true;
     else throw new Error(`Failed to send email verification`);
   }).catch((err) => {
-    throw new Error(err.response.data.message);
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
   });
 }
 
@@ -166,7 +181,8 @@ export const resendEmailVerification = async (token) => {
       return true;
     else throw new Error(`Failed to send email verification`);
   }).catch((err) => {
-    throw new Error(err.response.data.message);
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
   });
 }
 
@@ -179,5 +195,8 @@ export const updateMisc = async (id, token, questionnaire) => {
     if(response) {
       return response.data;
     } 
-  }).catch((err) => { throw new Error(err.response.data.message) });
+  }).catch((err) => { 
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
+  });
 }

@@ -1,17 +1,10 @@
-### human-app
+# human-app
 
-### Run project on local
-```
-yarn start
+Running locally:
+* yarn install
+* yarn start
 
-```
-### Run project on development
-```
-yarn start:dev
-
-```
-### Run project on production
-```
-yarn start:prod
-
-```
+Running in the production:
+* yarn install
+* yarn build
+* serve -s build -p $PORT
