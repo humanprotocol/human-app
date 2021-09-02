@@ -107,9 +107,9 @@ export const logOut = async (token, refreshToken) => {
   });
 }
 
-export const forgotPassword = async (email) => {
+export const forgotPassword = async (email, token) => {
   if(!email) throw new Error(`email required`);
-  if(email && EmailValidator.validate(email))
+  if(email && !EmailValidator.validate(email))
     throw new Error(`Invalid email`);
 
   return axios.post(

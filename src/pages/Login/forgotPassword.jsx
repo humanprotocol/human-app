@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
+import { useSelector } from 'react-redux';
 import './login.scss';
 import { ResetPasswordStep } from '../../constants';
 import { Routes } from '../../routes';
+import { forgotPassword } from '../../service/user.service';
 
 const ForgotPasswordPage = (props) => {
+  const { user, isAuthed, token, refreshToken } = useSelector((state) => state.auth);
   const [alertMsg, setAlertMsg] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [submittable, setSubmittable] = useState(false)
@@ -23,7 +26,9 @@ const ForgotPasswordPage = (props) => {
     switch (step) {
       case ResetPasswordStep.verifyEmail:
         if(email && EmailValidator.validate(email)) {
-          setStep(ResetPasswordStep.pending);
+          forgotPassword(email, token)
+            .then(() => setStep(ResetPasswordStep.pending))
+            .catch((err) => setAlertMsg(err.message));
         }
         break;
       default:
@@ -36,6 +41,10 @@ const ForgotPasswordPage = (props) => {
     console.log('>>>>>>>>>>>>>>>>', { name, value })
 
     setInputs(inputs => ({ ...inputs, [name]: value }));
+  }
+
+  const resendEmail = (e) => {
+    e.preventDefault();
   }
 
   useEffect(() => {
@@ -62,6 +71,7 @@ const ForgotPasswordPage = (props) => {
           { step === ResetPasswordStep.resetPassword  &&
           <h2>Create new password</h2>
           }
+          <Link to='/login'><i className='material-icons close'>clear</i></Link>
         </div>
         { alertMsg && alertMsg.length &&
           <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
@@ -96,9 +106,14 @@ const ForgotPasswordPage = (props) => {
               </FormGroup>
             </>
             }
+            { step === ResetPasswordStep.pending &&
+            <FormGroup>
+              <p>Did not recieve mail? <a href='' onClick={resendEmail}>Re-send.</a></p>
+            </FormGroup>
+            }
             { step === ResetPasswordStep.resetPassword  &&
             <FormGroup className='actions d-flex justify-content-between m-0'>
-              <Link className='btn' to={Routes.Home.path}>Cancel</Link>
+              <Link className='btn' to={Routes.Login.path}>Cancel</Link>
               <Button className='form-control bg-blue' onClick={handleSubmit} disabled={true}>Save</Button>
             </FormGroup>
             }
