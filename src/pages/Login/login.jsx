@@ -94,6 +94,9 @@ const LoginPage = (props) => {
               }
             </FormGroup>
             <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} placeholder="Password"></Password>
+            <div className='d-flex justify-content-between mb-2'>
+              <Link to='/changePassword' className='btn btn-link'>Forgot Password?</Link>
+            </div>
             <FormGroup className='text-center'>
               <HCaptcha
                 sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}

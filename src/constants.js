@@ -137,3 +137,9 @@ export const SignUpOpt = {
   linkWallet: 'linkWallet',
   complete: 'complete',
 }
+
+export const ResetPasswordStep = {
+  verifyEmail: 'verifyEmail',
+  pending: 'pending',
+  resetPassword: 'resetPassword'
+}
