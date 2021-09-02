@@ -216,7 +216,7 @@ const Job = (props) => {
             }
             { user && user.walletAddr && !user.isKYCed &&
             <Alert variant="primary">
-              <p>Pending KYC. Note: You won't be able to receive HMT until our KYC-verification are completed.</p>
+              <p className='text-left'>Unfortunately, there has been a problem with our third-party KYC provider, which we’re working to resolve. Don’t worry. You don’t need to do anything more unless we specifically reach out to you.Please be patient while we get everything sorted on our end, and we’ll let you know once we have an update. Note: You won't be able to receive HMT until our KYC-verification are completed.</p>
             </Alert>
             }
             {option && option === JobOptions.captcha && (
