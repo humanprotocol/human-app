@@ -9,6 +9,7 @@ import { Routes } from '../../routes';
 import { forgotPassword } from '../../service/user.service';
 import { Password } from '../../components/inputs/password/password';
 import { validatePassword } from '../../service/base.service';
+import { ResetPasswordSchema, validate } from '../../util/validation';
 
 const ForgotPasswordPage = (props) => {
   const { search } = useLocation();
@@ -20,6 +21,11 @@ const ForgotPasswordPage = (props) => {
   const [confirm, setConfirm] = useState(false);
   const [step, setStep] = useState(ResetPasswordStep.verifyEmail);
   const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+    repeatPassword: '',
+  })
+  const [validationErrors, setValidationErrors] = useState({
     email: '',
     password: '',
     repeatPassword: '',
@@ -53,6 +59,36 @@ const ForgotPasswordPage = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInputs(inputs => ({ ...inputs, [name]: value }));
+  }
+
+  const handleBlur = (e) => {
+    e.preventDefault();
+    let newErrors = {
+      email: '',
+      password: '',
+      repeatPassword: '',
+    }
+
+    const validationError = validate(ResetPasswordSchema, inputs);
+    if(validationError) {
+      validationError.map((error) => newErrors[error.key] = error.message);
+      switch (step) {
+        case ResetPasswordStep.verifyEmail:
+          if(newErrors.email) setSubmittable(false)
+          else setSubmittable(true);
+          break;
+        case ResetPasswordStep.resetPassword:
+          if(newErrors.password || newErrors.resetPassword) setSubmittable(false)
+          else setSubmittable(true);
+          break;
+        default:
+          break;
+      }
+      setSubmittable(false);
+    } else {
+      setSubmittable(true);
+    }
+    setValidationErrors(newErrors);
   }
 
   const resendEmail = (e) => {
@@ -126,12 +162,9 @@ const ForgotPasswordPage = (props) => {
             { step === ResetPasswordStep.verifyEmail &&
             <>
               <FormGroup>
-                <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>
-                {submitted && !email &&
-                  <FormControl.Feedback type='invalid' className='d-block'>{}</FormControl.Feedback>
-                }
-                {submitted && email && !EmailValidator.validate(email) &&
-                  <FormControl.Feedback type='invalid' className='d-block'>{}</FormControl.Feedback>
+                <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange} onBlur={handleBlur}></FormControl>
+                {validationErrors.email &&
+                  <FormControl.Feedback type='invalid' className='d-block'>{validationErrors.email}</FormControl.Feedback>
                 }
               </FormGroup>
               <FormGroup className='actions d-flex justify-content-end m-0'>

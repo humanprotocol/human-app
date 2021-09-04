@@ -51,6 +51,14 @@ export const RegisterSchema = Joi.object().keys({
     refCode: Joi.string().allow(''),
 });
 
+export const ResetPasswordSchema = Joi.object().keys({
+    email: EmailSchema,
+    password: PasswordSchema,
+    repeatPassword: PasswordSchema.valid(Joi.ref('password')).messages({
+        'any.only': ErrorMessage.notConfirmedPassword
+    }),
+}).required();
+
 export const validate = (schema, object) => {
     const { value, error } = Joi.compile(schema)
         .prefs({ errors: { label: 'key' }, abortEarly: false })
