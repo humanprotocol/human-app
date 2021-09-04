@@ -1,12 +1,9 @@
 import Joi from 'joi';
-import { ErrorMessage } from '../constants';
+import { ErrorMessage, JobOptions } from '../constants';
 
 const passwordValidator = (value, helper) => {
-    if (value.length < 8) {
-        return helper.message('password must be at least 8 characters');
-    }
     if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
-    return helper.message('password must contain at least 1 letter and 1 number');
+    return helper.message(ErrorMessage.invalidPassword);
     }
     return value;
 }
@@ -20,8 +17,13 @@ const emailValidator = (value, helper) => {
 export const EmailSchema = Joi.string().custom(emailValidator).required().messages({
         'string.empty': ErrorMessage.requireEmail,
 });
-export const PasswordSchema = Joi.string().custom(passwordValidator).required();
-export const UserNameSchema = Joi.string().required();
+export const PasswordSchema = Joi.string().custom(passwordValidator).min(8).required().messages({
+    'string.empty': ErrorMessage.requirePassword,
+    'string.min': ErrorMessage.invalidPasswordLength,
+});
+export const UserNameSchema = Joi.string().required().messages({
+    'string.empty': ErrorMessage.requireUserName,
+});
 export const ReferalCodeSchema = Joi.string().optional();
 export const CoutrySchema = Joi.string().required();
 
@@ -32,6 +34,22 @@ export const LoginSchema = Joi.object().keys({
         'string.empty': ErrorMessage.requirePassword,
     }),
 }).required();
+
+export const RegisterSchema = Joi.object().keys({
+    email: EmailSchema,
+    userName: UserNameSchema,
+    password: PasswordSchema,
+    repeatPassword: PasswordSchema.valid(Joi.ref('password')).messages({
+        'any.only': ErrorMessage.notConfirmedPassword
+    }),
+    country: Joi.object().keys({
+        value: Joi.string().required(),
+        label: Joi.string().required()
+    }).required().messages({
+        'object.base': ErrorMessage.requireCountry,
+    }),
+    refCode: Joi.string().allow(''),
+});
 
 export const validate = (schema, object) => {
     const { value, error } = Joi.compile(schema)
