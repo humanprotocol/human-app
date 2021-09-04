@@ -84,7 +84,6 @@ const ForgotPasswordPage = (props) => {
         default:
           break;
       }
-      setSubmittable(false);
     } else {
       setSubmittable(true);
     }
