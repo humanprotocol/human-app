@@ -132,6 +132,8 @@ export const ErrorMessage = {
   captchaPassRequired: 'You need to solve captcha',
   requireCountry: 'Country required',
   notConfirmedPassword: 'Repeated password should be same as password',
+  requireRestPasswordToken: 'Verification token required',
+  requireAuthToken: 'Authentication token required',
 };
 
 export const SignUpOpt = {
