@@ -68,6 +68,7 @@ const ForgotPasswordPage = (props) => {
       password: '',
       repeatPassword: '',
     }
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>', { step, newErrors })
 
     const validationError = validate(ResetPasswordSchema, inputs);
     if(validationError) {
@@ -178,8 +179,18 @@ const ForgotPasswordPage = (props) => {
             }
             { step === ResetPasswordStep.resetPassword  &&
             <>
-              <Password onChange={handleChange} name='password' value={password} placeholder='New password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
-              <Password onChange={handleChange} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
+              <FormGroup className='password'>
+                <Password onChange={handleChange} onBlur={handleBlur} name='password' value={password} placeholder='Create password' className='mb-5'></Password>
+                {validationErrors.password &&
+                <FormControl.Feedback type='invalid' className='d-block'>{validationErrors.password}</FormControl.Feedback>
+                }
+              </FormGroup>
+              <FormGroup className='password'>
+                <Password onChange={handleChange} onBlur={handleBlur} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' className='mb-5'></Password>
+                {validationErrors.repeatPassword &&
+                <FormControl.Feedback type='invalid' className='d-block'>{validationErrors.repeatPassword}</FormControl.Feedback>
+                }
+              </FormGroup>
               <FormGroup className='actions d-flex justify-content-between m-0'>
                 <Link className='btn' to={Routes.Login.path}>Cancel</Link>
                 <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!submittable}>Save</Button>
