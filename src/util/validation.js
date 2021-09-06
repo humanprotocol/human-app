@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { ErrorMessage, JobOptions } from '../constants';
+import { ErrorMessage } from '../constants';
 
 const passwordValidator = (value, helper) => {
     if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
