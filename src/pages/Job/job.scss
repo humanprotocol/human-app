@@ -80,11 +80,11 @@
                     margin: auto;
                     margin-bottom: 16px;
                 }
-                &.alert-danger {
-                    max-width: 400px;
-                    margin: auto;
-                    margin-bottom: 16px;
-                }
+            }
+            .invalid-feedback {
+                max-width: 400px;
+                margin: auto;
+                margin-bottom: 16px;
             }
         }
     }
