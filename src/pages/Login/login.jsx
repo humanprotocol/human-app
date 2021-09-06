@@ -133,7 +133,7 @@ const LoginPage = (props) => {
             <FormGroup className='text-center'>
               <HCaptcha
                 sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                onVerify={(token, ekey) =>
+                onVerify={(token) =>
                   handleVerificationSuccess(token)
                 }
                 ref={captchaRef}

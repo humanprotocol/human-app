@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { FormGroup, FormControl, Button, Alert, Dropdown } from "react-bootstrap";
-import * as EmailValidator from 'email-validator';
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import countryList from "react-select-country-list";
 import { Password } from "../../components/inputs/password/password";
@@ -14,7 +13,7 @@ import { RegisterSchema, validate } from "../../util/validation";
 const RegisterPage = (props) => {
     const { history } = props;
     const dispatch = useDispatch();
-    const { user, isAuthed, token } = useSelector((state) => state.auth);
+    const { user, token } = useSelector((state) => state.auth);
     if(!user || !user?.email) {
         history.push({ pathname: Routes.Home.path });
     }
@@ -137,33 +136,31 @@ const RegisterPage = (props) => {
     
     const handleBlur = (e) => {
         e.preventDefault()
-        if(hcaptchaToken) {
-            const validationError = validate(RegisterSchema, inputs);
-            if(validationError) {
-                let newErrors = {
-                    email: '',
-                    userName: '',
-                    password: '',
-                    repeatPassword: '',
-                    country: '',
-                    refCode: ''
-                };
-                validationError.map((error) => {
-                    newErrors[error.key] = error.message;
-                });
-                setValidationErrors(newErrors);
-                setsubmittable(false);
-            } else {
-                setValidationErrors({
-                    email: '',
-                    userName: '',
-                    password: '',
-                    repeatPassword: '',
-                    country: '',
-                    refCode: ''
-                });
-                setsubmittable(true);
-            }
+        const validationError = validate(RegisterSchema, inputs);
+        if(validationError) {
+            let newErrors = {
+                email: '',
+                userName: '',
+                password: '',
+                repeatPassword: '',
+                country: '',
+                refCode: ''
+            };
+            validationError.map((error) => {
+                newErrors[error.key] = error.message;
+            });
+            setValidationErrors(newErrors);
+            setsubmittable(false);
+        } else {
+            setValidationErrors({
+                email: '',
+                userName: '',
+                password: '',
+                repeatPassword: '',
+                country: '',
+                refCode: ''
+            });
+            setsubmittable(true);
         }
     }
 
@@ -241,7 +238,7 @@ const RegisterPage = (props) => {
                         <FormGroup className='text-center'>
                             <HCaptcha
                                 sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                                onVerify={(token, ekey) =>
+                                onVerify={(token) =>
                                 handleVerificationSuccess(token)
                                 }
                                 ref={captchaRef}
