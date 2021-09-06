@@ -36,7 +36,7 @@ const ForgotPasswordPage = (props) => {
         if(!verificationToken) {
           setAlertMsg(ErrorMessage.requireRestPasswordToken);
         } else {
-          resetPassword(password, verificationToken, token)
+          resetPassword(password, verificationToken)
             .then(() => {
               setAlertMsg('');
               history.push({ pathname: Routes.Login.path })

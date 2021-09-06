@@ -122,17 +122,14 @@ export const forgotPassword = async (email) => {
   })
 } 
 
-export const resetPassword = async(password, token, jwt) => {
+export const resetPassword = async(password, token) => {
   if(!password) throw new Error(ErrorMessage.requirePassword);
   if(!token) throw new Error(ErrorMessage.requireRestPasswordToken);
-  if(!jwt) throw new Error(ErrorMessage.requireAuthToken);
 
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/reset-password`,
     { password },
-    { params: { token },
-      headers: { Authorization: `Bearer ${token}` } 
-    }
+    { params: { token } }
   ).catch((err) => {
     if(err.response) throw new Error(err.response.data.message);
     else throw new Error('Network Error');
