@@ -1,15 +1,13 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { Button, FormControl, FormGroup, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import * as EmailValidator from 'email-validator';
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Password } from '../../components/inputs/password/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
 import './login.scss';
-import { ErrorType, ErrorMessage, SignUpOpt } from '../../constants';
-import { EmailSchema, LoginSchema, validate } from '../../util/validation';
+import { EmailSchema, LoginSchema, PasswordSchema, validate } from '../../util/validation';
 
 const LoginPage = (props) => {
   const dispatch = useDispatch();
@@ -49,7 +47,6 @@ const LoginPage = (props) => {
         setsubmittable(true);
       }
     } else {
-      setValidationErrors({ email: '', password: '' });
       setsubmittable(false);
     }
   }
@@ -81,20 +78,29 @@ const LoginPage = (props) => {
 
   const handleBlur = (e) => {
     e.preventDefault();
-    
-    if(hcaptchaToken) {
-      const validationError = validate(LoginSchema, inputs);  
-      if(validationError) {
-        let newErrors = validationErrors;
-        validationError.map((error) => {
-          newErrors = { ...newErrors, [error.key]: error.message };
-        });
-        setValidationErrors({ ...validationErrors, ...newErrors });
-        setsubmittable(false);
-      } else {
-        setsubmittable(true);
-        setValidationErrors({ email: '', password: '' });
-      }
+    const { name } = e.target;
+    let validationError;
+
+    switch (name) {
+      case 'email':
+        validationError = validate(EmailSchema, inputs.email);
+        break;
+      default:
+        validationError = validate(PasswordSchema, inputs.password);
+        break;
+    }
+
+    if(validationError) {
+      validationError.map((error) => {
+        setValidationErrors({ ...validationErrors, [name]: error.message });
+      });
+      setsubmittable(false);
+    } else if (hcaptchaToken) {
+      setsubmittable(true);
+      setValidationErrors({ email: '', password: '' });
+    } else {
+      setsubmittable(false);
+      setValidationErrors({ ...validationErrors, [name]: '' })
     }
   }
 

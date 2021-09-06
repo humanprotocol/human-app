@@ -118,7 +118,7 @@ export const ErrorType = {
 };
 
 export const ErrorMessage = {
-  invalidPassword: "Password must contain at least 1 letter and 1 number",
+  invalidPassword: "Password must contain at least 1 character and 1 number",
   invalidPasswordLength:"Password must be at least 8 characters",
   invalidWalletAddress: "Invalid Wallet Address",
   invalidEmail: "Invalid Email",
@@ -131,7 +131,7 @@ export const ErrorMessage = {
   invalidVerificationToken: 'Invalid verification token',
   captchaPassRequired: 'You need to solve captcha',
   requireCountry: 'Country required',
-  notConfirmedPassword: 'Repeated password should be same as password',
+  notConfirmedPassword: 'Passwords are not same',
 };
 
 export const SignUpOpt = {

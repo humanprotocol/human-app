@@ -52,7 +52,7 @@ export const RegisterSchema = Joi.object().keys({
 });
 
 export const validate = (schema, object) => {
-    const { value, error } = Joi.compile(schema)
+    const { error } = Joi.compile(schema)
         .prefs({ errors: { label: 'key' }, abortEarly: false })
         .validate(object);
     
@@ -66,4 +66,6 @@ export const validate = (schema, object) => {
 
         return errorMessage;
     }
+
+    return null;
 }
