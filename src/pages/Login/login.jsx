@@ -2,13 +2,12 @@ import { useState, useRef } from 'react'
 import { Button, FormControl, FormGroup, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import * as EmailValidator from 'email-validator';
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { Password } from '../../components/inputs/password/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
 import './login.scss';
-import { ErrorType, ErrorMessage, SignUpOpt } from '../../constants';
+import { EmailSchema, LoginSchema, PasswordSchema, validate } from '../../util/validation';
 
 const LoginPage = (props) => {
   const dispatch = useDispatch();
@@ -18,8 +17,11 @@ const LoginPage = (props) => {
     password: ''
   }); 
   const [alertMsg, setAlertMsg] = useState('')
-  const [submitted, setSubmitted] = useState(false);
-  const [captchaPassed, setCaptchaPassed] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({
+    email: '',
+    password: '',
+  })
+  const [submittable, setsubmittable] = useState(false);
   const [hcaptchaToken, setHcaptchaToken] = useState('');
   const { email, password } = inputs;
   const captchaRef = useRef(null);
@@ -31,42 +33,74 @@ const LoginPage = (props) => {
 
   const handleVerificationSuccess = (token) => {
     if(token) { 
-      setCaptchaPassed(true);
       setHcaptchaToken(token);
+      const validationError = validate(LoginSchema, inputs);  
+      if(validationError) {
+        let newErrors = validationErrors;
+        validationError.map((error) => {
+          newErrors = { ...newErrors, [error.key]: error.message };
+        });
+        setValidationErrors({ ...validationErrors, ...newErrors });
+        setsubmittable(false);
+      } else {
+        setValidationErrors({ email: '', password: '' });
+        setsubmittable(true);
+      }
+    } else {
+      setsubmittable(false);
     }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    if (email && password && EmailValidator.validate(email) && captchaPassed) {
-      signIn({ email, password, hcaptchaToken }).then((res) => {
-        if (res) {
-          let { user } = res;
-          dispatch({
-            type: 'AUTH_SUCCESS',
-            payload: res,
-          })
-          dispatch({
-            type: 'AUTH_SIGN_IN',
-            payload: user.isEmailVerified,
-          });
-          setCaptchaPassed(false);
-          setHcaptchaToken('');
-          if(user.isEmailVerified) history.push({ pathname: Routes.Job.path });
-          else history.push({ pathname: Routes.VerifyEmail.path });
-        }
-      }).catch((err) => {
-        setAlertMsg(err.message);
-        setCaptchaPassed(false);
+    signIn({ email, password, hcaptchaToken }).then((res) => {
+      if (res) {
+        let { user } = res;
+        dispatch({
+          type: 'AUTH_SUCCESS',
+          payload: res,
+        })
+        dispatch({
+          type: 'AUTH_SIGN_IN',
+          payload: user.isEmailVerified,
+        });
         setHcaptchaToken('');
-        setSubmitted(false);
-        captchaRef.current.resetCaptcha();
-      });
-    } else {
-      setCaptchaPassed(false);
+        if(user.isEmailVerified) history.push({ pathname: Routes.Job.path });
+        else history.push({ pathname: Routes.VerifyEmail.path });
+      }
+    }).catch((err) => {
+      setAlertMsg(err.message);
+      setsubmittable(false)
       setHcaptchaToken('');
       captchaRef.current.resetCaptcha();
+    });
+  }
+
+  const handleBlur = (e) => {
+    e.preventDefault();
+    const { name } = e.target;
+    let validationError;
+
+    switch (name) {
+      case 'email':
+        validationError = validate(EmailSchema, inputs.email);
+        break;
+      default:
+        validationError = validate(PasswordSchema, inputs.password);
+        break;
+    }
+
+    if(validationError) {
+      validationError.map((error) => {
+        setValidationErrors({ ...validationErrors, [name]: error.message });
+      });
+      setsubmittable(false);
+    } else if (hcaptchaToken) {
+      setsubmittable(true);
+      setValidationErrors({ email: '', password: '' });
+    } else {
+      setsubmittable(false);
+      setValidationErrors({ ...validationErrors, [name]: '' })
     }
   }
 
@@ -85,33 +119,32 @@ const LoginPage = (props) => {
         <div>
           <form name='form' onSubmit={handleSubmit}>
             <FormGroup>
-              <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>
-              {submitted && !email &&
-                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
-              }
-              {submitted && email && !EmailValidator.validate(email) &&
-                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
+              <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange} onBlur={handleBlur}></FormControl>
+              { validationErrors.email && 
+              <FormControl.Feedback type='invalid' className='d-block'>{validationErrors.email}</FormControl.Feedback>
               }
             </FormGroup>
-            <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} placeholder="Password"></Password>
+            <FormGroup className='password'>
+              <Password onChange={handleChange} onBlur={handleBlur} value={password} name='password' placeholder="Password"></Password>
+              { validationErrors.password && 
+              <FormControl.Feedback type='invalid' className='d-block'>{validationErrors.password}</FormControl.Feedback>
+              }
+            </FormGroup>
             <FormGroup className='text-center'>
               <HCaptcha
                 sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                onVerify={(token, ekey) =>
+                onVerify={(token) =>
                   handleVerificationSuccess(token)
                 }
                 ref={captchaRef}
               />
-              {submitted && !captchaPassed &&
-                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.captchaPassRequired}</FormControl.Feedback>
-              }
             </FormGroup>
             <div className='d-flex justify-content-between mb-2'>
               <Link to='/reset-password' className='btn btn-link'>Forgot Password?</Link>
             </div>
             <FormGroup className='actions d-flex justify-content-between m-0'>
               <Link className='btn' to={Routes.Home.path}>Back</Link>
-              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!captchaPassed}>Log in</Button>
+              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!submittable}>Log in</Button>
             </FormGroup>
           </form>
         </div>

@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { ErrorMessage, JobOptions } from '../constants';
+import { ErrorMessage } from '../constants';
 
 const passwordValidator = (value, helper) => {
     if (!value.match(/\d/) || !value.match(/[a-zA-Z]/)) {
@@ -60,7 +60,7 @@ export const ResetPasswordSchema = Joi.object().keys({
 }).required();
 
 export const validate = (schema, object) => {
-    const { value, error } = Joi.compile(schema)
+    const { error } = Joi.compile(schema)
         .prefs({ errors: { label: 'key' }, abortEarly: false })
         .validate(object);
     
@@ -74,4 +74,6 @@ export const validate = (schema, object) => {
 
         return errorMessage;
     }
+
+    return null;
 }
