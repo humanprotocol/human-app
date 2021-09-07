@@ -11,6 +11,7 @@
     "email-validator": "^2.0.4",
     "emailjs-com": "^2.6.4",
     "history": "^5.0.0",
+    "joi": "^17.4.2",
     "jquery": "^3.6.0",
     "jwt-decode": "^3.1.2",
     "keen-slider": "^5.5.1",
