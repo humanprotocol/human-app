@@ -80,7 +80,7 @@ const ProfilePage = (props) => {
     setEditting(!editing);
   }
   return (
-    <div id='profile' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
+    <div id='profile' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center'>
       <div className='container'>
         <div className='page-title d-flex justify-content-between mb-4'>
           <h2>{ editing ? 'Edit Profile' : 'Profile' }</h2>
