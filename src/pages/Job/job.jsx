@@ -209,7 +209,9 @@ const Job = (props) => {
             <Alert variant="primary">
               <p className='text-left'>Pending KYC. Note: You won't be able to receive HMT until our KYC-verification are completed.</p>
             </Alert>
-            <FormControl.Feedback type='invalid' className='d-block text-left'>Unfortunately, there has been a problem with our third-party KYC provider, which we’re working to resolve. Don’t worry. You don’t need to do anything more unless we specifically reach out to you. Please be patient while we get everything sorted on our end, and we’ll let you know once we have an update.</FormControl.Feedback>
+            <Alert variant="danger">
+              <p className='text-left'>Unfortunately, there has been a problem with our third-party KYC provider, which we’re working to resolve. Don’t worry. You don’t need to do anything more unless we specifically reach out to you. Please be patient while we get everything sorted on our end, and we’ll let you know once we have an update.</p>
+            </Alert>
             </>
             }
             {option && option === JobOptions.captcha && (
