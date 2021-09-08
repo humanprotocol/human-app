@@ -1,4 +1,8 @@
-import { useState } from 'react';
+/* eslint-disable react/prop-types */
+/* eslint-disable new-cap */
+/* eslint-disable no-negated-condition */
+/* eslint-disable max-lines-per-function */
+import React, { useState } from 'react';
 import { Button, FormControl, FormGroup } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 import { Routes } from '../../routes';
@@ -32,27 +36,29 @@ const LinkWalletPage = (props) => {
     } 
 
     return(
-        <div id='linkWallet' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
+        <div id="linkWallet" className="col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100">
             { !linked && 
             <>
-                <div className='page-title d-flex justify-content-between mb-4'>
+                <div className="page-title d-flex justify-content-between mb-4">
                     <h2>Link your wallet</h2>
-                    <Link to={Routes.Home.path}><i className='material-icons close'>clear</i></Link>
+                    <Link to={Routes.Home.path}><i className="material-icons close">clear</i></Link>
                 </div>
                 <div>
-                    <form name='form'>
-                        <FormGroup className='mb-5'>
-                            <FormControl placeholder='Wallet address' type='text' value={address} onChange={handleChange}></FormControl>
-                            <FormControl.Feedback className={!status.address ? 'd-block' : ''} type='invalid'>{status.msg}</FormControl.Feedback>
+                    <form name="form">
+                        <FormGroup className="mb-5">
+                            <FormControl placeholder="Wallet address" type="text" value={address} onChange={handleChange}></FormControl>
+                            <FormControl.Feedback className={!status.address
+? 'd-block'
+: ''} type="invalid">{status.msg}</FormControl.Feedback>
                         </FormGroup>
-                        <div className='row m-0'>
-                            <p className='mb-2'><Link className='color-blue' to={Routes.CreateWallet.path}>Click here</Link> to create your crypto wallet</p>
+                        <div className="row m-0">
+                            <p className="mb-2"><Link className="color-blue" to={Routes.CreateWallet.path}>Click here</Link> to create your crypto wallet</p>
                         </div>
-                        <FormGroup className='w-100'>
-                            <Button className='bg-blue color-white form-control' type='default' onClick={handleLink}>Next</Button>
+                        <FormGroup className="w-100">
+                            <Button className="bg-blue color-white form-control" type="default" onClick={handleLink}>Next</Button>
                         </FormGroup>
-                        <FormGroup className='w-100'>
-                            <Button className='bg-white color-blue form-control'>Skip for now</Button>
+                        <FormGroup className="w-100">
+                            <Button className="bg-white color-blue form-control">Skip for now</Button>
                         </FormGroup>
                     </form>
                 </div>
@@ -60,17 +66,17 @@ const LinkWalletPage = (props) => {
             }
             { linked && 
             <>
-                <div className='page-title mb-4'>
+                <div className="page-title mb-4">
                     <h2>Start earning HMT</h2>
                     <p>Fill the questionare and earn 1 HTM</p>
                 </div>
                 <div>
-                    <form name='form'>
-                        <FormGroup className='w-100'>
-                            <Button className='bg-blue color-white form-control' type='default' onClick={handleNext('next')}>Questionare</Button>
+                    <form name="form">
+                        <FormGroup className="w-100">
+                            <Button className="bg-blue color-white form-control" type="default" onClick={handleNext('next')}>Questionare</Button>
                         </FormGroup>
-                        <FormGroup className='w-100'>
-                            <Button className='bg-white color-blue form-control' onClick={handleNext('skip')}>Skip for now</Button>
+                        <FormGroup className="w-100">
+                            <Button className="bg-white color-blue form-control" onClick={handleNext('skip')}>Skip for now</Button>
                         </FormGroup>
                     </form>
                 </div>

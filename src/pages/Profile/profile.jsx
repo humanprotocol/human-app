@@ -18,10 +18,10 @@ const ProfilePage = (props) => {
   const [ editing, setEditting ] = useState(false);
   const [ submitted, setSubmitted ] = useState(false);
   const [ inputs, setInputs ] = useState({
-    email: user ? user.email || '' : '',
-    name: user? user.name || '' : '',
-    walletAddress: user ? user.walletAddr || '' : '',
-    country: user ? user.country || '' : '',
+    email: '',
+    name: '',
+    walletAddress:'',
+    country: '',
   })
   const [countries, setCountries] = useState([])
   const [alertMsg, setAlertMsg] = useState('');
@@ -35,6 +35,18 @@ const ProfilePage = (props) => {
           setInputs({ ...inputs, country })
         }
       })
+    }
+
+    if(user && user.email) {
+      setInputs({...inputs, email: user.email})
+    }
+
+    if(user && user.name) {
+      setInputs({...inputs, name: user.name})
+    }
+
+    if(user && user.walletAddress) {
+      setInputs({...inputs, walletAddress: user.walletAddress})
     }
   }, []);
 
@@ -80,10 +92,12 @@ const ProfilePage = (props) => {
     setEditting(!editing);
   }
   return (
-    <div id='profile' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center'>
-      <div className='container'>
-        <div className='page-title d-flex justify-content-between mb-4'>
-          <h2>{ editing ? 'Edit Profile' : 'Profile' }</h2>
+    <div id="profile" className="col-md-4 offset-md-4 d-flex flex-column justify-content-center">
+      <div className="container">
+        <div className="page-title d-flex justify-content-between mb-4">
+          <h2>{ editing
+? 'Edit Profile'
+: 'Profile' }</h2>
           {/* <Link to='/'><i className='material-icons close'>clear</i></Link> */}
         </div>
         { alertMsg &&
@@ -93,16 +107,16 @@ const ProfilePage = (props) => {
           </Alert>
           }
         <div>
-          <form name='form' className='m-0'>
+          <form name="form" className="m-0">
             <FormGroup>
               { !editing && 
               <p>{inputs.name || 'Full name'}</p>
               }
               { editing &&
               <>
-                <FormControl placeholder='Full Name' type='text' name='name' value={inputs.name} onChange={handleChange} readOnly={!editing}></FormControl>
+                <FormControl placeholder="Full Name" type="text" name="name" value={inputs.name} onChange={handleChange} readOnly={!editing}></FormControl>
                 {submitted && !inputs.name &&
-                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireUserName}</FormControl.Feedback>
+                <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.requireUserName}</FormControl.Feedback>
                 }
               </>
               }
@@ -113,12 +127,12 @@ const ProfilePage = (props) => {
               }
               { editing &&
               <>
-              <FormControl placeholder='Email' type='email' name='email' value={inputs.email} onChange={handleChange} readOnly={true}></FormControl>
+              <FormControl placeholder="Email" type="email" name="email" value={inputs.email} onChange={handleChange} readOnly={true}></FormControl>
               {submitted && !inputs.email &&
-              <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
+              <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.requireEmail}</FormControl.Feedback>
               }
               {submitted && !inputs.email && !EmailValidator.validate(inputs.email) &&
-              <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
+              <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.invalidEmail}</FormControl.Feedback>
               }
               </>
               }
@@ -156,7 +170,9 @@ const ProfilePage = (props) => {
                 })}
               </Dropdown.Menu>
               </Dropdown>
-              <FormControl.Feedback type="invalid" className={ submitted && !inputs.country ? "d-block" : ""}>
+              <FormControl.Feedback type="invalid" className={ submitted && !inputs.country
+? "d-block"
+: ""}>
                   Country required
               </FormControl.Feedback>
               </>
@@ -168,19 +184,23 @@ const ProfilePage = (props) => {
               }
               { editing && 
                 <>
-                  <FormControl placeholder='Wallet address' type='text' name='walletAddress' value={inputs.walletAddress} onChange={handleChange} readOnly={!editing}></FormControl>
+                  <FormControl placeholder="Wallet address" type="text" name="walletAddress" value={inputs.walletAddress} onChange={handleChange} readOnly={!editing}></FormControl>
                   {submitted && !inputs.walletAddress &&
-                  <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireWalletAddress}</FormControl.Feedback>
+                  <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.requireWalletAddress}</FormControl.Feedback>
                   }
                   {submitted && inputs.walletAddress && inputs.walletAddress.length !== 42 &&
-                  <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidWalletAddress}</FormControl.Feedback>
+                  <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.invalidWalletAddress}</FormControl.Feedback>
                   }
                 </>
               }
             </FormGroup>
-            <FormGroup className='actions d-flex justify-content-between m-0'>
-              <Link className='btn' to={Routes.Home.path}>Back</Link>
-              <Button className='form-control bg-blue' onClick={editing ? updateProfile : toggleEditProfile}>{ editing ? 'Save changes' : 'Edit' }</Button>
+            <FormGroup className="actions d-flex justify-content-between m-0">
+              <Link className="btn" to={Routes.Home.path}>Back</Link>
+              <Button className="form-control bg-blue" onClick={editing
+? updateProfile
+: toggleEditProfile}>{ editing
+? 'Save changes'
+: 'Edit' }</Button>
             </FormGroup>
           </form>
         </div>

@@ -11,7 +11,7 @@ const VerifyEmail = ({ history }) => {
     const { search } = useLocation();
     const auth = useSelector((state) => state.auth);
     const accessToken = auth.token;
-    const user = auth.user;
+    const {user} = auth;
     const [verified, setVerified] = useState(false);
     const [resentVerification, setResentVerification] = useState(false);
     const [token, setToken] = useState(search.replace('?token=', ''))
@@ -26,7 +26,7 @@ const VerifyEmail = ({ history }) => {
                     dispatch({ type: 'AUTH_SIGN_IN', payload: true });
                     dispatch({ type: 'SET_USER', payload: { ...user, isEmailVerified: true } });
                     setVerified(true);
-                    setTimeout(() => {history.push({ pathname: Routes.Login.path })}, 3000);
+                    setTimeout(() => { history.push({ pathname: Routes.Login.path }) }, 3000);
                 }).catch((err) => setAlertMsg(err.message));
         }
     }
@@ -41,10 +41,12 @@ const VerifyEmail = ({ history }) => {
 
     }
     return (
-        <div id='verifyEmail' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
-            <div className='container'>
-                <div className='page-title d-flex justify-content-between mb-4'>
-                    <h2>{ verified ? 'Email verified' : 'Verify email'}</h2>
+        <div id="verifyEmail" className="col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100">
+            <div className="container">
+                <div className="page-title d-flex justify-content-between mb-4">
+                    <h2>{ verified
+? 'Email verified'
+: 'Verify email'}</h2>
                 </div>
                 { alertMsg && alertMsg.length &&
                 <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
@@ -66,14 +68,14 @@ const VerifyEmail = ({ history }) => {
                       !verified && token &&
                       <p> Please click Verify Email below to continue </p>
                     }
-                    <form name='form'>
+                    <form name="form">
                         { !verified &&
-                        <FormGroup className='actions d-flex justify-content-between m-0'>
-                           {    !token && accessToken && 
-                                <Link className='btn' onClick={resendVerification}>Re-send</Link>
+                        <FormGroup className="actions d-flex justify-content-between m-0">
+                           { !token && accessToken && 
+                                <Link className="btn" onClick={resendVerification}>Re-send</Link>
                            }
                            { token &&  
-                                <Button className='form-control bg-blue' onClick={handleVerification}>Verify email</Button> 
+                                <Button className="form-control bg-blue" onClick={handleVerification}>Verify email</Button> 
                             }
                         </FormGroup>
                         }

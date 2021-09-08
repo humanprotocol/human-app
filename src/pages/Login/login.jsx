@@ -71,9 +71,9 @@ const LoginPage = (props) => {
   }
 
   return (
-    <div id='login' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
-      <div className='container'>
-        <div className='page-title d-flex justify-content-between mb-4'>
+    <div id="login" className="col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100">
+      <div className="container">
+        <div className="page-title d-flex justify-content-between mb-4">
           <h2>Log in</h2>
         </div>
         { alertMsg && alertMsg.length &&
@@ -83,32 +83,31 @@ const LoginPage = (props) => {
           </Alert>
         }
         <div>
-          <form name='form' onSubmit={handleSubmit}>
+          <form name="form" onSubmit={handleSubmit}>
             <FormGroup>
-              <FormControl placeholder='Email' type='email' name='email' value={email} onChange={handleChange}></FormControl>
+              <FormControl placeholder="Email" type="email" name="email" value={email} onChange={handleChange}></FormControl>
               {submitted && !email &&
-                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireEmail}</FormControl.Feedback>
+                <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.requireEmail}</FormControl.Feedback>
               }
               {submitted && email && !EmailValidator.validate(email) &&
-                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.invalidEmail}</FormControl.Feedback>
+                <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.invalidEmail}</FormControl.Feedback>
               }
             </FormGroup>
-            <Password onChange={handleChange} value={password} submitted={submitted} name='password' confirm={true} placeholder="Password"></Password>
-            <FormGroup className='text-center'>
+            <Password onChange={handleChange} value={password} submitted={submitted} name="password" confirm={true} placeholder="Password"></Password>
+            <FormGroup className="text-center">
               <HCaptcha
                 sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                onVerify={(token, ekey) =>
-                  handleVerificationSuccess(token)
+                onVerify={(token, ekey) => handleVerificationSuccess(token)
                 }
                 ref={captchaRef}
               />
               {submitted && !captchaPassed &&
-                <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.captchaPassRequired}</FormControl.Feedback>
+                <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.captchaPassRequired}</FormControl.Feedback>
               }
             </FormGroup>
-            <FormGroup className='actions d-flex justify-content-between m-0'>
-              <Link className='btn' to={Routes.Home.path}>Back</Link>
-              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!captchaPassed}>Log in</Button>
+            <FormGroup className="actions d-flex justify-content-between m-0">
+              <Link className="btn" to={Routes.Home.path}>Back</Link>
+              <Button className="form-control bg-blue" onClick={handleSubmit} disabled={!captchaPassed}>Log in</Button>
             </FormGroup>
           </form>
         </div>

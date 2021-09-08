@@ -1,6 +1,6 @@
 const EarningPage = (props) => {
     return (
-        <div id='earning'>Earning Page</div>
+        <div id="earning">Earning Page</div>
     )
 }
 

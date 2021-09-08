@@ -69,7 +69,9 @@ const Slider = (props) => {
                 onClick={() => {
                   slider.moveToSlideRelative(idx);
                 }}
-                className={"dot" + (currentSlide === idx ? " active" : "")}
+                className={"dot" + (currentSlide === idx
+? " active"
+: "")}
               />
             );
           })}
@@ -80,7 +82,9 @@ const Slider = (props) => {
 };
 
 const ArrowLeft = (props) => {
-  const disabeld = props.disabled ? " arrow--disabled" : "";
+  const disabeld = props.disabled
+? " arrow--disabled"
+: "";
   return (
     <div onClick={props.onClick} className={"arrow arrow--left" + disabeld}>
       <i className="text-center fa fa-long-arrow-left"></i>
@@ -89,7 +93,9 @@ const ArrowLeft = (props) => {
 };
 
 const ArrowRight = (props) => {
-  const disabeld = props.disabled ? " arrow--disabled" : "";
+  const disabeld = props.disabled
+? " arrow--disabled"
+: "";
   return (
     <div onClick={props.onClick} className={"arrow arrow--right" + disabeld}>
       <i className="text-center fa fa-long-arrow-right"></i>

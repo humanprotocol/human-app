@@ -9,8 +9,7 @@ import './navigation.scss';
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const { user, isAuthed, token, refreshToken } = useSelector((state) => state.auth);
-  const hmtCounts = useSelector((state) => state.hmt.htmCounts);
+  const { isAuthed, token, refreshToken } = useSelector((state) => state.auth);
 
   const handleLogIn = (e) => {
     e.preventDefault()
@@ -29,19 +28,21 @@ const Navigation = ({ history }) => {
   }
 
   return (
-    <nav id='menu' className='navbar navbar-default fixed-top mb-0'>
-      <div className='container'>
-        <div className='navbar-header'>
-          <Link to={{ pathname: Routes.Home.path}} className='navbar-brand page-scroll no-padding' style={{ color: SecondaryColor.blue, letterSpacing: '4px' }}>
-            <img className='app-logo mr-3' src={logImg} alt='human-app-log'></img>
+    <nav id="menu" className="navbar navbar-default fixed-top mb-0">
+      <div className="container">
+        <div className="navbar-header">
+          <Link to={{ pathname: Routes.Home.path}} className="navbar-brand page-scroll no-padding" style={{ color: SecondaryColor.blue, letterSpacing: '4px' }}>
+            <img className="app-logo mr-3" src={logImg} alt="human-app-log"></img>
           </Link>
         </div>
         { //isAuthed &&  
         // <div className='d-block d-sm-none'>{hmtCounts} HMT</div>
         }
-        <div className='row m-0'>
+        <div className="row m-0">
           { !pathname.includes('verify-email') && 
-          <Link to='' style={{color: PrimaryColor.black}} className='page-scroll login-btn' onClick={handleLogIn}>{ !isAuthed ? 'Log in' : 'Log out' }</Link>
+          <Link to="" style={{color: PrimaryColor.black}} className="page-scroll login-btn" onClick={handleLogIn}>{ !isAuthed
+? 'Log in'
+: 'Log out' }</Link>
           }
         </div>
       </div>

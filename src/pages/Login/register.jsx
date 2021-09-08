@@ -24,7 +24,9 @@ const RegisterPage = (props) => {
     const [countries, setCountries] = useState([])
     const [confirm, setConfirm] = useState(true)     
     const [inputs, setInputs] = useState({
-        email: user ? user.email : '',
+        email: user
+? user.email
+: '',
         userName: '',
         firstName: '',
         lastName: '',
@@ -84,7 +86,7 @@ const RegisterPage = (props) => {
             }
             
             if(refCode) {
-                newUser['refCode'] = refCode;
+                newUser.refCode = refCode;
             }
 
             return register(newUser).then((response) => {
@@ -121,9 +123,9 @@ const RegisterPage = (props) => {
     }
 
     return (
-        <div id='register' className='col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100'>
-            <div className='container'>
-                <div className='page-title d-flex justify-content-between mb-4'>
+        <div id="register" className="col-md-4 offset-md-4 d-flex flex-column justify-content-center h-100">
+            <div className="container">
+                <div className="page-title d-flex justify-content-between mb-4">
                     <h2>Create account</h2>
                 </div>
                 { alertMsg && alertMsg.length &&
@@ -133,15 +135,15 @@ const RegisterPage = (props) => {
                 </Alert>
                 }
                 <div>
-                    <form name='form'>
+                    <form name="form">
                         <FormGroup>
-                            <FormControl placeholder='Full name' type='text' name='userName' value={userName} onChange={handleChange}></FormControl>
+                            <FormControl placeholder="Full name" type="text" name="userName" value={userName} onChange={handleChange}></FormControl>
                             {submitted && !userName &&
-                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.requireUserName}</FormControl.Feedback>
+                            <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.requireUserName}</FormControl.Feedback>
                             }
                         </FormGroup>
                         <FormGroup>
-                            <FormControl placeholder='refCode' type='text' name='refCode' value={refCode} onChange={handleChange}></FormControl>
+                            <FormControl placeholder="refCode" type="text" name="refCode" value={refCode} onChange={handleChange}></FormControl>
                         </FormGroup>
                         <FormGroup>
                             <Dropdown drop="down">
@@ -176,27 +178,29 @@ const RegisterPage = (props) => {
                                 })}
                             </Dropdown.Menu>
                             </Dropdown>
-                            <FormControl.Feedback type="invalid" className={ submitted && !inputs.country ? "d-block" : ""}>
+                            <FormControl.Feedback type="invalid" className={ submitted && !inputs.country
+? "d-block"
+: ""}>
                                 Country required
                             </FormControl.Feedback>
                         </FormGroup>
-                        <Password onChange={handleChange} name='password' value={password} placeholder='Create password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
-                        <Password onChange={handleChange} name='repeatPassword' value={repeatPassword} placeholder='Confirm password' submitted={submitted} className='mb-5' confirm={confirm}></Password>
-                        <FormGroup className='text-center'>
+                        <Password onChange={handleChange} name="password" value={password} placeholder="Create password" submitted={submitted} className="mb-5" confirm={confirm}></Password>
+                        <Password onChange={handleChange} name="repeatPassword" value={repeatPassword} placeholder="Confirm password" submitted={submitted} className="mb-5" confirm={confirm}></Password>
+                        <FormGroup className="text-center">
                         <HCaptcha
+                            // eslint-disable-next-line no-undef
                             sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                            onVerify={(token, ekey) =>
-                            handleVerificationSuccess(token)
+                            onVerify={(token) => handleVerificationSuccess(token)
                             }
                             ref={captchaRef}
                         />
                         {submitted && !captchaPassed &&
-                            <FormControl.Feedback type='invalid' className='d-block'>{ErrorMessage.captchPassRequired}</FormControl.Feedback>
+                            <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.captchPassRequired}</FormControl.Feedback>
                         }
                         </FormGroup>
-                        <FormGroup className='actions d-flex justify-content-between m-0'>
-                            <Link className='btn' to={Routes.Home.path}>Back</Link>
-                            <Button className='form-control bg-blue' onClick={handleRegister} disabled={!captchaPassed}>Next</Button>
+                        <FormGroup className="actions d-flex justify-content-between m-0">
+                            <Link className="btn" to={Routes.Home.path}>Back</Link>
+                            <Button className="form-control bg-blue" onClick={handleRegister} disabled={!captchaPassed}>Next</Button>
                         </FormGroup>
                     </form>
                 </div>

@@ -1,4 +1,5 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-negated-condition */
+/* eslint-disable complexity */
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router";
@@ -6,8 +7,6 @@ import {
   FormGroup,
   FormControl,
   Button,
-  FormLabel,
-  Dropdown,
   Form,
   Alert
 } from "react-bootstrap";
@@ -29,7 +28,9 @@ const Job = (props) => {
   }
   const captchaToken = useSelector((state) => state.hmt.captchaToken);
   const [option, setOptions] = useState(JobOptions.questionare);
-  const [referralCode, setReferralCode] = useState(user ? user.referralCode || '' : '');
+  const [referralCode, setReferralCode] = useState(user
+? user.referralCode || ''
+: '');
   // const [captchaCnt, setCaptchaCnt] = useState(0);
   // const [referralCnt, setReferralCnt] = useState(0);
   const [submitted, setSubmitted] = useState(false);
@@ -137,10 +138,12 @@ const Job = (props) => {
 
   const handleRefresh = () => {
     setSubmitted(false);
-    setReferralCode(user ? user.referralCode || '' : '');
+    setReferralCode(user
+? user.referralCode || ''
+: '');
   };
 
-  const handleVerificationSuccess = (token, eKey) => {
+  const handleVerificationSuccess = (token) => {
     dispatch({
       type: "SET_CAPTCHA_TOKEN",
       payload: token,
@@ -151,7 +154,9 @@ const Job = (props) => {
     e.preventDefault();
     switch (option) {
       case JobOptions.questionare:
-        const tasks = otherQuestion ? [otherQuestion] : [];
+        const tasks = otherQuestion
+? [otherQuestion]
+: [];
         taskOptions.map((taskOption) => {
           if(taskOption.checked) tasks.push(taskOption.value);
         });
@@ -178,23 +183,29 @@ const Job = (props) => {
 
   return (
     <div id="job" className="text-center">
-      <div className='blur-bg'></div>
+      <div className="blur-bg"></div>
       <div className="container job__container">
         <div className="row">
           <div className="col-md-3 section-option text-right col-sm-12 job__col__nav">
             <h4 className="title mb-4">More jobs coming soon</h4>
             <ul className="m-0">
               <li className="">
-                { user && user.misc && user.misc.questionnaire ?
-                <a className='opt disabled'>Questionnaire</a> :
-                <a className={`opt ${ option && option === JobOptions.questionare ? "active" : "" }`} onClick={() => setOptions(JobOptions.questionare)}>Questionnaire</a>
+                { user && user.misc && user.misc.questionnaire
+                ? <a className="opt disabled">Questionnaire</a>
+                : <a className={`opt ${option && option === JobOptions.questionare
+? "active"
+: ""}`} onClick={() => setOptions(JobOptions.questionare)}>Questionnaire</a>
                 }
               </li>
               <li className="">
-                <a className={`opt ${ option && option === JobOptions.profile ? "active" : "" }`} onClick={() => setOptions(JobOptions.profile)}>Profile</a>
+                <a className={`opt ${option && option === JobOptions.profile
+? "active"
+: ""}`} onClick={() => setOptions(JobOptions.profile)}>Profile</a>
               </li>
               <li className="">
-                <a className={`opt ${ option && option === JobOptions.referral ? "active" : "" }`} onClick={() => setOptions(JobOptions.referral)}>Referral</a>
+                <a className={`opt ${option && option === JobOptions.referral
+? "active"
+: ""}`} onClick={() => setOptions(JobOptions.referral)}>Referral</a>
               </li>
             </ul>
           </div>
@@ -207,34 +218,33 @@ const Job = (props) => {
             { user && user.walletAddr && !user.isKYCed &&
             <>
             <Alert variant="primary">
-              <p className='text-left'>Pending KYC. Note: You won't be able to receive HMT until our KYC-verification are completed.</p>
+              <p className="text-left">Pending KYC. Note: You won't be able to receive HMT until our KYC-verification are completed.</p>
             </Alert>
             <Alert variant="danger">
-              <p className='text-left'>Unfortunately, there has been a problem with our third-party KYC provider, which we’re working to resolve. Don’t worry. You don’t need to do anything more unless we specifically reach out to you. Please be patient while we get everything sorted on our end, and we’ll let you know once we have an update.</p>
+              <p className="text-left">Unfortunately, there has been a problem with our third-party KYC provider, which we’re working to resolve. Don’t worry. You don’t need to do anything more unless we specifically reach out to you. Please be patient while we get everything sorted on our end, and we’ll let you know once we have an update.</p>
             </Alert>
             </>
             }
             {option && option === JobOptions.captcha && (
-              <div id='hcaptcha'>
-                <p className='d-md-block'>For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.</p>
+              <div id="hcaptcha">
+                <p className="d-md-block">For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.</p>
                 <HCaptcha
                   sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                  onVerify={(token, ekey) =>
-                    handleVerificationSuccess(token, ekey)
+                  onVerify={(token) => handleVerificationSuccess(token)
                   }
                 />
                 {!nextable && errorText.length > 0 && (
                   <p className="dangerText">{errorText}</p>
                 )}
                 <FormGroup>
-                  <Button className='btn-custom mt-5' onClick={handleNext}>Next</Button>
+                  <Button className="btn-custom mt-5" onClick={handleNext}>Next</Button>
                 </FormGroup>
               </div>
             )}
             {option && option === JobOptions.referral && (
               <div id="referral" className="text-center col-md-8 offset-md-2">
-                <p className='d-md-block'>If you refer a friend you will receive 1 HMT. Note, you will receive the HMT only if your referral successfully signs up with their email and wallet address.</p>
-                <p className='d-md-block'>Copy the code below & ask your friend to use it while Signing up!</p>
+                <p className="d-md-block">If you refer a friend you will receive 1 HMT. Note, you will receive the HMT only if your referral successfully signs up with their email and wallet address.</p>
+                <p className="d-md-block">Copy the code below & ask your friend to use it while Signing up!</p>
                 <URLInput
                   className="text-center mb-3 referral-link"
                   reset={handleRefresh}
@@ -264,8 +274,8 @@ const Job = (props) => {
                 id="questions"
                 className="m-auto text-left col-md-8 offset-md-2"
               >
-                <p className='d-md-block'>Complete the questionnaire to receive 1 HMT.</p>
-                <div className='question-list'>
+                <p className="d-md-block">Complete the questionnaire to receive 1 HMT.</p>
+                <div className="question-list">
                   <p>{Questions[currentQuestion]}</p>
                   { errorText && 
                   <Alert variant="danger" onClose={() => setErrorText('')} dismissible>
@@ -275,37 +285,35 @@ const Job = (props) => {
                   { currentQuestion === 'task' &&
                   <Form name="form">
                     <FormGroup>
-                      { taskOptions && taskOptions.length && taskOptions.map((taskOpt, index) => 
-                        <Form.Check name='task' key={index} type="checkbox" label={taskOpt.label} checked={taskOpt.checked} value={taskOpt.value} onChange={handleChange}/>
+                      { taskOptions && taskOptions.length && taskOptions.map((taskOpt, index) => <Form.Check name="task" key={index} type="checkbox" label={taskOpt.label} checked={taskOpt.checked} value={taskOpt.value} onChange={handleChange}/>
                       )}
                     </FormGroup>
-                    <FormGroup className='other-question'>
-                        <FormControl className='m-0' name='otherQuestion' value={otherQuestion} type='text' onChange={handleChange} />
+                    <FormGroup className="other-question">
+                        <FormControl className="m-0" name="otherQuestion" value={otherQuestion} type="text" onChange={handleChange} />
                     </FormGroup>
                   </Form>
                   }
                   { currentQuestion === 'refer' &&
                   <Form name="form">
                     <FormGroup>
-                      { referOptions && referOptions.length && referOptions.map((referOpt, index) => 
-                        <Form.Check name='refer' key={index} type="radio" label={referOpt.label} checked={referOpt.checked} value={referOpt.value} onChange={handleChange}/>
+                      { referOptions && referOptions.length && referOptions.map((referOpt, index) => <Form.Check name="refer" key={index} type="radio" label={referOpt.label} checked={referOpt.checked} value={referOpt.value} onChange={handleChange}/>
                       )}
                     </FormGroup>
-                    <FormGroup className='other-question'>
-                        <FormControl className='m-0' name='otherQuestion' value={otherQuestion} type='text' onChange={handleChange} placeholder='Something else'/>
+                    <FormGroup className="other-question">
+                        <FormControl className="m-0" name="otherQuestion" value={otherQuestion} type="text" onChange={handleChange} placeholder="Something else"/>
                     </FormGroup>
                   </Form>
                   }
                 </div>
                 { currentQuestion === 'task' &&
                 <FormGroup>
-                  <Button className='form-control' onClick={handleNext}>Next</Button>
+                  <Button className="form-control" onClick={handleNext}>Next</Button>
                 </FormGroup>
                 }
                 { currentQuestion === 'refer' &&
                 <FormGroup>
-                  <Button className='form-control' onClick={submitQuestions}>Submit</Button>
-                  <Button className='form-control bg-white' onClick={() => { setOtherQuestion(''); setCurrentQuestion('task');}}>Back</Button>
+                  <Button className="form-control" onClick={submitQuestions}>Submit</Button>
+                  <Button className="form-control bg-white" onClick={() => { setOtherQuestion(''); setCurrentQuestion('task'); }}>Back</Button>
                 </FormGroup>
                 }
               </div>
@@ -316,11 +324,19 @@ const Job = (props) => {
           </div>
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container job__col__stats">
             <div className="mb-5">
-              <p className="stats stats__secondary"><span>Total HMT earned: </span>{user? user.earnedTokens : 0} </p>
-              <p className="stats stats__secondary"><span>HMT Pending withdrawal: </span> {user? user.pendingTokens : 0}</p>
-              <p className="stats stats__secondary"><span>Successful Referrals: </span>{user? user.referredUsers.length : 0} </p>
-              <p className="stats stats__secondary"><span>Questionnaire: </span> {user && user.misc.questionnaire? `Completed` : `Incomplete`}</p>
-              <Button className='bg-white stats__withdraw' onClick={() => alert("Cannot withdraw until KYC Process is complete")}>Withdraw</Button>
+              <p className="stats stats__secondary"><span>Total HMT earned: </span>{user
+? user.earnedTokens
+: 0} </p>
+              <p className="stats stats__secondary"><span>HMT Pending withdrawal: </span> {user
+? user.pendingTokens
+: 0}</p>
+              <p className="stats stats__secondary"><span>Successful Referrals: </span>{user
+? user.referredUsers.length
+: 0} </p>
+              <p className="stats stats__secondary"><span>Questionnaire: </span> {user && user.misc.questionnaire
+? `Completed`
+: `Incomplete`}</p>
+              <Button className="bg-white stats__withdraw" onClick={() => alert("Cannot withdraw until KYC Process is complete")}>Withdraw</Button>
             </div>
           </div>
         </div>
