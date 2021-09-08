@@ -8,22 +8,20 @@ export const Button = ({
   className,
   clkFun,
   disabled,
-}) => {
-  return (
-    <button
-      className={`btn-custom ${className}`}
-      onClick={clkFun}
-      style={{
-        color,
-        backgroundColor: bgColor,
-        border,
-        borderColor,
-        width,
-      }}
-      disabled={disabled}
-    >
-      {" "}
-      {title}
-    </button>
-  );
-};
+}) => (
+  <button
+    className={`btn-custom ${className}`}
+    onClick={clkFun}
+    style={{
+      color,
+      backgroundColor: bgColor,
+      border,
+      borderColor,
+      width,
+    }}
+    disabled={disabled}
+  >
+    {' '}
+    {title}
+  </button>
+);

@@ -1,8 +1,8 @@
-import * as TYPES from "../actionType";
+import * as TYPES from '../actionType';
 
-var initValue = {
+const initValue = {
   htmCounts: 0,
-  captchaToken: "",
+  captchaToken: '',
 };
 
 const hmtReducer = (state = initValue, action) => {

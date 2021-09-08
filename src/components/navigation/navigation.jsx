@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, withRouter, useLocation } from "react-router-dom";
+import { Link, withRouter, useLocation } from 'react-router-dom';
 import { PrimaryColor, SecondaryColor } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
@@ -12,38 +12,39 @@ const Navigation = ({ history }) => {
   const { isAuthed, token, refreshToken } = useSelector((state) => state.auth);
 
   const handleLogIn = (e) => {
-    e.preventDefault()
-    if(!isAuthed) {
+    e.preventDefault();
+    if (!isAuthed) {
       return history.push({ pathname: Routes.Login.path });
-    } else {
-      return logOut(token, refreshToken)
+    }
+    return logOut(token, refreshToken)
       .then(() => {
         dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
         history.push({ pathname: Routes.Home.path });
       }).catch((err) => {
         alert('Failed to log out');
       });
-      
-    }
-  }
+  };
 
   return (
     <nav id="menu" className="navbar navbar-default fixed-top mb-0">
       <div className="container">
         <div className="navbar-header">
-          <Link to={{ pathname: Routes.Home.path}} className="navbar-brand page-scroll no-padding" style={{ color: SecondaryColor.blue, letterSpacing: '4px' }}>
-            <img className="app-logo mr-3" src={logImg} alt="human-app-log"></img>
+          <Link to={{ pathname: Routes.Home.path }} className="navbar-brand page-scroll no-padding" style={{ color: SecondaryColor.blue, letterSpacing: '4px' }}>
+            <img className="app-logo mr-3" src={logImg} alt="human-app-log" />
           </Link>
         </div>
-        { //isAuthed &&  
+        { // isAuthed &&
         // <div className='d-block d-sm-none'>{hmtCounts} HMT</div>
         }
         <div className="row m-0">
-          { !pathname.includes('verify-email') && 
-          <Link to="" style={{color: PrimaryColor.black}} className="page-scroll login-btn" onClick={handleLogIn}>{ !isAuthed
-? 'Log in'
-: 'Log out' }</Link>
-          }
+          { !pathname.includes('verify-email')
+          && (
+          <Link to="" style={{ color: PrimaryColor.black }} className="page-scroll login-btn" onClick={handleLogIn}>
+            { !isAuthed
+              ? 'Log in'
+              : 'Log out' }
+          </Link>
+          )}
         </div>
       </div>
     </nav>

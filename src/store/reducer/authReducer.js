@@ -1,8 +1,9 @@
 import * as TYPES from '../actionType';
+
 const token = localStorage.getItem('token');
 const refreshToken = localStorage.getItem('refreshToken');
 
-var initValue = {
+const initValue = {
   isAuthed: false,
   user: null,
   token: token || null,
@@ -14,7 +15,9 @@ const authReducer = (state = initValue, action) => {
     case TYPES.AUTH_SIGN_IN:
       return { ...state, isAuthed: action.payload };
     case TYPES.AUTH_SIGN_OUT:
-      return { ...state, isAuthed: action.payload, user: null, token: null, refreshToken: null };
+      return {
+        ...state, isAuthed: action.payload, user: null, token: null, refreshToken: null,
+      };
     case TYPES.AUTH_SUCCESS:
       return { ...state, ...action.payload };
     case TYPES.SET_USER:

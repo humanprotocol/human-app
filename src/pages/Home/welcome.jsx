@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
-import { FormControl, FormGroup, Button, Modal } from 'react-bootstrap';
+import {
+  FormControl, FormGroup, Button, Modal,
+} from 'react-bootstrap';
 import './home.scss';
 import { Routes } from '../../routes';
 import { sendNewsletterSignup } from '../../service/user.service';
@@ -39,16 +41,26 @@ const Welcome = ({ history }) => {
       <div className="text-center">
         <div className="intro-text">
           <h1 className="text-center mb-4">
-            Welcome to the <span className="color-blue">HUMAN App</span>
+            Welcome to the
+            {' '}
+            <span className="color-blue">HUMAN App</span>
           </h1>
           <h4 className="text-center mb-4 font-weight-bold">
             Complete jobs; earn HMT.
           </h4>
-          {!isAuthed && 
+          {!isAuthed
+            && (
             <p className="text-center mb-4">
-            Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT when you register <a href="https://humanprotocol.org/app/terms-and-conditions" rel="noreferrer" target="_blank">(Only once per person)<span>&#42;</span></a> To earn more, complete tasks, or refer friends.
+              Please verify your email. We will also need a KYC-verified crypto wallet for security, and to send you HMT. You will receive 1 HMT when you register
+              {' '}
+              <a href="https://humanprotocol.org/app/terms-and-conditions" rel="noreferrer" target="_blank">
+                (Only once per person)
+                <span>&#42;</span>
+              </a>
+              {' '}
+              To earn more, complete tasks, or refer friends.
             </p>
-          }
+            )}
 
           <div className="row justify-content-center earning-container">
             {isAuthed && (
@@ -70,8 +82,8 @@ const Welcome = ({ history }) => {
                   />
                   <FormControl.Feedback
                     className={!status.email
-? 'd-block'
-: ''}
+                      ? 'd-block'
+                      : ''}
                     type="invalid"
                   >
                     {status.msg}

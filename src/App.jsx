@@ -3,26 +3,25 @@ import {
   Route,
   Switch,
   Redirect,
-} from "react-router-dom";
+} from 'react-router-dom';
 import ReactGA from 'react-ga4';
-import SmoothScroll from "smooth-scroll";
-import { createBrowserHistory } from "history";
+import SmoothScroll from 'smooth-scroll';
+import { createBrowserHistory } from 'history';
 
-import Navigation from "./components/navigation/navigation";
-import HomePage from "./pages/Home/home";
-import LoginPage from "./pages/Login/login";
-import RegisterPage from "./pages/Login/register";
-import ForgotPasswordPage from "./pages/Login/forgotPassword";
-import ProfilePage from "./pages/Profile/profile";
-import LinkWalletPage from "./pages/Wallet/link";
-import VerifyEmail from "./pages/Login/verifyEmail";
+import Navigation from './components/navigation/navigation';
+import HomePage from './pages/Home/home';
+import LoginPage from './pages/Login/login';
+import RegisterPage from './pages/Login/register';
+import ForgotPasswordPage from './pages/Login/forgotPassword';
+import ProfilePage from './pages/Profile/profile';
+import LinkWalletPage from './pages/Wallet/link';
+import VerifyEmail from './pages/Login/verifyEmail';
 
-import { Subscribe } from "./pages/Home/subscribe";
-import { Routes } from "./routes";
+import { Subscribe } from './pages/Home/subscribe';
+import { Routes } from './routes';
 
-import "./App.scss";
-import Job from "./pages/Job/job";
-
+import './App.scss';
+import Job from './pages/Job/job';
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -32,8 +31,8 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 const App = () => {
   const history = createBrowserHistory();
   // Google Analytics Setup
-  ReactGA.initialize("G-YGBRX2Z0WB");
-  history.listen(location => {
+  ReactGA.initialize('G-YGBRX2Z0WB');
+  history.listen((location) => {
     ReactGA.set({ page: location.pathname }); // Update the user's current page
     ReactGA.pageview(location.pathname); // Record a pageview for the given page
   });
