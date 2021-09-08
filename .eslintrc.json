@@ -10,8 +10,6 @@
         "airbnb",
         "airbnb/hooks",
         "plugin:react/recommended",
-        "plugin:import/errors",
-        "plugin:import/warnings",
         "plugin:jsx-a11y/recommended"
     ],
     "globals": {

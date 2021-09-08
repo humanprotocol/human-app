@@ -158,13 +158,13 @@ const RegisterPage = (props) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="w-100">
                   <Dropdown.Item
-                      className="w-100"
-                      onClick={(e) => {
-                          selectCountry('');
-                        }}
-                    >
-                                  ...
-                    </Dropdown.Item>
+                    className="w-100"
+                    onClick={(e) => {
+                      selectCountry('');
+                    }}
+                  >
+                    ...
+                  </Dropdown.Item>
                   {countries
                                 && countries.length
                                 && countries.map((optItem, index) => (
@@ -183,9 +183,9 @@ const RegisterPage = (props) => {
               </Dropdown>
               <FormControl.Feedback
                 type="invalid"
-className={submitted && !inputs.country
-                    ? 'd-block'
-                    : ''}
+                className={submitted && !inputs.country
+                  ? 'd-block'
+                  : ''}
               >
                 Country required
               </FormControl.Feedback>

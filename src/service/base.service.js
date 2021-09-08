@@ -1,8 +1,3 @@
-export async function signIn({ email, password }) {
-  // fake login
-  return true;
-}
-
 export function authHeader() {
   // return authorization header with jwt token
   const user = JSON.parse(localStorage.getItem('user'));

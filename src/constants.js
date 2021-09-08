@@ -118,15 +118,15 @@ export const ErrorType = {
 };
 
 export const ErrorMessage = {
-  invalidPassword: "Password must contain at least 1 character and 1 number",
-  invalidPasswordLength:"Password must be at least 8 characters",
-  invalidWalletAddress: "Invalid Wallet Address",
-  invalidEmail: "Invalid Email",
-  duplicatedEmail: "Email is already used",
-  requirePassword: "Password required",
-  requireEmail: "Email required",
-  requireUserName: "User name required",
-  requireWalletAddress: "Wallet Address required",
+  invalidPassword: 'Password must contain at least 1 character and 1 number',
+  invalidPasswordLength: 'Password must be at least 8 characters',
+  invalidWalletAddress: 'Invalid Wallet Address',
+  invalidEmail: 'Invalid Email',
+  duplicatedEmail: 'Email is already used',
+  requirePassword: 'Password required',
+  requireEmail: 'Email required',
+  requireUserName: 'User name required',
+  requireWalletAddress: 'Wallet Address required',
   requireVerificationToken: 'Verification token required',
   invalidVerificationToken: 'Invalid verification token',
   captchaPassRequired: 'You need to solve captcha',
@@ -146,5 +146,5 @@ export const SignUpOpt = {
 export const ResetPasswordStep = {
   verifyEmail: 'verifyEmail',
   pending: 'pending',
-  resetPassword: 'resetPassword'
-}
+  resetPassword: 'resetPassword',
+};

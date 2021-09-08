@@ -107,87 +107,41 @@ export const logOut = async (token, refreshToken) => axios.post(
 });
 
 export const forgotPassword = async (email) => {
-  if(!email) throw new Error(`email required`);
+  if (!email) throw new Error('email required');
 
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/forgot-password`,
     { email },
   ).catch((err) => {
-    if(err.response) throw new Error(err.response.data.message);
+    if (err.response) throw new Error(err.response.data.message);
     else throw new Error('Network Error');
-  })
-} 
+  });
+};
 
-export const resetPassword = async(password, token) => {
-  if(!password) throw new Error(ErrorMessage.requirePassword);
-  if(!token) throw new Error(ErrorMessage.requireRestPasswordToken);
+export const resetPassword = async (password, token) => {
+  if (!password) throw new Error(ErrorMessage.requirePassword);
+  if (!token) throw new Error(ErrorMessage.requireRestPasswordToken);
 
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/reset-password`,
     { password },
-    { params: { token } }
+    { params: { token } },
   ).catch((err) => {
-    if(err.response) throw new Error(err.response.data.message);
-    else throw new Error('Network Error');
-  })
-}
-
-export const getMyAccount = async (id, token) => {
-  return axios.get(
-    `${process.env.REACT_APP_API_URL}/users/${id}`,
-    { headers: { Authorization: `Bearer ${token}` } }
-  ).then((response) => {
-    if(response) return response.data;
-    else return null;
-  }).catch((err) => { 
-    if(err.response) throw new Error(err.response.data.message);
-    else throw new Error('Network Error');
-  });
-}
-
-export const verifyEmail = async (token) => {
-  return axios.post(
-    `${process.env.REACT_APP_API_URL}/auth/verify-email`,
-    null,
-    { params: { token }}
-  ).then((response) => {
-    if(response && response.status === 204)
-      return true;
-    else throw new Error(`Failed to verify email`);
-  }).catch((err) => { 
-    if(err.response) throw new Error(err.response.data.message);
-    else throw new Error('Network Error');
-  });
-}
-
-export const sendNewsletterSignup = async (data) => {
-  return axios.post(
-    `${process.env.REACT_APP_API_URL}/auth/register-interest`,
-    data,
-  ).then((response) => {
-    if(response && response.status === 204)
-      return true;
-    else throw new Error(`Failed to send email verification`);
-  }).catch((err) => {
-    if(err.response) throw new Error(err.response.data.message);
-    else throw new Error('Network Error');
-  });
-}
-
-export const resendEmailVerification = async (token) => {
-  return axios.post(
-    `${process.env.REACT_APP_API_URL}/auth/send-verification-email`,
-    null,
-    { headers: { Authorization: `Bearer ${token}` } }
-  ).then((response) => {
-    if(response && response.status === 204)
-      return true;
-    else throw new Error(`Failed to send email verification`);
-  }).catch((err) => {
-    if(err.response) throw new Error(err.response.data.message);
+    if (err.response) throw new Error(err.response.data.message);
     else throw new Error('Network Error');
   });
 };
+
+export const getMyAccount = async (id, token) => axios.get(
+  `${process.env.REACT_APP_API_URL}/users/${id}`,
+  { headers: { Authorization: `Bearer ${token}` } },
+).then((response) => {
+  if (response) return response.data;
+  return null;
+}).catch((err) => {
+  if (err.response) throw new Error(err.response.data.message);
+  else throw new Error('Network Error');
+});
 
 export const verifyEmail = async (token) => axios.post(
   `${process.env.REACT_APP_API_URL}/auth/verify-email`,
