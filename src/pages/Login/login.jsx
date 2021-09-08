@@ -105,9 +105,12 @@ const LoginPage = (props) => {
                 <FormControl.Feedback type="invalid" className="d-block">{ErrorMessage.captchaPassRequired}</FormControl.Feedback>
               }
             </FormGroup>
-            <FormGroup className="actions d-flex justify-content-between m-0">
-              <Link className="btn" to={Routes.Home.path}>Back</Link>
-              <Button className="form-control bg-blue" onClick={handleSubmit} disabled={!captchaPassed}>Log in</Button>
+            <div className='d-flex justify-content-between mb-2'>
+              <Link to='/reset-password' className='btn btn-link'>Forgot Password?</Link>
+            </div>
+            <FormGroup className='actions d-flex justify-content-between m-0'>
+              <Link className='btn' to={Routes.Home.path}>Back</Link>
+              <Button className='form-control bg-blue' onClick={handleSubmit} disabled={!captchaPassed}>Log in</Button>
             </FormGroup>
           </form>
         </div>
