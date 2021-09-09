@@ -1,4 +1,5 @@
-import { useSelector, useDispatch } from 'react-redux';
+/* eslint-disable no-undef */
+import React, { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, useLocation } from 'react-router-dom';
 import { PrimaryColor, SecondaryColor } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
@@ -9,9 +10,9 @@ import './navigation.scss';
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const { isAuthed, token, refreshToken } = useSelector((state) => state.auth);
+  const { isAuthed, token, refreshToken } = useSelector(state => state.auth);
 
-  const handleLogIn = (e) => {
+  const handleLogIn = e => {
     e.preventDefault();
     if (!isAuthed) {
       return history.push({ pathname: Routes.Login.path });
@@ -20,8 +21,9 @@ const Navigation = ({ history }) => {
       .then(() => {
         dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
         history.push({ pathname: Routes.Home.path });
-      }).catch((err) => {
-        alert('Failed to log out');
+      })
+      .catch(err => {
+        alert(`Failed to log out. ${err.message}`);
       });
   };
 
@@ -29,21 +31,28 @@ const Navigation = ({ history }) => {
     <nav id="menu" className="navbar navbar-default fixed-top mb-0">
       <div className="container">
         <div className="navbar-header">
-          <Link to={{ pathname: Routes.Home.path }} className="navbar-brand page-scroll no-padding" style={{ color: SecondaryColor.blue, letterSpacing: '4px' }}>
+          <Link
+            to={{ pathname: Routes.Home.path }}
+            className="navbar-brand page-scroll no-padding"
+            style={{ color: SecondaryColor.blue, letterSpacing: '4px' }}
+          >
             <img className="app-logo mr-3" src={logImg} alt="human-app-log" />
           </Link>
         </div>
-        { // isAuthed &&
-        // <div className='d-block d-sm-none'>{hmtCounts} HMT</div>
+        {
+          // isAuthed &&
+          // <div className='d-block d-sm-none'>{hmtCounts} HMT</div>
         }
         <div className="row m-0">
-          { !pathname.includes('verify-email')
-          && (
-          <Link to="" style={{ color: PrimaryColor.black }} className="page-scroll login-btn" onClick={handleLogIn}>
-            { !isAuthed
-              ? 'Log in'
-              : 'Log out' }
-          </Link>
+          {!pathname.includes('verify-email') && (
+            <Link
+              to=""
+              style={{ color: PrimaryColor.black }}
+              className="page-scroll login-btn"
+              onClick={handleLogIn}
+            >
+              {!isAuthed ? 'Log in' : 'Log out'}
+            </Link>
           )}
         </div>
       </div>

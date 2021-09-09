@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as TYPES from '../actionType';
 
 const token = localStorage.getItem('token');
@@ -16,7 +17,11 @@ const authReducer = (state = initValue, action) => {
       return { ...state, isAuthed: action.payload };
     case TYPES.AUTH_SIGN_OUT:
       return {
-        ...state, isAuthed: action.payload, user: null, token: null, refreshToken: null,
+        ...state,
+        isAuthed: action.payload,
+        user: null,
+        token: null,
+        refreshToken: null,
       };
     case TYPES.AUTH_SUCCESS:
       return { ...state, ...action.payload };

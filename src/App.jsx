@@ -1,9 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import ReactGA from 'react-ga4';
 import SmoothScroll from 'smooth-scroll';
 import { createBrowserHistory } from 'history';
@@ -32,7 +28,7 @@ const App = () => {
   const history = createBrowserHistory();
   // Google Analytics Setup
   ReactGA.initialize('G-YGBRX2Z0WB');
-  history.listen((location) => {
+  history.listen(location => {
     ReactGA.set({ page: location.pathname }); // Update the user's current page
     ReactGA.pageview(location.pathname); // Record a pageview for the given page
   });
@@ -46,16 +42,8 @@ const App = () => {
           <Route exact path={Routes.Login.path} component={LoginPage} />
           <Route exact path={Routes.Register.path} component={RegisterPage} />
           <Route exact path={Routes.Profile.path} component={ProfilePage} />
-          <Route
-            exact
-            path={Routes.LinkWallet.path}
-            component={LinkWalletPage}
-          />
-          <Route
-            exact
-            path={Routes.ForgotPassword.path}
-            component={ForgotPasswordPage}
-          />
+          <Route exact path={Routes.LinkWallet.path} component={LinkWalletPage} />
+          <Route exact path={Routes.ForgotPassword.path} component={ForgotPasswordPage} />
           <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} />
           <Route exact path={Routes.Earning.path} component={LinkWalletPage} />
           <Route exact path={Routes.Job.path} component={Job} />

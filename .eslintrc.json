@@ -1,48 +1,25 @@
 {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es6": true,
-        "node": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "airbnb",
-        "airbnb/hooks",
-        "plugin:react/recommended",
-        "plugin:jsx-a11y/recommended"
-    ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 11,
-        "sourceType": "module"
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
-    },
-    "plugins": [
-        "react",
-        "react-hooks"
-    ],
-    "rules": {
-        "react/react-in-jsx-scope": "off",
-        "react/jsx-filename-extension": [
-            1,
-            {
-                "extensions": [
-                    ".js",
-                    ".jsx"
-                ]
-            }
-        ],
-        "react/display-name": 1
-    }
+  "extends": [ "airbnb","plugin:prettier/recommended", "prettier/react"],
+  "parser": "babel-eslint",
+  "parserOptions": { "sourceType": "module" },
+  "rules": {
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "react/prop-types": 0,
+    "array-callback-return": 0,
+    "react/no-array-index-key": 0,
+    "consistent-return": 0,
+    "jsx-a11y/anchor-is-valid": 1,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/img-redundant-alt": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/control-has-associated-label": 0,
+    "react/no-unescaped-entities": 0,
+    "no-alert": 0,
+    "no-case-declarations": 0,
+    "no-param-reassign": 0,
+    "no-shadow": 1,
+    "import/prefer-default-export": 0,
+    "camelcase": 0
+  }
 }

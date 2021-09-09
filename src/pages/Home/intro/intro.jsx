@@ -1,8 +1,9 @@
+import React from 'react';
 import Slider from '../../../components/slider/slider';
 import './intro.scss';
 import { HumanAbout, HumanJobs } from '../../../constants';
 
-export const IntroSection = (props) => (
+export const IntroSection = () => (
   <div id="intro">
     <div className="human-about">
       <div className="section">
