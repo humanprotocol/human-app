@@ -59,7 +59,7 @@ const ProfilePage = (props) => {
   const updateProfile = (e) => {
     e.preventDefault();
     setSubmitted(true);
-    if(inputs.name && inputs.walletAddress && inputs.country) {
+    if(inputs.name && inputs.walletAddress && inputs.country && inputs.walletAddress.length === 42) {
       update(user.id, token, {
         name: inputs.name,
         walletAddr: inputs.walletAddress,
@@ -71,7 +71,7 @@ const ProfilePage = (props) => {
           setAlertMsg('Failed to update profile');
         }
         setEditting(false);
-      })
+      }).catch((err) => setAlertMsg(err.message))
     }
   }
 
