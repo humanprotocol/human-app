@@ -64,19 +64,26 @@ const ProfilePage = props => {
   const updateProfile = e => {
     e.preventDefault();
     setSubmitted(true);
-    if (inputs.name && inputs.walletAddress && inputs.country) {
+    if (
+      inputs.name &&
+      inputs.walletAddress &&
+      inputs.country &&
+      inputs.walletAddress.length === 42
+    ) {
       update(user.id, token, {
         name: inputs.name,
         walletAddr: inputs.walletAddress,
         country: inputs.country.value,
-      }).then(userRes => {
-        if (userRes) {
-          dispatch({ type: 'SET_USER', payload: userRes });
-        } else {
-          setAlertMsg('Failed to update profile');
-        }
-        setEditting(false);
-      });
+      })
+        .then(userRes => {
+          if (userRes) {
+            dispatch({ type: 'SET_USER', payload: userRes });
+          } else {
+            setAlertMsg('Failed to update profile');
+          }
+          setEditting(false);
+        })
+        .catch(err => setAlertMsg(err.message));
     }
   };
 
