@@ -38,6 +38,11 @@
             }
         }
     }
+    .password {
+        span {
+            font-size: 20px;
+        }
+    }
 }
 .form-control {
     height: 46px;
@@ -56,7 +61,10 @@
         border-radius: 0.5rem;
     }
 }
-
+.form-control.btn {
+    border: 0;
+    border-radius: 0.5rem;
+}
 #verifyEmail {
     max-width: 400px;
     margin: auto;
@@ -187,6 +195,10 @@
             }
         }
     }
+}
+#resetPassword {
+    max-width: 400px;
+    margin: auto;
 }
 
 

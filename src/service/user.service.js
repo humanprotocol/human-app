@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
+import { ErrorMessage } from '../constants';
 
 export const authHeader = () => {
   // return authorization header with jwt token
@@ -112,8 +113,6 @@ export const logOut = async (token, refreshToken) => {
 
 export const forgotPassword = async (email) => {
   if(!email) throw new Error(`email required`);
-  if(email && EmailValidator.validate(email))
-    throw new Error(`Invalid email`);
 
   return axios.post(
     `${process.env.REACT_APP_API_URL}/auth/forgot-password`,
@@ -123,6 +122,20 @@ export const forgotPassword = async (email) => {
     else throw new Error('Network Error');
   })
 } 
+
+export const resetPassword = async(password, token) => {
+  if(!password) throw new Error(ErrorMessage.requirePassword);
+  if(!token) throw new Error(ErrorMessage.requireRestPasswordToken);
+
+  return axios.post(
+    `${process.env.REACT_APP_API_URL}/auth/reset-password`,
+    { password },
+    { params: { token } }
+  ).catch((err) => {
+    if(err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
+  })
+}
 
 export const linkWallet = async (address) => {
   // throw new Error(`Failed to link wallet`);
