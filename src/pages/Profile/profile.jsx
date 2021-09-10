@@ -35,6 +35,7 @@ const ProfilePage = props => {
         if (country.value === user.country) {
           setInputs({ ...inputs, country });
         }
+        return null;
       });
     }
 
@@ -163,9 +164,8 @@ const ProfilePage = props => {
                       </Dropdown.Item>
                       {countries &&
                         countries.length &&
-                        countries.map((optItem, idx) => (
+                        countries.map(optItem => (
                           <Dropdown.Item
-                            key={idx}
                             className="w-100"
                             onClick={e => {
                               selectCountry(optItem);

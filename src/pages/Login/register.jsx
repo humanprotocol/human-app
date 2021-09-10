@@ -184,9 +184,8 @@ const RegisterPage = props => {
                   </Dropdown.Item>
                   {countries &&
                     countries.length &&
-                    countries.map((optItem, index) => (
+                    countries.map(optItem => (
                       <Dropdown.Item
-                        key={index}
                         className="w-100"
                         onClick={e => {
                           selectCountry(optItem);

@@ -133,6 +133,7 @@ const Job = props => {
         const tasks = otherQuestion ? [otherQuestion] : [];
         taskOptions.map(taskOption => {
           if (taskOption.checked) tasks.push(taskOption.value);
+          return null;
         });
         if (tasks.length) {
           setErrorText('');
@@ -283,10 +284,9 @@ const Job = props => {
                       <FormGroup>
                         {taskOptions &&
                           taskOptions.length &&
-                          taskOptions.map((taskOpt, index) => (
+                          taskOptions.map(taskOpt => (
                             <Form.Check
                               name="task"
-                              key={index}
                               type="checkbox"
                               label={taskOpt.label}
                               checked={taskOpt.checked}
@@ -311,10 +311,9 @@ const Job = props => {
                       <FormGroup>
                         {referOptions &&
                           referOptions.length &&
-                          referOptions.map((referOpt, index) => (
+                          referOptions.map(referOpt => (
                             <Form.Check
                               name="refer"
-                              key={index}
                               type="radio"
                               label={referOpt.label}
                               checked={referOpt.checked}

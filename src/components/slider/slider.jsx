@@ -20,8 +20,8 @@ const Slider = props => {
         <div ref={sliderRef} className="keen-slider  ">
           {props.slides &&
             props.slides.length &&
-            props.slides.map((slide, index) => (
-              <div className="keen-slider__slide" key={index}>
+            props.slides.map(slide => (
+              <div className="keen-slider__slide">
                 <div className="row  max-height-100 h-100">
                   {props.type && props.type === 'humanJobs' && (
                     <div className=" col-md-6 col-sm-12 image">
@@ -64,7 +64,6 @@ const Slider = props => {
         <div className="dots">
           {[...Array(slider.details().size).keys()].map(idx => (
             <button
-              key={idx}
               onClick={() => {
                 slider.moveToSlideRelative(idx);
               }}
