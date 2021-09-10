@@ -4,10 +4,7 @@
   "parserOptions": { "sourceType": "module" },
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
-    "quotes": [2, "single", { "avoidEscape": true }],
-    "react/prop-types": 0,
-    "array-callback-return": 0,
-    "react/no-array-index-key": 0,
+    "react/prop-types": 1,
     "consistent-return": 0,
     "jsx-a11y/anchor-is-valid": 1,
     "jsx-a11y/click-events-have-key-events": 0,
@@ -15,11 +12,9 @@
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/control-has-associated-label": 0,
     "react/no-unescaped-entities": 0,
-    "no-alert": 0,
     "no-case-declarations": 0,
     "no-param-reassign": 0,
     "no-shadow": 1,
-    "import/prefer-default-export": 0,
-    "camelcase": 0
+    "import/prefer-default-export": 0
   }
 }
