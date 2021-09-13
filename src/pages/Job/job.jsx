@@ -91,8 +91,7 @@ const Job = props => {
         setOtherQuestion(value);
         if (currentQuestion === 'refer') {
           const newReferOpts = referOptions.map(Opt => {
-            Opt.checked = false;
-            return Opt;
+            return { ...Opt, checked: false };
           });
           setReferOptions(newReferOpts);
           setRefers(value);
@@ -100,16 +99,15 @@ const Job = props => {
         break;
       case 'task':
         const newTaskOpts = taskOptions.map(taskOpt => {
-          if (taskOpt.value === value) taskOpt.checked = true;
+          if (taskOpt.value === value) return { ...taskOpt, checked: true };
           return taskOpt;
         });
         setTaskOptions(newTaskOpts);
         break;
       case 'refer':
         const newReferOpts = referOptions.map(Opt => {
-          if (Opt.value === value) Opt.checked = true;
-          else Opt.checked = false;
-          return Opt;
+          if (Opt.value === value) return { ...Opt, checked: true };
+          return { ...Opt, checked: false };
         });
         setReferOptions(newReferOpts);
         setRefers(value);

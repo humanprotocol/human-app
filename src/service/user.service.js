@@ -33,9 +33,8 @@ export const register = async user => {
     locationData.registration.error = 'Unable to get location data';
     locationData.registration.timestamp = currentTime;
   }
-  user.misc = locationData;
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/auth/register`, user)
+    .post(`${process.env.REACT_APP_API_URL}/auth/register`, { ...user, misc: locationData })
     .then(response => {
       if (response) {
         const { user, tokens } = response.data;
