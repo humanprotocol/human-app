@@ -68,7 +68,7 @@ export const Subscribe = ({ history }) => {
             </div>
           </div>
         </div>
-        <div className='terms col-md-6'>
+        <div className='terms row m-0'>
           <a className='terms-item' href="https://humanprotocol.org/app/terms-and-conditions" target="_blank" rel="noreferrer">Terms and conditions</a>
           <a className='terms-item' href="https://humanprotocol.org/app/privacy-policy" target="_blank" rel="noreferrer">Privacy policy</a>
           <a className='terms-item' href='https://humanprotocol.org/'><img src={ReadMoreIcon} className='mr-2 ml-n1'/>Read more on HUMAN Protocol</a>

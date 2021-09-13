@@ -3,8 +3,10 @@ import { Link, withRouter, useLocation } from "react-router-dom";
 import { PrimaryColor, SecondaryColor } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
-import { logOut } from '../../service/user.service';
+import { getMyAccount, logOut } from '../../service/user.service';
 import './navigation.scss';
+import { useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
 
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
@@ -27,6 +29,19 @@ const Navigation = ({ history }) => {
       
     }
   }
+
+  useEffect(() => {
+    if(token) {
+      const { sub } = jwtDecode(token);
+      getMyAccount(sub, token)
+        .then((response) => {
+          if(response) {
+            dispatch({ type: 'SET_USER', payload: response });
+            dispatch({ type: 'AUTH_SIGN_IN', payload: response.isEmailVerified });
+          }
+        }).catch((err) => { console.log(err.message) })
+    }
+  }, []);
 
   return (
     <nav id='menu' className='navbar navbar-default fixed-top mb-0'>

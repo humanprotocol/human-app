@@ -135,11 +135,6 @@ const Job = (props) => {
     alert(`Copied code: ${referralCode}.`);
   };
 
-  const handleRefresh = () => {
-    setSubmitted(false);
-    setReferralCode(user ? user.referralCode || '' : '');
-  };
-
   const handleVerificationSuccess = (token, eKey) => {
     dispatch({
       type: "SET_CAPTCHA_TOKEN",
@@ -237,7 +232,6 @@ const Job = (props) => {
                 <p className='d-md-block'>Copy the code below & ask your friend to use it while Signing up!</p>
                 <URLInput
                   className="text-center mb-3 referral-link"
-                  reset={handleRefresh}
                   onChange={handleChange}
                   name="referral"
                   value={referralCode}
@@ -255,7 +249,7 @@ const Job = (props) => {
                   className="mt-4 bg-blue w-100 form-control"
                   onClick={handleRefer}
                 >
-                  Copy Referral Code<i className="material-icons text-white">share</i>
+                  Copy Referral Code
                 </Button>
               </div>
             )}
