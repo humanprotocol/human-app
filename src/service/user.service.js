@@ -41,6 +41,7 @@ export const register = async (user) => {
     if(response) {
       const { user, tokens } = response.data;
       localStorage.setItem('token', tokens.access.token);
+      localStorage.setItem('refreshToken', tokens.refresh.token);
       return { user, token: tokens.access.token, refreshToken: tokens.refresh.token };
     }
   }).catch((err) => {
@@ -67,6 +68,7 @@ export const signIn = async ({email, password, hcaptchaToken}) => {
   ).then((response) => {
     const { user, tokens } = response.data;
     localStorage.setItem('token', tokens.access.token);
+    localStorage.setItem('refreshToken', tokens.refresh.token);
     return { user, token: tokens.access.token, refreshToken: tokens.refresh.token };
   }).catch((err) => {
     if(err.response) throw new Error(err.response.data.message);
@@ -99,6 +101,7 @@ export const logOut = async (token, refreshToken) => {
   ).then((response) => {
     if(response && response.status === 204) {
       localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
       return true;
     }
     else return false;

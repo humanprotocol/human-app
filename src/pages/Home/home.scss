@@ -145,25 +145,6 @@
     }
 
 }
-#referral {
-    p {
-        text-align: left;
-    }
-    .btn {
-        &:active {
-            background-color: #6309FF;
-            opacity: 0.8;
-        }
-        i {
-            float: right;
-            margin-top: 0.25em;
-        }
-    }
-    @media (min-width: 1800px) {
-        width: 25rem;
-        margin: auto;
-    }
-}
 #questions {
     max-width: 400px;
     padding: 0;
@@ -370,7 +351,8 @@
             }
         }
         .terms {
-            margin-top: 2%;
+            margin-top: 2%!important;
+            justify-content: space-between;
             .terms-item {
                 display: block;
                 font-size: 13px;
@@ -378,7 +360,6 @@
                 letter-spacing: 0.2px;
                 color: #0A060E;
                 padding: 10px 0px;
-                text-align: right;
             }
             @media screen and (max-width: 768px) {
                 margin-top: 20px;
@@ -389,5 +370,20 @@
                 }
             }
         }
+    }
+}
+.intro {
+    display: table;
+    width: 100%;
+    padding: 0;
+    p {
+        width: 55vw;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1.125rem;
+        line-height: 2rem;
+        text-align: center;
+        margin: auto;
+        letter-spacing: 0.1px;
     }
 }
