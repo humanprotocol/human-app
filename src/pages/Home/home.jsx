@@ -1,16 +1,14 @@
-import { useSelector, useDispatch } from "react-redux";
-import Welcome  from "./welcome";
-import { IntroSection } from "./intro/intro";
-import { withRouter } from "react-router-dom";
+import React from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import Welcome from './welcome';
+import { IntroSection } from './intro/intro';
 import './home.scss';
 
-const HomePage = ({ data, history }) => {
-  return (
-    <>
-      <Welcome />
-      <IntroSection />
-    </>
-  );
-};
+const HomePage = () => (
+  <>
+    <Welcome />
+    <IntroSection />
+  </>
+);
 
 export default withRouter(HomePage);

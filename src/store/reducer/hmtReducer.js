@@ -1,8 +1,8 @@
-import * as TYPES from "../actionType";
+import * as TYPES from '../actionType';
 
-var initValue = {
+const initValue = {
   htmCounts: 0,
-  captchaToken: "",
+  captchaToken: '',
 };
 
 const hmtReducer = (state = initValue, action) => {
@@ -14,10 +14,7 @@ const hmtReducer = (state = initValue, action) => {
     case TYPES.DECREASE_HMT_COUNT:
       return {
         ...state,
-        htmCounts:
-          state.htmCounts - action.payload > 0
-            ? state.htmCounts - action.payload
-            : 0,
+        htmCounts: state.htmCounts - action.payload > 0 ? state.htmCounts - action.payload : 0,
       };
     default:
       return { ...state };
