@@ -7,7 +7,6 @@ import { createBrowserHistory } from 'history';
 import Navigation from './components/navigation/navigation';
 import HomePage from './pages/Home/home';
 import LoginPage from './pages/Login/login';
-import LoginTestPage from './pages/Login/logintest';
 import RegisterPage from './pages/Login/register';
 import ForgotPasswordPage from './pages/Login/forgotPassword';
 import ProfilePage from './pages/Profile/profile';
@@ -41,7 +40,6 @@ const App = () => {
         <Switch>
           <Route exact path={Routes.Home.path} component={HomePage} />
           <Route exact path={Routes.Login.path} component={LoginPage} />
-          <Route exact path="/logintest" component={LoginTestPage} />
           <Route exact path={Routes.Register.path} component={RegisterPage} />
           <Route exact path={Routes.Profile.path} component={ProfilePage} />
           <Route exact path={Routes.LinkWallet.path} component={LinkWalletPage} />
