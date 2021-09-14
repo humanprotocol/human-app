@@ -4,26 +4,14 @@ import ReactGA from 'react-ga4';
 import SmoothScroll from 'smooth-scroll';
 import { createBrowserHistory } from 'history';
 
-<<<<<<< HEAD
-import Navigation from './components/navigation/navigation';
-import HomePage from './pages/Home/home';
-import LoginPage from './pages/Login/login';
-import RegisterPage from './pages/Login/register';
-import ForgotPasswordPage from './pages/Login/forgotPassword';
-import ProfilePage from './pages/Profile/profile';
-import LinkWalletPage from './pages/Wallet/link';
-import VerifyEmail from './pages/Login/verifyEmail';
-=======
 import Navigation from "./components/navigation/navigation";
 import HomePage from "./pages/Home/home";
 import LoginPage from "./pages/Login/login";
-import LoginTestPage from "./pages/Login/logintest";
 import RegisterPage from "./pages/Login/register";
 import ForgotPasswordPage from "./pages/Login/forgotPassword";
 import ProfilePage from "./pages/Profile/profile";
 import LinkWalletPage from "./pages/Wallet/link";
 import VerifyEmail from "./pages/Login/verifyEmail";
->>>>>>> 035b5c0 (install formik package)
 
 import { Subscribe } from './pages/Home/subscribe';
 import { Routes } from './routes';
@@ -52,7 +40,6 @@ const App = () => {
         <Switch>
           <Route exact path={Routes.Home.path} component={HomePage} />
           <Route exact path={Routes.Login.path} component={LoginPage} />
-          <Route exact path='/logintest' component={LoginTestPage} />
           <Route exact path={Routes.Register.path} component={RegisterPage} />
           <Route exact path={Routes.Profile.path} component={ProfilePage} />
           <Route exact path={Routes.LinkWallet.path} component={LinkWalletPage} />
