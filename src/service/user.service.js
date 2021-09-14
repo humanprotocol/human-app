@@ -74,6 +74,7 @@ export const signIn = async ({ email, password, hcaptchaToken }) => {
     .then(response => {
       const { user, tokens } = response.data;
       localStorage.setItem('token', tokens.access.token);
+      localStorage.setItem('refreshToken', tokens.refresh.token);
       return { user, token: tokens.access.token, refreshToken: tokens.refresh.token };
     })
     .catch(err => {
