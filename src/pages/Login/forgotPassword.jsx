@@ -107,7 +107,7 @@ const ForgotPasswordPage = props => {
               validationSchema={EmailValidationSchema}
               onSubmit={handleForgotPassword}
             >
-              {({ errors, touched, handleSubmit, isValid, dirty }) => (
+              {({ errors, touched, handleChange, handleSubmit, isValid, dirty, values }) => (
                 <Form>
                   <FormGroup>
                     <Field name="email" className="form-control" placeholder="Email" type="email" />
@@ -135,7 +135,7 @@ const ForgotPasswordPage = props => {
               <FormGroup>
                 <p>
                   Did not recieve mail?
-                  <span className="highlight-text" onClick={handleSubmit}>
+                  <span className="highlight-text" onClick={handleResendForgotPassword}>
                     Re-send.
                   </span>
                 </p>

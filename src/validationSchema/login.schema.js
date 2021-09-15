@@ -8,3 +8,40 @@ export const LoginValidationSchema = Yup.object().shape({
   password: Yup.string().required(ErrorMessage.requirePassword),
   token: Yup.string().required(ErrorMessage.captchaPassRequired),
 });
+
+export const EmailValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email(ErrorMessage.invalidEmail)
+    .required(ErrorMessage.requireEmail),
+});
+
+export const PasswordValidationSchema = Yup.object().shape({
+  password: Yup.string()
+    .required(ErrorMessage.requirePassword)
+    .min(8, ErrorMessage.invalidPasswordLength)
+    .matches(
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/gm,
+      ErrorMessage.invalidPassword,
+    ),
+});
+
+export const ResetPasswordValidationSchema = Yup.object().shape({
+  password: Yup.string()
+    .required(ErrorMessage.requirePassword)
+    .min(8, ErrorMessage.invalidPasswordLength)
+    .matches(
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/gm,
+      ErrorMessage.invalidPassword,
+    ),
+  repeatPassword: Yup.string()
+    .required(ErrorMessage.requirePassword)
+    .min(8, ErrorMessage.invalidPasswordLength)
+    .matches(
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/gm,
+      ErrorMessage.invalidPassword,
+    )
+    .when('password', {
+      is: password => !!(password && password.length > 0),
+      then: Yup.string().oneOf([Yup.ref('password')], ErrorMessage.notConfirmedPassword),
+    }),
+});
