@@ -15,42 +15,23 @@ const ProfilePage = props => {
   const dispatch = useDispatch();
   const { user, isAuthed, token } = useSelector(state => state.auth);
   if (!isAuthed) history.push({ pathname: Routes.Home.path });
+  const coutryList = countryList().getData();
+  const countryData = {};
+  coutryList.map(item => {
+    countryData[item.value] = item;
+    return true;
+  });
 
   const [editing, setEditting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [inputs, setInputs] = useState({
-    email: '',
-    name: '',
-    walletAddress: '',
-    country: '',
+    email: user ? user.email : '',
+    name: user ? user.name : '',
+    walletAddress: user ? user.walletAddress : '',
+    country: user?.country ? countryData[user.country] : '',
   });
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState(coutryList);
   const [alertMsg, setAlertMsg] = useState('');
-
-  useEffect(() => {
-    const countryData = countryList().getData();
-    setCountries(countryData);
-    if (user && user.country) {
-      countries.map(country => {
-        if (country.value === user.country) {
-          setInputs({ ...inputs, country });
-        }
-        return null;
-      });
-    }
-
-    if (user && user.email) {
-      setInputs({ ...inputs, email: user.email });
-    }
-
-    if (user && user.name) {
-      setInputs({ ...inputs, name: user.name });
-    }
-
-    if (user && user.walletAddress) {
-      setInputs({ ...inputs, walletAddress: user.walletAddress });
-    }
-  }, [inputs, user]);
 
   const handleChange = e => {
     const { name, value } = e.target;
