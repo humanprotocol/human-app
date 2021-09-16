@@ -31,6 +31,7 @@ export const JobOptions = {
   referral: 'referral',
   questionare: 'questionare',
   profile: 'profile',
+  dataLabel: 'dataLabel',
 };
 
 export const Questions = {

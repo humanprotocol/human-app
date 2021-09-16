@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import DataLabel from './dataLabel';
 import { URLInput } from '../../components/inputs/url';
 import { JobOptions, ReferOptions, TaskOptions, Questions } from '../../constants';
 import { Routes } from '../../routes';
@@ -162,6 +163,14 @@ const Job = props => {
           <div className="col-md-3 section-option text-right col-sm-12 job__col__nav">
             <h4 className="title mb-4">More jobs coming soon</h4>
             <ul className="m-0">
+              <li className="">
+                <a
+                  className={`opt ${option && option === JobOptions.dataLabel ? 'active' : ''}`}
+                  onClick={() => setOptions(JobOptions.dataLabel)}
+                >
+                  Data Labelling
+                </a>
+              </li>
               <li className="">
                 {user && user.misc && user.misc.questionnaire ? (
                   <a className="opt disabled">Questionnaire</a>
@@ -359,6 +368,7 @@ const Job = props => {
               </div>
             )}
             {option && option === JobOptions.profile && <Profile />}
+            {option && option === JobOptions.dataLabel && <DataLabel />}
           </div>
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container job__col__stats">
             <div className="mb-5">
@@ -380,6 +390,7 @@ const Job = props => {
               <Button
                 className="bg-white stats__withdraw"
                 onClick={() => alert('Cannot withdraw until KYC Process is complete')}
+                disabled={!user?.walletAddr}
               >
                 Withdraw
               </Button>

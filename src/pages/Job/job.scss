@@ -220,6 +220,14 @@
     }
     &__withdraw {
         margin-top: 20px !important;
+        &:disabled {
+            &:hover {
+                opacity: 0.65;
+                color: #6309ff;
+                border: 2px solid #6309ff;
+                background-color: white!important;
+            }
+        }
     }
 }
 
