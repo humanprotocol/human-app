@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { FormGroup, Alert, Button } from 'react-bootstrap';
+import { FormGroup, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import './job.scss';
 import { Routes } from '../../routes';
@@ -33,10 +33,10 @@ const DataLabel = props => {
     setAlertMsg(ErrorMessage.captchaPassRequired);
   };
   return (
-    <div id="dataLabel" className="d-flex flex-column justify-content-center">
+    <div id="profile" className="col-md-4 offset-md-4 d-flex flex-column justify-content-center">
       <div className="container">
         <div className="page-title d-flex justify-content-between mb-4">
-          <h2>{!captchaVerified ? 'Data Labelling' : 'Help'}</h2>
+          <h2>Data Labelling</h2>
         </div>
         {alertMsg && (
           <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
@@ -46,29 +46,13 @@ const DataLabel = props => {
         )}
         <div>
           <form name="form">
-            {!captchaVerified && (
-              <FormGroup className="text-center">
-                <HCaptcha
-                  sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                  onVerify={token => handleVerificationSuccess(token)}
-                  ref={captchaRef}
-                />
-              </FormGroup>
-            )}
-            {captchaVerified && (
-              <FormGroup className="text-left">
-                <p>For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.</p>
-                <p>For every friend you refer who successfully signs up, you will receive 1 HMT.</p>
-                <p>Complete the questionnaire to receive 1 HMT.</p>
-              </FormGroup>
-            )}
-            {captchaVerified && (
-              <FormGroup className="text-center">
-                <Button className="form-control" onClick={() => setCaptchaVerified(false)}>
-                  Back
-                </Button>
-              </FormGroup>
-            )}
+            <FormGroup className="text-center">
+              <HCaptcha
+                sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+                onVerify={token => handleVerificationSuccess(token)}
+                ref={captchaRef}
+              />
+            </FormGroup>
           </form>
         </div>
       </div>
