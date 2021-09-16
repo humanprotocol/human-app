@@ -6,11 +6,13 @@ import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap
 import * as EmailValidator from 'email-validator';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import countryList from 'react-select-country-list';
-import { ErrorMessage } from '../../constants';
+import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, SignUpOpt } from '../../constants';
 import { Password } from '../../components/inputs/password/password';
 import './login.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
 import { Routes } from '../../routes';
+import { RegisterValidationSchema } from '../../validationSchema/login.schema';
 
 const RegisterPage = props => {
   const { history } = props;
@@ -19,112 +21,63 @@ const RegisterPage = props => {
   if (!user || !user?.email) {
     history.push({ pathname: Routes.Home.path });
   }
-
-  const [countries, setCountries] = useState([]);
-  const [confirm, setConfirm] = useState(true);
-  const [inputs, setInputs] = useState({
+  const captchaRef = useRef(null);
+  const coutryList = countryList().getData();
+  const countryData = {};
+  coutryList.map(item => {
+    countryData[item.value] = item;
+    return true;
+  });
+  const initialValues = {
     email: user ? user.email : '',
     userName: '',
-    firstName: '',
-    lastName: '',
     password: '',
     repeatPassword: '',
-    walletAddress: '',
     country: '',
     refCode: '',
-  });
-  const [submitted, setSubmitted] = useState(false);
+    hcaptchaToken: '',
+  };
   const [alertMsg, setAlertMsg] = useState('');
-  const [captchaPassed, setCaptchaPassed] = useState(false);
-  const [hcaptchaToken, setHcaptchaToken] = useState('');
-  const captchaRef = useRef(null);
 
-  useEffect(() => {
-    const countriesList = countryList().getData();
-    setCountries(countriesList);
-  }, []);
+  const handleRegister = (
+    { userName, email, password, country, hcaptchaToken, refCode },
+    { setSubmitting, setFieldValue },
+  ) => {
+    setSubmitting(true);
+    const newUser = {
+      name: userName,
+      email,
+      password,
+      country,
+      hcaptchaToken,
+    };
 
-  const { email, password, repeatPassword, userName, country, refCode } = inputs;
+    if (refCode) newUser.refCode = refCode;
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setInputs({ ...inputs, [name]: value });
-  };
-
-  const selectCountry = countryData => {
-    setInputs({ ...inputs, country: countryData });
-  };
-
-  const handleVerificationSuccess = token => {
-    if (token) {
-      setCaptchaPassed(true);
-      setHcaptchaToken(token);
-    }
-  };
-
-  const handleRegister = e => {
-    e.preventDefault();
-    setSubmitted(true);
-
-    if (password && repeatPassword && password !== repeatPassword) {
-      setConfirm(false);
-      setCaptchaPassed(false);
-      setHcaptchaToken('');
-      captchaRef.current.resetCaptcha();
-    }
-    setConfirm(true);
-    if (
-      email &&
-      password &&
-      country &&
-      userName &&
-      confirm &&
-      EmailValidator.validate(email) &&
-      captchaPassed
-    ) {
-      const newUser = {
-        name: userName,
-        email,
-        password,
-        country: country.value,
-        hcaptchaToken,
-      };
-
-      if (refCode) {
-        newUser.refCode = refCode;
-      }
-
-      return register(newUser)
-        .then(response => {
-          dispatch({
-            type: 'AUTH_SIGN_IN',
-            payload: response.isEmailVerified,
-          });
-          dispatch({
-            type: 'AUTH_SUCCESS',
-            payload: response,
-          });
-          setSubmitted(false);
-          setAlertMsg('');
-          setCaptchaPassed(false);
-          setHcaptchaToken('');
-          return response.token;
-        })
-        .then(token => resendEmailVerification(token))
-        .then(() => {
-          setAlertMsg('');
-          history.push({ pathname: Routes.VerifyEmail.path });
-        })
-        .catch(err => {
-          setAlertMsg(err.message);
-          setCaptchaPassed(false);
-          setHcaptchaToken('');
-          captchaRef.current.resetCaptcha();
+    return register(newUser)
+      .then(response => {
+        dispatch({
+          type: 'AUTH_SIGN_IN',
+          payload: response.isEmailVerified,
         });
-    }
-    setCaptchaPassed(false);
-    setHcaptchaToken('');
-    captchaRef.current.resetCaptcha();
+        dispatch({
+          type: 'AUTH_SUCCESS',
+          payload: response,
+        });
+        return response.token;
+      })
+      .then(token => resendEmailVerification(token))
+      .then(() => {
+        setAlertMsg('');
+        setSubmitting(false);
+        history.push({ pathname: Routes.VerifyEmail.path });
+      })
+      .catch(err => {
+        setAlertMsg(err.message);
+        setSubmitting(false);
+        setFieldValue('hcaptchaToken', '');
+        captchaRef.current.resetCaptcha();
+      });
   };
 
   return (
@@ -142,116 +95,151 @@ const RegisterPage = props => {
             <p>{alertMsg}</p>
           </Alert>
         )}
-        <div>
-          <form name="form">
-            <FormGroup>
-              <FormControl
-                placeholder="Full name"
-                type="text"
-                name="userName"
-                value={userName}
-                onChange={handleChange}
-              />
-              {submitted && !userName && (
-                <FormControl.Feedback type="invalid" className="d-block">
-                  {ErrorMessage.requireUserName}
-                </FormControl.Feedback>
-              )}
-            </FormGroup>
-            <FormGroup>
-              <FormControl
-                placeholder="refCode"
-                type="text"
-                name="refCode"
-                value={refCode}
-                onChange={handleChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Dropdown drop="down">
-                <Dropdown.Toggle className="form-control text-left bg-white">
-                  {country?.label || 'Select country'}
-                  <i className="fa fa-angle-down text-right" />
-                </Dropdown.Toggle>
-                <Dropdown.Menu className="w-100">
-                  <Dropdown.Item
-                    className="w-100"
-                    // eslint-disable-next-line no-unused-vars
-                    onClick={e => {
-                      selectCountry('');
-                    }}
-                  >
-                    ...
-                  </Dropdown.Item>
-                  {countries &&
-                    countries.length &&
-                    countries.map(optItem => (
-                      <Dropdown.Item
-                        className="w-100"
-                        key={optItem.value}
-                        // eslint-disable-next-line no-unused-vars
-                        onClick={e => {
-                          selectCountry(optItem);
-                        }}
-                        active={country.value === optItem.value}
-                      >
-                        {optItem.label}
-                      </Dropdown.Item>
-                    ))}
-                </Dropdown.Menu>
-              </Dropdown>
-              <FormControl.Feedback
-                type="invalid"
-                className={submitted && !inputs.country ? 'd-block' : ''}
-              >
-                Country required
-              </FormControl.Feedback>
-            </FormGroup>
-            <Password
-              onChange={handleChange}
-              name="password"
-              value={password}
-              placeholder="Create password"
-              submitted={submitted}
-              className="mb-5"
-              confirm={confirm}
-            />
-            <Password
-              onChange={handleChange}
-              name="repeatPassword"
-              value={repeatPassword}
-              placeholder="Confirm password"
-              submitted={submitted}
-              className="mb-5"
-              confirm={confirm}
-            />
-            <FormGroup className="text-center">
-              <HCaptcha
-                // eslint-disable-next-line no-undef
-                sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                onVerify={token => handleVerificationSuccess(token)}
-                ref={captchaRef}
-              />
-              {submitted && !captchaPassed && (
-                <FormControl.Feedback type="invalid" className="d-block">
-                  {ErrorMessage.captchPassRequired}
-                </FormControl.Feedback>
-              )}
-            </FormGroup>
-            <FormGroup className="actions d-flex justify-content-between m-0">
-              <Link className="btn" to={Routes.Home.path}>
-                Back
-              </Link>
-              <Button
-                className="form-control bg-blue"
-                onClick={handleRegister}
-                disabled={!captchaPassed}
-              >
-                Next
-              </Button>
-            </FormGroup>
-          </form>
-        </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={RegisterValidationSchema}
+          onSubmit={handleRegister}
+        >
+          {({
+            errors,
+            touched,
+            values,
+            dirty,
+            isValid,
+            handleSubmit,
+            handleBlur,
+            setFieldValue,
+            setFieldTouched,
+          }) => (
+            <Form>
+              <FormGroup>
+                <Field
+                  className="form-control"
+                  placeholder="Full name"
+                  name="userName"
+                  value={values.userName}
+                />
+                {errors.userName && touched.userName && (
+                  <FormControl.Feedback type="invalid" className="d-block">
+                    {errors.userName}
+                  </FormControl.Feedback>
+                )}
+              </FormGroup>
+              <FormGroup>
+                <Field
+                  className="form-control"
+                  placeholder="refCode"
+                  name="refCode"
+                  value={values.refCode}
+                />
+                {errors.refCode && touched.refCode && (
+                  <FormControl.Feedback type="invalid" className="d-block">
+                    {values.refCode}
+                  </FormControl.Feedback>
+                )}
+              </FormGroup>
+              <FormGroup>
+                <Dropdown
+                  drop="down"
+                  onToggle={isOpen => {
+                    if (isOpen) setFieldTouched('country', isOpen);
+                  }}
+                >
+                  <Dropdown.Toggle className="form-control text-left bg-white">
+                    {values.country ? countryData[values.country].label : 'Select country'}
+                    <i className="fa fa-angle-down text-right" />
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu className="w-100">
+                    <Dropdown.Item
+                      className="w-100"
+                      onClick={e => {
+                        e.preventDefault();
+                        setFieldTouched('country', true);
+                        setFieldValue('country', '');
+                      }}
+                    >
+                      ...
+                    </Dropdown.Item>
+                    {coutryList &&
+                      coutryList.length &&
+                      coutryList.map(optItem => (
+                        <Dropdown.Item
+                          className="w-100"
+                          key={optItem.value}
+                          onClick={e => {
+                            setFieldValue('country', optItem.value);
+                          }}
+                          active={values.country === optItem.value}
+                        >
+                          {optItem.label}
+                        </Dropdown.Item>
+                      ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+                {touched.country && errors.country && (
+                  <FormControl.Feedback type="invalid" className="d-block text-left">
+                    {errors.country}
+                  </FormControl.Feedback>
+                )}
+              </FormGroup>
+              <FormGroup className="password">
+                <Password
+                  onChange={e => setFieldValue('password', e.target.value)}
+                  onBlur={handleBlur}
+                  name="password"
+                  value={values.password}
+                  placeholder="Create password"
+                  className="mb-5"
+                />
+                {touched.password && errors.password && (
+                  <FormControl.Feedback type="invalid" className="d-block">
+                    {errors.password}
+                  </FormControl.Feedback>
+                )}
+              </FormGroup>
+              <FormGroup className="password">
+                <Password
+                  onChange={e => setFieldValue('repeatPassword', e.target.value)}
+                  onBlur={handleBlur}
+                  name="repeatPassword"
+                  value={values.repeatPassword}
+                  placeholder="Confirm password"
+                  className="mb-5"
+                />
+                {touched.repeatPassword && errors.repeatPassword && (
+                  <FormControl.Feedback type="invalid" className="d-block">
+                    {errors.repeatPassword}
+                  </FormControl.Feedback>
+                )}
+              </FormGroup>
+              <FormGroup className="text-center">
+                <HCaptcha
+                  // eslint-disable-next-line no-undef
+                  sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+                  onVerify={token => setFieldValue('hcaptchaToken', token)}
+                  ref={captchaRef}
+                />
+                {errors.hcaptchaToken && (
+                  <FormControl.Feedback type="invalid" className="d-block">
+                    {errors.captchPassRequired}
+                  </FormControl.Feedback>
+                )}
+              </FormGroup>
+              <FormGroup className="actions d-flex justify-content-between m-0">
+                <Link className="btn" to={Routes.Home.path}>
+                  Back
+                </Link>
+                <Button
+                  className="form-control bg-blue"
+                  onClick={handleSubmit}
+                  disabled={!(isValid && dirty)}
+                >
+                  Next
+                </Button>
+              </FormGroup>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

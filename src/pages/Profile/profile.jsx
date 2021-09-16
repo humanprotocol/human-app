@@ -130,7 +130,12 @@ const ProfilePage = props => {
                 )}
                 {editing && (
                   <>
-                    <Dropdown drop="down">
+                    <Dropdown
+                      drop="down"
+                      onToggle={isOpen => {
+                        if (isOpen) setFieldTouched('country', true);
+                      }}
+                    >
                       <Dropdown.Toggle className="form-control text-left bg-white">
                         {values.country ? countryData[values.country].label : 'Select country'}
                         <i className="fa fa-angle-down text-right" />
