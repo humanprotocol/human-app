@@ -36,11 +36,11 @@ const DataLabel = props => {
     <div id="dataLabel" className="d-flex flex-column justify-content-center">
       <div className="container">
         <div className="page-title d-flex justify-content-between mb-4">
-          <h2>Data Labelling</h2>
+          <h2>{!captchaVerified ? 'Data Labelling' : 'Help'}</h2>
         </div>
         {alertMsg && (
           <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>
-            <Alert.Heading>{captchaVerified ? 'Verify Hcatcha failed!' : 'Help'}</Alert.Heading>
+            <Alert.Heading>Verify Hcatcha failed!</Alert.Heading>
             <p>{alertMsg}</p>
           </Alert>
         )}
