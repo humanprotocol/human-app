@@ -108,7 +108,7 @@ const ForgotPasswordPage = props => {
               validationSchema={EmailValidationSchema}
               onSubmit={handleForgotPassword}
             >
-              {({ errors, touched, handleChange, handleSubmit, isValid, dirty, values }) => (
+              {({ errors, touched, handleSubmit, isValid, dirty }) => (
                 <Form>
                   <FormGroup>
                     <Field name="email" className="form-control" placeholder="Email" type="email" />
