@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -10,26 +10,34 @@ import { ProfileValidationSchema } from '../../validationSchema/user.schema';
 import { ErrorMessage } from '../../constants';
 import './profile.scss';
 
-const ProfilePage = props => {
+const ProfilePage = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
-  const { user, isAuthed, token } = useSelector(state => state.auth);
+  const { user, isAuthed, token } = useSelector((state) => state.auth);
   if (!isAuthed) history.push({ pathname: Routes.Home.path });
   const countries = countryList().getData();
   const countryData = {};
-  countries.map(item => {
+  countries.map((item) => {
     countryData[item.value] = item;
     return true;
   });
 
   const [editing, setEditting] = useState(false);
   const [alertMsg, setAlertMsg] = useState('');
+  const [countryName, setCountryName] = useState('');
   const initialValues = {
     email: user?.email || '',
     name: user?.name || '',
     walletAddr: user?.walletAddr || '',
     country: user?.country || '',
   };
+
+  useEffect(() => {
+    if (user && user.country) {
+      const countryData = CountryList.filter((item) => item.Code === user.country);
+      setCountryName(countryData[0].Name);
+    }
+  }, []);
 
   const handleUpdatProfile = ({ name, walletAddr, country }, { setSubmitting }) => {
     setSubmitting(true);
@@ -39,7 +47,7 @@ const ProfilePage = props => {
         walletAddr,
         country,
       })
-        .then(userRes => {
+        .then((userRes) => {
           if (userRes) {
             dispatch({ type: 'SET_USER', payload: userRes });
           } else {
@@ -48,7 +56,7 @@ const ProfilePage = props => {
           setEditting(false);
           setSubmitting(false);
         })
-        .catch(err => {
+        .catch((err) => {
           setAlertMsg(err.message);
           setSubmitting(false);
         });
@@ -58,9 +66,14 @@ const ProfilePage = props => {
     }
   };
 
-  const toggleEditProfile = e => {
+  const toggleEditProfile = (e) => {
     e.preventDefault();
     setEditting(!editing);
+  };
+
+  const handleChangeCountry = (countryCode) => {
+    const countryData = CountryList.filter((item) => item.Code === countryCode);
+    setCountryName(countryData[0].Name);
   };
 
   return (
@@ -129,34 +142,36 @@ const ProfilePage = props => {
                   <>
                     <Dropdown
                       drop="down"
-                      onToggle={isOpen => {
+                      onToggle={(isOpen) => {
                         if (isOpen) setFieldTouched('country', true);
                       }}
                     >
                       <Dropdown.Toggle className="form-control text-left bg-white">
-                        {values.country ? countryData[values.country].label : 'Select country'}
+                        {countryName || 'Select country'}
                         <i className="fa fa-angle-down text-right" />
                       </Dropdown.Toggle>
                       <Dropdown.Menu className="w-100">
                         <Dropdown.Item
                           className="w-100"
-                          onClick={e => {
+                          onClick={(e) => {
                             e.preventDefault();
                             setFieldTouched('country', true);
                             setFieldValue('country', '');
+                            setCountryName('');
                           }}
                         >
                           ...
                         </Dropdown.Item>
                         {countries &&
                           countries.length &&
-                          countries.map(optItem => (
+                          countries.map((optItem) => (
                             <Dropdown.Item
                               className="w-100"
                               key={optItem.value}
                               // eslint-disable-next-line no-unused-vars
-                              onClick={e => {
-                                setFieldValue('country', optItem.value);
+                              onClick={(e) => {
+                                setFieldValue('country', optItem.Code);
+                                handleChangeCountry(optItem.Code);
                               }}
                               active={values.country === optItem.value}
                             >

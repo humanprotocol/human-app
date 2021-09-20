@@ -12,17 +12,17 @@ import { register, resendEmailVerification } from '../../service/user.service';
 import { Routes } from '../../routes';
 import { RegisterValidationSchema } from '../../validationSchema/login.schema';
 
-const RegisterPage = props => {
+const RegisterPage = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
-  const { user } = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
   if (!user || !user?.email) {
     history.push({ pathname: Routes.Home.path });
   }
   const captchaRef = useRef(null);
   const countries = countryList().getData();
   const countryData = {};
-  countries.map(item => {
+  countries.map((item) => {
     countryData[item.value] = item;
     return true;
   });
@@ -36,6 +36,7 @@ const RegisterPage = props => {
     hcaptchaToken: '',
   };
   const [alertMsg, setAlertMsg] = useState('');
+  const [countryName, setCountryName] = useState('');
 
   const handleRegister = (
     { userName, email, password, country, hcaptchaToken, refCode },
@@ -53,7 +54,7 @@ const RegisterPage = props => {
     if (refCode) newUser.refCode = refCode;
 
     return register(newUser)
-      .then(response => {
+      .then((response) => {
         dispatch({
           type: 'AUTH_SIGN_IN',
           payload: response.isEmailVerified,
@@ -64,18 +65,23 @@ const RegisterPage = props => {
         });
         return response.token;
       })
-      .then(token => resendEmailVerification(token))
+      .then((token) => resendEmailVerification(token))
       .then(() => {
         setAlertMsg('');
         setSubmitting(false);
         history.push({ pathname: Routes.VerifyEmail.path });
       })
-      .catch(err => {
+      .catch((err) => {
         setAlertMsg(err.message);
         setSubmitting(false);
         setFieldValue('hcaptchaToken', '');
         captchaRef.current.resetCaptcha();
       });
+  };
+
+  const handleChangeCountry = (countryCode) => {
+    const countryData = CountryList.filter((item) => item.Code === countryCode);
+    setCountryName(countryData[0].Name);
   };
 
   return (
@@ -139,7 +145,7 @@ const RegisterPage = props => {
               <FormGroup>
                 <Dropdown
                   drop="down"
-                  onToggle={isOpen => {
+                  onToggle={(isOpen) => {
                     if (isOpen) setFieldTouched('country', isOpen);
                   }}
                 >
@@ -150,22 +156,23 @@ const RegisterPage = props => {
                   <Dropdown.Menu className="w-100">
                     <Dropdown.Item
                       className="w-100"
-                      onClick={e => {
+                      onClick={(e) => {
                         e.preventDefault();
                         setFieldTouched('country', true);
                         setFieldValue('country', '');
+                        setCountryName('');
                       }}
                     >
                       ...
                     </Dropdown.Item>
                     {countries &&
                       countries.length &&
-                      countries.map(optItem => (
+                      countries.map((optItem) => (
                         <Dropdown.Item
                           className="w-100"
                           key={optItem.value}
                           // eslint-disable-next-line no-unused-vars
-                          onClick={e => {
+                          onClick={(e) => {
                             setFieldValue('country', optItem.value);
                           }}
                           active={values.country === optItem.value}
@@ -183,7 +190,7 @@ const RegisterPage = props => {
               </FormGroup>
               <FormGroup className="password">
                 <Password
-                  onChange={e => setFieldValue('password', e.target.value)}
+                  onChange={(e) => setFieldValue('password', e.target.value)}
                   onBlur={handleBlur}
                   name="password"
                   value={values.password}
@@ -198,7 +205,7 @@ const RegisterPage = props => {
               </FormGroup>
               <FormGroup className="password">
                 <Password
-                  onChange={e => setFieldValue('repeatPassword', e.target.value)}
+                  onChange={(e) => setFieldValue('repeatPassword', e.target.value)}
                   onBlur={handleBlur}
                   name="repeatPassword"
                   value={values.repeatPassword}
@@ -215,7 +222,7 @@ const RegisterPage = props => {
                 <HCaptcha
                   // eslint-disable-next-line no-undef
                   sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                  onVerify={token => setFieldValue('hcaptchaToken', token)}
+                  onVerify={(token) => setFieldValue('hcaptchaToken', token)}
                   ref={captchaRef}
                 />
                 {errors.hcaptchaToken && (
