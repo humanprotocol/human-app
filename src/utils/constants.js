@@ -158,10 +158,20 @@ export const ResetPasswordStep = {
   resetPassword: 'resetPassword',
 };
 
-export const sanctionsList = {
+export const sactionList = {
   CA: 'Canada',
   CU: 'Cuba',
   IR: 'Iran, Islamic Republic of',
   KP: "Korea, Democratic People's Republic of",
   US: 'United States',
+  CRIMEA: {
+    latitude: {
+      bottom: 44.2,
+      top: 46.3,
+    },
+    longitude: {
+      left: 32.4,
+      right: 36.8,
+    },
+  },
 };
