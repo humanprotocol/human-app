@@ -1,7 +1,9 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-undef */
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
 import { ErrorMessage } from '../constants';
+import { validateIPData } from './util.service';
 
 export const authHeader = () => {
   // return authorization header with jwt token
@@ -33,6 +35,7 @@ export const register = async user => {
     locationData.registration.error = 'Unable to get location data';
     locationData.registration.timestamp = currentTime;
   }
+  validateIPData(locationData.registration);
   return axios
     .post(`${process.env.REACT_APP_API_URL}/auth/register`, { ...user, misc: locationData })
     .then(response => {
@@ -64,6 +67,7 @@ export const signIn = async ({ email, password, hcaptchaToken }) => {
       locationData.logins[currentTime] = { error: 'Unable to get location data' };
     });
 
+  validateIPData(locationData.logins[currentTime]);
   return axios
     .post(`${process.env.REACT_APP_API_URL}/auth/login`, {
       email,

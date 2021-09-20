@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap
 import * as EmailValidator from 'email-validator';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import countryList from 'react-select-country-list';
-import { ErrorMessage, SignUpOpt } from '../../constants';
+import { ErrorMessage, sactionList, SignUpOpt } from '../../constants';
 import { Password } from '../../components/inputs/password/password';
 import './login.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
@@ -184,17 +184,21 @@ const RegisterPage = props => {
                   </Dropdown.Item>
                   {countries &&
                     countries.length &&
-                    countries.map(optItem => (
-                      <Dropdown.Item
-                        className="w-100"
-                        onClick={e => {
-                          selectCountry(optItem);
-                        }}
-                        active={country.value === optItem.value}
-                      >
-                        {optItem.label}
-                      </Dropdown.Item>
-                    ))}
+                    countries.map(
+                      optItem =>
+                        !sactionList[optItem.value] && (
+                          <Dropdown.Item
+                            className="w-100"
+                            key={optItem.value}
+                            onClick={e => {
+                              selectCountry(optItem);
+                            }}
+                            active={country.value === optItem.value}
+                          >
+                            {optItem.label}
+                          </Dropdown.Item>
+                        ),
+                    )}
                 </Dropdown.Menu>
               </Dropdown>
               <FormControl.Feedback
