@@ -142,6 +142,7 @@ export const ErrorMessage = {
   requireRestPasswordToken: 'Verification token required',
   requireAuthToken: 'Authentication token required',
   requireProfileDetails: 'Profile details required',
+  sactionListError: 'The app is not available in your location. Please refer to our T&Cs',
 };
 
 export const SignUpOpt = {
@@ -155,4 +156,22 @@ export const ResetPasswordStep = {
   verifyEmail: 'verifyEmail',
   pending: 'pending',
   resetPassword: 'resetPassword',
+};
+
+export const sactionList = {
+  CA: 'Canada',
+  CU: 'Cuba',
+  IR: 'Iran, Islamic Republic of',
+  KP: "Korea, Democratic People's Republic of",
+  US: 'United States',
+  CRIMEA: {
+    latitude: {
+      bottom: 44.2,
+      top: 46.3,
+    },
+    longitude: {
+      left: 32.4,
+      right: 36.8,
+    },
+  },
 };

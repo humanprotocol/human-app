@@ -7,8 +7,8 @@ import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap
 import countryList from 'react-select-country-list';
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
-import { ErrorMessage } from '../../constants';
 import { ProfileValidationSchema } from '../../validationSchema/user.schema';
+import { ErrorMessage } from '../../constants';
 import './profile.scss';
 
 const ProfilePage = props => {
