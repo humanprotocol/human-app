@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap
 import countryList from 'react-select-country-list';
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
-import { ErrorMessage, sactionList } from '../../constants';
+import { ErrorMessage, sanctionsList } from '../../constants';
 import './profile.scss';
 
 const ProfilePage = props => {
@@ -29,7 +29,7 @@ const ProfilePage = props => {
 
   useEffect(() => {
     const countryData = countryList().getData();
-    setCountries(countryData);
+    setCountries(countryData.filter(item => !sanctionsList[item.value]));
     if (user && user.country) {
       countries.map(country => {
         if (country.value === user.country) {
@@ -171,20 +171,17 @@ const ProfilePage = props => {
                       </Dropdown.Item>
                       {countries &&
                         countries.length &&
-                        countries.map(
-                          optItem =>
-                            !sactionList[optItem.value] && (
-                              <Dropdown.Item
-                                className="w-100"
-                                onClick={e => {
-                                  selectCountry(optItem);
-                                }}
-                                active={inputs.country.value === optItem.value}
-                              >
-                                {optItem.label}
-                              </Dropdown.Item>
-                            ),
-                        )}
+                        countries.map(optItem => (
+                          <Dropdown.Item
+                            className="w-100"
+                            onClick={e => {
+                              selectCountry(optItem);
+                            }}
+                            active={inputs.country.value === optItem.value}
+                          >
+                            {optItem.label}
+                          </Dropdown.Item>
+                        ))}
                     </Dropdown.Menu>
                   </Dropdown>
                   <FormControl.Feedback

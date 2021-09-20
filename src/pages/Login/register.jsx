@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap
 import * as EmailValidator from 'email-validator';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import countryList from 'react-select-country-list';
-import { ErrorMessage, sactionList, SignUpOpt } from '../../constants';
+import { ErrorMessage, sanctionsList, SignUpOpt } from '../../constants';
 import { Password } from '../../components/inputs/password/password';
 import './login.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
@@ -41,7 +41,7 @@ const RegisterPage = props => {
 
   useEffect(() => {
     const countriesList = countryList().getData();
-    setCountries(countriesList);
+    setCountries(countriesList.filter(item => !sanctionsList[item.value]));
   }, []);
 
   const { email, password, repeatPassword, userName, country, refCode } = inputs;
@@ -184,21 +184,18 @@ const RegisterPage = props => {
                   </Dropdown.Item>
                   {countries &&
                     countries.length &&
-                    countries.map(
-                      optItem =>
-                        !sactionList[optItem.value] && (
-                          <Dropdown.Item
-                            className="w-100"
-                            key={optItem.value}
-                            onClick={e => {
-                              selectCountry(optItem);
-                            }}
-                            active={country.value === optItem.value}
-                          >
-                            {optItem.label}
-                          </Dropdown.Item>
-                        ),
-                    )}
+                    countries.map(optItem => (
+                      <Dropdown.Item
+                        className="w-100"
+                        key={optItem.value}
+                        onClick={e => {
+                          selectCountry(optItem);
+                        }}
+                        active={country.value === optItem.value}
+                      >
+                        {optItem.label}
+                      </Dropdown.Item>
+                    ))}
                 </Dropdown.Menu>
               </Dropdown>
               <FormControl.Feedback
