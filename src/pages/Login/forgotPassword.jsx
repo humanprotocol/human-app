@@ -4,7 +4,7 @@ import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './login.scss';
-import { ErrorMessage, ResetPasswordStep } from '../../constants';
+import { ErrorMessage, ResetPasswordStep } from '../../utils/constants';
 import { Routes } from '../../routes';
 import { forgotPassword, resetPassword } from '../../service/user.service';
 import { Password } from '../../components/inputs/password/password';

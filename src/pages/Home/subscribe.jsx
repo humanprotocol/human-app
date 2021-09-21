@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, FormControl, FormGroup, Modal } from 'react-bootstrap';
 import * as EmailValidator from 'email-validator';
-import { ErrorMessage } from '../../constants';
+import { ErrorMessage } from '../../utils/constants';
 import SubscribeImg from '../../assets/images/subscribe.png';
 import { sendNewsletterSignup } from '../../service/user.service';
 import ReadMoreIcon from '../../assets/icons/readmore.svg';

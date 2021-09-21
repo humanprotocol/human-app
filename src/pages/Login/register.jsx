@@ -5,12 +5,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap';
 import * as EmailValidator from 'email-validator';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import countryList from 'react-select-country-list';
-import { ErrorMessage, sanctionsList, SignUpOpt } from '../../constants';
+import { ErrorMessage, sanctionsList, SignUpOpt } from '../../utils/constants';
 import { Password } from '../../components/inputs/password/password';
 import './login.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
 import { Routes } from '../../routes';
+import { CountryList } from '../../utils/countryList';
 
 const RegisterPage = props => {
   const { history } = props;
@@ -20,7 +20,6 @@ const RegisterPage = props => {
     history.push({ pathname: Routes.Home.path });
   }
 
-  const [countries, setCountries] = useState([]);
   const [confirm, setConfirm] = useState(true);
   const [inputs, setInputs] = useState({
     email: user ? user.email : '',
@@ -38,12 +37,6 @@ const RegisterPage = props => {
   const [captchaPassed, setCaptchaPassed] = useState(false);
   const [hcaptchaToken, setHcaptchaToken] = useState('');
   const captchaRef = useRef(null);
-
-  useEffect(() => {
-    const countriesList = countryList().getData();
-    setCountries(countriesList.filter(item => !sanctionsList[item.value]));
-  }, []);
-
   const { email, password, repeatPassword, userName, country, refCode } = inputs;
 
   const handleChange = e => {
@@ -86,7 +79,7 @@ const RegisterPage = props => {
         name: userName,
         email,
         password,
-        country: country.value,
+        country: country.Code,
         hcaptchaToken,
       };
 
@@ -182,18 +175,18 @@ const RegisterPage = props => {
                   >
                     ...
                   </Dropdown.Item>
-                  {countries &&
-                    countries.length &&
-                    countries.map(optItem => (
+                  {CountryList &&
+                    CountryList.length &&
+                    CountryList.map(optItem => (
                       <Dropdown.Item
                         className="w-100"
-                        key={optItem.value}
+                        key={optItem.Code}
                         onClick={e => {
                           selectCountry(optItem);
                         }}
-                        active={country.value === optItem.value}
+                        active={country.Code === optItem.Code}
                       >
-                        {optItem.label}
+                        {optItem.Name}
                       </Dropdown.Item>
                     ))}
                 </Dropdown.Menu>

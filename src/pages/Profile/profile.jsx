@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import * as EmailValidator from 'email-validator';
 import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap';
-import countryList from 'react-select-country-list';
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
-import { ErrorMessage, sanctionsList } from '../../constants';
+import { ErrorMessage, sanctionsList } from '../../utils/constants';
+import { CountryList } from '../../utils/countryList';
 import './profile.scss';
 
 const ProfilePage = props => {
@@ -24,15 +24,12 @@ const ProfilePage = props => {
     walletAddress: '',
     country: '',
   });
-  const [countries, setCountries] = useState([]);
   const [alertMsg, setAlertMsg] = useState('');
 
   useEffect(() => {
-    const countryData = countryList().getData();
-    setCountries(countryData.filter(item => !sanctionsList[item.value]));
     if (user && user.country) {
-      countries.map(country => {
-        if (country.value === user.country) {
+      CountryList.map(country => {
+        if (country.Code === user.country) {
           setInputs({ ...inputs, country });
         }
         return null;
@@ -73,7 +70,7 @@ const ProfilePage = props => {
       update(user.id, token, {
         name: inputs.name,
         walletAddr: inputs.walletAddress,
-        country: inputs.country.value,
+        country: inputs.country.Code,
       })
         .then(userRes => {
           if (userRes) {
@@ -169,15 +166,16 @@ const ProfilePage = props => {
                       >
                         ...
                       </Dropdown.Item>
-                      {countries &&
-                        countries.length &&
-                        countries.map(optItem => (
+                      {CountryList &&
+                        CountryList.length &&
+                        CountryList.map(optItem => (
                           <Dropdown.Item
+                            key={optItem.Code}
                             className="w-100"
                             onClick={e => {
                               selectCountry(optItem);
                             }}
-                            active={inputs.country.value === optItem.value}
+                            active={inputs.country.Code === optItem.Code}
                           >
                             {optItem.label}
                           </Dropdown.Item>

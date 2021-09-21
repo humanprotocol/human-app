@@ -8,7 +8,7 @@ import { Password } from '../../components/inputs/password/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
 import './login.scss';
-import { ErrorMessage } from '../../constants';
+import { ErrorMessage } from '../../utils/constants';
 
 const LoginPage = props => {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import React, { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
-import { PrimaryColor, SecondaryColor } from '../../constants';
+import { PrimaryColor, SecondaryColor } from '../../utils/constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
 import { getMyAccount, logOut } from '../../service/user.service';
