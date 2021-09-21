@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { URLInput } from '../../components/inputs/url';
-import { JobOptions, ReferOptions, TaskOptions, Questions } from '../../constants';
+import { JobOptions, ReferOptions, TaskOptions, Questions } from '../../utils/constants';
 import { Routes } from '../../routes';
 import Profile from '../Profile/profile';
 import './job.scss';

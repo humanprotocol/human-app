@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
-import { ErrorMessage } from '../constants';
+import { ErrorMessage } from '../utils/constants';
 
 export const authHeader = () => {
   // return authorization header with jwt token
