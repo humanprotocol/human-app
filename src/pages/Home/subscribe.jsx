@@ -11,6 +11,7 @@ export const Subscribe = () => {
   const [submitted, setSubmitted] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [error, setError] = useState('');
+  const currentYear = new Date().getFullYear();
 
   const handleChange = e => {
     setEmail(e.target.value);
@@ -113,7 +114,9 @@ export const Subscribe = () => {
             <img src={ReadMoreIcon} className="mr-2 ml-n1" alt="readme" />
             Read more on HUMAN Protocol
           </a>
-          <p className="terms-item">© 2021 HPF. HUMAN Protocol® is a registered trademark</p>
+          <p className="terms-item">
+            © {currentYear} HPF. HUMAN Protocol® is a registered trademark
+          </p>
         </div>
       </div>
       <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
