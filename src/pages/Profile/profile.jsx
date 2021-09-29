@@ -174,6 +174,7 @@ const ProfilePage = props => {
                         countries.map(optItem => (
                           <Dropdown.Item
                             className="w-100"
+                            key={optItem.value}
                             onClick={e => {
                               selectCountry(optItem);
                             }}

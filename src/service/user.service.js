@@ -37,10 +37,14 @@ export const register = async user => {
     .post(`${process.env.REACT_APP_API_URL}/auth/register`, { ...user, misc: locationData })
     .then(response => {
       if (response) {
-        const { user, tokens } = response.data;
+        const { tokens } = response.data;
         localStorage.setItem('token', tokens.access.token);
         localStorage.setItem('refreshToken', tokens.refresh.token);
-        return { user, token: tokens.access.token, refreshToken: tokens.refresh.token };
+        return {
+          user: response.data.user,
+          token: tokens.access.token,
+          refreshToken: tokens.refresh.token,
+        };
       }
     })
     .catch(err => {
@@ -60,8 +64,7 @@ export const signIn = async ({ email, password, hcaptchaToken }) => {
       }
     })
     .catch(err => {
-      console.log(err.message);
-      locationData.logins[currentTime] = { error: 'Unable to get location data' };
+      locationData.logins[currentTime] = { error: `Unable to get location data.${err.message}` };
     });
 
   return axios
