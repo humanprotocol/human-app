@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const URLInput = ({ className, value, onChange, name, reset }) => {
   const refresh = e => {
@@ -23,4 +24,11 @@ export const URLInput = ({ className, value, onChange, name, reset }) => {
       </div>
     </div>
   );
+};
+URLInput.propTypes = {
+  className: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  reset: PropTypes.func.isRequired,
 };

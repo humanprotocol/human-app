@@ -2,6 +2,8 @@
 import React, { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { BrowserHistory } from 'history';
 import jwtDecode from 'jwt-decode';
 import { PrimaryColor, SecondaryColor } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
@@ -76,6 +78,9 @@ const Navigation = ({ history }) => {
       </div>
     </nav>
   );
+};
+Navigation.propTypes = {
+  history: PropTypes.objectOf(BrowserHistory).isRequired,
 };
 
 export default withRouter(Navigation);
