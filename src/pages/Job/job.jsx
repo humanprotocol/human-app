@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -112,10 +111,10 @@ const Job = props => {
     }
   };
 
-  const handleVerificationSuccess = token => {
+  const handleVerificationSuccess = verifiedCaptchaToken => {
     dispatch({
       type: 'SET_CAPTCHA_TOKEN',
-      payload: token,
+      payload: verifiedCaptchaToken,
     });
   };
 
@@ -123,15 +122,15 @@ const Job = props => {
     e.preventDefault();
     switch (option) {
       case JobOptions.questionare:
-        const tasks = otherQuestion ? [otherQuestion] : [];
+        const taskItems = otherQuestion ? [otherQuestion] : [];
         taskOptions.map(taskOption => {
-          if (taskOption.checked) tasks.push(taskOption.value);
+          if (taskOption.checked) taskItems.push(taskOption.value);
           return null;
         });
-        if (tasks.length) {
+        if (taskItems.length) {
           setErrorText('');
           setOtherQuestion('');
-          setTasks(tasks);
+          setTasks(taskItems);
           setCurrentQuestion('refer');
         } else {
           setErrorText('Answer required');
@@ -221,7 +220,7 @@ const Job = props => {
                 </p>
                 <HCaptcha
                   sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                  onVerify={token => handleVerificationSuccess(token)}
+                  onVerify={captchToken => handleVerificationSuccess(captchToken)}
                 />
                 {/* {!nextable && errorText.length > 0 && <p className="dangerText">{errorText}</p>} */}
                 <FormGroup>
