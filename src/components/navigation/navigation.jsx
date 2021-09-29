@@ -42,7 +42,7 @@ const Navigation = ({ history }) => {
           }
         })
         .catch(err => {
-          console.log(err.message);
+          customAlert(err.message);
         });
     }
   }, []);
