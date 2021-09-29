@@ -21,29 +21,21 @@ const Navigation = ({ history }) => {
     if (!isAuthed) {
       return history.push({ pathname: Routes.Login.path });
     }
-    return logOut(token, refreshToken)
-      .then(() => {
-        dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
-        history.push({ pathname: Routes.Home.path });
-      })
-      .catch(err => {
-        customAlert(err.message);
-      });
+    return logOut(token, refreshToken).then(() => {
+      dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
+      history.push({ pathname: Routes.Home.path });
+    });
   };
 
   useEffect(() => {
     if (token) {
       const { sub } = jwtDecode(token);
-      getMyAccount(sub, token)
-        .then(response => {
-          if (response) {
-            dispatch({ type: 'SET_USER', payload: response });
-            dispatch({ type: 'AUTH_SIGN_IN', payload: response.isEmailVerified });
-          }
-        })
-        .catch(err => {
-          customAlert(err.message);
-        });
+      getMyAccount(sub, token).then(response => {
+        if (response) {
+          dispatch({ type: 'SET_USER', payload: response });
+          dispatch({ type: 'AUTH_SIGN_IN', payload: response.isEmailVerified });
+        }
+      });
     }
   }, []);
 
