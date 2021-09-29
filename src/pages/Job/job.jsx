@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
+import { BrowserHistory } from 'history';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import DataLabel from './dataLabel';
@@ -398,14 +399,7 @@ const Job = props => {
   );
 };
 Job.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-    location: PropTypes.shape({
-      state: PropTypes.shape({
-        jobOption: PropTypes.string,
-      }).isRequired,
-    }).isRequired,
-  }).isRequired,
+  history: PropTypes.objectOf(BrowserHistory).isRequired,
 };
 
 export default withRouter(Job);

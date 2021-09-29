@@ -4,6 +4,7 @@ import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { BrowserHistory } from 'history';
 import './login.scss';
 import { ErrorMessage, ResetPasswordStep } from '../../constants';
 import { Routes } from '../../routes';
@@ -180,8 +181,7 @@ const ForgotPasswordPage = props => {
   );
 };
 ForgotPasswordPage.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+  history: PropTypes.objectOf(BrowserHistory).isRequired,
 };
+
 export default ForgotPasswordPage;
