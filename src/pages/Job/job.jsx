@@ -22,16 +22,10 @@ const Job = props => {
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
   }
-  // const captchaToken = useSelector(state => state.hmt.captchaToken);
   const [option, setOptions] = useState(JobOptions.questionare);
   const [referralCode, setReferralCode] = useState(user ? user.referralCode || '' : '');
-  // const [captchaCnt, setCaptchaCnt] = useState(0);
-  // const [referralCnt, setReferralCnt] = useState(0);
-  // const [submitted, setSubmitted] = useState(false);
-  // const [nextable, setNextable] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [currentQuestion, setCurrentQuestion] = useState('task');
-  // const hmtCounts = useSelector((state) => state.hmt.htmCounts);
   const [taskOptions, setTaskOptions] = useState([]);
   const [referOptions, setReferOptions] = useState([]);
   const [tasks, setTasks] = useState([]);
@@ -174,31 +168,31 @@ const Job = props => {
               </li>
               <li className="">
                 {user && user.misc && user.misc.questionnaire ? (
-                  <a className="opt disabled">Questionnaire</a>
+                  <span className="opt disabled">Questionnaire</span>
                 ) : (
-                  <a
+                  <span
                     className={`opt ${option && option === JobOptions.questionare ? 'active' : ''}`}
                     onClick={() => setOptions(JobOptions.questionare)}
                   >
                     Questionnaire
-                  </a>
+                  </span>
                 )}
               </li>
               <li className="">
-                <a
+                <span
                   className={`opt ${option && option === JobOptions.profile ? 'active' : ''}`}
                   onClick={() => setOptions(JobOptions.profile)}
                 >
                   Profile
-                </a>
+                </span>
               </li>
               <li className="">
-                <a
+                <span
                   className={`opt ${option && option === JobOptions.referral ? 'active' : ''}`}
                   onClick={() => setOptions(JobOptions.referral)}
                 >
                   Referral
-                </a>
+                </span>
               </li>
             </ul>
           </div>
