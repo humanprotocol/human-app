@@ -3,7 +3,6 @@ import React, { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { BrowserHistory } from 'history';
 import jwtDecode from 'jwt-decode';
 import { Button } from 'react-bootstrap';
 import { SecondaryColor } from '../../constants';
@@ -76,7 +75,9 @@ const Navigation = ({ history }) => {
   );
 };
 Navigation.propTypes = {
-  history: PropTypes.objectOf(BrowserHistory).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default withRouter(Navigation);

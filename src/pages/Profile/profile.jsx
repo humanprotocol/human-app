@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { BrowserHistory } from 'history';
 import * as EmailValidator from 'email-validator';
 import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap';
 import countryList from 'react-select-country-list';
@@ -239,7 +238,8 @@ const ProfilePage = props => {
   );
 };
 ProfilePage.propTypes = {
-  history: PropTypes.objectOf(BrowserHistory).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
-
 export default withRouter(ProfilePage);

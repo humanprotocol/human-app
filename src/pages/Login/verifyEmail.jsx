@@ -3,7 +3,6 @@ import { FormGroup, Button, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { BrowserHistory } from 'history';
 import { Routes } from '../../routes';
 import { resendEmailVerification, verifyEmail } from '../../service/user.service';
 import './login.scss';
@@ -91,7 +90,9 @@ const VerifyEmail = ({ history }) => {
   );
 };
 VerifyEmail.propTypes = {
-  history: PropTypes.objectOf(BrowserHistory).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default VerifyEmail;
