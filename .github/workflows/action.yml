@@ -26,7 +26,7 @@ jobs:
           node-version: 14.15.0
 
       # Install your dependencies
-      - run: npm ci
+      - run: yarn
 
       # Run ESLint
       - uses: eslint/github-action@v0
