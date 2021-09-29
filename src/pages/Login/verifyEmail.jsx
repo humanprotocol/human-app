@@ -71,7 +71,7 @@ const VerifyEmail = ({ history }) => {
             {!verified && (
               <FormGroup className="actions d-flex justify-content-between m-0">
                 {!token && accessToken && (
-                  <Link className="btn" onClick={resendVerification}>
+                  <Link to="" className="btn" onClick={resendVerification}>
                     Re-send
                   </Link>
                 )}
