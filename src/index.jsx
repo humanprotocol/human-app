@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -12,6 +11,7 @@ ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
+  // eslint-disable-next-line no-undef
   document.getElementById('root'),
 );
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';

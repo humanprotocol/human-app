@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -11,6 +10,7 @@ import { Routes } from '../../routes';
 import Profile from '../Profile/profile';
 import './job.scss';
 import { updateMisc } from '../../service/user.service';
+import { customAlert } from '../../service/utils';
 
 const Job = props => {
   const { history } = props;

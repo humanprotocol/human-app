@@ -1,7 +1,8 @@
-/* eslint-disable no-undef */
 import * as TYPES from '../actionType';
 
+// eslint-disable-next-line no-undef
 const token = localStorage.getItem('token');
+// eslint-disable-next-line no-undef
 const refreshToken = localStorage.getItem('refreshToken');
 
 const initValue = {

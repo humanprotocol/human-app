@@ -1,10 +1,10 @@
-/* eslint-disable no-undef */
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
 import { ErrorMessage } from '../constants';
 
 export const authHeader = () => {
   // return authorization header with jwt token
+  // eslint-disable-next-line no-undef
   const user = JSON.parse(localStorage.getItem('user'));
 
   if (user && user.token) {
@@ -38,7 +38,9 @@ export const register = async user => {
     .then(response => {
       if (response) {
         const { tokens } = response.data;
+        // eslint-disable-next-line no-undef
         localStorage.setItem('token', tokens.access.token);
+        // eslint-disable-next-line no-undef
         localStorage.setItem('refreshToken', tokens.refresh.token);
         return {
           user: response.data.user,
@@ -76,6 +78,7 @@ export const signIn = async ({ email, password, hcaptchaToken }) => {
     })
     .then(response => {
       const { user, tokens } = response.data;
+      // eslint-disable-next-line no-undef
       localStorage.setItem('token', tokens.access.token);
       return { user, token: tokens.access.token, refreshToken: tokens.refresh.token };
     })
@@ -111,6 +114,7 @@ export const logOut = async (token, refreshToken) =>
     )
     .then(response => {
       if (response && response.status === 204) {
+        // eslint-disable-next-line no-undef
         localStorage.removeItem('token');
         return true;
       }
