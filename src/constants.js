@@ -125,7 +125,6 @@ export const ErrorType = {
 };
 
 export const ErrorMessage = {
-  invalidPassword: 'Password must contain at least 1 character and 1 number',
   invalidPasswordLength: 'Password must be at least 8 characters',
   invalidWalletAddress: 'Invalid Wallet Address',
   invalidLengthWalletAddress: 'Wallet Address length must be 42',

@@ -18,19 +18,16 @@ export const EmailValidationSchema = Yup.object().shape({
 export const PasswordValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required(ErrorMessage.requirePassword)
-    .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword),
+    .min(8, ErrorMessage.invalidPasswordLength),
 });
 
 export const ResetPasswordValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required(ErrorMessage.requirePassword)
-    .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword),
+    .min(8, ErrorMessage.invalidPasswordLength),
   repeatPassword: Yup.string()
     .required(ErrorMessage.requirePassword)
     .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword)
     .when('password', {
       is: password => !!(password && password.length > 0),
       then: Yup.string().oneOf([Yup.ref('password')], ErrorMessage.notConfirmedPassword),
@@ -43,12 +40,10 @@ export const RegisterValidationSchema = Yup.object().shape({
     .required(ErrorMessage.requireEmail),
   password: Yup.string()
     .required(ErrorMessage.requirePassword)
-    .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword),
+    .min(8, ErrorMessage.invalidPasswordLength),
   repeatPassword: Yup.string()
     .required(ErrorMessage.requirePassword)
     .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword)
     .when('password', {
       is: password => !!(password && password.length > 0),
       then: Yup.string().oneOf([Yup.ref('password')], ErrorMessage.notConfirmedPassword),

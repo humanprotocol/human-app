@@ -28,17 +28,17 @@ const ProfilePage = props => {
   const initialValues = {
     email: user?.email || '',
     name: user?.name || '',
-    walletAddress: user?.walletAddress || '',
+    walletAddr: user?.walletAddr || '',
     country: user?.country || '',
   };
   const [alertMsg, setAlertMsg] = useState('');
 
-  const handleUpdatProfile = ({ name, walletAddress, country }, { setSubmitting }) => {
+  const handleUpdatProfile = ({ name, walletAddr, country }, { setSubmitting }) => {
     setSubmitting(true);
     if (token) {
       update(user.id, token, {
         name,
-        walletAddress,
+        walletAddr,
         country,
       })
         .then(userRes => {
@@ -176,18 +176,18 @@ const ProfilePage = props => {
                 )}
               </FormGroup>
               <FormGroup>
-                {!editing && <p>{values.walletAddress || 'Wallet address'}</p>}
+                {!editing && <p>{values.walletAddr || 'Wallet address'}</p>}
                 {editing && (
                   <Field
                     className="form-control"
                     placeholder="Wallet Address"
                     type="text"
-                    name="walletAddress"
+                    name="walletAddr"
                   />
                 )}
-                {editing && touched.walletAddress && errors.walletAddress && (
+                {editing && touched.walletAddr && errors.walletAddr && (
                   <FormControl.Feedback type="invalid" className="d-block text-left">
-                    {errors.walletAddress}
+                    {errors.walletAddr}
                   </FormControl.Feedback>
                 )}
               </FormGroup>
