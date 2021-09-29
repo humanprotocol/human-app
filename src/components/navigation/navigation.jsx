@@ -26,7 +26,7 @@ const Navigation = ({ history }) => {
         history.push({ pathname: Routes.Home.path });
       })
       .catch(err => {
-        alert(`Failed to log out. ${err.message}`);
+        customAlert(err.message);
       });
   };
 
