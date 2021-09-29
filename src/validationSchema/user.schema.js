@@ -7,9 +7,7 @@ export const ProfileValidationSchema = Yup.object()
     email: Yup.string()
       .email(ErrorMessage.invalidEmail)
       .required(ErrorMessage.requireEmail),
-    country: Yup.string()
-      .length(2, ErrorMessage.invalidCountryCode)
-      .required(ErrorMessage.requireCountry),
+    country: Yup.string().required(ErrorMessage.requireCountry),
     walletAddress: Yup.string()
       .length(42, ErrorMessage.invalidLengthWalletAddress)
       .required(ErrorMessage.requireWalletAddress),
