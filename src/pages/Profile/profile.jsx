@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -164,6 +163,7 @@ const ProfilePage = props => {
                     <Dropdown.Menu className="w-100">
                       <Dropdown.Item
                         className="w-100"
+                        // eslint-disable-next-line no-unused-vars
                         onClick={e => {
                           selectCountry('');
                         }}
@@ -176,6 +176,7 @@ const ProfilePage = props => {
                           <Dropdown.Item
                             className="w-100"
                             key={optItem.value}
+                            // eslint-disable-next-line no-unused-vars
                             onClick={e => {
                               selectCountry(optItem);
                             }}
