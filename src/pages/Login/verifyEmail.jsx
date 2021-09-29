@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FormGroup, Button, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Routes } from '../../routes';
 import { resendEmailVerification, verifyEmail } from '../../service/user.service';
