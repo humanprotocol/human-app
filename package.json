@@ -38,7 +38,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "eslint:github-action": "eslint \"src/**/*.{js,jsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"
