@@ -22,9 +22,9 @@ const RegisterPage = props => {
     history.push({ pathname: Routes.Home.path });
   }
   const captchaRef = useRef(null);
-  const coutryList = countryList().getData();
+  const countries = countryList().getData();
   const countryData = {};
-  coutryList.map(item => {
+  countries.map(item => {
     countryData[item.value] = item;
     return true;
   });
@@ -160,9 +160,9 @@ const RegisterPage = props => {
                     >
                       ...
                     </Dropdown.Item>
-                    {coutryList &&
-                      coutryList.length &&
-                      coutryList.map(optItem => (
+                    {countries &&
+                      countries.length &&
+                      countries.map(optItem => (
                         <Dropdown.Item
                           className="w-100"
                           key={optItem.value}
