@@ -51,12 +51,13 @@
         }
         .login-btn {
             color: #6309ff !important;
+            background-color: #fff;
             font-family: "Alliance No.1";
             font-size: 16px;
             padding: 10px 15px;
-            // color: white !important;
-            // border-radius: 10px;
+            line-height: 200%;
             box-shadow: rgba(99, 9, 255, 0.2) 0px 8px 16px;
+            border: none;
             border-radius: 10px;
             &:hover {
                 box-shadow: 0 8px 30px -4px rgba(99,9,255,0.4);
