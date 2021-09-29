@@ -286,6 +286,7 @@ const Job = props => {
                             <Form.Check
                               name="task"
                               type="checkbox"
+                              key={taskOpt.value}
                               label={taskOpt.label}
                               checked={taskOpt.checked}
                               value={taskOpt.value}
@@ -313,6 +314,7 @@ const Job = props => {
                             <Form.Check
                               name="refer"
                               type="radio"
+                              key={referOpt.value}
                               label={referOpt.label}
                               checked={referOpt.checked}
                               value={referOpt.value}
