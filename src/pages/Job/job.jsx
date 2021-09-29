@@ -400,6 +400,11 @@ const Job = props => {
 Job.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+    location: PropTypes.shape({
+      state: PropTypes.shape({
+        jobOption: PropTypes.string,
+      }).isRequired,
+    }).isRequired,
   }).isRequired,
 };
 
