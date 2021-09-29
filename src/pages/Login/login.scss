@@ -185,6 +185,15 @@
                             color: #fff;
                         }
                     }
+                    &.link {
+                        background: #FFFFFF;
+                        border: 1px solid #6309FF;
+                        border-radius: 10px;
+                        line-height: 200%;
+                        &:active {
+                            color: #6309FF;
+                        }
+                    }
                 }
                 a {
                     width: 40%;
