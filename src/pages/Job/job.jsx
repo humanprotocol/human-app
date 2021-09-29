@@ -392,8 +392,7 @@ const Job = props => {
               </p>
               <Button
                 className="bg-white stats__withdraw"
-                onClick={() => alert('Cannot withdraw until KYC Process is complete')}
-                disabled={!user?.walletAddr}
+                onClick={() => customAlert('Cannot withdraw until KYC Process is complete')}
               >
                 Withdraw
               </Button>

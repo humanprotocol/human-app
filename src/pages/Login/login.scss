@@ -199,6 +199,9 @@
 #resetPassword {
     max-width: 400px;
     margin: auto;
+    .highlight-text {
+        cursor: pointer;
+    }
 }
 
 
