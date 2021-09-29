@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { BrowserHistory } from 'history';
 import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap';
 import * as EmailValidator from 'email-validator';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
@@ -257,6 +256,9 @@ const RegisterPage = props => {
   );
 };
 RegisterPage.propTypes = {
-  history: PropTypes.objectOf(BrowserHistory).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
+
 export default withRouter(RegisterPage);
