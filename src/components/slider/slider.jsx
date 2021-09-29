@@ -2,6 +2,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { useKeenSlider } from 'keen-slider/react';
+import PropTypes from 'prop-types';
 import 'keen-slider/keen-slider.min.css';
 import './slider.scss';
 
@@ -75,6 +76,16 @@ const Slider = props => {
     </div>
   );
 };
+Slider.propTypes = {
+  slides: PropTypes.arrayOf(
+    PropTypes.shape({
+      subTitle: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      image: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  type: PropTypes.string.isRequired,
+};
 
 const ArrowLeft = props => {
   const disabeld = props.disabled ? ' arrow--disabled' : '';
@@ -84,6 +95,10 @@ const ArrowLeft = props => {
     </div>
   );
 };
+ArrowLeft.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 const ArrowRight = props => {
   const disabeld = props.disabled ? ' arrow--disabled' : '';
@@ -92,6 +107,10 @@ const ArrowRight = props => {
       <i className="text-center fa fa-long-arrow-right" />
     </div>
   );
+};
+ArrowRight.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Slider;

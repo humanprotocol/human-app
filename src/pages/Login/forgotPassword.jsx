@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import { BrowserHistory } from 'history';
 import './login.scss';
 import { ErrorMessage, ResetPasswordStep } from '../../constants';
 import { Routes } from '../../routes';
@@ -177,6 +179,9 @@ const ForgotPasswordPage = props => {
       </div>
     </div>
   );
+};
+ForgotPasswordPage.propTypes = {
+  history: PropTypes.objectOf(BrowserHistory).isRequired,
 };
 
 export default ForgotPasswordPage;
