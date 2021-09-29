@@ -19,27 +19,18 @@ export const PasswordValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required(ErrorMessage.requirePassword)
     .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/gm,
-      ErrorMessage.invalidPassword,
-    ),
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword),
 });
 
 export const ResetPasswordValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required(ErrorMessage.requirePassword)
     .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/gm,
-      ErrorMessage.invalidPassword,
-    ),
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword),
   repeatPassword: Yup.string()
     .required(ErrorMessage.requirePassword)
     .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/gm,
-      ErrorMessage.invalidPassword,
-    )
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword)
     .when('password', {
       is: password => !!(password && password.length > 0),
       then: Yup.string().oneOf([Yup.ref('password')], ErrorMessage.notConfirmedPassword),
@@ -53,25 +44,17 @@ export const RegisterValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required(ErrorMessage.requirePassword)
     .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/gm,
-      ErrorMessage.invalidPassword,
-    ),
+    .matches(/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/, ErrorMessage.invalidPassword),
   repeatPassword: Yup.string()
     .required(ErrorMessage.requirePassword)
     .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/gm,
-      ErrorMessage.invalidPassword,
-    )
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword)
     .when('password', {
       is: password => !!(password && password.length > 0),
       then: Yup.string().oneOf([Yup.ref('password')], ErrorMessage.notConfirmedPassword),
     }),
   userName: Yup.string().required(ErrorMessage.requireUserName),
-  country: Yup.string()
-    .length(2, ErrorMessage.invalidCountryCode)
-    .required(ErrorMessage.requireCountry),
+  country: Yup.string().required(ErrorMessage.requireCountry),
   refCode: Yup.string().nullable(true),
   hcaptchaToken: Yup.string().required(ErrorMessage.captchaPassRequired),
 });
