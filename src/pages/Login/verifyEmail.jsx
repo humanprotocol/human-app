@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FormGroup, Button, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Routes } from '../../routes';
 import { resendEmailVerification, verifyEmail } from '../../service/user.service';
@@ -72,9 +72,9 @@ const VerifyEmail = ({ history }) => {
             {!verified && (
               <FormGroup className="actions d-flex justify-content-between m-0">
                 {!token && accessToken && (
-                  <Link className="btn" onClick={resendVerification}>
+                  <Button className="link highlight-text" onClick={resendVerification}>
                     Re-send
-                  </Link>
+                  </Button>
                 )}
                 {token && (
                   <Button className="form-control bg-blue" onClick={handleVerification}>
