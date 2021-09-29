@@ -127,9 +127,9 @@ const ForgotPasswordPage = props => {
               <FormGroup>
                 <p>
                   Did not recieve mail?
-                  <a href="" onClick={handleSubmit}>
+                  <span className="highlight-text" onClick={handleSubmit}>
                     Re-send.
-                  </a>
+                  </span>
                 </p>
               </FormGroup>
             )}
