@@ -21,7 +21,6 @@
     "react/no-unescaped-entities": 0,
     "no-case-declarations": 0,
     "no-shadow": 1,
-    "no-console": 0,
     "import/prefer-default-export": 0
   }
 }
