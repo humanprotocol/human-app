@@ -44,7 +44,7 @@ export const RegisterValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required(ErrorMessage.requirePassword)
     .min(8, ErrorMessage.invalidPasswordLength)
-    .matches(/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/, ErrorMessage.invalidPassword),
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, ErrorMessage.invalidPassword),
   repeatPassword: Yup.string()
     .required(ErrorMessage.requirePassword)
     .min(8, ErrorMessage.invalidPasswordLength)
