@@ -4,7 +4,8 @@ import { Link, withRouter, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import jwtDecode from 'jwt-decode';
-import { PrimaryColor, SecondaryColor } from '../../constants';
+import { Button } from 'react-bootstrap';
+import { SecondaryColor } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
 import { getMyAccount, logOut } from '../../service/user.service';
@@ -64,14 +65,9 @@ const Navigation = ({ history }) => {
         }
         <div className="row m-0">
           {!pathname.includes('verify-email') && (
-            <Link
-              to="#"
-              style={{ color: PrimaryColor.black }}
-              className="page-scroll login-btn"
-              onClick={handleLogIn}
-            >
+            <Button className="page-scroll login-btn" onClick={handleLogIn}>
               {!isAuthed ? 'Log in' : 'Log out'}
-            </Link>
+            </Button>
           )}
         </div>
       </div>
