@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { BrowserHistory } from 'history';
 import * as EmailValidator from 'email-validator';
 import { FormControl, FormGroup, Button } from 'react-bootstrap';
 import './home.scss';
@@ -94,6 +96,9 @@ const Welcome = ({ history }) => {
       </div>
     </div>
   );
+};
+Welcome.propTypes = {
+  history: PropTypes.objectOf(BrowserHistory).isRequired,
 };
 
 export default withRouter(Welcome);

@@ -5,6 +5,9 @@
     "prettier/react"
   ],
   "parser": "babel-eslint",
+  "plugins": [
+    "react"
+  ],
   "parserOptions": { "sourceType": "module" },
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
