@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { FormGroup, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
@@ -15,7 +16,6 @@ const DataLabel = props => {
   }
   const captchaRef = useRef(null);
   const [alertMsg, setAlertMsg] = useState('');
-  const [captchaVerified, setCaptchaVerified] = useState(false);
 
   const handleVerificationSuccess = hcaptchaToken => {
     if (hcaptchaToken) {
@@ -23,7 +23,6 @@ const DataLabel = props => {
         .then(() => {
           setAlertMsg('');
           captchaRef.current.resetCaptcha();
-          setCaptchaVerified(true);
         })
         .catch(err => {
           setAlertMsg(err.message);
@@ -49,7 +48,7 @@ const DataLabel = props => {
             <FormGroup className="text-center">
               <HCaptcha
                 sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                onVerify={token => handleVerificationSuccess(token)}
+                onVerify={captchaToken => handleVerificationSuccess(captchaToken)}
                 ref={captchaRef}
               />
             </FormGroup>
@@ -58,6 +57,11 @@ const DataLabel = props => {
       </div>
     </div>
   );
+};
+DataLabel.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default DataLabel;

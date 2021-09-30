@@ -158,12 +158,16 @@ const Job = props => {
             <h4 className="title mb-4">More jobs coming soon</h4>
             <ul className="m-0">
               <li className="">
-                <a
-                  className={`opt ${option && option === JobOptions.dataLabel ? 'active' : ''}`}
-                  onClick={() => setOptions(JobOptions.dataLabel)}
-                >
-                  Data Labelling
-                </a>
+                {user && user.misc && user.misc.questionnaire ? (
+                  <span className="opt disabled">Data Labelling</span>
+                ) : (
+                  <span
+                    className={`opt ${option && option === JobOptions.dataLabel ? 'active' : ''}`}
+                    onClick={() => setOptions(JobOptions.questionare)}
+                  >
+                    Data Labelling
+                  </span>
+                )}
               </li>
               <li className="">
                 {user && user.misc && user.misc.questionnaire ? (
@@ -385,7 +389,7 @@ const Job = props => {
               </p>
               <Button
                 className="bg-white stats__withdraw"
-                onClick={() => alert('Cannot withdraw until KYC Process is complete')}
+                onClick={() => customAlert('Cannot withdraw until KYC Process is complete')}
                 disabled={!user?.walletAddr}
               >
                 Withdraw
