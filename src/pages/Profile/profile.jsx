@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
-import * as EmailValidator from 'email-validator';
 import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap';
 import countryList from 'react-select-country-list';
 import { Routes } from '../../routes';
@@ -107,7 +106,6 @@ const ProfilePage = props => {
             values,
             handleSubmit,
             setFieldTouched,
-            setValues,
             setFieldValue,
           }) => (
             <Form>
@@ -173,6 +171,7 @@ const ProfilePage = props => {
                             <Dropdown.Item
                               className="w-100"
                               key={optItem.value}
+                              // eslint-disable-next-line no-unused-vars
                               onClick={e => {
                                 setFieldValue('country', optItem.value);
                               }}

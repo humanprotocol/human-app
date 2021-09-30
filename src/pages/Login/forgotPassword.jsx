@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import './login.scss';
 import { ErrorMessage, ResetPasswordStep } from '../../constants';
@@ -25,15 +25,15 @@ const ForgotPasswordPage = props => {
   );
   const [email, setEmail] = useState('');
 
-  const sendForgotPasswordRequest = email => {
-    if (!email) {
+  const sendForgotPasswordRequest = toEmail => {
+    if (!toEmail) {
       return setAlertMsg(ErrorMessage.requireEmail);
     }
 
-    return forgotPassword(email)
+    return forgotPassword(toEmail)
       .then(() => {
         setAlertMsg('');
-        setEmail(email);
+        setEmail(toEmail);
         setStep(ResetPasswordStep.pending);
       })
       .catch(err => {
@@ -55,8 +55,7 @@ const ForgotPasswordPage = props => {
 
   const handleResetPassword = (data, { setSubmitting }) => {
     setSubmitting(true);
-    const { password, verificationToken } = data;
-    resetPassword(password, verificationToken)
+    resetPassword(data.password, data.verificationToken)
       .then(() => {
         setSubmitting(false);
         setAlertMsg('');

@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap';
-import * as EmailValidator from 'email-validator';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import countryList from 'react-select-country-list';
 import { Field, Form, Formik } from 'formik';
-import { ErrorMessage, SignUpOpt } from '../../constants';
 import { Password } from '../../components/inputs/password/password';
 import './login.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
@@ -166,6 +164,7 @@ const RegisterPage = props => {
                         <Dropdown.Item
                           className="w-100"
                           key={optItem.value}
+                          // eslint-disable-next-line no-unused-vars
                           onClick={e => {
                             setFieldValue('country', optItem.value);
                           }}
