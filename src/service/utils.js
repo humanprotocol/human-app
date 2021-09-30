@@ -1,5 +1,4 @@
-/* eslint-disable no-alert */
 export const customAlert = message => {
-  // eslint-disable-next-line no-undef
+  // eslint-disable-next-line
   alert(message);
 };
