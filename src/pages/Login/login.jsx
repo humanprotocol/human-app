@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Button, FormControl, FormGroup, Alert } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as EmailValidator from 'email-validator';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { Password } from '../../components/inputs/password/password';
@@ -150,6 +151,11 @@ const LoginPage = props => {
       </div>
     </div>
   );
+};
+LoginPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default withRouter(LoginPage);

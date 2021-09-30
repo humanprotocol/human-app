@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import './login.scss';
 import { ErrorMessage, ResetPasswordStep } from '../../constants';
 import { Routes } from '../../routes';
@@ -24,6 +23,7 @@ const ForgotPasswordPage = props => {
     password: '',
     repeatPassword: '',
   });
+  // eslint-disable-next-line no-unused-vars
   const [validationErrors, setValidationErrors] = useState({
     email: '',
     password: '',
@@ -126,9 +126,9 @@ const ForgotPasswordPage = props => {
               <FormGroup>
                 <p>
                   Did not recieve mail?
-                  <a href="" onClick={handleSubmit}>
+                  <span className="highlight-text" onClick={handleSubmit}>
                     Re-send.
-                  </a>
+                  </span>
                 </p>
               </FormGroup>
             )}
@@ -178,5 +178,9 @@ const ForgotPasswordPage = props => {
     </div>
   );
 };
-
+ForgotPasswordPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 export default ForgotPasswordPage;

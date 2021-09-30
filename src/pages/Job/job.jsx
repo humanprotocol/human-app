@@ -1,8 +1,7 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-shadow */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { URLInput } from '../../components/inputs/url';
@@ -11,6 +10,7 @@ import { Routes } from '../../routes';
 import Profile from '../Profile/profile';
 import './job.scss';
 import { updateMisc } from '../../service/user.service';
+import { customAlert } from '../../service/utils';
 
 const Job = props => {
   const { history } = props;
@@ -20,16 +20,10 @@ const Job = props => {
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
   }
-  // const captchaToken = useSelector(state => state.hmt.captchaToken);
   const [option, setOptions] = useState(JobOptions.questionare);
   const [referralCode, setReferralCode] = useState(user ? user.referralCode || '' : '');
-  // const [captchaCnt, setCaptchaCnt] = useState(0);
-  // const [referralCnt, setReferralCnt] = useState(0);
-  // const [submitted, setSubmitted] = useState(false);
-  // const [nextable, setNextable] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [currentQuestion, setCurrentQuestion] = useState('task');
-  // const hmtCounts = useSelector((state) => state.hmt.htmCounts);
   const [taskOptions, setTaskOptions] = useState([]);
   const [referOptions, setReferOptions] = useState([]);
   const [tasks, setTasks] = useState([]);
@@ -117,10 +111,10 @@ const Job = props => {
     }
   };
 
-  const handleVerificationSuccess = token => {
+  const handleVerificationSuccess = verifiedCaptchaToken => {
     dispatch({
       type: 'SET_CAPTCHA_TOKEN',
-      payload: token,
+      payload: verifiedCaptchaToken,
     });
   };
 
@@ -128,15 +122,15 @@ const Job = props => {
     e.preventDefault();
     switch (option) {
       case JobOptions.questionare:
-        const tasks = otherQuestion ? [otherQuestion] : [];
+        const taskItems = otherQuestion ? [otherQuestion] : [];
         taskOptions.map(taskOption => {
-          if (taskOption.checked) tasks.push(taskOption.value);
+          if (taskOption.checked) taskItems.push(taskOption.value);
           return null;
         });
-        if (tasks.length) {
+        if (taskItems.length) {
           setErrorText('');
           setOtherQuestion('');
-          setTasks(tasks);
+          setTasks(taskItems);
           setCurrentQuestion('refer');
         } else {
           setErrorText('Answer required');
@@ -164,31 +158,31 @@ const Job = props => {
             <ul className="m-0">
               <li className="">
                 {user && user.misc && user.misc.questionnaire ? (
-                  <a className="opt disabled">Questionnaire</a>
+                  <span className="opt disabled">Questionnaire</span>
                 ) : (
-                  <a
+                  <span
                     className={`opt ${option && option === JobOptions.questionare ? 'active' : ''}`}
                     onClick={() => setOptions(JobOptions.questionare)}
                   >
                     Questionnaire
-                  </a>
+                  </span>
                 )}
               </li>
               <li className="">
-                <a
+                <span
                   className={`opt ${option && option === JobOptions.profile ? 'active' : ''}`}
                   onClick={() => setOptions(JobOptions.profile)}
                 >
                   Profile
-                </a>
+                </span>
               </li>
               <li className="">
-                <a
+                <span
                   className={`opt ${option && option === JobOptions.referral ? 'active' : ''}`}
                   onClick={() => setOptions(JobOptions.referral)}
                 >
                   Referral
-                </a>
+                </span>
               </li>
             </ul>
           </div>
@@ -226,7 +220,7 @@ const Job = props => {
                 </p>
                 <HCaptcha
                   sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                  onVerify={token => handleVerificationSuccess(token)}
+                  onVerify={captchToken => handleVerificationSuccess(captchToken)}
                 />
                 {/* {!nextable && errorText.length > 0 && <p className="dangerText">{errorText}</p>} */}
                 <FormGroup>
@@ -286,6 +280,7 @@ const Job = props => {
                             <Form.Check
                               name="task"
                               type="checkbox"
+                              key={taskOpt.value}
                               label={taskOpt.label}
                               checked={taskOpt.checked}
                               value={taskOpt.value}
@@ -313,6 +308,7 @@ const Job = props => {
                             <Form.Check
                               name="refer"
                               type="radio"
+                              key={referOpt.value}
                               label={referOpt.label}
                               checked={referOpt.checked}
                               value={referOpt.value}
@@ -379,7 +375,7 @@ const Job = props => {
               </p>
               <Button
                 className="bg-white stats__withdraw"
-                onClick={() => alert('Cannot withdraw until KYC Process is complete')}
+                onClick={() => customAlert('Cannot withdraw until KYC Process is complete')}
               >
                 Withdraw
               </Button>
@@ -389,6 +385,16 @@ const Job = props => {
       </div>
     </div>
   );
+};
+Job.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    location: PropTypes.shape({
+      state: PropTypes.shape({
+        jobOption: PropTypes.string,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default withRouter(Job);
