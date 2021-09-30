@@ -16,6 +16,7 @@
     "keen-slider": "^5.5.1",
     "node-sass": "5.0.0",
     "popper.js": "^1.16.1",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.1",
@@ -36,7 +37,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "eslint:github-action": "eslint \"src/**/*.{js,jsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,11 +1,11 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap';
 import * as EmailValidator from 'email-validator';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { ErrorMessage, sanctionsList, SignUpOpt } from '../../utils/constants';
+import { ErrorMessage } from '../../utils/constants';
 import { Password } from '../../components/inputs/password/password';
 import './login.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
@@ -169,6 +169,7 @@ const RegisterPage = props => {
                 <Dropdown.Menu className="w-100">
                   <Dropdown.Item
                     className="w-100"
+                    // eslint-disable-next-line no-unused-vars
                     onClick={e => {
                       selectCountry('');
                     }}
@@ -181,6 +182,7 @@ const RegisterPage = props => {
                       <Dropdown.Item
                         className="w-100"
                         key={optItem.Code}
+                        // eslint-disable-next-line no-unused-vars
                         onClick={e => {
                           selectCountry(optItem);
                         }}
@@ -246,6 +248,11 @@ const RegisterPage = props => {
       </div>
     </div>
   );
+};
+RegisterPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default withRouter(RegisterPage);

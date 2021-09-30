@@ -1,12 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as EmailValidator from 'email-validator';
 import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap';
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
-import { ErrorMessage, sanctionsList } from '../../utils/constants';
+import { ErrorMessage } from '../../utils/constants';
 import { CountryList } from '../../utils/countryList';
 import './profile.scss';
 
@@ -160,6 +160,7 @@ const ProfilePage = props => {
                     <Dropdown.Menu className="w-100">
                       <Dropdown.Item
                         className="w-100"
+                        // eslint-disable-next-line no-unused-vars
                         onClick={e => {
                           selectCountry('');
                         }}
@@ -172,6 +173,7 @@ const ProfilePage = props => {
                           <Dropdown.Item
                             key={optItem.Code}
                             className="w-100"
+                            // eslint-disable-next-line no-unused-vars
                             onClick={e => {
                               selectCountry(optItem);
                             }}
@@ -232,5 +234,10 @@ const ProfilePage = props => {
       </div>
     </div>
   );
+};
+ProfilePage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 export default withRouter(ProfilePage);

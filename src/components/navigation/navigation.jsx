@@ -1,9 +1,10 @@
-/* eslint-disable no-undef */
 import React, { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import jwtDecode from 'jwt-decode';
-import { PrimaryColor, SecondaryColor } from '../../utils/constants';
+import { Button } from 'react-bootstrap';
+import { SecondaryColor } from '../../utils/constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
 import { getMyAccount, logOut } from '../../service/user.service';
@@ -19,29 +20,21 @@ const Navigation = ({ history }) => {
     if (!isAuthed) {
       return history.push({ pathname: Routes.Login.path });
     }
-    return logOut(token, refreshToken)
-      .then(() => {
-        dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
-        history.push({ pathname: Routes.Home.path });
-      })
-      .catch(err => {
-        alert(`Failed to log out. ${err.message}`);
-      });
+    return logOut(token, refreshToken).then(() => {
+      dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
+      history.push({ pathname: Routes.Home.path });
+    });
   };
 
   useEffect(() => {
     if (token) {
       const { sub } = jwtDecode(token);
-      getMyAccount(sub, token)
-        .then(response => {
-          if (response) {
-            dispatch({ type: 'SET_USER', payload: response });
-            dispatch({ type: 'AUTH_SIGN_IN', payload: response.isEmailVerified });
-          }
-        })
-        .catch(err => {
-          console.log(err.message);
-        });
+      getMyAccount(sub, token).then(response => {
+        if (response) {
+          dispatch({ type: 'SET_USER', payload: response });
+          dispatch({ type: 'AUTH_SIGN_IN', payload: response.isEmailVerified });
+        }
+      });
     }
   }, []);
 
@@ -63,19 +56,19 @@ const Navigation = ({ history }) => {
         }
         <div className="row m-0">
           {!pathname.includes('verify-email') && (
-            <Link
-              to=""
-              style={{ color: PrimaryColor.black }}
-              className="page-scroll login-btn"
-              onClick={handleLogIn}
-            >
+            <Button className="page-scroll login-btn" onClick={handleLogIn}>
               {!isAuthed ? 'Log in' : 'Log out'}
-            </Link>
+            </Button>
           )}
         </div>
       </div>
     </nav>
   );
+};
+Navigation.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default withRouter(Navigation);

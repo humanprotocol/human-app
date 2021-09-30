@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, FormControl, FormGroup } from 'react-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Routes } from '../../routes';
 
 const LinkWalletPage = props => {
@@ -127,6 +128,11 @@ const LinkWalletPage = props => {
             </FormGroup> */}
     </div>
   );
+};
+LinkWalletPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default withRouter(LinkWalletPage);

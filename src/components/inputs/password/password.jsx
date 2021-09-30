@@ -1,9 +1,9 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FormControl } from 'react-bootstrap';
 import './password.css';
 
-export const Password = props => {
+export const Password = ({ placeholder, name, value, onChange, submitted, confirm }) => {
   const [hidden, setHidden] = useState(true);
   const ToogleShow = e => {
     e.preventDefault();
@@ -13,11 +13,11 @@ export const Password = props => {
     <div className="form-group password">
       <div className="input-group">
         <FormControl
-          placeholder={props.placeholder}
+          placeholder={placeholder}
           type={hidden ? 'password' : 'text'}
-          name={props.name}
-          value={props.value}
-          onChange={props.onChange}
+          name={name}
+          value={value}
+          onChange={onChange}
         />
         <span
           onClick={ToogleShow}
@@ -26,14 +26,14 @@ export const Password = props => {
           <i className={`fa ${hidden ? 'fa-eye-slash' : 'fa-eye'}`} aria-hidden="true" />
         </span>
       </div>
-      {props.submitted && !props.value && (
+      {submitted && !value && (
         <FormControl.Feedback className="d-block" type="invalid">
           <div key="field-error-password" className="fieldError">
             Password is required
           </div>
         </FormControl.Feedback>
       )}
-      {props.submitted && props.value && !props.confirm && (
+      {submitted && value && !confirm && (
         <FormControl.Feedback className="d-block" type="invalid">
           <div key="field-error-password" className="fieldError">
             Password not same
@@ -42,4 +42,12 @@ export const Password = props => {
       )}
     </div>
   );
+};
+Password.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  submitted: PropTypes.bool.isRequired,
+  confirm: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
