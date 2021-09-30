@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FormControl, InputGroup } from 'react-bootstrap';
 import './password.css';
 
@@ -27,4 +28,12 @@ export const Password = props => {
       </span>
     </InputGroup>
   );
+};
+
+Password.propTypes = {
+  placeholder: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
 };
