@@ -17,9 +17,9 @@ const ProfilePage = props => {
   const dispatch = useDispatch();
   const { user, isAuthed, token } = useSelector(state => state.auth);
   if (!isAuthed) history.push({ pathname: Routes.Home.path });
-  const countries = countryList().getData();
+  const coutryList = countryList().getData();
   const countryData = {};
-  countries.map(item => {
+  coutryList.map(item => {
     countryData[item.value] = item;
     return true;
   });
@@ -151,9 +151,9 @@ const ProfilePage = props => {
                         >
                           ...
                         </Dropdown.Item>
-                        {countries &&
-                          countries.length &&
-                          countries.map(optItem => (
+                        {coutryList &&
+                          coutryList.length &&
+                          coutryList.map(optItem => (
                             <Dropdown.Item
                               className="w-100"
                               key={optItem.value}
