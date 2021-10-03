@@ -24,29 +24,13 @@ const ProfilePage = props => {
   });
 
   const [editing, setEditting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [inputs, setInputs] = useState({
-    email: user ? user.email : '',
-    name: user ? user.name : '',
-    walletAddress: user ? user.walletAddress : '',
-    country: user?.country ? countryData[user.country] : '',
-  });
-  const [countries, setCountries] = useState(coutryList);
   const [alertMsg, setAlertMsg] = useState('');
-
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setInputs({ ...inputs, [name]: value });
-  };
-
-  const [editing, setEditting] = useState(false);
   const initialValues = {
     email: user?.email || '',
     name: user?.name || '',
     walletAddr: user?.walletAddr || '',
     country: user?.country || '',
   };
-  const [alertMsg, setAlertMsg] = useState('');
 
   const handleUpdatProfile = ({ name, walletAddr, country }, { setSubmitting }) => {
     setSubmitting(true);
