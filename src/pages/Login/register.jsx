@@ -15,7 +15,7 @@ import { CountryList } from '../../utils/countryList';
 const RegisterPage = props => {
   const { history } = props;
   const dispatch = useDispatch();
-  const captchaRef = useRef();
+  const captchaRef = useRef(null);
   const { user } = useSelector(state => state.auth);
   if (!user || !user?.email) {
     history.push({ pathname: Routes.Home.path });
@@ -31,6 +31,7 @@ const RegisterPage = props => {
     hcaptchaToken: '',
   };
   const [alertMsg, setAlertMsg] = useState('');
+  const [countryName, setCountryName] = useState('');
 
   const handleRegister = (
     { userName, email, password, country, hcaptchaToken, refCode },
@@ -71,6 +72,11 @@ const RegisterPage = props => {
         setFieldValue('hcaptchaToken', '');
         captchaRef.current.resetCaptcha();
       });
+  };
+
+  const handleChangeCountry = countryCode => {
+    const countryData = CountryList.filter(item => item.Code === countryCode);
+    setCountryName(countryData[0].Name);
   };
 
   return (
@@ -139,7 +145,7 @@ const RegisterPage = props => {
                   }}
                 >
                   <Dropdown.Toggle className="form-control text-left bg-white">
-                    {/* {values.country ? countryData[values.country].label : 'Select country'} */}
+                    {countryName || 'Select country'}
                     <i className="fa fa-angle-down text-right" />
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="w-100">
@@ -149,6 +155,7 @@ const RegisterPage = props => {
                         e.preventDefault();
                         setFieldTouched('country', true);
                         setFieldValue('country', '');
+                        setCountryName('');
                       }}
                     >
                       ...
@@ -162,6 +169,7 @@ const RegisterPage = props => {
                           // eslint-disable-next-line no-unused-vars
                           onClick={e => {
                             setFieldValue('country', optItem.Code);
+                            handleChangeCountry(optItem.Code);
                           }}
                           active={values.country === optItem.Code}
                         >
