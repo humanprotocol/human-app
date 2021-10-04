@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import jwtDecode from 'jwt-decode';
 import { Button } from 'react-bootstrap';
-import { SecondaryColor } from '../../constants';
+import { SecondaryColor } from '../../utils/constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
 import { getMyAccount, logOut } from '../../service/user.service';
