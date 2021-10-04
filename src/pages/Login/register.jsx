@@ -36,6 +36,7 @@ const RegisterPage = props => {
     hcaptchaToken: '',
   };
   const [alertMsg, setAlertMsg] = useState('');
+  const [countryName, setCountryName] = useState('');
 
   const handleRegister = (
     { userName, email, password, country, hcaptchaToken, refCode },
@@ -76,6 +77,11 @@ const RegisterPage = props => {
         setFieldValue('hcaptchaToken', '');
         captchaRef.current.resetCaptcha();
       });
+  };
+
+  const handleChangeCountry = countryCode => {
+    const countryData = CountryList.filter(item => item.Code === countryCode);
+    setCountryName(countryData[0].Name);
   };
 
   return (
@@ -154,6 +160,7 @@ const RegisterPage = props => {
                         e.preventDefault();
                         setFieldTouched('country', true);
                         setFieldValue('country', '');
+                        setCountryName('');
                       }}
                     >
                       ...

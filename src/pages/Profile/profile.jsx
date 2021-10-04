@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -24,12 +24,20 @@ const ProfilePage = props => {
 
   const [editing, setEditting] = useState(false);
   const [alertMsg, setAlertMsg] = useState('');
+  const [countryName, setCountryName] = useState('');
   const initialValues = {
     email: user?.email || '',
     name: user?.name || '',
     walletAddr: user?.walletAddr || '',
     country: user?.country || '',
   };
+
+  useEffect(() => {
+    if (user && user.country) {
+      const countryData = CountryList.filter(item => item.Code === user.country);
+      setCountryName(countryData[0].Name);
+    }
+  }, []);
 
   const handleUpdatProfile = ({ name, walletAddr, country }, { setSubmitting }) => {
     setSubmitting(true);
@@ -61,6 +69,11 @@ const ProfilePage = props => {
   const toggleEditProfile = e => {
     e.preventDefault();
     setEditting(!editing);
+  };
+
+  const handleChangeCountry = countryCode => {
+    const countryData = CountryList.filter(item => item.Code === countryCode);
+    setCountryName(countryData[0].Name);
   };
 
   return (
@@ -134,7 +147,7 @@ const ProfilePage = props => {
                       }}
                     >
                       <Dropdown.Toggle className="form-control text-left bg-white">
-                        {values.country ? countryData[values.country].label : 'Select country'}
+                        {countryName || 'Select country'}
                         <i className="fa fa-angle-down text-right" />
                       </Dropdown.Toggle>
                       <Dropdown.Menu className="w-100">
@@ -144,6 +157,7 @@ const ProfilePage = props => {
                             e.preventDefault();
                             setFieldTouched('country', true);
                             setFieldValue('country', '');
+                            setCountryName('');
                           }}
                         >
                           ...
@@ -156,7 +170,8 @@ const ProfilePage = props => {
                               key={optItem.value}
                               // eslint-disable-next-line no-unused-vars
                               onClick={e => {
-                                setFieldValue('country', optItem.value);
+                                setFieldValue('country', optItem.Code);
+                                handleChangeCountry(optItem.Code);
                               }}
                               active={values.country === optItem.value}
                             >
