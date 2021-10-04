@@ -29,12 +29,17 @@ const Navigation = ({ history }) => {
   useEffect(() => {
     if (token) {
       const { sub } = jwtDecode(token);
-      getMyAccount(sub, token).then(response => {
-        if (response) {
-          dispatch({ type: 'SET_USER', payload: response });
-          dispatch({ type: 'AUTH_SIGN_IN', payload: response.isEmailVerified });
-        }
-      });
+      getMyAccount(sub, token)
+        .then(response => {
+          if (response) {
+            dispatch({ type: 'SET_USER', payload: response });
+            dispatch({ type: 'AUTH_SIGN_IN', payload: response.isEmailVerified });
+          }
+        })
+        .catch(err => {
+          // eslint-disable-next-line no-console
+          console.log(`Failed to get user details. ${err.message}`);
+        });
     }
   }, []);
 

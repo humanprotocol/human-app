@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { Formik, Form, Field } from 'formik';
 import './login.scss';
 import { ErrorMessage, ResetPasswordStep } from '../../constants';
 import { Routes } from '../../routes';
 import { forgotPassword, resetPassword } from '../../service/user.service';
 import { Password } from '../../components/inputs/password/password';
+import {
+  EmailValidationSchema,
+  ResetPasswordValidationSchema,
+} from '../../validationSchema/login.schema';
 
 const ForgotPasswordPage = props => {
   const { history } = props;
@@ -18,51 +23,48 @@ const ForgotPasswordPage = props => {
   const [step, setStep] = useState(
     verificationToken ? ResetPasswordStep.resetPassword : ResetPasswordStep.verifyEmail,
   );
-  const [inputs, setInputs] = useState({
-    email: '',
-    password: '',
-    repeatPassword: '',
-  });
-  // eslint-disable-next-line no-unused-vars
-  const [validationErrors, setValidationErrors] = useState({
-    email: '',
-    password: '',
-    repeatPassword: '',
-  });
-  const { email, password, repeatPassword } = inputs;
+  const [email, setEmail] = useState('');
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    switch (step) {
-      case ResetPasswordStep.resetPassword:
-        if (!verificationToken) {
-          setAlertMsg(ErrorMessage.requireRestPasswordToken);
-        } else {
-          resetPassword(password, verificationToken)
-            .then(() => {
-              setAlertMsg('');
-              history.push({ pathname: Routes.Login.path });
-            })
-            .catch(err => {
-              setAlertMsg(err.message);
-            });
-        }
-        break;
-      default:
-        forgotPassword(email)
-          .then(() => {
-            setAlertMsg('');
-            // setSubmittable(false);
-            setStep(ResetPasswordStep.pending);
-          })
-          .catch(err => setAlertMsg(err.message));
-        break;
+  const sendForgotPasswordRequest = toEmail => {
+    if (!toEmail) {
+      return setAlertMsg(ErrorMessage.requireEmail);
     }
+
+    return forgotPassword(toEmail)
+      .then(() => {
+        setAlertMsg('');
+        setEmail(toEmail);
+        setStep(ResetPasswordStep.pending);
+      })
+      .catch(err => {
+        setAlertMsg(err.message);
+      });
   };
 
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setInputs({ ...inputs, [name]: value });
+  const handleForgotPassword = (data, { setSubmitting }) => {
+    setSubmitting(true);
+    sendForgotPasswordRequest(data.email);
+    setSubmitting(false);
+  };
+
+  const handleResendForgotPassword = e => {
+    e.preventDefault();
+    if (!email) sendForgotPasswordRequest(email);
+    else setStep(ResetPasswordStep.verifyEmail);
+  };
+
+  const handleResetPassword = (data, { setSubmitting }) => {
+    setSubmitting(true);
+    resetPassword(data.password, data.verificationToken)
+      .then(() => {
+        setSubmitting(false);
+        setAlertMsg('');
+        history.push({ pathname: Routes.Login.path });
+      })
+      .catch(err => {
+        setSubmitting(false);
+        setAlertMsg(err.message);
+      });
   };
 
   return (
@@ -98,81 +100,110 @@ const ForgotPasswordPage = props => {
           <p>Your password should be different form the previously created password</p>
         )}
         <div>
-          <form name="form" onSubmit={handleSubmit}>
-            {step === ResetPasswordStep.verifyEmail && (
-              <>
-                <FormGroup>
-                  <FormControl
-                    placeholder="Email"
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={handleChange}
-                  />
-                  {validationErrors.email && (
-                    <FormControl.Feedback type="invalid" className="d-block">
-                      {validationErrors.email}
-                    </FormControl.Feedback>
-                  )}
-                </FormGroup>
-                <FormGroup className="actions d-flex justify-content-end m-0">
-                  <Button className="form-control bg-blue" onClick={handleSubmit} disabled={false}>
-                    Next
-                  </Button>
-                </FormGroup>
-              </>
-            )}
-            {step === ResetPasswordStep.pending && (
+          {step === ResetPasswordStep.verifyEmail && (
+            <Formik
+              initialValues={{ email: '' }}
+              validationSchema={EmailValidationSchema}
+              onSubmit={handleForgotPassword}
+            >
+              {({ errors, touched, handleSubmit, isValid, dirty }) => (
+                <Form>
+                  <FormGroup>
+                    <Field name="email" className="form-control" placeholder="Email" type="email" />
+                    {touched.email && errors.email && (
+                      <FormControl.Feedback type="invalid" className="d-block">
+                        {errors.email}
+                      </FormControl.Feedback>
+                    )}
+                  </FormGroup>
+                  <FormGroup className="actions d-flex justify-content-end m-0">
+                    <Button
+                      className="form-control bg-blue"
+                      onClick={handleSubmit}
+                      disabled={!(isValid && dirty)}
+                    >
+                      Next
+                    </Button>
+                  </FormGroup>
+                </Form>
+              )}
+            </Formik>
+          )}
+          {step === ResetPasswordStep.pending && (
+            <form name="form">
               <FormGroup>
                 <p>
                   Did not recieve mail?
-                  <span className="highlight-text" onClick={handleSubmit}>
+                  <span className="highlight-text" onClick={handleResendForgotPassword}>
                     Re-send.
                   </span>
                 </p>
               </FormGroup>
-            )}
-            {step === ResetPasswordStep.resetPassword && (
-              <>
-                <FormGroup className="password">
-                  <Password
-                    onChange={handleChange}
-                    name="password"
-                    value={password}
-                    placeholder="Create password"
-                    className="mb-5"
-                  />
-                  {validationErrors.password && (
-                    <FormControl.Feedback type="invalid" className="d-block">
-                      {validationErrors.password}
-                    </FormControl.Feedback>
-                  )}
-                </FormGroup>
-                <FormGroup className="password">
-                  <Password
-                    onChange={handleChange}
-                    name="repeatPassword"
-                    value={repeatPassword}
-                    placeholder="Confirm password"
-                    className="mb-5"
-                  />
-                  {validationErrors.repeatPassword && (
-                    <FormControl.Feedback type="invalid" className="d-block">
-                      {validationErrors.repeatPassword}
-                    </FormControl.Feedback>
-                  )}
-                </FormGroup>
-                <FormGroup className="actions d-flex justify-content-between m-0">
-                  <Link className="btn" to={Routes.Login.path}>
-                    Cancel
-                  </Link>
-                  <Button className="form-control bg-blue" onClick={handleSubmit} disabled={false}>
-                    Save
-                  </Button>
-                </FormGroup>
-              </>
-            )}
-          </form>
+            </form>
+          )}
+          {step === ResetPasswordStep.resetPassword && (
+            <Formik
+              initialValues={{ password: '', repeatPassword: '' }}
+              validationSchema={ResetPasswordValidationSchema}
+              onSubmit={handleResetPassword}
+            >
+              {({
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isValid,
+                dirty,
+                values,
+              }) => (
+                <Form>
+                  <FormGroup className="password">
+                    <Password
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="password"
+                      value={values.password}
+                      placeholder="Create password"
+                      className="mb-5"
+                    />
+                    {touched.password && errors.password && (
+                      <FormControl.Feedback type="invalid" className="d-block">
+                        {errors.password}
+                      </FormControl.Feedback>
+                    )}
+                  </FormGroup>
+                  <FormGroup className="password">
+                    <Password
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="repeatPassword"
+                      value={values.repeatPassword}
+                      placeholder="Confirm password"
+                      className="mb-5"
+                    />
+                    {touched.repeatPassword && errors.repeatPassword && (
+                      <FormControl.Feedback type="invalid" className="d-block">
+                        {errors.repeatPassword}
+                      </FormControl.Feedback>
+                    )}
+                  </FormGroup>
+                  <FormGroup className="actions d-flex justify-content-between m-0">
+                    <Link className="btn" to={Routes.Login.path}>
+                      Cancel
+                    </Link>
+                    <Button
+                      className="form-control bg-blue"
+                      onClick={handleSubmit}
+                      disabled={!(isValid && dirty)}
+                    >
+                      Save
+                    </Button>
+                  </FormGroup>
+                </Form>
+              )}
+            </Formik>
+          )}
         </div>
       </div>
     </div>

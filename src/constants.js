@@ -125,9 +125,9 @@ export const ErrorType = {
 };
 
 export const ErrorMessage = {
-  invalidPassword: 'Password must contain at least 1 character and 1 number',
   invalidPasswordLength: 'Password must be at least 8 characters',
   invalidWalletAddress: 'Invalid Wallet Address',
+  invalidLengthWalletAddress: 'Wallet Address length must be 42',
   invalidEmail: 'Invalid Email',
   duplicatedEmail: 'Email is already used',
   requirePassword: 'Password required',
@@ -141,6 +141,7 @@ export const ErrorMessage = {
   notConfirmedPassword: 'Passwords should be same',
   requireRestPasswordToken: 'Verification token required',
   requireAuthToken: 'Authentication token required',
+  requireProfileDetails: 'Profile details required',
 };
 
 export const SignUpOpt = {

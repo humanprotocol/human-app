@@ -80,6 +80,8 @@ export const signIn = async ({ email, password, hcaptchaToken }) => {
       const { user, tokens } = response.data;
       // eslint-disable-next-line no-undef
       localStorage.setItem('token', tokens.access.token);
+      // eslint-disable-next-line no-undef
+      localStorage.setItem('refreshToken', tokens.refresh.token);
       return { user, token: tokens.access.token, refreshToken: tokens.refresh.token };
     })
     .catch(err => {
