@@ -4,14 +4,14 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Routes } from '../../routes';
 
-const LinkWalletPage = props => {
+const LinkWalletPage = (props) => {
   const { history } = props;
   // const [submitted, setSubmitted] = useState(false);
   const [linked, SetLinked] = useState(false);
   const [address, setAddress] = useState('');
   const [status, setStatus] = useState({ address: true, msg: '' });
 
-  const handleLink = e => {
+  const handleLink = (e) => {
     e.preventDefault();
     // setSubmitted(true);
     if (address.length !== 42) {
@@ -21,13 +21,13 @@ const LinkWalletPage = props => {
     }
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { value } = e.target;
     if (value) setStatus({ address: true, msg: '' });
     setAddress(value);
   };
 
-  const handleNext = e => {
+  const handleNext = (e) => {
     if (e === 'skip') history.push(Routes.Home.path);
     else if (e === 'next') history.push(`${Routes.Home.path}/#subscribe`);
   };

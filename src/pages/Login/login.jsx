@@ -11,7 +11,7 @@ import { Routes } from '../../routes';
 import './login.scss';
 import { LoginValidationSchema } from '../../validationSchema/login.schema';
 
-const LoginPage = props => {
+const LoginPage = (props) => {
   const dispatch = useDispatch();
   const captchaRef = useRef(null);
   const { history } = props;
@@ -27,7 +27,7 @@ const LoginPage = props => {
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(true);
       signIn({ ...values, hcaptchaToken })
-        .then(res => {
+        .then((res) => {
           if (res) {
             const { user } = res;
             dispatch({
@@ -48,7 +48,7 @@ const LoginPage = props => {
             captchaRef.current.resetCaptcha();
           }
         })
-        .catch(err => {
+        .catch((err) => {
           setAlertMsg(err.message);
           setHcaptchaToken('');
           setSubmitting(false);
@@ -57,7 +57,7 @@ const LoginPage = props => {
     },
   });
 
-  const handleVerificationToken = token => {
+  const handleVerificationToken = (token) => {
     setHcaptchaToken(token);
     formik.setFieldValue('token', token);
   };
@@ -111,7 +111,7 @@ const LoginPage = props => {
           <FormGroup className="text-center">
             <HCaptcha
               sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-              onVerify={token => handleVerificationToken(token)}
+              onVerify={(token) => handleVerificationToken(token)}
               ref={captchaRef}
             />
           </FormGroup>
