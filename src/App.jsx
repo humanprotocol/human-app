@@ -28,7 +28,7 @@ const App = () => {
   const history = createBrowserHistory();
   // Google Analytics Setup
   ReactGA.initialize('G-YGBRX2Z0WB');
-  history.listen((location) => {
+  history.listen(location => {
     ReactGA.set({ page: location.pathname }); // Update the user's current page
     ReactGA.pageview(location.pathname); // Record a pageview for the given page
   });

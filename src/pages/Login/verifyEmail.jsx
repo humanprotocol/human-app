@@ -11,13 +11,13 @@ const VerifyEmail = ({ history }) => {
   const dispatch = useDispatch();
   const { search } = useLocation();
   const token = search.replace('?token=', '');
-  const auth = useSelector((state) => state.auth);
+  const auth = useSelector(state => state.auth);
   const accessToken = auth.token;
   const { user } = auth;
   const [verified, setVerified] = useState(false);
   const [resentVerification, setResentVerification] = useState(false);
   const [alertMsg, setAlertMsg] = useState('');
-  const handleVerification = (e) => {
+  const handleVerification = e => {
     e.preventDefault();
     if (!token) setAlertMsg('token requried');
     else {
@@ -31,18 +31,18 @@ const VerifyEmail = ({ history }) => {
             history.push({ pathname: Routes.Login.path });
           }, 3000);
         })
-        .catch((err) => setAlertMsg(err.message));
+        .catch(err => setAlertMsg(err.message));
     }
   };
 
-  const resendVerification = (e) => {
+  const resendVerification = e => {
     e.preventDefault();
     return resendEmailVerification(accessToken)
       .then(() => {
         setAlertMsg('');
         setResentVerification(true);
       })
-      .catch((err) => setAlertMsg(err.message));
+      .catch(err => setAlertMsg(err.message));
   };
   return (
     <div

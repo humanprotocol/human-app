@@ -10,10 +10,10 @@ import { Routes } from '../../routes';
 const Welcome = ({ history }) => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState({ email: true, msg: '' });
-  const { isAuthed, user } = useSelector((state) => state.auth);
+  const { isAuthed, user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     if (!email && !isAuthed) {
       setStatus({ email: false, msg: 'email is required' });
@@ -28,7 +28,7 @@ const Welcome = ({ history }) => {
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { value } = e.target;
     if (value) setStatus({ email: true, msg: '' });
     setEmail(value);
@@ -39,7 +39,8 @@ const Welcome = ({ history }) => {
       <div className="text-center">
         <div className="intro-text">
           <h1 className="text-center mb-4">
-            Welcome to the <span className="color-blue">HUMAN App</span>
+            Welcome to the
+            <span className="color-blue">HUMAN App</span>
           </h1>
           <h4 className="text-center mb-4 font-weight-bold">Complete jobs; earn HMT.</h4>
           {!isAuthed && (

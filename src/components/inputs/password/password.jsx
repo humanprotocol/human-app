@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { FormControl, InputGroup } from 'react-bootstrap';
 import './password.css';
 
-export const Password = (props) => {
+export const Password = props => {
   const [hidden, setHidden] = useState(true);
-  const ToogleShow = (e) => {
+  const ToogleShow = e => {
     e.preventDefault();
     setHidden(!hidden);
   };

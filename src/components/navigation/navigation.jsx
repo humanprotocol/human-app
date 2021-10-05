@@ -13,9 +13,9 @@ import './navigation.scss';
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const { isAuthed, token, refreshToken } = useSelector((state) => state.auth);
+  const { isAuthed, token, refreshToken } = useSelector(state => state.auth);
 
-  const handleLogIn = (e) => {
+  const handleLogIn = e => {
     e.preventDefault();
     if (!isAuthed) {
       return history.push({ pathname: Routes.Login.path });
@@ -30,13 +30,13 @@ const Navigation = ({ history }) => {
     if (token) {
       const { sub } = jwtDecode(token);
       getMyAccount(sub, token)
-        .then((response) => {
+        .then(response => {
           if (response) {
             dispatch({ type: 'SET_USER', payload: response });
             dispatch({ type: 'AUTH_SIGN_IN', payload: response.isEmailVerified });
           }
         })
-        .catch((err) => {
+        .catch(err => {
           // eslint-disable-next-line no-console
           console.log(`Failed to get user details. ${err.message}`);
         });

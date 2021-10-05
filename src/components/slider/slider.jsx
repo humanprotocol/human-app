@@ -19,7 +19,7 @@ const Slider = ({ slides, type }) => {
         <div ref={sliderRef} className="keen-slider  ">
           {slides &&
             slides.length &&
-            slides.map((slide) => (
+            slides.map(slide => (
               <div className="keen-slider__slide">
                 <div className="row  max-height-100 h-100">
                   {type && type === 'humanJobs' && (
@@ -49,11 +49,11 @@ const Slider = ({ slides, type }) => {
         {slider && (
           <>
             <ArrowLeft
-              onClick={(e) => e.stopPropagation() || slider.prev()}
+              onClick={e => e.stopPropagation() || slider.prev()}
               disabled={currentSlide === 0}
             />
             <ArrowRight
-              onClick={(e) => e.stopPropagation() || slider.next()}
+              onClick={e => e.stopPropagation() || slider.next()}
               disabled={currentSlide === slider.details().size - 1}
             />
           </>
@@ -61,7 +61,7 @@ const Slider = ({ slides, type }) => {
       </div>
       {slider && (
         <div className="dots">
-          {[...Array(slider.details().size).keys()].map((idx) => (
+          {[...Array(slider.details().size).keys()].map(idx => (
             // eslint-disable-next-line react/button-has-type
             <button
               onClick={() => {

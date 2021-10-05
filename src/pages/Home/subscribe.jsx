@@ -13,12 +13,12 @@ export const Subscribe = () => {
   const [error, setError] = useState('');
   const currentYear = new Date().getFullYear();
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setEmail(e.target.value);
     setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     setSubmitted(true);
     if (EmailValidator.validate(email)) {
@@ -27,7 +27,7 @@ export const Subscribe = () => {
           setError('');
           setModalShow(true);
         })
-        .catch((err) => {
+        .catch(err => {
           setError(err.message);
         });
     }
