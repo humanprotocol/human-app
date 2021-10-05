@@ -13,7 +13,7 @@ import {
   ResetPasswordValidationSchema,
 } from '../../validationSchema/login.schema';
 
-const ForgotPasswordPage = props => {
+const ForgotPasswordPage = (props) => {
   const { history } = props;
   const { search } = useLocation();
   const verificationToken = search.replace('?token=', '');
@@ -25,7 +25,7 @@ const ForgotPasswordPage = props => {
   );
   const [email, setEmail] = useState('');
 
-  const sendForgotPasswordRequest = toEmail => {
+  const sendForgotPasswordRequest = (toEmail) => {
     if (!toEmail) {
       return setAlertMsg(ErrorMessage.requireEmail);
     }
@@ -36,7 +36,7 @@ const ForgotPasswordPage = props => {
         setEmail(toEmail);
         setStep(ResetPasswordStep.pending);
       })
-      .catch(err => {
+      .catch((err) => {
         setAlertMsg(err.message);
       });
   };
@@ -47,7 +47,7 @@ const ForgotPasswordPage = props => {
     setSubmitting(false);
   };
 
-  const handleResendForgotPassword = e => {
+  const handleResendForgotPassword = (e) => {
     e.preventDefault();
     if (!email) sendForgotPasswordRequest(email);
     else setStep(ResetPasswordStep.verifyEmail);
@@ -61,7 +61,7 @@ const ForgotPasswordPage = props => {
         setAlertMsg('');
         history.push({ pathname: Routes.Login.path });
       })
-      .catch(err => {
+      .catch((err) => {
         setSubmitting(false);
         setAlertMsg(err.message);
       });
