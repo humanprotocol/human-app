@@ -15,13 +15,18 @@ Please visit [humanprotocol.org](https://humanprotocol.org) for more information
 
 ### Running locally:
 $ `cp .env.example .env`
+
 $ `yarn`
+
 $ `yarn start`
 
 ### Running in the production:
 $ `cp .env.example .env`
+
 $ `yarn`
+
 $ `yarn build`
+
 $ `serve -s build -p $PORT`
 
 
