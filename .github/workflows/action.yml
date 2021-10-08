@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Run ESLint on Pull Requests
 
 # Controls when the workflow will run
