@@ -7,7 +7,8 @@ import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
 import { ProfileValidationSchema } from '../../validationSchema/user.schema';
-import { ErrorMessage } from '../../constants';
+import { CountryList } from '../../utils/countryList';
+import { ErrorMessage } from '../../utils/constants';
 import './profile.scss';
 
 const ProfilePage = (props) => {
@@ -15,12 +16,6 @@ const ProfilePage = (props) => {
   const dispatch = useDispatch();
   const { user, isAuthed, token } = useSelector((state) => state.auth);
   if (!isAuthed) history.push({ pathname: Routes.Home.path });
-  const countries = countryList().getData();
-  const countryData = {};
-  countries.map((item) => {
-    countryData[item.value] = item;
-    return true;
-  });
 
   const [editing, setEditting] = useState(false);
   const [alertMsg, setAlertMsg] = useState('');
@@ -135,9 +130,7 @@ const ProfilePage = (props) => {
                 )}
               </FormGroup>
               <FormGroup>
-                {!editing && (
-                  <p>{values.country ? countryData[values.country].label : 'Country'}</p>
-                )}
+                {!editing && <p>{values.country ? countryName : 'Country'}</p>}
                 {editing && (
                   <>
                     <Dropdown
@@ -162,20 +155,20 @@ const ProfilePage = (props) => {
                         >
                           ...
                         </Dropdown.Item>
-                        {countries &&
-                          countries.length &&
-                          countries.map((optItem) => (
+                        {CountryList &&
+                          CountryList.length &&
+                          CountryList.map((optItem) => (
                             <Dropdown.Item
                               className="w-100"
-                              key={optItem.value}
+                              key={optItem.Code}
                               // eslint-disable-next-line no-unused-vars
                               onClick={(e) => {
                                 setFieldValue('country', optItem.Code);
                                 handleChangeCountry(optItem.Code);
                               }}
-                              active={values.country === optItem.value}
+                              active={values.country === optItem.Code}
                             >
-                              {optItem.label}
+                              {optItem.Name}
                             </Dropdown.Item>
                           ))}
                       </Dropdown.Menu>

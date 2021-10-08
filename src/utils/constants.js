@@ -161,7 +161,7 @@ export const ResetPasswordStep = {
 export const sanctionsList = {
   CA: 'Canada',
   CU: 'Cuba',
-  IR: 'Iran, Islamic Republic of',
-  KP: "Korea, Democratic People's Republic of",
+  IR: 'Islamic Republic of Iran',
+  KP: "Democratic People's Republic of Korea",
   US: 'United States',
 };
