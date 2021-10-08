@@ -1,7 +1,15 @@
 import * as TYPES from '../actionType';
 
-var initValue = {
+// eslint-disable-next-line no-undef
+const token = localStorage.getItem('token');
+// eslint-disable-next-line no-undef
+const refreshToken = localStorage.getItem('refreshToken');
+
+const initValue = {
   isAuthed: false,
+  user: null,
+  token: token || null,
+  refreshToken: refreshToken || null,
 };
 
 const authReducer = (state = initValue, action) => {
@@ -9,7 +17,17 @@ const authReducer = (state = initValue, action) => {
     case TYPES.AUTH_SIGN_IN:
       return { ...state, isAuthed: action.payload };
     case TYPES.AUTH_SIGN_OUT:
-      return { ...state, isAuthed: action.payload };
+      return {
+        ...state,
+        isAuthed: action.payload,
+        user: null,
+        token: null,
+        refreshToken: null,
+      };
+    case TYPES.AUTH_SUCCESS:
+      return { ...state, ...action.payload };
+    case TYPES.SET_USER:
+      return { ...state, user: action.payload };
     default:
       return { ...state };
   }

@@ -1,0 +1,76 @@
+/* Navigation */
+#menu {
+    padding: 1rem;
+    transition: all 0.8s;
+    height: 6rem;
+    opacity: 0.9;
+    background-color: #fff;
+    backdrop-filter: blur(1.5rem);
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-style: normal;
+    letter-spacing: 0.3px;
+    font-weight: 600;
+    border-bottom: 1px solid #f6f6f6;
+    @media screen and (max-width: 768px) {
+        padding: 0.5rem 0;
+    }
+    @media screen and (max-width: 420px) {
+        padding: 1rem 0;
+    }
+    .container {
+        display: flex;
+        justify-content: space-between;
+        a {
+            &.navbar-brand {
+                font-size: 24px;
+                line-height: 32px;
+                font-weight: 800;
+                color: #333;
+                display: flex;
+                .app-logo {
+                    height: 36px;
+                }
+            }
+        }
+        #avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            font-weight: 600;
+            font-size: 2rem;
+            line-height: 100%;
+            letter-spacing: 4.5px;
+            border-radius: 50%;
+            border: 0;
+        }
+        .dropdown {
+            .btn-primary {
+                background-color: #6309ff;
+                font-family: "Alliance No.1";
+            }
+        }
+        .login-btn {
+            color: #6309ff !important;
+            background-color: #fff;
+            font-family: "Alliance No.1";
+            font-size: 16px;
+            padding: 10px 15px;
+            line-height: 200%;
+            box-shadow: rgba(99, 9, 255, 0.2) 0px 8px 16px;
+            border: none;
+            border-radius: 10px;
+            &:hover {
+                box-shadow: 0 8px 30px -4px rgba(99,9,255,0.4);
+                color: rgba(99, 9, 255, 0.9);
+            }
+            @media screen and (max-width: 420px) {
+                font-size: 14px !important;
+            }
+        }
+        .page-scroll {
+            @media screen and (max-width: 768px) {
+                font-size: 18px !important;
+            }
+        }
+    } 
+}

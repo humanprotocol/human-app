@@ -1,0 +1,232 @@
+#job {
+    margin-top: 96px;
+    padding: 4% 0;
+    background-position: bottom center, center left;
+    background-size: cover, 60%;
+    @media screen and (max-width: 768px) {
+        margin-top: 6rem !important;
+        height: auto !important;
+    }
+    @media screen and (max-width: 420px) {
+        margin-top: 9rem !important;
+    }
+    .job {
+        &__container {
+            margin-bottom: 100px;
+            @media screen and (max-width: 768px) {
+                margin-bottom: 60px;
+            }
+        }
+        @media screen and (max-width: 768px) {
+            &__col {
+                &__nav {
+                    order: 1;
+                }
+                &__stats {
+                    order: 2;
+                    margin-top: 0;
+                }
+                &__main {
+                    order: 3;
+                }
+            }
+        }
+    }
+    .container {
+        .section-option {
+            .title {
+                font-family: "Alliance No.1";
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 600;
+                max-width: 288px;
+                margin-left: auto;
+                line-height: 36px;
+                letter-spacing: 0.2px;
+                @media only screen and (max-width: 768px) {
+                    text-align: center;
+                    margin: auto;
+                }
+            }
+            ul {
+                @media only screen and (max-width: 768px) {
+                    text-align: center;
+                    margin: auto;
+                    display: flex;
+                    justify-content: space-between;
+                    li {
+                        margin: 0 10px;
+                    }
+                }
+                li {
+                    .opt {
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 16px;
+                        line-height: 36px;
+                        letter-spacing: 0.2px;
+                        color: #0a060e;
+                        cursor: pointer;
+                        &.disabled {
+                            cursor:not-allowed;
+                        }
+                        &.active {
+                            color: #6309ff;
+                        }
+                    }
+                }
+            }
+            @media only screen and (max-width: 768px) {
+                text-align: left!important;
+                margin-bottom:40px;
+            }
+        }
+        .section-details {
+            p {
+                font-style: normal;
+                font-weight: normal;
+                font-size: 16px;
+                line-height: 36px;
+                letter-spacing: 0.1px;
+                color: #0a060e;
+                @media only screen and (max-width: 768px) {
+                    max-width: 300px;
+                    margin: auto;
+                }
+            }
+        }
+        .section-content {
+            .input-group {
+                height: 3rem;
+                border: 1px solid #6309ff;
+                border-radius: 0.5rem;
+                margin: auto;
+                .form-control {
+                    height: 100%;
+                    border: 0;
+                    color: #0a060e;
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+                .input-group-append {
+                    .btn {
+                        &:focus {
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
+            .alert { 
+                &.alert-primary {
+                    max-width: 400px;
+                    margin: auto;
+                    margin-bottom: 16px;
+                }
+                &.alert-danger {
+                    max-width: 400px;
+                    margin: auto;
+                    margin-bottom: 16px;
+                }
+            }
+            .invalid-feedback {
+                max-width: 400px;
+                margin: auto;
+                margin-bottom: 16px;
+            }
+        }
+    }
+    @media (min-width: 1800px) {
+        max-height: 800px;
+        padding: 88px 0;
+    }
+    @media only screen and (max-width: 768px) {
+        .btn-primary {
+            height: auto!important;
+        }
+        #job {
+            div.section-option {
+                .title {
+                }
+                ul {
+                    display: flex;
+                    justify-content: center;
+                    li {
+                        margin: 0 10px;
+                    }
+                }
+            }
+            .section-details {
+                p {
+                    max-width: 300px;
+                    margin: auto;
+                }
+            }
+        }
+    }
+}
+#questions {
+    .form-group {
+        .btn {
+            margin-bottom: 16px;
+            &.bg-white {
+                background-color: #FFFFFF!important;
+                border: 1px solid #6309ff!important;
+                color: #6309ff;
+                &:hover {
+                    background-color: #6309ff!important;
+                    color: #FFFFFF;
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}
+#referral {
+    p {
+        text-align: left;
+    }
+    .referral-link {
+        margin-top: 64px;
+    }
+    .btn {
+        &:active {
+            background-color: #6309FF;
+            opacity: 0.8;
+        }
+        i {
+            float: right;
+            margin-top: 0.25em;
+        }
+    }
+    @media (min-width: 1800px) {
+        width: 25rem;
+        margin: auto;
+    }
+}
+// Stats CSS
+.stats {
+    font-size: 16px;
+    &__container {
+        @media screen and (max-width: 750px){
+            margin-top: 50px;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        margin: 0 !important;
+    }
+    > span {
+        font-weight: 600;
+    }
+    &__withdraw {
+        margin-top: 20px !important;
+    }
+}
+
+.shadow-box {
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    box-shadow: 0px 23px 35px -12px rgba(31, 6, 87, 0.08);
+    background: linear-gradient(359.93deg, #FFFFFF 10.95%, #FCFBFF 121.59%);
+    padding: 32px 16px;
+}

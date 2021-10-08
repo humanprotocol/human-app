@@ -1,21 +1,108 @@
-import { Button } from "../../components/button"
-import { EmailInput } from "../../components/inputs/email"
-import { SecondaryColor } from "../../constants"
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import * as EmailValidator from 'email-validator';
+import { FormControl, FormGroup, Button } from 'react-bootstrap';
+import './home.scss';
+import { Routes } from '../../routes';
 
-export const Welcome = (props) => {
+const Welcome = ({ history }) => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState({ email: true, msg: '' });
+  const { isAuthed, user } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!email && !isAuthed) {
+      setStatus({ email: false, msg: 'email is required' });
+    } else if (!EmailValidator.validate(email) && !isAuthed) {
+      setStatus({ email: false, msg: 'Invalid email' });
+    } else if (isAuthed && !user && !email) {
+      setStatus({ email: false, msg: 'email is required' });
+    } else {
+      const newUser = { ...user, email };
+      dispatch({ type: 'SET_USER', payload: newUser });
+      history.push({ pathname: Routes.Register.path });
+    }
+  };
+
+  const handleChange = e => {
+    const { value } = e.target;
+    if (value) setStatus({ email: true, msg: '' });
+    setEmail(value);
+  };
+
   return (
-    <div id='welcome' className='intro'>
-      <div className='text-center'>
-        <div className='intro-text'>
-          <h1 className='text-center mb-4'>Welcome to <span className='color-blue'>Human App</span></h1>
-          <h3 className='text-center mb-4'>Do interesting jobs and get paid in HMT</h3>
-          <p className='text-left mb-4'>Subscribe to HUMAN by verifying your email and complete your KYC by linking your crypto wallet to earn instant 10HMT and earn more HMT by doing hcaptcha jobs, and by sending referral links to your friends.</p>
-          <div>
-            <EmailInput className='mr-3' />
-            <Button title='Start earning HMT' bgColor={SecondaryColor.blue} />
+    <div id="welcome" className="intro">
+      <div className="text-center">
+        <div className="intro-text">
+          <h1 className="text-center mb-4">
+            Welcome to the
+            <span className="color-blue">HUMAN App</span>
+          </h1>
+          <h4 className="text-center mb-4 font-weight-bold">Complete jobs; earn HMT.</h4>
+          {!isAuthed && (
+            <p className="text-center mb-4">
+              {/* eslint-disable */}
+              Please verify your email. We will also need a KYC-verified crypto wallet for security,
+              and to send you HMT. You will receive 1 HMT when you register {/* eslint-enable */}
+              <a
+                href="https://humanprotocol.org/app/terms-and-conditions"
+                rel="noreferrer"
+                target="_blank"
+              >
+                (Only once per person)
+                <span>&#42;</span>
+                {/* eslint-disable-next-line */}
+              </a>{' '}
+              To earn more, complete tasks, or refer friends.
+            </p>
+          )}
+
+          <div className="row justify-content-center earning-container">
+            {isAuthed && (
+              <FormGroup>
+                <Button
+                  className="form-control earn-hmt-btn"
+                  onClick={() => history.push({ pathname: Routes.Job.path })}
+                >
+                  Earn HMT
+                </Button>
+              </FormGroup>
+            )}
+            {!isAuthed && (
+              <>
+                <FormGroup className="mr-2">
+                  <FormControl
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    value={email}
+                    onChange={handleChange}
+                  />
+                  <FormControl.Feedback className={!status.email ? 'd-block' : ''} type="invalid">
+                    {status.msg}
+                  </FormControl.Feedback>
+                </FormGroup>
+                <FormGroup>
+                  <Button className="form-control earn-hmt-btn" onClick={handleSubmit}>
+                    Start earning HMT
+                  </Button>
+                </FormGroup>
+              </>
+            )}
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+Welcome.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default withRouter(Welcome);

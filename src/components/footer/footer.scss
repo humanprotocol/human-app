@@ -1,0 +1,20 @@
+/* Footer Section*/
+#footer {
+    background: #fff;
+    height: 72px;
+    opacity: 0.8;
+    a {
+        color: #0a060e;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 32px;
+        letter-spacing: 0.2px;
+    }
+    p {
+        &.address {
+            font-size: 14px;
+            line-height: 17px;
+        }
+    }
+}

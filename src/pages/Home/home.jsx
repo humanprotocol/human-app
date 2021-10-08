@@ -1,14 +1,14 @@
-import { Welcome } from './welcome';
-import { Job } from './job';
-import { Subscribe } from './subscribe';
-const Home = ({ data }) => {
-    return(
-        <>
-        <Welcome data={data.Header} />
-        <Job data={data.Features} />
-        <Subscribe data={data.Contact} />
-        </>
-    )
-}
+import React from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import Welcome from './welcome';
+import { IntroSection } from './intro/intro';
+import './home.scss';
 
-export default Home;
+const HomePage = () => (
+  <>
+    <Welcome />
+    <IntroSection />
+  </>
+);
+
+export default withRouter(HomePage);

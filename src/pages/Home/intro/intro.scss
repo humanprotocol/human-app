@@ -1,0 +1,153 @@
+#intro {
+  h1 {
+    font-family: Alliance No.1;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 120%;
+    text-align: center;
+    letter-spacing: 0.4px;
+  }
+  h3 {
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 280%;
+    align-items: center;
+    letter-spacing: -0.4px;
+  }
+  p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.125rem;
+    line-height: 178%;
+    letter-spacing: 0.1px;
+  }
+  .keen-slider {
+    max-height: 100%;
+  }
+  .section {
+    .container {
+      .slider-container {
+        width: 100%;
+        .image {
+          img {
+            width: 100%;
+          }
+        }
+      }
+      .title {
+        .highlight {
+          color: #6309ff;
+        }
+      }
+    }
+  }
+  .human-about {
+    background: url('../../../assets/images/human_about_bg.png'), url('../../../assets/images/dots.png'), url('../../../assets/images/bottom_dots.png');
+    background-size: 100% 70%, auto 20%, 20%;
+    background-position: bottom, top center, bottom center;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-color: #1f0657;
+    padding: 100px 0px;
+    color: white;
+    .section {
+      .container {
+        width: 80%;
+        max-width: none;
+        @media screen and (max-width: 768px) {
+          width: 90%;
+        }
+        h1 {
+          background-color: #1f0657;
+          @media screen and (max-width: 768px) {
+            background:none;
+          }
+        }
+        .slider-container {
+          .content {
+            max-width: 32rem;
+            margin-left: auto;
+            .subtitle {
+              color: white;
+            }
+            @media only screen and (max-width: 768px) {
+              background-size: 40%;
+              max-width: none;
+              margin: auto;
+            }
+          }
+          .image {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 3rem;
+            @media only screen and (max-width: 768px) {
+              padding-left: unset !important;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 768px) {
+        padding: 60px 0px;
+        background-size: 20%;
+      }
+      @media only screen and (min-width: 600px) {
+        background-size: 10%;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      padding: 0px;
+      background: url('../../../assets/images/human_about_mobile_bg.png') no-repeat;
+      background-size: 100%;
+      background-position: top;
+      background-color: #1f0657;
+    }
+  }
+  .human-jobs {
+    background: url('../../../assets/images/human_job_bg.png') no-repeat;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    padding: 100px 0px;
+    .section {
+      .container {
+        width: 80%;
+        max-width: none;
+        @media screen and (max-width: 768px) {
+          width: 90%;
+        }
+        .dot {
+          background-color: #6309ff;
+        }
+        h1 {
+          @media screen and (max-width: 480px) {
+            max-width: 208px;
+            margin: auto;
+          }
+        }
+        .max-height-100 {
+          .content {
+            .title {
+              max-width: 22rem;
+              margin-bottom: 10%;
+            }
+          }
+          @media screen and (max-width: 768px) {
+            padding: 40px 0px 10px;
+            flex-direction: column-reverse;
+          }
+        }
+      }
+      @media screen and (max-width: 768px) {
+        padding: 60px 0px;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      background: url('../../../assets/images/human_job_mobile_bg.png') no-repeat;
+      background-size: 100%;
+      background-position: bottom;
+      padding: 0;
+    }
+  }
+}
+
