@@ -4,13 +4,13 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import countryList from 'react-select-country-list';
 import { Field, Form, Formik } from 'formik';
 import { Password } from '../../components/inputs/password/password';
 import './login.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
 import { Routes } from '../../routes';
 import { RegisterValidationSchema } from '../../validationSchema/login.schema';
+import { CountryList } from '../../utils/countryList';
 
 const RegisterPage = (props) => {
   const { history } = props;
@@ -20,12 +20,6 @@ const RegisterPage = (props) => {
     history.push({ pathname: Routes.Home.path });
   }
   const captchaRef = useRef(null);
-  const countries = countryList().getData();
-  const countryData = {};
-  countries.map((item) => {
-    countryData[item.value] = item;
-    return true;
-  });
   const initialValues = {
     email: user ? user.email : '',
     userName: '',
@@ -36,6 +30,7 @@ const RegisterPage = (props) => {
     hcaptchaToken: '',
   };
   const [alertMsg, setAlertMsg] = useState('');
+  const [countryName, setCountryName] = useState('');
 
   const handleRegister = (
     { userName, email, password, country, hcaptchaToken, refCode },
@@ -76,6 +71,11 @@ const RegisterPage = (props) => {
         setFieldValue('hcaptchaToken', '');
         captchaRef.current.resetCaptcha();
       });
+  };
+
+  const handleChangeCountry = (countryCode) => {
+    const countryData = CountryList.filter((item) => item.Code === countryCode);
+    setCountryName(countryData[0].Name);
   };
 
   return (
@@ -144,7 +144,7 @@ const RegisterPage = (props) => {
                   }}
                 >
                   <Dropdown.Toggle className="form-control text-left bg-white">
-                    {values.country ? countryData[values.country].label : 'Select country'}
+                    {values.country ? countryName : 'Select country'}
                     <i className="fa fa-angle-down text-right" />
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="w-100">
@@ -154,23 +154,25 @@ const RegisterPage = (props) => {
                         e.preventDefault();
                         setFieldTouched('country', true);
                         setFieldValue('country', '');
+                        setCountryName('');
                       }}
                     >
                       ...
                     </Dropdown.Item>
-                    {countries &&
-                      countries.length &&
-                      countries.map((optItem) => (
+                    {CountryList &&
+                      CountryList.length &&
+                      CountryList.map((optItem) => (
                         <Dropdown.Item
                           className="w-100"
-                          key={optItem.value}
+                          key={optItem.Code}
                           // eslint-disable-next-line no-unused-vars
                           onClick={(e) => {
-                            setFieldValue('country', optItem.value);
+                            setFieldValue('country', optItem.Code);
+                            handleChangeCountry(optItem.Code);
                           }}
-                          active={values.country === optItem.value}
+                          active={values.country === optItem.Code}
                         >
-                          {optItem.label}
+                          {optItem.Name}
                         </Dropdown.Item>
                       ))}
                   </Dropdown.Menu>

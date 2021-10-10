@@ -1,10 +1,10 @@
-import humanAboutImgFirst from './assets/images/human_about_slider_1.png';
-import humanAboutImgSecond from './assets/images/human_about_slider_2.png';
-import humanAboutImgThird from './assets/images/human_about_slider_3.png';
-import humanAboutImgFourth from './assets/images/human_about_slider_4.png';
-import humanAboutImgFifth from './assets/images/human_about_slider_5.png';
-import humanJobImgFirst from './assets/images/human_job_slider_1.png';
-import humanJobImgSecond from './assets/images/human_job_slider_2.png';
+import humanAboutImgFirst from '../assets/images/human_about_slider_1.png';
+import humanAboutImgSecond from '../assets/images/human_about_slider_2.png';
+import humanAboutImgThird from '../assets/images/human_about_slider_3.png';
+import humanAboutImgFourth from '../assets/images/human_about_slider_4.png';
+import humanAboutImgFifth from '../assets/images/human_about_slider_5.png';
+import humanJobImgFirst from '../assets/images/human_job_slider_1.png';
+import humanJobImgSecond from '../assets/images/human_job_slider_2.png';
 
 export const PrimaryColor = {
   deepPink: '#781956',
@@ -142,6 +142,7 @@ export const ErrorMessage = {
   requireRestPasswordToken: 'Verification token required',
   requireAuthToken: 'Authentication token required',
   requireProfileDetails: 'Profile details required',
+  sactionListError: 'The app is not available in your location. Please refer to our T&Cs',
 };
 
 export const SignUpOpt = {
@@ -155,4 +156,12 @@ export const ResetPasswordStep = {
   verifyEmail: 'verifyEmail',
   pending: 'pending',
   resetPassword: 'resetPassword',
+};
+
+export const sanctionsList = {
+  CA: 'Canada',
+  CU: 'Cuba',
+  IR: 'Islamic Republic of Iran',
+  KP: "Democratic People's Republic of Korea",
+  US: 'United States',
 };

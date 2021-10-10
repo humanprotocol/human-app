@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from '../../../components/slider/slider';
 import './intro.scss';
-import { HumanAbout, HumanJobs } from '../../../constants';
+import { HumanAbout, HumanJobs } from '../../../utils/constants';
 
 export const IntroSection = () => (
   <div id="intro">
