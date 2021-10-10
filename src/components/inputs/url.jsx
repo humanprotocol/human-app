@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const URLInput = ({ className, value, onChange, name, reset }) => {
-  const refresh = e => {
+  const refresh = (e) => {
     e.preventDefault();
     reset();
   };
