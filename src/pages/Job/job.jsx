@@ -12,10 +12,10 @@ import './job.scss';
 import { updateMisc } from '../../service/user.service';
 import { customAlert } from '../../service/utils';
 
-const Job = props => {
+const Job = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
-  const { user, isAuthed, token } = useSelector(state => state.auth);
+  const { user, isAuthed, token } = useSelector((state) => state.auth);
 
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
@@ -39,14 +39,14 @@ const Job = props => {
       setOptions(JobOptions.profile);
     }
 
-    const taskOpts = TaskOptions.map(taskOpt => ({ checked: false, ...taskOpt }));
+    const taskOpts = TaskOptions.map((taskOpt) => ({ checked: false, ...taskOpt }));
     setTaskOptions(taskOpts);
 
-    const referOpts = ReferOptions.map(refereOpt => ({ checked: false, ...refereOpt }));
+    const referOpts = ReferOptions.map((refereOpt) => ({ checked: false, ...refereOpt }));
     setReferOptions(referOpts);
   }, [history.location.state, user]);
 
-  const submitQuestions = e => {
+  const submitQuestions = (e) => {
     e.preventDefault();
     if (!refers) {
       return setErrorText('Answer required');
@@ -63,7 +63,7 @@ const Job = props => {
       },
     ];
     return updateMisc(user.id, token, questions)
-      .then(response => {
+      .then((response) => {
         if (response) {
           dispatch({ type: 'SET_USER', payload: response });
           setErrorText('');
@@ -72,10 +72,10 @@ const Job = props => {
           setErrorText('Failed to submit questions');
         }
       })
-      .catch(err => setErrorText(err.message));
+      .catch((err) => setErrorText(err.message));
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
       case 'referral':
@@ -84,7 +84,7 @@ const Job = props => {
       case 'otherQuestion':
         setOtherQuestion(value);
         if (currentQuestion === 'refer') {
-          const newReferOpts = referOptions.map(Opt => {
+          const newReferOpts = referOptions.map((Opt) => {
             return { ...Opt, checked: false };
           });
           setReferOptions(newReferOpts);
@@ -92,14 +92,14 @@ const Job = props => {
         }
         break;
       case 'task':
-        const newTaskOpts = taskOptions.map(taskOpt => {
+        const newTaskOpts = taskOptions.map((taskOpt) => {
           if (taskOpt.value === value) return { ...taskOpt, checked: true };
           return taskOpt;
         });
         setTaskOptions(newTaskOpts);
         break;
       case 'refer':
-        const newReferOpts = referOptions.map(Opt => {
+        const newReferOpts = referOptions.map((Opt) => {
           if (Opt.value === value) return { ...Opt, checked: true };
           return { ...Opt, checked: false };
         });
@@ -111,19 +111,19 @@ const Job = props => {
     }
   };
 
-  const handleVerificationSuccess = verifiedCaptchaToken => {
+  const handleVerificationSuccess = (verifiedCaptchaToken) => {
     dispatch({
       type: 'SET_CAPTCHA_TOKEN',
       payload: verifiedCaptchaToken,
     });
   };
 
-  const handleNext = e => {
+  const handleNext = (e) => {
     e.preventDefault();
     switch (option) {
       case JobOptions.questionare:
         const taskItems = otherQuestion ? [otherQuestion] : [];
-        taskOptions.map(taskOption => {
+        taskOptions.map((taskOption) => {
           if (taskOption.checked) taskItems.push(taskOption.value);
           return null;
         });
@@ -199,16 +199,8 @@ const Job = props => {
               <>
                 <Alert variant="primary">
                   <p className="text-left">
-                    Pending KYC. Note: You won't be able to receive HMT until our KYC-verification
-                    are completed.
-                  </p>
-                </Alert>
-                <Alert variant="danger">
-                  <p className="text-left">
-                    Unfortunately, there has been a problem with our third-party KYC provider, which
-                    we’re working to resolve. Don’t worry. You don’t need to do anything more unless
-                    we specifically reach out to you. Please be patient while we get everything
-                    sorted on our end, and we’ll let you know once we have an update.
+                    Withdrawals are getting activated. Please wait until 12/10/2021 00:00 UTC for
+                    your withdrawals to reflect
                   </p>
                 </Alert>
               </>
@@ -220,7 +212,7 @@ const Job = props => {
                 </p>
                 <HCaptcha
                   sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                  onVerify={captchToken => handleVerificationSuccess(captchToken)}
+                  onVerify={(captchToken) => handleVerificationSuccess(captchToken)}
                 />
                 {/* {!nextable && errorText.length > 0 && <p className="dangerText">{errorText}</p>} */}
                 <FormGroup>
@@ -276,7 +268,7 @@ const Job = props => {
                       <FormGroup>
                         {taskOptions &&
                           taskOptions.length &&
-                          taskOptions.map(taskOpt => (
+                          taskOptions.map((taskOpt) => (
                             <Form.Check
                               name="task"
                               type="checkbox"
@@ -304,7 +296,7 @@ const Job = props => {
                       <FormGroup>
                         {referOptions &&
                           referOptions.length &&
-                          referOptions.map(referOpt => (
+                          referOptions.map((referOpt) => (
                             <Form.Check
                               name="refer"
                               type="radio"
