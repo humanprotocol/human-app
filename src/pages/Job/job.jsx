@@ -372,7 +372,11 @@ const Job = (props) => {
                 <span>Questionnaire: </span>{' '}
                 {user && user.misc.questionnaire ? 'Completed' : 'Incomplete'}
               </p>
-              <Button className="bg-white stats__withdraw" onClick={() => setShowWithdraw(true)}>
+              <Button
+                className="bg-white stats__withdraw"
+                onClick={() => setShowWithdraw(true)}
+                // disabled={user?.pendingTokens > 0 || user?.isKYCed === false}
+              >
                 Withdraw
               </Button>
             </div>

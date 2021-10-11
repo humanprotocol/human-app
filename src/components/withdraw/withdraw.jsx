@@ -2,23 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, FormGroup, Button, FormControl, FormLabel } from 'react-bootstrap';
 import { Field, Form, Formik } from 'formik';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import notifier from '../../service/notify.service';
 import { WithdrawSchema } from '../../validationSchema/withdraw.schema';
 import { sendWithdraw } from '../../service/withdraw.service';
 
 import './withdraw.scss';
+import { getMyAccount } from '../../service/user.service';
 
 export const Withdraw = ({ show, user, toggle }) => {
-  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state);
+
+  const updateUserProfile = () => {
+    return getMyAccount(auth.user.id, auth.token)
+      .then((profile) => {
+        dispatch({
+          type: 'SET_USER',
+          payload: profile,
+        });
+      })
+      .catch((err) => {
+        notifier.error(`Failed to update user profile. ${err.message}`);
+      });
+  };
 
   const handleSending = ({ amount }, { setSubmitting }) => {
     setSubmitting(true);
-    return sendWithdraw(parseFloat(amount), token)
+    return sendWithdraw(parseFloat(amount), auth.token)
       .then(() => {
         setSubmitting(false);
         toggle(false);
         notifier.success(`Your withdraw request(${amount} HMT) has been accepted for processing`);
+        updateUserProfile();
       })
       .catch((err) => {
         setSubmitting(false);
@@ -52,7 +68,7 @@ export const Withdraw = ({ show, user, toggle }) => {
           {({ errors, touched, values, dirty, isValid, handleSubmit }) => (
             <Form>
               <FormLabel>Amount</FormLabel>
-              <FormGroup className="">
+              <FormGroup className="d-inline-flex">
                 <div className="col-md-6 p-0">
                   <Field
                     className="form-control"
