@@ -143,6 +143,8 @@ export const ErrorMessage = {
   requireAuthToken: 'Authentication token required',
   requireProfileDetails: 'Profile details required',
   sactionListError: 'The app is not available in your location. Please refer to our T&Cs',
+  requiredWithdrawAmount: 'Amount required',
+  invalidWithdrawAmount: 'Amount should be positive float value',
 };
 
 export const SignUpOpt = {
