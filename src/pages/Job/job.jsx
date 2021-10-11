@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { PopupButton } from '@typeform/embed-react';
 import { URLInput } from '../../components/inputs/url';
 import { Withdraw } from '../../components/withdraw/withdraw';
 import { JobOptions, ReferOptions, TaskOptions, Questions } from '../../utils/constants';
@@ -12,6 +13,27 @@ import Profile from '../Profile/profile';
 import './job.scss';
 import { updateMisc } from '../../service/user.service';
 
+const typeFormStyles = {
+  all: 'unset',
+  'font-family': 'Helvetica,Arial,sans-serif',
+  display: 'inline-block',
+  'max-width': '100%',
+  'white-space': 'nowrap',
+  overflow: 'hidden',
+  'text-overflow': 'ellipsis',
+  'background-color': '#0445AF',
+  color: '#FFFFFF',
+  'font-size': '20px',
+  'border-radius': '25px',
+  padding: '0 33px',
+  'font-weight': 'bold',
+  height: '50px',
+  cursor: 'pointer',
+  'line-height': '50px',
+  'text-align': 'center',
+  margin: '0',
+  'text-decoration': 'none',
+};
 const Job = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
@@ -200,8 +222,8 @@ const Job = (props) => {
               <>
                 <Alert variant="primary">
                   <p className="text-left">
-                    Withdrawals are getting activated. Please wait until 12/10/2021 00:00 UTC for
-                    your withdrawals to reflect
+                    Please ensure that the withdrawal wallet belongs to an ERC20 deposit address on
+                    one of the following exchanges: Gate.io, FTX, BitFinex, Coinlist Pro & Bitmart
                   </p>
                 </Alert>
               </>
@@ -372,13 +394,10 @@ const Job = (props) => {
                 <span>Questionnaire: </span>{' '}
                 {user && user.misc.questionnaire ? 'Completed' : 'Incomplete'}
               </p>
-              <Button
-                className="bg-white stats__withdraw"
-                onClick={() => setShowWithdraw(true)}
-                // disabled={user?.pendingTokens > 0 || user?.isKYCed === false}
-              >
+              { /* prettier-ignore */ }
+              <PopupButton id="O5HysSYE" style={typeFormStyles}>
                 Withdraw
-              </Button>
+              </PopupButton>
             </div>
           </div>
           {showWithdraw && <Withdraw user={user} show={showWithdraw} toggle={setShowWithdraw} />}
