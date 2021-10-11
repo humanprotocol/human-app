@@ -1,11 +1,12 @@
-# Human APP website
+# HUMAN App 
 
 ## Description
 
-Human APP is an application which allow you to connect to the Human Protocol. It is written in the React.js
-Please visit [humanprotocol.org](https://humanprotocol.org) for more information
+The HUMAN App is the frontend interface which allows earners to connect to HUMAN Protocol and solve labelling tasks for $HMT rewards. 
+It is written in the React.js. Please visit [humanprotocol.org](https://humanprotocol.org) for more information
 
-## Note for maintainers:
+## Note:
+The application is in active development state and can have breaking changes.
 
 ### Prerequisites:
 
