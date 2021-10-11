@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { URLInput } from '../../components/inputs/url';
+import { Withdraw } from '../../components/withdraw/withdraw';
 import { JobOptions, ReferOptions, TaskOptions, Questions } from '../../utils/constants';
 import { Routes } from '../../routes';
 import Profile from '../Profile/profile';
 import './job.scss';
 import { updateMisc } from '../../service/user.service';
-import { customAlert } from '../../service/utils';
 
 const Job = (props) => {
   const { history } = props;
@@ -29,6 +29,7 @@ const Job = (props) => {
   const [tasks, setTasks] = useState([]);
   const [refers, setRefers] = useState('');
   const [otherQuestion, setOtherQuestion] = useState('');
+  const [showWithdraw, setShowWithdraw] = useState(false);
 
   useEffect(() => {
     if (history.location.state && history.location.state.jobOption) {
@@ -355,7 +356,11 @@ const Job = (props) => {
                 {user ? user.earnedTokens : 0}
               </p>
               <p className="stats stats__secondary">
-                <span>HMT Pending withdrawal: </span>
+                <span>Available HMT to withdraw: </span>
+                {user ? user.availableTokens : 0}
+              </p>
+              <p className="stats stats__secondary">
+                <span>HMT Pending: </span>
                 {user ? user.pendingTokens : 0}
               </p>
               <p className="stats stats__secondary">
@@ -367,14 +372,12 @@ const Job = (props) => {
                 <span>Questionnaire: </span>{' '}
                 {user && user.misc.questionnaire ? 'Completed' : 'Incomplete'}
               </p>
-              <Button
-                className="bg-white stats__withdraw"
-                onClick={() => customAlert('Cannot withdraw until KYC Process is complete')}
-              >
+              <Button className="bg-white stats__withdraw" onClick={() => setShowWithdraw(true)}>
                 Withdraw
               </Button>
             </div>
           </div>
+          {showWithdraw && <Withdraw user={user} show={showWithdraw} toggle={setShowWithdraw} />}
         </div>
       </div>
     </div>

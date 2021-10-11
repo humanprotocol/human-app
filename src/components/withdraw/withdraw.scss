@@ -1,0 +1,39 @@
+/* Navigation */
+#modal__withdraw {
+    .modal-content {
+        background: linear-gradient(359.93deg, #FFFFFF 10.95%, #FCFBFF 121.59%);
+        border: 1px solid #EEEEEE;
+        box-shadow: 0px 23px 35px -12px rgba(31, 6, 87, 0.08);
+        border-radius: 10px;
+        padding: 2rem;
+        .modal-header {
+            .modal-title {
+                font-size: 24px;
+            }
+        }
+        .modal-body {
+            .mark {
+                background: linear-gradient(219.36deg, #FA2A75 -0.71%, #6309FF 77.47%);
+                opacity: 0.5;
+                border-radius: 42px;
+                padding: 0px 16px;
+                width: 139px;
+                height: 32px;
+                color: #FFFFFF;
+                letter-spacing: 0.2px;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 32px;
+            }
+            .actions {
+                .btn {
+                    width: 50%;
+                    max-width: 160px;
+                    font-size: 16px;
+                    letter-spacing: 0.2px;
+                }
+            }
+        }
+    }
+    
+}

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import ReactGA from 'react-ga4';
 import SmoothScroll from 'smooth-scroll';
 import { createBrowserHistory } from 'history';
+import { ToastContainer } from 'react-toastify';
 
 import Navigation from './components/navigation/navigation';
 import HomePage from './pages/Home/home';
@@ -18,6 +19,8 @@ import { Routes } from './routes';
 
 import './App.scss';
 import Job from './pages/Job/job';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -51,6 +54,7 @@ const App = () => {
         </Switch>
         <Subscribe history={history} />
       </Router>
+      <ToastContainer />
     </div>
   );
 };
