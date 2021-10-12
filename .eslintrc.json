@@ -20,5 +20,9 @@
     "react/no-unescaped-entities": 0,
     "no-case-declarations": 0,
     "import/prefer-default-export": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true
   }
 }

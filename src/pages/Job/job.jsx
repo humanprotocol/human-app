@@ -276,16 +276,6 @@ const Job = (props) => {
                   name="referral"
                   value={referralCode}
                 />
-                {
-                  // <FormControl.Feedback
-                  //   type="invalid"
-                  //   className={
-                  //     submitted && !referralCode ? "d-block text-left" : ""
-                  //   }
-                  // >
-                  //   Referral link required
-                  // </FormControl.Feedback>
-                }
                 <Button className="mt-4 bg-blue w-100 form-control">
                   Copy Referral Code
                   <i className="material-icons text-white">share</i>

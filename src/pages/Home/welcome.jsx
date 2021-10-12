@@ -39,10 +39,9 @@ const Welcome = ({ history }) => {
       <div className="text-center">
         <div className="intro-text">
           <h1 className="text-center mb-4">
-            Welcome to the
-            <span className="color-blue">HUMAN App</span>
+            Welcome to the <span className="color-blue">HUMAN App</span>
           </h1>
-          <h4 className="text-center mb-4 font-weight-bold">Complete jobs; earn HMT.</h4>
+          <h4 className="text-center mb-4 font-weight-bold">Complete jobs; earn HMT</h4>
           {!isAuthed && (
             <p className="text-center mb-4">
               {/* eslint-disable */}

@@ -17,8 +17,6 @@
         }
         button {
             width: 100%;
-            color: white;
-            background: #6309FF;
             height: 3rem;
             &:hover {
                 opacity: 0.8;
@@ -179,9 +177,6 @@
                     letter-spacing: 0.2px;
                     @media screen and (max-width: 420px) {
                         width: 47.5%!important;
-                    }
-                    &:hover {
-                        color: #6309FF;
                     }
                     &.bg-blue {
                         &:hover {
