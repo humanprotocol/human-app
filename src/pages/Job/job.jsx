@@ -395,9 +395,21 @@ const Job = (props) => {
                 {user && user.misc.questionnaire ? 'Completed' : 'Incomplete'}
               </p>
               { /* prettier-ignore */ }
-              <PopupButton id="O5HysSYE" style={typeFormStyles}>
-                Withdraw
-              </PopupButton>
+              {!user?.isKYCed && (
+                <PopupButton id="O5HysSYE" style={typeFormStyles}>
+                  Withdraw
+                </PopupButton>
+              )}
+              {user?.isKYCed && user?.earnedTokens > 0 && (
+                <Button
+                  className="bg-white stats__withdraw"
+                  onClick={() => setShowWithdraw(true)}
+                  disabled={user?.pendingTokens > 0}
+                  style={typeFormStyles}
+                >
+                  Withdraw
+                </Button>
+              )}
             </div>
           </div>
           {showWithdraw && <Withdraw user={user} show={showWithdraw} toggle={setShowWithdraw} />}
