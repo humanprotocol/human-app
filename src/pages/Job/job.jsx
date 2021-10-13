@@ -38,6 +38,7 @@ const Job = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
   const { user, isAuthed, token } = useSelector((state) => state.auth);
+  if (!user.availableTokens) user.availableTokens = 0;
 
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
@@ -395,21 +396,12 @@ const Job = (props) => {
                 {user && user.misc.questionnaire ? 'Completed' : 'Incomplete'}
               </p>
               { /* prettier-ignore */ }
-              {!user?.isKYCed && (
-                <PopupButton id="O5HysSYE" style={typeFormStyles}>
-                  Withdraw
-                </PopupButton>
-              )}
-              {user?.isKYCed && user?.earnedTokens > 0 && (
-                <Button
-                  className="bg-white stats__withdraw"
-                  onClick={() => setShowWithdraw(true)}
-                  disabled={user?.pendingTokens > 0}
-                  style={typeFormStyles}
-                >
-                  Withdraw
-                </Button>
-              )}
+              {(!user?.isKYCed || (user?.isKYCed && user?.availableTokens > 0)) &&
+                user?.pendingTokens === 0 && (
+                  <PopupButton id="O5HysSYE" style={typeFormStyles}>
+                    Withdraw
+                  </PopupButton>
+                )}
             </div>
           </div>
           {showWithdraw && <Withdraw user={user} show={showWithdraw} toggle={setShowWithdraw} />}
