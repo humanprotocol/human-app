@@ -410,7 +410,6 @@ const Job = (props) => {
                 <span>Questionnaire: </span>{' '}
                 {user && user.misc.questionnaire ? 'Completed' : 'Incomplete'}
               </p>
-              { /* prettier-ignore */ }
               {(!user?.isKYCed || (user?.isKYCed && availableTokens > 0)) &&
                 pendingWithdraws?.length === 0 && (
                   <PopupButton id="O5HysSYE" style={typeFormStyles}>
