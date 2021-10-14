@@ -167,3 +167,18 @@ export const sanctionsList = {
   KP: "Democratic People's Republic of Korea",
   US: 'United States',
 };
+
+export const withdrawalStatus = {
+  PENDING: 'pending',
+  SUCCESS: 'success',
+  CANCELLED: 'cancelled',
+  PROCESSING: 'processing',
+};
+
+export const httpStatus = {
+  NO_CONTENT: 204,
+  OK: 200,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+};

@@ -7,11 +7,19 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { PopupButton } from '@typeform/embed-react';
 import { URLInput } from '../../components/inputs/url';
 import { Withdraw } from '../../components/withdraw/withdraw';
-import { JobOptions, ReferOptions, TaskOptions, Questions } from '../../utils/constants';
+import {
+  JobOptions,
+  ReferOptions,
+  TaskOptions,
+  Questions,
+  withdrawalStatus,
+} from '../../utils/constants';
 import { Routes } from '../../routes';
 import Profile from '../Profile/profile';
 import './job.scss';
 import { updateMisc } from '../../service/user.service';
+import { getWithdraws } from '../../service/withdraw.service';
+import notifier from '../../service/notify.service';
 
 const typeFormStyles = {
   all: 'unset',
@@ -38,6 +46,7 @@ const Job = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
   const { user, isAuthed, token } = useSelector((state) => state.auth);
+  const availableTokens = user.availableTokens || 0;
 
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
@@ -52,6 +61,13 @@ const Job = (props) => {
   const [refers, setRefers] = useState('');
   const [otherQuestion, setOtherQuestion] = useState('');
   const [showWithdraw, setShowWithdraw] = useState(false);
+  const [pendingWithdraws, setPendingWithdraws] = useState([]);
+
+  useEffect(() => {
+    getWithdraws(withdrawalStatus.PENDING, token)
+      .then((result) => setPendingWithdraws(result))
+      .catch((err) => notifier.error(err.message));
+  }, [user]);
 
   useEffect(() => {
     if (history.location.state && history.location.state.jobOption) {
@@ -394,10 +410,12 @@ const Job = (props) => {
                 <span>Questionnaire: </span>{' '}
                 {user && user.misc.questionnaire ? 'Completed' : 'Incomplete'}
               </p>
-              { /* prettier-ignore */ }
-              <PopupButton id="O5HysSYE" style={typeFormStyles}>
-                Withdraw
-              </PopupButton>
+              {(!user?.isKYCed || (user?.isKYCed && availableTokens > 0)) &&
+                pendingWithdraws?.length === 0 && (
+                  <PopupButton id="O5HysSYE" style={typeFormStyles}>
+                    Withdraw
+                  </PopupButton>
+                )}
             </div>
           </div>
           {showWithdraw && <Withdraw user={user} show={showWithdraw} toggle={setShowWithdraw} />}
