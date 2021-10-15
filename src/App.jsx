@@ -21,6 +21,7 @@ import './App.scss';
 import Job from './pages/Job/job';
 
 import 'react-toastify/dist/ReactToastify.css';
+import ScrollToTop from './components/scrollToTop/ScrollToTop';
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -40,18 +41,20 @@ const App = () => {
     <div>
       <Router history={history}>
         <Navigation />
-        <Switch>
-          <Route exact path={Routes.Home.path} component={HomePage} />
-          <Route exact path={Routes.Login.path} component={LoginPage} />
-          <Route exact path={Routes.Register.path} component={RegisterPage} />
-          <Route exact path={Routes.Profile.path} component={ProfilePage} />
-          <Route exact path={Routes.LinkWallet.path} component={LinkWalletPage} />
-          <Route exact path={Routes.ForgotPassword.path} component={ForgotPasswordPage} />
-          <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} />
-          <Route exact path={Routes.Earning.path} component={LinkWalletPage} />
-          <Route exact path={Routes.Job.path} component={Job} />
-          <Redirect from="*" to="/" />
-        </Switch>
+        <ScrollToTop>
+          <Switch>
+            <Route exact path={Routes.Home.path} component={HomePage} />
+            <Route exact path={Routes.Login.path} component={LoginPage} />
+            <Route exact path={Routes.Register.path} component={RegisterPage} />
+            <Route exact path={Routes.Profile.path} component={ProfilePage} />
+            <Route exact path={Routes.LinkWallet.path} component={LinkWalletPage} />
+            <Route exact path={Routes.ForgotPassword.path} component={ForgotPasswordPage} />
+            <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} />
+            <Route exact path={Routes.Earning.path} component={LinkWalletPage} />
+            <Route exact path={Routes.Job.path} component={Job} />
+            <Redirect from="*" to="/" />
+          </Switch>
+        </ScrollToTop>
         <Subscribe history={history} />
       </Router>
       <ToastContainer />

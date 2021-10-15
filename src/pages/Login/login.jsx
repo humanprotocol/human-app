@@ -126,9 +126,12 @@ const LoginPage = (props) => {
             </Link>
           </div>
           <FormGroup className="actions d-flex justify-content-between m-0">
-            <Link className="btn" to={Routes.Home.path}>
+            <Button
+              className="form-control btn mr-2 bg-white"
+              onClick={() => history.push({ pathname: Routes.Home.path })}
+            >
               Back
-            </Link>
+            </Button>
             <Button
               className="form-control bg-blue"
               onClick={formik.handleSubmit}

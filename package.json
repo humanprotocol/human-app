@@ -45,7 +45,10 @@
     "eslint:github-action": "eslint \"src/**/*.{js,jsx}\""
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "env": {
+      "browser": true
+    } 
   },
   "browserslist": {
     "production": [
