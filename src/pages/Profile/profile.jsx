@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap';
@@ -198,9 +198,12 @@ const ProfilePage = (props) => {
                 )}
               </FormGroup>
               <FormGroup className="actions d-flex justify-content-between m-0">
-                <Link className="btn" to={Routes.Home.path}>
+                <Button
+                  className="form-control btn mr-2 bg-white"
+                  onClick={() => history.push({ pathname: Routes.Home.path })}
+                >
                   Back
-                </Link>
+                </Button>
                 <Button
                   className="form-control bg-blue"
                   disabled={editing && !(isValid && dirty)}

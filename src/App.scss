@@ -79,3 +79,19 @@ label {
     letter-spacing: -0.4px;
   }
 }
+
+.actions {
+  .btn {
+    max-width: 160px;
+    font-size: 16px;
+    letter-spacing: 0.2px;
+    &.bg-white {
+      background-color: #fff;
+      color: #6309ff;
+      &:hover {
+        background-color: #6309ff!important;
+        color: white;
+      }
+    }
+  }
+}

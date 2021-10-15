@@ -9,8 +9,7 @@ export const IntroSection = () => (
       <div className="section">
         <div className="container">
           <h1 className="title text-center">
-            What is
-            <span className="highlight">HUMAN ?</span>
+            What is <span className="highlight">HUMAN ?</span>
           </h1>
           <Slider slides={HumanAbout} type="humanAbout" />
         </div>
@@ -20,8 +19,7 @@ export const IntroSection = () => (
       <div className="section">
         <div className="container">
           <h1 className="title text-center">
-            The future of
-            <span className="highlight">HUMAN Jobs</span>
+            The future of <span className="highlight">HUMAN Jobs</span>
           </h1>
           <Slider slides={HumanJobs} type="humanJobs" />
         </div>

@@ -83,8 +83,8 @@ ol {
   padding: 0.5rem 0.75rem;
   height: 3rem;
   width: 24rem;
-  border-radius: 0.5rem !important;
-  border-color: #0a060e !important;
+  border-radius: 0.5rem;
+  border-color: #0a060e;
 }
 .color-blue {
   color: #6309ff;
@@ -102,7 +102,7 @@ form .form-group p {
   display: none !important;
 }
 .btn.form-control.btn-primary {
-  background-color: #6309ff!important;
+  background-color: #6309ff;
   font-family: "Alliance No.1";
 }
 .bg-blue,
@@ -126,14 +126,14 @@ form .form-group p {
   border: 2px solid #6309ff;
 }
 .btn-primary.bg-white:hover {
-  background-color: #6309ff !important;
+  background-color: #6309ff;
   color: #fff;
 }
 .btn-primary.bg-white:focus,
 .btn-primary.bg-white:active,
 .btn-primary.bg-white:active:focus,
 .btn-primary.bg-white:visited {
-  background-color: #6309ff !important;
+  background-color: #6309ff;
   color: #fff;
   opacity: 0.8;
 }

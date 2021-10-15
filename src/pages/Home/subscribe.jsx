@@ -39,8 +39,7 @@ export const Subscribe = () => {
         <div className="row">
           <div className="col-md-6 text-right">
             <h1 className="mb-4">
-              Subscribe to
-              <span className="color-blue">HUMAN</span>
+              Subscribe to <span className="color-blue">HUMAN</span>
             </h1>
             <p className="mb-4">
               To receive the latest updates on HUMAN, please subscribe by entering your email below.
