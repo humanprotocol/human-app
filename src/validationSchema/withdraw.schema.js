@@ -1,14 +1,14 @@
 import * as Yup from 'yup';
-import { ErrorMessage } from '../utils/constants';
+import { errors } from '../constants';
 
 export const WithdrawSchema = Yup.object()
   .shape({
     walletAddr: Yup.string()
-      .length(42, ErrorMessage.invalidLengthWalletAddress)
-      .required(ErrorMessage.requireWalletAddress),
+      .length(42, errors.errorMessage.invalidLengthWalletAddress)
+      .required(errors.errorMessage.requireWalletAddress),
     // prettier-ignore
-    amount: Yup.number(ErrorMessage.invalidWithdrawAmount)
+    amount: Yup.number(errors.errorMessage.invalidWithdrawAmount)
       .test('Positive', 'Amount should be greater than zero', (value) => value > 0)
-      .required(ErrorMessage.requiredWithdrawAmount),
+      .required(errors.errorMessage.requiredWithdrawAmount),
   })
-  .required(ErrorMessage.requiredWithdrawAmount);
+  .required(errors.errorMessage.requiredWithdrawAmount);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
-import { ErrorMessage } from '../utils/constants';
+import { errors } from '../constants';
 
 export const authHeader = () => {
   // return authorization header with jwt token
@@ -133,8 +133,8 @@ export const forgotPassword = async (email) => {
 };
 
 export const resetPassword = async (password, token) => {
-  if (!password) throw new Error(ErrorMessage.requirePassword);
-  if (!token) throw new Error(ErrorMessage.requireRestPasswordToken);
+  if (!password) throw new Error(errors.errorMessage.requirePassword);
+  if (!token) throw new Error(errors.errorMessage.requireRestPasswordToken);
 
   return axios
     .post(

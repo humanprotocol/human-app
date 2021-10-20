@@ -6,39 +6,12 @@ import humanAboutImgFifth from '../assets/images/human_about_slider_5.png';
 import humanJobImgFirst from '../assets/images/human_job_slider_1.png';
 import humanJobImgSecond from '../assets/images/human_job_slider_2.png';
 
-export const PrimaryColor = {
-  deepPink: '#781956',
-  pink: '#BE2988',
-  purple: '#320A8D',
-  deepPurple: '#1F0657',
-  black: '#0A060E',
-  grey: '#322F38',
-  deepGrey: '#1F1C24',
-};
-
-export const SecondaryColor = {
-  orange: '#FCBB45',
-  deepOrange: '#FB9741',
-  pink: '#C00949',
-  lightPink: '#FA2A75',
-  blue: '#6309FF',
-  purple: '#440295',
-  deepPurple: '#17002E',
-};
-
-export const JobOptions = {
-  captcha: 'captcha',
-  referral: 'referral',
-  questionare: 'questionare',
-  profile: 'profile',
-};
-
-export const Questions = {
+export const questions = {
   task: 'What tasks would you prefer to do on the HUMAN App?',
   refer: 'How did you get to know about the Human Protocol?',
 };
 
-export const ReferOptions = [
+export const referOptions = [
   { value: 'Twitter', label: 'Twitter' },
   { value: 'Telegram groups', label: 'Telegram groups' },
   { value: 'Reddit', label: 'Reddit' },
@@ -46,7 +19,7 @@ export const ReferOptions = [
   { value: 'Crypto news website', label: 'Crypto news website' },
 ];
 
-export const TaskOptions = [
+export const taskOptions = [
   { label: 'Solve captchas', value: 'Solve captchas' },
   { label: 'Provide feedback on A/B tests.', value: 'Provide feedback on A/B tests.' },
   { label: 'Code review and Bug bounties.', value: 'Code review and Bug bounties.' },
@@ -55,7 +28,7 @@ export const TaskOptions = [
   { label: 'Data labelling on video and/or text.', value: 'Data labelling on video and/or text.' },
 ];
 
-export const HumanAbout = [
+export const humanAbout = [
   {
     title: '',
     subTitle: 'A new way to work',
@@ -93,7 +66,7 @@ export const HumanAbout = [
   },
 ];
 
-export const HumanJobs = [
+export const humanJobs = [
   {
     title: "The future of <span className='highlight'>HUMAN jobs</span>",
     subTitle: '',
@@ -109,76 +82,3 @@ export const HumanJobs = [
     image: humanJobImgSecond,
   },
 ];
-
-export const ErrorType = {
-  invaidPassword: 'invalidPassword',
-  invalidEmail: 'invalidEmail',
-  invalidWalletAddress: 'invalidWalletAddress',
-  duplicatedEmail: 'duplicatedEmail',
-  duplicatedUserName: 'duplicatedUserName',
-  requireUserName: 'requireUserName',
-  requireFirstName: 'requireFirstName',
-  requireLastName: 'requireLastName',
-  requirePassword: 'requirePassword',
-  requireEmail: 'requireEmail',
-  requireWalletAddress: 'requireWalletAddress',
-};
-
-export const ErrorMessage = {
-  invalidPasswordLength: 'Password must be at least 8 characters',
-  invalidWalletAddress: 'Invalid Wallet Address',
-  invalidLengthWalletAddress: 'Wallet Address length must be 42',
-  invalidEmail: 'Invalid Email',
-  duplicatedEmail: 'Email is already used',
-  requirePassword: 'Password required',
-  requireEmail: 'Email required',
-  requireUserName: 'User name required',
-  requireWalletAddress: 'Wallet Address required',
-  requireVerificationToken: 'Verification token required',
-  invalidVerificationToken: 'Invalid verification token',
-  captchaPassRequired: 'You need to solve captcha',
-  requireCountry: 'Country required',
-  notConfirmedPassword: 'Passwords should be same',
-  requireRestPasswordToken: 'Verification token required',
-  requireAuthToken: 'Authentication token required',
-  requireProfileDetails: 'Profile details required',
-  sactionListError: 'The app is not available in your location. Please refer to our T&Cs',
-  requiredWithdrawAmount: 'Amount required',
-  invalidWithdrawAmount: 'Amount should be positive float value',
-};
-
-export const SignUpOpt = {
-  verifyEmail: 'verifyEmail',
-  register: 'register',
-  linkWallet: 'linkWallet',
-  complete: 'complete',
-};
-
-export const ResetPasswordStep = {
-  verifyEmail: 'verifyEmail',
-  pending: 'pending',
-  resetPassword: 'resetPassword',
-};
-
-export const sanctionsList = {
-  CA: 'Canada',
-  CU: 'Cuba',
-  IR: 'Islamic Republic of Iran',
-  KP: "Democratic People's Republic of Korea",
-  US: 'United States',
-};
-
-export const withdrawalStatus = {
-  PENDING: 'pending',
-  SUCCESS: 'success',
-  CANCELLED: 'cancelled',
-  PROCESSING: 'processing',
-};
-
-export const httpStatus = {
-  NO_CONTENT: 204,
-  OK: 200,
-  FORBIDDEN: 403,
-  NOT_FOUND: 404,
-  INTERNAL_SERVER_ERROR: 500,
-};

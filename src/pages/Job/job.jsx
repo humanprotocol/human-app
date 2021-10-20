@@ -7,13 +7,7 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { PopupButton } from '@typeform/embed-react';
 import { URLInput } from '../../components/inputs/url';
 import { Withdraw } from '../../components/withdraw/withdraw';
-import {
-  JobOptions,
-  ReferOptions,
-  TaskOptions,
-  Questions,
-  withdrawalStatus,
-} from '../../utils/constants';
+import { options, textMessages } from '../../constants';
 import { Routes } from '../../routes';
 import Profile from '../Profile/profile';
 import './job.scss';
@@ -21,6 +15,10 @@ import { updateMisc } from '../../service/user.service';
 import { getWithdraws } from '../../service/withdraw.service';
 import notifier from '../../service/notify.service';
 
+const withdrawalStatus = {
+  PENDING: 'pending',
+  SUCCEDED: 'succeded',
+};
 const typeFormStyles = {
   all: 'unset',
   'font-family': 'Helvetica,Arial,sans-serif',
@@ -51,7 +49,7 @@ const Job = (props) => {
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
   }
-  const [option, setOptions] = useState(JobOptions.questionare);
+  const [option, setOptions] = useState(options.jobOptions.questionare);
   const [referralCode, setReferralCode] = useState(user ? user.referralCode || '' : '');
   const [errorText, setErrorText] = useState('');
   const [currentQuestion, setCurrentQuestion] = useState('task');
@@ -75,13 +73,13 @@ const Job = (props) => {
     }
 
     if (user && user.misc && user.misc.questionnaire) {
-      setOptions(JobOptions.profile);
+      setOptions(options.jobOptions.profile);
     }
 
-    const taskOpts = TaskOptions.map((taskOpt) => ({ checked: false, ...taskOpt }));
+    const taskOpts = options.taskOptions.map((taskOpt) => ({ checked: false, ...taskOpt }));
     setTaskOptions(taskOpts);
 
-    const referOpts = ReferOptions.map((refereOpt) => ({ checked: false, ...refereOpt }));
+    const referOpts = options.referOptions.map((refereOpt) => ({ checked: false, ...refereOpt }));
     setReferOptions(referOpts);
   }, [history.location.state, user]);
 
@@ -93,11 +91,11 @@ const Job = (props) => {
 
     const questions = [
       {
-        q: Questions.task,
+        q: textMessages.questions.task,
         a: tasks,
       },
       {
-        q: Questions.refer,
+        q: textMessages.questions.refer,
         a: refers,
       },
     ];
@@ -106,7 +104,7 @@ const Job = (props) => {
         if (response) {
           dispatch({ type: 'SET_USER', payload: response });
           setErrorText('');
-          setOptions(JobOptions.profile);
+          setOptions(options.jobOptions.profile);
         } else {
           setErrorText('Failed to submit questions');
         }
@@ -160,7 +158,7 @@ const Job = (props) => {
   const handleNext = (e) => {
     e.preventDefault();
     switch (option) {
-      case JobOptions.questionare:
+      case options.jobOptions.questionare:
         const taskItems = otherQuestion ? [otherQuestion] : [];
         taskOptions.map((taskOption) => {
           if (taskOption.checked) taskItems.push(taskOption.value);
@@ -200,8 +198,10 @@ const Job = (props) => {
                   <span className="opt disabled">Questionnaire</span>
                 ) : (
                   <span
-                    className={`opt ${option && option === JobOptions.questionare ? 'active' : ''}`}
-                    onClick={() => setOptions(JobOptions.questionare)}
+                    className={`opt ${
+                      option && option === options.jobOptions.questionare ? 'active' : ''
+                    }`}
+                    onClick={() => setOptions(options.jobOptions.questionare)}
                   >
                     Questionnaire
                   </span>
@@ -209,16 +209,20 @@ const Job = (props) => {
               </li>
               <li className="">
                 <span
-                  className={`opt ${option && option === JobOptions.profile ? 'active' : ''}`}
-                  onClick={() => setOptions(JobOptions.profile)}
+                  className={`opt ${
+                    option && option === options.jobOptions.profile ? 'active' : ''
+                  }`}
+                  onClick={() => setOptions(options.jobOptions.profile)}
                 >
                   Profile
                 </span>
               </li>
               <li className="">
                 <span
-                  className={`opt ${option && option === JobOptions.referral ? 'active' : ''}`}
-                  onClick={() => setOptions(JobOptions.referral)}
+                  className={`opt ${
+                    option && option === options.jobOptions.referral ? 'active' : ''
+                  }`}
+                  onClick={() => setOptions(options.jobOptions.referral)}
                 >
                   Referral
                 </span>
@@ -244,7 +248,7 @@ const Job = (props) => {
                 </Alert>
               </>
             )}
-            {option && option === JobOptions.captcha && (
+            {option && option === options.jobOptions.captcha && (
               <div id="hcaptcha">
                 <p className="d-md-block">
                   For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.
@@ -261,7 +265,7 @@ const Job = (props) => {
                 </FormGroup>
               </div>
             )}
-            {option && option === JobOptions.referral && (
+            {option && option === options.jobOptions.referral && (
               <div id="referral" className="text-center col-md-8 offset-md-2">
                 <p className="d-md-block">
                   If you refer a friend you will receive 1 HMT. Note, you will receive the HMT only
@@ -282,11 +286,11 @@ const Job = (props) => {
                 </Button>
               </div>
             )}
-            {option && option === JobOptions.questionare && (
+            {option && option === options.jobOptions.questionare && (
               <div id="questions" className="m-auto text-left col-md-8 offset-md-2">
                 <p className="d-md-block">Complete the questionnaire to receive 1 HMT.</p>
                 <div className="question-list">
-                  <p>{Questions[currentQuestion]}</p>
+                  <p>{textMessages.questions[currentQuestion]}</p>
                   {errorText && (
                     <Alert variant="danger" onClose={() => setErrorText('')} dismissible>
                       <p>{errorText}</p>
@@ -375,7 +379,7 @@ const Job = (props) => {
                 )}
               </div>
             )}
-            {option && option === JobOptions.profile && <Profile />}
+            {option && option === options.jobOptions.profile && <Profile />}
           </div>
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container job__col__stats">
             <div className="mb-5">

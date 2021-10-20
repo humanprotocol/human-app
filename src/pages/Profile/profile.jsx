@@ -7,8 +7,7 @@ import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
 import { ProfileValidationSchema } from '../../validationSchema/user.schema';
-import { CountryList } from '../../utils/countryList';
-import { ErrorMessage } from '../../utils/constants';
+import { countries, errors as errorsConstants } from '../../constants';
 import './profile.scss';
 
 const ProfilePage = (props) => {
@@ -29,7 +28,7 @@ const ProfilePage = (props) => {
 
   useEffect(() => {
     if (user && user.country) {
-      const countryData = CountryList.filter((item) => item.Code === user.country);
+      const countryData = countries.countryList.filter((item) => item.Code === user.country);
       setCountryName(countryData[0].Name);
     }
   }, []);
@@ -57,7 +56,7 @@ const ProfilePage = (props) => {
         });
     } else {
       setSubmitting(false);
-      setAlertMsg(ErrorMessage.requireAuthToken);
+      setAlertMsg(errorsConstants.ErrorMessage.requireAuthToken);
     }
   };
 
@@ -67,7 +66,7 @@ const ProfilePage = (props) => {
   };
 
   const handleChangeCountry = (countryCode) => {
-    const countryData = CountryList.filter((item) => item.Code === countryCode);
+    const countryData = countries.countryList.filter((item) => item.Code === countryCode);
     setCountryName(countryData[0].Name);
   };
 
@@ -155,9 +154,9 @@ const ProfilePage = (props) => {
                         >
                           ...
                         </Dropdown.Item>
-                        {CountryList &&
-                          CountryList.length &&
-                          CountryList.map((optItem) => (
+                        {countries.countryList &&
+                          countries.countryList.length &&
+                          countries.countryList.map((optItem) => (
                             <Dropdown.Item
                               className="w-100"
                               key={optItem.Code}

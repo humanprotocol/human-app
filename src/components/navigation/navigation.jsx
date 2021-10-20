@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import jwtDecode from 'jwt-decode';
 import { Button } from 'react-bootstrap';
-import { SecondaryColor } from '../../utils/constants';
+import { colors } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
 import { getMyAccount, logOut } from '../../service/user.service';
@@ -50,7 +50,7 @@ const Navigation = ({ history }) => {
           <Link
             to={{ pathname: Routes.Home.path }}
             className="navbar-brand page-scroll no-padding"
-            style={{ color: SecondaryColor.blue, letterSpacing: '4px' }}
+            style={{ color: colors.secondaryColor.blue, letterSpacing: '4px' }}
           >
             <img className="app-logo mr-3" src={logImg} alt="human-app-log" />
           </Link>

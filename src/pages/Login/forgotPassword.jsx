@@ -4,7 +4,7 @@ import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import './login.scss';
-import { ErrorMessage, ResetPasswordStep } from '../../utils/constants';
+import { errors as errorsConstants } from '../../constants';
 import { Routes } from '../../routes';
 import { forgotPassword, resetPassword } from '../../service/user.service';
 import { Password } from '../../components/inputs/password/password';
@@ -12,6 +12,12 @@ import {
   EmailValidationSchema,
   ResetPasswordValidationSchema,
 } from '../../validationSchema/login.schema';
+
+export const resetPasswordStep = {
+  verifyEmail: 'verifyEmail',
+  pending: 'pending',
+  resetPassword: 'resetPassword',
+};
 
 const ForgotPasswordPage = (props) => {
   const { history } = props;
@@ -21,20 +27,20 @@ const ForgotPasswordPage = (props) => {
   const [alertMsg, setAlertMsg] = useState('');
   // const [submittable, setSubmittable] = useState(false);
   const [step, setStep] = useState(
-    verificationToken ? ResetPasswordStep.resetPassword : ResetPasswordStep.verifyEmail,
+    verificationToken ? resetPasswordStep.resetPassword : resetPasswordStep.verifyEmail,
   );
   const [email, setEmail] = useState('');
 
   const sendForgotPasswordRequest = (toEmail) => {
     if (!toEmail) {
-      return setAlertMsg(ErrorMessage.requireEmail);
+      return setAlertMsg(errorsConstants.errorMessage.requireEmail);
     }
 
     return forgotPassword(toEmail)
       .then(() => {
         setAlertMsg('');
         setEmail(toEmail);
-        setStep(ResetPasswordStep.pending);
+        setStep(resetPasswordStep.pending);
       })
       .catch((err) => {
         setAlertMsg(err.message);
@@ -50,7 +56,7 @@ const ForgotPasswordPage = (props) => {
   const handleResendForgotPassword = (e) => {
     e.preventDefault();
     if (!email) sendForgotPasswordRequest(email);
-    else setStep(ResetPasswordStep.verifyEmail);
+    else setStep(resetPasswordStep.verifyEmail);
   };
 
   const handleResetPassword = (data, { setSubmitting }) => {
@@ -74,9 +80,9 @@ const ForgotPasswordPage = (props) => {
     >
       <div className="container">
         <div className="page-title d-flex justify-content-between mb-4">
-          {step === ResetPasswordStep.verifyEmail && <h2>Forgot your password?</h2>}
-          {step === ResetPasswordStep.pending && <h2>Check your email</h2>}
-          {step === ResetPasswordStep.resetPassword && <h2>Create new password</h2>}
+          {step === resetPasswordStep.verifyEmail && <h2>Forgot your password?</h2>}
+          {step === resetPasswordStep.pending && <h2>Check your email</h2>}
+          {step === resetPasswordStep.resetPassword && <h2>Create new password</h2>}
           <Link to="/login">
             <i className="material-icons close">clear</i>
           </Link>
@@ -87,20 +93,20 @@ const ForgotPasswordPage = (props) => {
             <p>{alertMsg}</p>
           </Alert>
         )}
-        {step === ResetPasswordStep.verifyEmail && (
+        {step === resetPasswordStep.verifyEmail && (
           <p>
             A link will be sent to your registered email address. Go to the link and create a new
             password.
           </p>
         )}
-        {step === ResetPasswordStep.pending && (
+        {step === resetPasswordStep.pending && (
           <p>Please check your email and follow instructions to change your password.</p>
         )}
-        {step === ResetPasswordStep.resetPassword && (
+        {step === resetPasswordStep.resetPassword && (
           <p>Your password should be different form the previously created password</p>
         )}
         <div>
-          {step === ResetPasswordStep.verifyEmail && (
+          {step === resetPasswordStep.verifyEmail && (
             <Formik
               initialValues={{ email: '' }}
               validationSchema={EmailValidationSchema}
@@ -129,7 +135,7 @@ const ForgotPasswordPage = (props) => {
               )}
             </Formik>
           )}
-          {step === ResetPasswordStep.pending && (
+          {step === resetPasswordStep.pending && (
             <form name="form">
               <FormGroup>
                 <p>
@@ -141,7 +147,7 @@ const ForgotPasswordPage = (props) => {
               </FormGroup>
             </form>
           )}
-          {step === ResetPasswordStep.resetPassword && (
+          {step === resetPasswordStep.resetPassword && (
             <Formik
               initialValues={{ password: '', repeatPassword: '' }}
               validationSchema={ResetPasswordValidationSchema}

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { httpStatus } from '../utils/constants';
+import { http } from '../constants';
 
 export const sendWithdraw = async (amount, token) => {
   return axios
@@ -27,7 +27,7 @@ export const getWithdraws = async (status, token) => {
       params: { status },
     })
     .then((response) => {
-      if (response.status === httpStatus.NO_CONTENT) return [];
+      if (response.status === http.httpStatus.NO_CONTENT) return [];
       if (response && response.data) {
         return response.data;
       }

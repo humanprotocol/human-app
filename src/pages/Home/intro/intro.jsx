@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from '../../../components/slider/slider';
 import './intro.scss';
-import { HumanAbout, HumanJobs } from '../../../utils/constants';
+import { textMessages } from '../../../constants';
 
 export const IntroSection = () => (
   <div id="intro">
@@ -11,7 +11,7 @@ export const IntroSection = () => (
           <h1 className="title text-center">
             What is <span className="highlight">HUMAN ?</span>
           </h1>
-          <Slider slides={HumanAbout} type="humanAbout" />
+          <Slider slides={textMessages.humanAbout} type="humanAbout" />
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@ export const IntroSection = () => (
           <h1 className="title text-center">
             The future of <span className="highlight">HUMAN Jobs</span>
           </h1>
-          <Slider slides={HumanJobs} type="humanJobs" />
+          <Slider slides={textMessages.humanJobs} type="humanJobs" />
         </div>
       </div>
     </div>
