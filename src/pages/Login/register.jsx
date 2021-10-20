@@ -10,7 +10,7 @@ import './login.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
 import { Routes } from '../../routes';
 import { RegisterValidationSchema } from '../../validationSchema/login.schema';
-import { CountryList } from '../../utils/countryList';
+import { countries } from '../../constants';
 
 const RegisterPage = (props) => {
   const { history } = props;
@@ -74,7 +74,7 @@ const RegisterPage = (props) => {
   };
 
   const handleChangeCountry = (countryCode) => {
-    const countryData = CountryList.filter((item) => item.Code === countryCode);
+    const countryData = countries.countryList.filter((item) => item.Code === countryCode);
     setCountryName(countryData[0].Name);
   };
 
@@ -159,9 +159,9 @@ const RegisterPage = (props) => {
                     >
                       ...
                     </Dropdown.Item>
-                    {CountryList &&
-                      CountryList.length &&
-                      CountryList.map((optItem) => (
+                    {countries.countryList &&
+                      countries.countryList.length &&
+                      countries.countryList.map((optItem) => (
                         <Dropdown.Item
                           className="w-100"
                           key={optItem.Code}

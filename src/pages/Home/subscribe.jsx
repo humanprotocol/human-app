@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, FormControl, FormGroup, Modal } from 'react-bootstrap';
 import * as EmailValidator from 'email-validator';
-import { ErrorMessage } from '../../utils/constants';
+import { errors } from '../../constants';
 import SubscribeImg from '../../assets/images/subscribe.png';
 import { sendNewsletterSignup } from '../../service/user.service';
 import ReadMoreIcon from '../../assets/icons/readmore.svg';
@@ -55,7 +55,7 @@ export const Subscribe = () => {
                 />
                 {submitted && !EmailValidator.validate(email) && (
                   <FormControl.Feedback type="invalid" className="d-block text-left">
-                    {email ? ErrorMessage.invalidEmail : ErrorMessage.requireEmail}
+                    {email ? errors.errorMessage.invalidEmail : errors.errorMessage.requireEmail}
                   </FormControl.Feedback>
                 )}
                 {submitted && error && (
