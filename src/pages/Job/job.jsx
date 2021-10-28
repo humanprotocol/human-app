@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { PopupButton } from '@typeform/embed-react';
+// import { PopupButton } from '@typeform/embed-react';
 import { URLInput } from '../../components/inputs/url';
 import { Withdraw } from '../../components/withdraw/withdraw';
 import { options, textMessages } from '../../constants';
@@ -19,32 +19,32 @@ const withdrawalStatus = {
   PENDING: 'pending',
   SUCCEDED: 'succeded',
 };
-const typeFormStyles = {
-  all: 'unset',
-  'font-family': 'Helvetica,Arial,sans-serif',
-  display: 'inline-block',
-  'max-width': '100%',
-  'white-space': 'nowrap',
-  overflow: 'hidden',
-  'text-overflow': 'ellipsis',
-  'background-color': '#0445AF',
-  color: '#FFFFFF',
-  'font-size': '20px',
-  'border-radius': '25px',
-  padding: '0 33px',
-  'font-weight': 'bold',
-  height: '50px',
-  cursor: 'pointer',
-  'line-height': '50px',
-  'text-align': 'center',
-  margin: '0',
-  'text-decoration': 'none',
-};
+// const typeFormStyles = {
+// all: 'unset',
+// 'font-family': 'Helvetica,Arial,sans-serif',
+// display: 'inline-block',
+// 'max-width': '100%',
+// 'white-space': 'nowrap',
+// overflow: 'hidden',
+// 'text-overflow': 'ellipsis',
+// 'background-color': '#0445AF',
+// color: '#FFFFFF',
+// 'font-size': '20px',
+// 'border-radius': '25px',
+// padding: '0 33px',
+// 'font-weight': 'bold',
+// height: '50px',
+// cursor: 'pointer',
+// 'line-height': '50px',
+// 'text-align': 'center',
+// margin: '0',
+// 'text-decoration': 'none',
+// };
 const Job = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
   const { user, isAuthed, token } = useSelector((state) => state.auth);
-  const availableTokens = user ? user.availableTokens || 0 : 0;
+  // const availableTokens = user ? user.availableTokens || 0 : 0;
 
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
@@ -59,6 +59,7 @@ const Job = (props) => {
   const [refers, setRefers] = useState('');
   const [otherQuestion, setOtherQuestion] = useState('');
   const [showWithdraw, setShowWithdraw] = useState(false);
+  // eslint-disable-next-line
   const [pendingWithdraws, setPendingWithdraws] = useState([]);
 
   useEffect(() => {
@@ -404,12 +405,13 @@ const Job = (props) => {
                 <span>Questionnaire: </span>{' '}
                 {user && user.misc.questionnaire ? 'Completed' : 'Incomplete'}
               </p>
-              {(!user?.isKYCed || (user?.isKYCed && availableTokens > 0)) &&
+              {/* {(!user?.isKYCed || (user?.isKYCed && availableTokens > 0)) &&
                 pendingWithdraws?.length === 0 && (
                   <PopupButton id="O5HysSYE" style={typeFormStyles}>
                     Withdraw
                   </PopupButton>
                 )}
+                */}
             </div>
           </div>
           {showWithdraw && <Withdraw user={user} show={showWithdraw} toggle={setShowWithdraw} />}
