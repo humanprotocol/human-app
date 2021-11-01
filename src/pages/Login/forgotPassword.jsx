@@ -61,7 +61,7 @@ const ForgotPasswordPage = (props) => {
 
   const handleResetPassword = (data, { setSubmitting }) => {
     setSubmitting(true);
-    resetPassword(data.password, data.verificationToken)
+    resetPassword(data.password, verificationToken)
       .then(() => {
         setSubmitting(false);
         setAlertMsg('');
