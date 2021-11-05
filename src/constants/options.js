@@ -1,11 +1,3 @@
-export const JobOptions = {
-  captcha: 'captcha',
-  referral: 'referral',
-  questionare: 'questionare',
-  profile: 'profile',
-  dataLabel: 'dataLabel',
-};
-
 export const signUpOpt = {
   verifyEmail: 'verifyEmail',
   register: 'register',

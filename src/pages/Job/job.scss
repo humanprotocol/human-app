@@ -204,6 +204,22 @@
         margin: auto;
     }
 }
+#dataLabel {
+    max-width: 400px;
+    margin: auto;
+    .form-group {
+        .btn {
+            color: #6309ff;
+            background-color: #FFFFFF!important;
+            box-shadow: 0px 6px 15px rgba(99, 9, 255, 0.15);
+            border-radius: 10px;
+            &:hover {
+                color: white;
+                background-color: #6309FF!important;
+            }
+        }
+    }
+}
 // Stats CSS
 .stats {
     font-size: 16px;

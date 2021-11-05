@@ -215,7 +215,6 @@ const RegisterPage = (props) => {
               </FormGroup>
               <FormGroup className="text-center">
                 <HCaptcha
-                  // eslint-disable-next-line no-undef
                   sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
                   onVerify={(token) => setFieldValue('hcaptchaToken', token)}
                   ref={captchaRef}

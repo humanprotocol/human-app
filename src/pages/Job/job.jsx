@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
-import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { PopupButton } from '@typeform/embed-react';
+import DataLabel from './dataLabel';
 import { URLInput } from '../../components/inputs/url';
 import { Withdraw } from '../../components/withdraw/withdraw';
 import { options, textMessages } from '../../constants';
@@ -12,13 +12,18 @@ import { Routes } from '../../routes';
 import Profile from '../Profile/profile';
 import './job.scss';
 import { updateMisc } from '../../service/user.service';
+import { getUserStats } from '../../service/job.service';
 import { getWithdraws } from '../../service/withdraw.service';
+import { DATA_LABEL_CAPTCHA_SOLVED } from '../../store/actionType';
 import notifier from '../../service/notify.service';
 
-const withdrawalStatus = {
+export const withdrawalStatus = {
   PENDING: 'pending',
-  SUCCEDED: 'succeded',
+  SUCCESS: 'success',
+  CANCELLED: 'cancelled',
+  PROCESSING: 'processing',
 };
+
 const typeFormStyles = {
   all: 'unset',
   'font-family': 'Helvetica,Arial,sans-serif',
@@ -44,6 +49,7 @@ const Job = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
   const { user, isAuthed, token } = useSelector((state) => state.auth);
+  const userStats = useSelector((state) => state.userStats);
   const availableTokens = user ? user.availableTokens || 0 : 0;
 
   if (!isAuthed) {
@@ -67,6 +73,15 @@ const Job = (props) => {
       .then((result) => setPendingWithdraws(result))
       .catch((err) => notifier.error(err.message));
   }, [user]);
+
+  useEffect(() => {
+    getUserStats(token).then(({ servedCaptchas, solvedCaptchas }) =>
+      dispatch({
+        type: DATA_LABEL_CAPTCHA_SOLVED,
+        payload: { servedCaptchas, solvedCaptchas },
+      }),
+    );
+  }, []);
 
   useEffect(() => {
     if (history.location.state && history.location.state.jobOption) {
@@ -149,13 +164,6 @@ const Job = (props) => {
     }
   };
 
-  const handleVerificationSuccess = (verifiedCaptchaToken) => {
-    dispatch({
-      type: 'SET_CAPTCHA_TOKEN',
-      payload: verifiedCaptchaToken,
-    });
-  };
-
   const handleNext = (e) => {
     e.preventDefault();
     switch (option) {
@@ -177,13 +185,6 @@ const Job = (props) => {
       default:
         break;
     }
-    // if (captchaToken && captchaToken.length > 0) {
-    //   setErrorText("");
-    //   setNextable(true);
-    // } else {
-    //   setErrorText("You need to pass captCha.");
-    //   setNextable(false);
-    // }
   };
 
   return (
@@ -194,6 +195,16 @@ const Job = (props) => {
           <div className="col-md-3 section-option text-right col-sm-12 job__col__nav">
             <h4 className="title mb-4">More jobs coming soon</h4>
             <ul className="m-0">
+              <li className="">
+                <span
+                  className={`opt ${
+                    option && option === options.jobOptions.dataLabel ? 'active' : ''
+                  }`}
+                  onClick={() => setOptions(options.jobOptions.dataLabel)}
+                >
+                  Data Labelling
+                </span>
+              </li>
               <li className="">
                 {user && user.misc && user.misc.questionnaire ? (
                   <span className="opt disabled">Questionnaire</span>
@@ -248,23 +259,6 @@ const Job = (props) => {
                   </p>
                 </Alert>
               </>
-            )}
-            {option && option === options.jobOptions.captcha && (
-              <div id="hcaptcha">
-                <p className="d-md-block">
-                  For every hCaptcha puzzle you solve, you will earn around 0.01 - 0.1 HMT.
-                </p>
-                <HCaptcha
-                  sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                  onVerify={(captchToken) => handleVerificationSuccess(captchToken)}
-                />
-                {/* {!nextable && errorText.length > 0 && <p className="dangerText">{errorText}</p>} */}
-                <FormGroup>
-                  <Button className="btn-custom mt-5" onClick={handleNext}>
-                    Next
-                  </Button>
-                </FormGroup>
-              </div>
             )}
             {option && option === options.jobOptions.referral && (
               <div id="referral" className="text-center col-md-8 offset-md-2">
@@ -381,6 +375,7 @@ const Job = (props) => {
               </div>
             )}
             {option && option === options.jobOptions.profile && <Profile />}
+            {option && option === options.jobOptions.dataLabel && <DataLabel />}
           </div>
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container job__col__stats">
             <div className="mb-5">
@@ -390,7 +385,7 @@ const Job = (props) => {
               </p>
               <p className="stats stats__secondary">
                 <span>Available HMT to withdraw: </span>
-                {user ? user.availableTokens : 0}
+                {user ? availableTokens : 0}
               </p>
               <p className="stats stats__secondary">
                 <span>HMT Pending: </span>
@@ -399,6 +394,14 @@ const Job = (props) => {
               <p className="stats stats__secondary">
                 <span>Successful Referrals: </span>
                 {user ? user.referredUsers.length : 0}
+              </p>
+              <p className="stats stats__secondary">
+                <span>Total Served Captchas: </span>
+                {user ? userStats.servedCaptchas : 0}
+              </p>
+              <p className="stats stats__secondary">
+                <span>Total Solved Captchas: </span>
+                {user ? userStats.solvedCaptchas : 0}
               </p>
               <p className="stats stats__secondary">
                 {/* eslint-disable-next-line */}
@@ -425,8 +428,8 @@ Job.propTypes = {
     location: PropTypes.shape({
       state: PropTypes.shape({
         jobOption: PropTypes.string,
-      }).isRequired,
-    }).isRequired,
+      }),
+    }),
   }).isRequired,
 };
 
