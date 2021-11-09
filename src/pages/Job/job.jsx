@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { PopupButton } from '@typeform/embed-react';
+import { WalletAlert } from '../../components/alert/wallet';
 import { URLInput } from '../../components/inputs/url';
 import { Withdraw } from '../../components/withdraw/withdraw';
 import { options, textMessages } from '../../constants';
@@ -19,31 +19,11 @@ const withdrawalStatus = {
   PENDING: 'pending',
   SUCCEDED: 'succeded',
 };
-const typeFormStyles = {
-  all: 'unset',
-  'font-family': 'Helvetica,Arial,sans-serif',
-  display: 'inline-block',
-  'max-width': '100%',
-  'white-space': 'nowrap',
-  overflow: 'hidden',
-  'text-overflow': 'ellipsis',
-  'background-color': '#0445AF',
-  color: '#FFFFFF',
-  'font-size': '20px',
-  'border-radius': '25px',
-  padding: '0 33px',
-  'font-weight': 'bold',
-  height: '50px',
-  cursor: 'pointer',
-  'line-height': '50px',
-  'text-align': 'center',
-  margin: '0',
-  'text-decoration': 'none',
-};
+
 const Job = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
-  const { user, isAuthed, token } = useSelector((state) => state.auth);
+  const { user = {}, isAuthed, token } = useSelector((state) => state.auth);
   const availableTokens = user ? user.availableTokens || 0 : 0;
 
   if (!isAuthed) {
@@ -58,9 +38,14 @@ const Job = (props) => {
   const [tasks, setTasks] = useState([]);
   const [refers, setRefers] = useState('');
   const [otherQuestion, setOtherQuestion] = useState('');
-  const [showWithdraw, setShowWithdraw] = useState(false);
-  // eslint-disable-next-line
   const [pendingWithdraws, setPendingWithdraws] = useState([]);
+  const [showWithdraw, setShowWithdraw] = useState(false);
+
+  const userHasPendingWithdrawals = pendingWithdraws.length > 0;
+  const userHasAvailableTokens = availableTokens > 0;
+  const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire);
+  const isWithdrawDisabled =
+    userHasPendingWithdrawals || !userHasAvailableTokens || !isQuestionnaireFilled;
 
   useEffect(() => {
     getWithdraws(withdrawalStatus.PENDING, token)
@@ -177,13 +162,6 @@ const Job = (props) => {
       default:
         break;
     }
-    // if (captchaToken && captchaToken.length > 0) {
-    //   setErrorText("");
-    //   setNextable(true);
-    // } else {
-    //   setErrorText("You need to pass captCha.");
-    //   setNextable(false);
-    // }
   };
 
   return (
@@ -239,16 +217,7 @@ const Job = (props) => {
                 </p>
               </Alert>
             )}
-            {user && user.walletAddr && !user.isKYCed && (
-              <>
-                <Alert variant="primary">
-                  <p className="text-left">
-                    Please ensure that the withdrawal wallet belongs to an ERC20 deposit address on
-                    one of the following exchanges: Gate.io, FTX, BitFinex, Coinlist Pro & Bitmart
-                  </p>
-                </Alert>
-              </>
-            )}
+            {user && user.walletAddr && !user.isKYCed && <WalletAlert />}
             {option && option === options.jobOptions.captcha && (
               <div id="hcaptcha">
                 <p className="d-md-block">
@@ -402,18 +371,20 @@ const Job = (props) => {
               </p>
               <p className="stats stats__secondary">
                 {/* eslint-disable-next-line */}
-                <span>Questionnaire: </span>{' '}
-                {user && user.misc.questionnaire ? 'Completed' : 'Incomplete'}
+                <span>Questionnaire: </span> {isQuestionnaireFilled ? 'Completed' : 'Incomplete'}
               </p>
-              {(!user?.isKYCed || (user?.isKYCed && availableTokens > 0)) &&
-                pendingWithdraws?.length === 0 && (
-                  <PopupButton id="O5HysSYE" style={typeFormStyles}>
-                    Withdraw
-                  </PopupButton>
-                )}
+              <p>
+                <Button
+                  className="form-control bg-blue btn btn-primary"
+                  onClick={() => setShowWithdraw(true)}
+                  disabled={isWithdrawDisabled}
+                >
+                  Withdraw
+                </Button>
+              </p>
             </div>
+            {showWithdraw && <Withdraw user={user} show={showWithdraw} toggle={setShowWithdraw} />}
           </div>
-          {showWithdraw && <Withdraw user={user} show={showWithdraw} toggle={setShowWithdraw} />}
         </div>
       </div>
     </div>

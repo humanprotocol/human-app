@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { http } from '../constants';
 
-export const sendWithdraw = async (amount, token) => {
+export const sendWithdraw = async (amount, hcaptchaToken, token) => {
   return axios
     .post(
       `${process.env.REACT_APP_API_URL}/withdrawal`,
-      { amount },
+      { amount, hcaptchaToken },
       { headers: { Authorization: `Bearer ${token}` } },
     )
     .then((response) => {
