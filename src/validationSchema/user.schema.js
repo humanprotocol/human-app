@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { errors } from '../constants';
+import { errors, exchanges } from '../constants';
 
 export const ProfileValidationSchema = Yup.object()
   .shape({
@@ -11,5 +11,8 @@ export const ProfileValidationSchema = Yup.object()
     walletAddr: Yup.string()
       .length(42, errors.errorMessage.invalidLengthWalletAddress)
       .required(errors.errorMessage.requireWalletAddress),
+    walletExchange: Yup.mixed()
+      .oneOf(exchanges.availableExchanges)
+      .required('Exchange is required'),
   })
   .required(errors.errorMessage.requireProfileDetails);

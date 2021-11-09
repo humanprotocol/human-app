@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
 import { ProfileValidationSchema } from '../../validationSchema/user.schema';
-import { countries, errors as errorsConstants } from '../../constants';
+import { countries, errors as errorsConstants, exchanges } from '../../constants';
 import './profile.scss';
 
 const ProfilePage = (props) => {
@@ -19,27 +19,38 @@ const ProfilePage = (props) => {
   const [editing, setEditting] = useState(false);
   const [alertMsg, setAlertMsg] = useState('');
   const [countryName, setCountryName] = useState('');
+  const [walletExchange, setWalletExchange] = useState('');
   const initialValues = {
     email: user?.email || '',
     name: user?.name || '',
     walletAddr: user?.walletAddr || '',
+    walletExchange: user?.walletExchange || '',
     country: user?.country || '',
   };
 
   useEffect(() => {
-    if (user && user.country) {
-      const countryData = countries.countryList.filter((item) => item.Code === user.country);
-      setCountryName(countryData[0].Name);
+    if (user) {
+      if (user.country) {
+        const countryData = countries.countryList.filter((item) => item.Code === user.country);
+        setCountryName(countryData[0].Name);
+      }
+      if (user.walletExchange) {
+        setWalletExchange(user.walletExchange);
+      }
     }
   }, []);
 
-  const handleUpdatProfile = ({ name, walletAddr, country }, { setSubmitting }) => {
+  const handleUpdatProfile = (
+    { name, walletAddr, country, walletExchange: exchange },
+    { setSubmitting },
+  ) => {
     setSubmitting(true);
     if (token) {
       update(user.id, token, {
         name,
         walletAddr,
         country,
+        walletExchange: exchange,
       })
         .then((userRes) => {
           if (userRes) {
@@ -193,6 +204,45 @@ const ProfilePage = (props) => {
                 {editing && touched.walletAddr && errors.walletAddr && (
                   <FormControl.Feedback type="invalid" className="d-block text-left">
                     {errors.walletAddr}
+                  </FormControl.Feedback>
+                )}
+              </FormGroup>
+              <FormGroup>
+                {!editing && <p>{values.walletExchange ? walletExchange : 'Wallet Exchange'}</p>}
+                {editing && (
+                  <>
+                    <Dropdown
+                      drop="down"
+                      onToggle={(isOpen) => {
+                        if (isOpen) setFieldTouched('walletExchange', true);
+                      }}
+                    >
+                      <Dropdown.Toggle className="form-control text-left bg-white">
+                        {walletExchange || 'Select Wallet Exchange'}
+                        <i className="fa fa-angle-down text-right" />
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu className="w-100">
+                        {exchanges.availableExchanges.map((exchange) => (
+                          <Dropdown.Item
+                            className="w-100"
+                            key={exchange}
+                            onClick={() => {
+                              setFieldTouched('walletExchange', true);
+                              setFieldValue('walletExchange', exchange);
+                              setWalletExchange(exchange);
+                            }}
+                            active={values.walletExchange === exchange}
+                          >
+                            {exchange}
+                          </Dropdown.Item>
+                        ))}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </>
+                )}
+                {editing && touched.walletExchange && errors.walletExchange && (
+                  <FormControl.Feedback type="invalid" className="d-block text-left">
+                    {errors.walletExchange}
                   </FormControl.Feedback>
                 )}
               </FormGroup>
