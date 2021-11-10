@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { WalletAlert } from '../../components/alert/wallet';
+import { WalletExchangeAlert, SetupWalletAlert } from '../../components/alert/wallet';
 import { URLInput } from '../../components/inputs/url';
 import { Withdraw } from '../../components/withdraw/withdraw';
 import { options, textMessages } from '../../constants';
@@ -44,8 +44,13 @@ const Job = (props) => {
   const userHasPendingWithdrawals = pendingWithdraws.length > 0;
   const userHasAvailableTokens = availableTokens > 0;
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire);
+  const isExchangeFilled = Boolean(user?.walletExchange);
+  const isWalletFilled = Boolean(user?.walletAddr);
   const isWithdrawDisabled =
-    userHasPendingWithdrawals || !userHasAvailableTokens || !isQuestionnaireFilled;
+    userHasPendingWithdrawals ||
+    !userHasAvailableTokens ||
+    !isQuestionnaireFilled ||
+    !isExchangeFilled;
 
   useEffect(() => {
     getWithdraws(withdrawalStatus.PENDING, token)
@@ -209,15 +214,8 @@ const Job = (props) => {
             </ul>
           </div>
           <div className="col-md-6 section-content col-sm-12 job__col__main">
-            {user && !user.walletAddr && (
-              <Alert variant="primary">
-                <p>
-                  Please setup your wallet address in the Profile page. We’ll need this to send you
-                  HMT!
-                </p>
-              </Alert>
-            )}
-            {user && user.walletAddr && !user.isKYCed && <WalletAlert />}
+            {!isWalletFilled && <SetupWalletAlert />}
+            {isWalletFilled && !isExchangeFilled && <WalletExchangeAlert />}
             {option && option === options.jobOptions.captcha && (
               <div id="hcaptcha">
                 <p className="d-md-block">
@@ -227,7 +225,6 @@ const Job = (props) => {
                   sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
                   onVerify={(captchToken) => handleVerificationSuccess(captchToken)}
                 />
-                {/* {!nextable && errorText.length > 0 && <p className="dangerText">{errorText}</p>} */}
                 <FormGroup>
                   <Button className="btn-custom mt-5" onClick={handleNext}>
                     Next

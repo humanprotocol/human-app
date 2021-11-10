@@ -4,7 +4,7 @@ import { Modal, FormGroup, Button, FormControl, FormLabel } from 'react-bootstra
 import { Field, Form, Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { WalletAlert } from '../alert/wallet';
+import { WalletExchangeAlert } from '../alert/wallet';
 import notifier from '../../service/notify.service';
 import { WithdrawSchema } from '../../validationSchema/withdraw.schema';
 import { sendWithdraw } from '../../service/withdraw.service';
@@ -80,7 +80,7 @@ export const Withdraw = ({ show, user, toggle }) => {
         <Modal.Title>Withdraw HMT</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <WalletAlert />
+        <WalletExchangeAlert />
         <div className="mark mb-3">Ethereum Mainnet</div>
         <Formik
           initialValues={initialValues}
