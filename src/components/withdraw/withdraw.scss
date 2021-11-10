@@ -6,6 +6,7 @@
         box-shadow: 0px 23px 35px -12px rgba(31, 6, 87, 0.08);
         border-radius: 10px;
         padding: 2rem;
+        max-width: 480px;
         .modal-header {
             .modal-title {
                 font-size: 24px;
@@ -17,7 +18,7 @@
                 opacity: 0.5;
                 border-radius: 42px;
                 padding: 0px 16px;
-                width: 139px;
+                width: 150px;
                 height: 32px;
                 color: #FFFFFF;
                 letter-spacing: 0.2px;
@@ -35,5 +36,8 @@
             }
         }
     }
-    
+    .hcaptcha-container {
+        display: flex;
+        align-items: center;
+    }
 }

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, FormGroup, Button, FormControl, FormLabel } from 'react-bootstrap';
 import { Field, Form, Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
+import { WalletExchangeAlert } from '../alert/wallet';
 import notifier from '../../service/notify.service';
 import { WithdrawSchema } from '../../validationSchema/withdraw.schema';
 import { sendWithdraw } from '../../service/withdraw.service';
@@ -13,6 +15,7 @@ import { getMyAccount } from '../../service/user.service';
 export const Withdraw = ({ show, user, toggle }) => {
   const dispatch = useDispatch();
   const { auth } = useSelector((state) => state);
+  const captchaRef = useRef(null);
 
   const updateUserProfile = () => {
     return getMyAccount(auth.user.id, auth.token)
@@ -27,24 +30,42 @@ export const Withdraw = ({ show, user, toggle }) => {
       });
   };
 
-  const handleSending = ({ amount }, { setSubmitting }) => {
+  const onSubmit = async ({ amount, hcaptchaToken }, { setSubmitting }) => {
     setSubmitting(true);
-    return sendWithdraw(parseFloat(amount), auth.token)
-      .then(() => {
-        setSubmitting(false);
-        toggle(false);
-        notifier.success(`Your withdraw request(${amount} HMT) has been accepted for processing`);
-        updateUserProfile();
-      })
-      .catch((err) => {
-        setSubmitting(false);
-        notifier.error(err.message);
-      });
+    try {
+      await sendWithdraw(parseFloat(amount), hcaptchaToken, auth.token);
+      captchaRef.current.resetCaptcha();
+      setSubmitting(false);
+      toggle(false);
+      notifier.success(`Your withdraw request(${amount} HMT) has been accepted for processing`);
+      updateUserProfile();
+    } catch (err) {
+      setSubmitting(false);
+      notifier.error(err.message);
+      captchaRef.current.resetCaptcha();
+    }
   };
 
   const initialValues = {
     amount: 0,
     walletAddr: user?.walletAddr || '',
+  };
+
+  const validateForm = (values) => {
+    const errors = {};
+    const availableTokens = user ? user.availableTokens || 0 : 0;
+
+    if (values.amount > availableTokens) {
+      errors.amount = `Maximum amount is ${availableTokens} HMTs`;
+    }
+
+    return errors;
+  };
+  const onHcaptchaError = () => {
+    captchaRef.current.resetCaptcha();
+    notifier.error(
+      'HCaptcha error appeard during interaction with servers. Please, retry your attempt',
+    );
   };
 
   return (
@@ -59,42 +80,48 @@ export const Withdraw = ({ show, user, toggle }) => {
         <Modal.Title>Withdraw HMT</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <WalletExchangeAlert />
         <div className="mark mb-3">Ethereum Mainnet</div>
         <Formik
           initialValues={initialValues}
           validationSchema={WithdrawSchema}
-          onSubmit={handleSending}
+          validate={validateForm}
+          onSubmit={onSubmit}
         >
-          {({ errors, touched, values, dirty, isValid, handleSubmit }) => (
+          {({ errors, touched, values, dirty, isValid, handleSubmit, setFieldValue }) => (
             <Form>
-              <FormLabel>Amount</FormLabel>
-              <FormGroup className="d-inline-flex">
-                <div className="col-md-6 p-0">
-                  <Field
-                    className="form-control"
-                    placeholder="Amount"
-                    name="amount"
-                    type="text"
-                    value={values.amount}
-                  />
-                  {errors.amount && touched.amount && (
-                    <FormControl.Feedback type="invalid" className="d-block">
-                      {errors.amount}
-                    </FormControl.Feedback>
-                  )}
-                </div>
-                <div className="col-md-6">
-                  <p>Balance = {user.availableTokens.toFixed(2)} HMT</p>
-                </div>
-              </FormGroup>
-              <FormLabel>Wallet address</FormLabel>
               <FormGroup>
+                <FormLabel>Amount. Balance = {user.availableTokens.toFixed(2)} HMT</FormLabel>
+                <Field
+                  className="form-control"
+                  placeholder="Amount"
+                  name="amount"
+                  type="text"
+                  value={values.amount}
+                />
+                {errors.amount && touched.amount && (
+                  <FormControl.Feedback type="invalid" className="d-block">
+                    {errors.amount}
+                  </FormControl.Feedback>
+                )}
+              </FormGroup>
+              <FormGroup>
+                <FormLabel>Wallet address</FormLabel>
                 <Field
                   className="form-control"
                   placeholder="wallet Address"
                   name="walletAddr"
                   value={values.walletAddr}
                   disabled
+                />
+              </FormGroup>
+              <FormGroup className="hcaptcha-container">
+                <HCaptcha
+                  sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+                  onVerify={(token) => setFieldValue('hcaptchaToken', token)}
+                  onError={onHcaptchaError}
+                  onExpire={onHcaptchaError}
+                  ref={captchaRef}
                 />
               </FormGroup>
               <FormGroup className="actions d-flex justify-content-between m-0">
@@ -106,7 +133,7 @@ export const Withdraw = ({ show, user, toggle }) => {
                   onClick={handleSubmit}
                   disabled={!(isValid && dirty)}
                 >
-                  Send
+                  Request
                 </Button>
               </FormGroup>
             </Form>

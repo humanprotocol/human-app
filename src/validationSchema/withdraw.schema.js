@@ -6,9 +6,11 @@ export const WithdrawSchema = Yup.object()
     walletAddr: Yup.string()
       .length(42, errors.errorMessage.invalidLengthWalletAddress)
       .required(errors.errorMessage.requireWalletAddress),
-    // prettier-ignore
     amount: Yup.number(errors.errorMessage.invalidWithdrawAmount)
       .test('Positive', 'Amount should be greater than zero', (value) => value > 0)
       .required(errors.errorMessage.requiredWithdrawAmount),
+    hcaptchaToken: Yup.string().required(
+      'HCaptcha is not solved. Please, solve the captcha puzzle to withdraw HMT',
+    ),
   })
   .required(errors.errorMessage.requiredWithdrawAmount);
