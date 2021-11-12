@@ -1857,18 +1857,6 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
-"@typeform/embed-react@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@typeform/embed-react/-/embed-react-1.1.2.tgz#143734618f3cb10bf306958fe69d76a49f35b553"
-  integrity sha512-bwSNNAEU7q9PsdM3u86/CFetJyCT9JbwZg/0kX9D/764GJXhThoU7M0e4XIvyb6r2if25BUN8jCxXA8TAXeawg==
-  dependencies:
-    "@typeform/embed" "^1.10.0"
-
-"@typeform/embed@^1.10.0":
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/@typeform/embed/-/embed-1.20.0.tgz#378c65143c21438a81f8ad34df34fdd7570c42b9"
-  integrity sha512-46nj1aL9ZNl//SNshmP2VM3Ct/SfeRy+4O8Ff+2oGz+8DttIoLpzvRI0HOsXj+X8pBMj3AkGM9VUNMx0cGwSvQ==
-
 "@types/aria-query@^4.2.0":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.2.tgz#ed4e0ad92306a704f9fb132a0cfcf77486dbe2bc"
