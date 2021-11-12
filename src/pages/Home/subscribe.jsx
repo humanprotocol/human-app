@@ -75,7 +75,7 @@ export const Subscribe = () => {
               <a href="https://twitter.com/human_protocol/" className="social-icon icon-twitter">
                 <i className="fa fa-twitter" />
               </a>
-              <a href="https://t.me/hcaptchachat" className="social-icon icon-telegram">
+              <a href="http://hmt.ai/telegram" className="social-icon icon-telegram">
                 <i className="fa fa-telegram" />
               </a>
               <a
