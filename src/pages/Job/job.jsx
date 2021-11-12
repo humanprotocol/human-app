@@ -40,17 +40,28 @@ const Job = (props) => {
   const [otherQuestion, setOtherQuestion] = useState('');
   const [pendingWithdraws, setPendingWithdraws] = useState([]);
   const [showWithdraw, setShowWithdraw] = useState(false);
-
-  const userHasPendingWithdrawals = pendingWithdraws.length > 0;
-  const userHasAvailableTokens = availableTokens > 0;
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire);
   const isExchangeFilled = Boolean(user?.walletExchange);
   const isWalletFilled = Boolean(user?.walletAddr);
-  const isWithdrawDisabled =
-    userHasPendingWithdrawals ||
-    !userHasAvailableTokens ||
-    !isQuestionnaireFilled ||
-    !isExchangeFilled;
+
+  const tryShowWithdrawModal = () => {
+    const userHasPendingWithdrawals = pendingWithdraws.length > 0;
+    const userHasAvailableTokens = availableTokens > 0;
+
+    if (!isQuestionnaireFilled) {
+      notifier.warning('Please, fill the questionnaire');
+    } else if (!isExchangeFilled || !isWalletFilled) {
+      notifier.warning(
+        'Please, fill both the wallet address and wallet exchange fields in the profile page.',
+      );
+    } else if (!userHasAvailableTokens) {
+      notifier.warning('You have no available HMTs to withdraw.');
+    } else if (userHasPendingWithdrawals) {
+      notifier.warning('Your previous withdrawal request has not been processed yet.');
+    } else {
+      setShowWithdraw(true);
+    }
+  };
 
   useEffect(() => {
     getWithdraws(withdrawalStatus.PENDING, token)
@@ -373,8 +384,7 @@ const Job = (props) => {
               <p>
                 <Button
                   className="form-control bg-blue btn btn-primary"
-                  onClick={() => setShowWithdraw(true)}
-                  disabled={isWithdrawDisabled}
+                  onClick={tryShowWithdrawModal}
                 >
                   Withdraw
                 </Button>
