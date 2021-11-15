@@ -1,5 +1,4 @@
 export const Routes = {
-  // pages
   Home: { path: '/' },
   Login: { path: '/login' },
   Register: { path: '/register' },
