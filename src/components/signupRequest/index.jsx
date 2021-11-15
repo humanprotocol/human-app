@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { SignupInterestAlert } from '../alert/signupInterest';
 import notifier from '../../service/notify.service';
@@ -10,8 +10,9 @@ import './index.scss';
 
 export const SignupRequest = ({ show, email, toggle }) => {
   const captchaRef = useRef(null);
+  const [hcaptchaToken, setHcaptchaToken] = useState('');
 
-  const onVerifyToken = (hcaptchaToken) => {
+  const onSubmit = () => {
     return registerSignupRequest(email, hcaptchaToken)
       .then(() => {
         captchaRef.current.resetCaptcha();
@@ -40,18 +41,28 @@ export const SignupRequest = ({ show, email, toggle }) => {
       centered
     >
       <Modal.Header>
-        <Modal.Title>Register Your Interest To Us</Modal.Title>
+        <Modal.Title>Join the waitlist!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <SignupInterestAlert />
         <div className="hcaptcha-container">
           <HCaptcha
             sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-            onVerify={onVerifyToken}
+            onVerify={setHcaptchaToken}
             onError={onHcaptchaError}
             onExpire={onHcaptchaError}
             ref={captchaRef}
           />
+        </div>
+
+        <div className="row join">
+          <Button
+            disabled={!hcaptchaToken}
+            onClick={onSubmit}
+            className="form-control bg-blue btn btn-primary m-t-20"
+          >
+            Join
+          </Button>
         </div>
       </Modal.Body>
     </Modal>
