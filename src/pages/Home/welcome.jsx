@@ -6,9 +6,11 @@ import * as EmailValidator from 'email-validator';
 import { FormControl, FormGroup, Button } from 'react-bootstrap';
 import './home.scss';
 import { Routes } from '../../routes';
+import { SignupRequest } from '../../components/signupRequest';
 
 const Welcome = ({ history }) => {
   const [email, setEmail] = useState('');
+  const [showSignupRequestModal, setShowSignupRequestModal] = useState(false);
   const [status, setStatus] = useState({ email: true, msg: '' });
   const { isAuthed, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const Welcome = ({ history }) => {
     } else {
       const newUser = { ...user, email };
       dispatch({ type: 'SET_USER', payload: newUser });
-      history.push({ pathname: Routes.Register.path });
+      setShowSignupRequestModal(true);
     }
   };
 
@@ -91,6 +93,13 @@ const Welcome = ({ history }) => {
                   </Button>
                 </FormGroup>
               </>
+            )}
+            {showSignupRequestModal && (
+              <SignupRequest
+                email={email}
+                show={showSignupRequestModal}
+                toggle={setShowSignupRequestModal}
+              />
             )}
           </div>
         </div>

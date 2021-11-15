@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { WalletExchangeAlert, SetupWalletAlert } from '../../components/alert/wallet';
+import { DisabledWithdrawAlert } from '../../components/alert/withdrawAlert';
 import { URLInput } from '../../components/inputs/url';
 import { Withdraw } from '../../components/withdraw/withdraw';
 import { options, textMessages } from '../../constants';
@@ -227,6 +228,7 @@ const Job = (props) => {
           <div className="col-md-6 section-content col-sm-12 job__col__main">
             {!isWalletFilled && <SetupWalletAlert />}
             {isWalletFilled && !isExchangeFilled && <WalletExchangeAlert />}
+            <DisabledWithdrawAlert />
             {option && option === options.jobOptions.captcha && (
               <div id="hcaptcha">
                 <p className="d-md-block">
@@ -385,6 +387,7 @@ const Job = (props) => {
                 <Button
                   className="form-control bg-blue btn btn-primary"
                   onClick={tryShowWithdrawModal}
+                  disabled
                 >
                   Withdraw
                 </Button>
