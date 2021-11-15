@@ -40,7 +40,7 @@ export const SignupRequest = ({ show, email, toggle }) => {
       centered
     >
       <Modal.Header>
-        <Modal.Title>Register Your Intereset To Us</Modal.Title>
+        <Modal.Title>Register Your Interest To Us</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <SignupInterestAlert />
