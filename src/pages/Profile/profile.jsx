@@ -7,7 +7,7 @@ import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
 import { ProfileValidationSchema } from '../../validationSchema/user.schema';
-import { countries, errors as errorsConstants, exchanges } from '../../constants';
+import { countries, errors as errorsConstants } from '../../constants';
 import './profile.scss';
 
 const ProfilePage = (props) => {
@@ -19,12 +19,10 @@ const ProfilePage = (props) => {
   const [editing, setEditting] = useState(false);
   const [alertMsg, setAlertMsg] = useState('');
   const [countryName, setCountryName] = useState('');
-  const [walletExchange, setWalletExchange] = useState('');
   const initialValues = {
     email: user?.email || '',
     name: user?.name || '',
-    walletAddr: user?.walletAddr || '',
-    walletExchange: user?.walletExchange || '',
+    polygonWalletAddr: user?.polygonWalletAddr || '',
     country: user?.country || '',
   };
 
@@ -34,23 +32,16 @@ const ProfilePage = (props) => {
         const countryData = countries.countryList.filter((item) => item.Code === user.country);
         setCountryName(countryData[0].Name);
       }
-      if (user.walletExchange) {
-        setWalletExchange(user.walletExchange);
-      }
     }
   }, []);
 
-  const handleUpdatProfile = (
-    { name, walletAddr, country, walletExchange: exchange },
-    { setSubmitting },
-  ) => {
+  const handleUpdatProfile = ({ name, polygonWalletAddr, country }, { setSubmitting }) => {
     setSubmitting(true);
     if (token) {
       update(user.id, token, {
         name,
-        walletAddr,
+        polygonWalletAddr,
         country,
-        walletExchange: exchange,
       })
         .then((userRes) => {
           if (userRes) {
@@ -171,8 +162,7 @@ const ProfilePage = (props) => {
                             <Dropdown.Item
                               className="w-100"
                               key={optItem.Code}
-                              // eslint-disable-next-line no-unused-vars
-                              onClick={(e) => {
+                              onClick={() => {
                                 setFieldValue('country', optItem.Code);
                                 handleChangeCountry(optItem.Code);
                               }}
@@ -192,57 +182,18 @@ const ProfilePage = (props) => {
                 )}
               </FormGroup>
               <FormGroup>
-                {!editing && <p>{values.walletAddr || 'Wallet address'}</p>}
+                {!editing && <p>{values.polygonWalletAddr || 'Polygon Wallet Address'}</p>}
                 {editing && (
                   <Field
                     className="form-control"
-                    placeholder="Wallet Address"
+                    placeholder="Polygon Wallet Address"
                     type="text"
-                    name="walletAddr"
+                    name="polygonWalletAddr"
                   />
                 )}
-                {editing && touched.walletAddr && errors.walletAddr && (
+                {editing && touched.polygonWalletAddr && errors.polygonWalletAddr && (
                   <FormControl.Feedback type="invalid" className="d-block text-left">
-                    {errors.walletAddr}
-                  </FormControl.Feedback>
-                )}
-              </FormGroup>
-              <FormGroup>
-                {!editing && <p>{values.walletExchange ? walletExchange : 'Wallet Exchange'}</p>}
-                {editing && (
-                  <>
-                    <Dropdown
-                      drop="down"
-                      onToggle={(isOpen) => {
-                        if (isOpen) setFieldTouched('walletExchange', true);
-                      }}
-                    >
-                      <Dropdown.Toggle className="form-control text-left bg-white">
-                        {walletExchange || 'Select Wallet Exchange'}
-                        <i className="fa fa-angle-down text-right" />
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu className="w-100">
-                        {exchanges.availableExchanges.map((exchange) => (
-                          <Dropdown.Item
-                            className="w-100"
-                            key={exchange}
-                            onClick={() => {
-                              setFieldTouched('walletExchange', true);
-                              setFieldValue('walletExchange', exchange);
-                              setWalletExchange(exchange);
-                            }}
-                            active={values.walletExchange === exchange}
-                          >
-                            {exchange}
-                          </Dropdown.Item>
-                        ))}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </>
-                )}
-                {editing && touched.walletExchange && errors.walletExchange && (
-                  <FormControl.Feedback type="invalid" className="d-block text-left">
-                    {errors.walletExchange}
+                    {errors.polygonWalletAddr}
                   </FormControl.Feedback>
                 )}
               </FormGroup>

@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { errors, exchanges } from '../constants';
+import { errors } from '../constants';
 
 export const ProfileValidationSchema = Yup.object()
   .shape({
@@ -8,11 +8,8 @@ export const ProfileValidationSchema = Yup.object()
       .email(errors.errorMessage.invalidEmail)
       .required(errors.errorMessage.requireEmail),
     country: Yup.string().required(errors.errorMessage.requireCountry),
-    walletAddr: Yup.string()
+    polygonWalletAddr: Yup.string()
       .length(42, errors.errorMessage.invalidLengthWalletAddress)
       .required(errors.errorMessage.requireWalletAddress),
-    walletExchange: Yup.mixed()
-      .oneOf(exchanges.availableExchanges)
-      .required('Exchange is required'),
   })
   .required(errors.errorMessage.requireProfileDetails);

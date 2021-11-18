@@ -21,7 +21,7 @@ export const errorMessage = {
   requirePassword: 'Password required',
   requireEmail: 'Email required',
   requireUserName: 'User name required',
-  requireWalletAddress: 'Wallet Address required',
+  requireWalletAddress: 'Polygon Wallet Address required',
   requireVerificationToken: 'Verification token required',
   invalidVerificationToken: 'Invalid verification token',
   captchaPassRequired: 'You need to solve captcha',

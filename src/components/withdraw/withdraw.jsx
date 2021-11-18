@@ -4,7 +4,6 @@ import { Modal, FormGroup, Button, FormControl, FormLabel } from 'react-bootstra
 import { Field, Form, Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { WalletExchangeAlert } from '../alert/wallet';
 import notifier from '../../service/notify.service';
 import { WithdrawSchema } from '../../validationSchema/withdraw.schema';
 import { sendWithdraw } from '../../service/withdraw.service';
@@ -48,7 +47,7 @@ export const Withdraw = ({ show, user, toggle }) => {
 
   const initialValues = {
     amount: 0,
-    walletAddr: user?.walletAddr || '',
+    walletAddr: user?.polygonWalletAddr || '',
   };
 
   const validateForm = (values) => {
@@ -80,8 +79,7 @@ export const Withdraw = ({ show, user, toggle }) => {
         <Modal.Title>Withdraw HMT</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <WalletExchangeAlert />
-        <div className="mark mb-3">Ethereum Mainnet</div>
+        <div className="mark mb-3">Polygon Mainnet</div>
         <Formik
           initialValues={initialValues}
           validationSchema={WithdrawSchema}
@@ -149,7 +147,7 @@ Withdraw.propTypes = {
   show: PropTypes.bool.isRequired,
   user: PropTypes.shape({
     availableTokens: PropTypes.number.isRequired,
-    walletAddr: PropTypes.string.isRequired,
+    polygonWalletAddr: PropTypes.string.isRequired,
   }).isRequired,
   toggle: PropTypes.func.isRequired,
 };
