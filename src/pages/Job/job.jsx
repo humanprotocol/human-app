@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { WalletExchangeAlert, SetupWalletAlert } from '../../components/alert/wallet';
+import { SetupWalletAlert } from '../../components/alert/wallet';
 import { DisabledWithdrawAlert } from '../../components/alert/withdrawAlert';
 import { URLInput } from '../../components/inputs/url';
 import { Withdraw } from '../../components/withdraw/withdraw';
@@ -39,22 +39,19 @@ const Job = (props) => {
   const [tasks, setTasks] = useState([]);
   const [refers, setRefers] = useState('');
   const [otherQuestion, setOtherQuestion] = useState('');
-  const [pendingWithdraws, setPendingWithdraws] = useState([]);
+  const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
   const [showWithdraw, setShowWithdraw] = useState(false);
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire);
-  const isExchangeFilled = Boolean(user?.walletExchange);
-  const isWalletFilled = Boolean(user?.walletAddr);
+  const isWalletFilled = Boolean(user?.polygonWalletAddr);
 
   const tryShowWithdrawModal = () => {
-    const userHasPendingWithdrawals = pendingWithdraws.length > 0;
+    const userHasPendingWithdrawals = pendingWithdrawals.length > 0;
     const userHasAvailableTokens = availableTokens > 0;
 
     if (!isQuestionnaireFilled) {
       notifier.warning('Please, fill the questionnaire');
-    } else if (!isExchangeFilled || !isWalletFilled) {
-      notifier.warning(
-        'Please, fill both the wallet address and wallet exchange fields in the profile page.',
-      );
+    } else if (!isWalletFilled) {
+      notifier.warning('Please, fill the wallet address(Polygon Mainnet) in the profile page.');
     } else if (!userHasAvailableTokens) {
       notifier.warning('You have no available HMTs to withdraw.');
     } else if (userHasPendingWithdrawals) {
@@ -66,7 +63,7 @@ const Job = (props) => {
 
   useEffect(() => {
     getWithdraws(withdrawalStatus.PENDING, token)
-      .then((result) => setPendingWithdraws(result))
+      .then((result) => setPendingWithdrawals(result))
       .catch((err) => notifier.error(err.message));
   }, [user]);
 
@@ -227,7 +224,6 @@ const Job = (props) => {
           </div>
           <div className="col-md-6 section-content col-sm-12 job__col__main">
             {!isWalletFilled && <SetupWalletAlert />}
-            {isWalletFilled && !isExchangeFilled && <WalletExchangeAlert />}
             <DisabledWithdrawAlert />
             {option && option === options.jobOptions.captcha && (
               <div id="hcaptcha">
@@ -380,7 +376,6 @@ const Job = (props) => {
                 {user ? user.referredUsers.length : 0}
               </p>
               <p className="stats stats__secondary">
-                {/* eslint-disable-next-line */}
                 <span>Questionnaire: </span> {isQuestionnaireFilled ? 'Completed' : 'Incomplete'}
               </p>
               <p>
