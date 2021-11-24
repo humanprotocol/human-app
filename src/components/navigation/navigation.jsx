@@ -55,10 +55,6 @@ const Navigation = ({ history }) => {
             <img className="app-logo mr-3" src={logImg} alt="human-app-log" />
           </Link>
         </div>
-        {
-          // isAuthed &&
-          // <div className='d-block d-sm-none'>{hmtCounts} HMT</div>
-        }
         <div className="row m-0">
           {!pathname.includes('verify-email') && (
             <Button className="page-scroll login-btn" onClick={handleLogIn}>
