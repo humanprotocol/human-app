@@ -7,7 +7,8 @@ import { errors as errorsConstants } from '../../constants';
 import { Routes } from '../../routes';
 import { forgotPassword, resetPassword } from '../../service/user.service';
 import { Password } from '../../ui/password';
-import { EmailValidationSchema, ResetPasswordValidationSchema } from './schema';
+import { ResetPasswordValidationSchema } from './schema';
+import { EmailValidationSchema } from '../../utils/validation-schemas';
 
 import './index.scss';
 
