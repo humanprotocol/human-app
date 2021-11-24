@@ -9,7 +9,6 @@ export const JobOptions = {
 export const signUpOpt = {
   verifyEmail: 'verifyEmail',
   register: 'register',
-  linkWallet: 'linkWallet',
   complete: 'complete',
 };
 
