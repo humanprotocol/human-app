@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { SetupWalletAlert } from '../../components/alert/wallet';
 import { DisabledWithdrawAlert } from '../../components/alert/withdrawAlert';
-import { URLInput } from '../../components/inputs/url';
+import { URLInput } from '../../ui/url-input';
 import { Withdraw } from '../../components/withdraw/withdraw';
 import { options, textMessages } from '../../constants';
 import { Routes } from '../../routes';

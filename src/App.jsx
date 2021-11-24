@@ -16,12 +16,12 @@ import LinkWalletPage from './pages/Wallet/link';
 
 import { Subscribe } from './pages/Home/subscribe';
 import { Routes } from './routes';
+import ScrollToTop from './ui/scroll-to-top';
 
 import './App.scss';
 import Job from './pages/Job/job';
 
 import 'react-toastify/dist/ReactToastify.css';
-import ScrollToTop from './components/scrollToTop/ScrollToTop';
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,

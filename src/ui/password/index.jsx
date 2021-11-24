@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormControl, InputGroup } from 'react-bootstrap';
-import './password.css';
+import './index.css';
 
 export const Password = (props) => {
   const [hidden, setHidden] = useState(true);

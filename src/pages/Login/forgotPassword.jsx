@@ -7,7 +7,7 @@ import './login.scss';
 import { errors as errorsConstants } from '../../constants';
 import { Routes } from '../../routes';
 import { forgotPassword, resetPassword } from '../../service/user.service';
-import { Password } from '../../components/inputs/password/password';
+import { Password } from '../../ui/password';
 import {
   EmailValidationSchema,
   ResetPasswordValidationSchema,

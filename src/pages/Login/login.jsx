@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useFormik } from 'formik';
-import { Password } from '../../components/inputs/password/password';
+import { Password } from '../../ui/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
 import './login.scss';
