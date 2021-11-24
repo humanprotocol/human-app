@@ -11,6 +11,7 @@ import { Withdraw } from '../../components/withdraw/withdraw';
 import { options, textMessages } from '../../constants';
 import { Routes } from '../../routes';
 import Profile from '../Profile/profile';
+import UserStats from './user-stats';
 import './job.scss';
 import { updateMisc } from '../../service/user.service';
 import { getWithdraws } from '../../service/withdraw.service';
@@ -359,25 +360,13 @@ const Job = (props) => {
           </div>
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container job__col__stats">
             <div className="mb-5">
-              <p className="stats stats__secondary">
-                <span>Total HMT earned: </span>
-                {user ? user.earnedTokens : 0}
-              </p>
-              <p className="stats stats__secondary">
-                <span>Available HMT to withdraw: </span>
-                {user ? user.availableTokens : 0}
-              </p>
-              <p className="stats stats__secondary">
-                <span>HMT Pending: </span>
-                {user ? user.pendingTokens : 0}
-              </p>
-              <p className="stats stats__secondary">
-                <span>Successful Referrals: </span>
-                {user ? user.referredUsers.length : 0}
-              </p>
-              <p className="stats stats__secondary">
-                <span>Questionnaire: </span> {isQuestionnaireFilled ? 'Completed' : 'Incomplete'}
-              </p>
+              <UserStats
+                earnedTokens={user?.earnedTokens}
+                availableTokens={user?.availableTokens}
+                pendingTokens={user?.pendingTokens}
+                referredUsersAmount={user?.referredUsers?.length}
+                isQuestionnaireFilled={isQuestionnaireFilled}
+              />
               <p>
                 <Button
                   className="form-control bg-blue btn btn-primary"
