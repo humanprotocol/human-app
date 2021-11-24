@@ -67,7 +67,7 @@ const Welcome = ({ history }) => {
               <FormGroup>
                 <Button
                   className="form-control earn-hmt-btn"
-                  onClick={() => history.push({ pathname: Routes.Job.path })}
+                  onClick={() => history.push({ pathname: Routes.Workspace.path })}
                 >
                   Earn HMT
                 </Button>

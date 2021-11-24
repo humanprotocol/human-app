@@ -18,7 +18,7 @@ import { Routes } from './routes';
 import ScrollToTop from './ui/scroll-to-top';
 
 import './app.scss';
-import Job from './pages/Job';
+import Workspace from './pages/workspace';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -48,7 +48,7 @@ const App = () => {
             <Route exact path={Routes.Profile.path} component={ProfilePage} />
             <Route exact path={Routes.ForgotPassword.path} component={ForgotPasswordPage} />
             {/* <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} /> */}
-            <Route exact path={Routes.Job.path} component={Job} />
+            <Route exact path={Routes.Workspace.path} component={Workspace} />
             <Redirect from="*" to="/" />
           </Switch>
         </ScrollToTop>

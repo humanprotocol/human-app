@@ -23,7 +23,7 @@ const withdrawalStatus = {
   SUCCEDED: 'succeded',
 };
 
-const Job = (props) => {
+const WorkSpace = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
   const { user = {}, isAuthed, token } = useSelector((state) => state.auth);
@@ -385,7 +385,7 @@ const Job = (props) => {
     </div>
   );
 };
-Job.propTypes = {
+WorkSpace.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
     location: PropTypes.shape({
@@ -396,4 +396,4 @@ Job.propTypes = {
   }).isRequired,
 };
 
-export default withRouter(Job);
+export default withRouter(WorkSpace);

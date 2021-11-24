@@ -6,5 +6,5 @@ export const Routes = {
   VerifyEmail: { path: '/verify-email' },
   Profile: { path: '/profile' },
   Introduction: { path: '/introduction' },
-  Job: { path: '/job' },
+  Workspace: { path: '/workspace' },
 };

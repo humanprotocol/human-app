@@ -40,7 +40,7 @@ const LoginPage = (props) => {
             });
             setHcaptchaToken('');
             setSubmitting(false);
-            if (user.isEmailVerified) history.push({ pathname: Routes.Job.path });
+            if (user.isEmailVerified) history.push({ pathname: Routes.Workspace.path });
             else history.push({ pathname: Routes.VerifyEmail.path });
           } else {
             setHcaptchaToken('');
