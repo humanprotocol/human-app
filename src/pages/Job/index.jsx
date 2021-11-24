@@ -5,17 +5,18 @@ import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { SetupWalletAlert } from '../../components/alert/wallet';
-import { DisabledWithdrawAlert } from '../../components/alert/withdrawAlert';
+import { DisabledWithdrawAlert } from '../../components/alert/withdraw';
 import { URLInput } from '../../ui/url-input';
-import { Withdraw } from '../../components/withdraw/withdraw';
+import { Withdraw } from '../../components/withdraw';
 import { options, textMessages } from '../../constants';
 import { Routes } from '../../routes';
-import Profile from '../Profile/profile';
+import Profile from '../Profile';
 import UserStats from './user-stats';
-import './job.scss';
 import { updateMisc } from '../../service/user.service';
 import { getWithdraws } from '../../service/withdraw.service';
 import notifier from '../../service/notify.service';
+
+import './index.scss';
 
 const withdrawalStatus = {
   PENDING: 'pending',

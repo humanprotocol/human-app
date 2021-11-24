@@ -8,7 +8,7 @@ import { colors } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
 import { getMyAccount, logOut } from '../../service/user.service';
-import './navigation.scss';
+import './index.scss';
 
 const Navigation = ({ history }) => {
   const dispatch = useDispatch();

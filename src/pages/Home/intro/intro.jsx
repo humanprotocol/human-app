@@ -1,5 +1,5 @@
 import React from 'react';
-import Slider from '../../../components/slider/slider';
+import Slider from '../../../components/slider';
 import './intro.scss';
 import { textMessages } from '../../../constants';
 

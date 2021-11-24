@@ -6,7 +6,7 @@ import * as EmailValidator from 'email-validator';
 import { FormControl, FormGroup, Button } from 'react-bootstrap';
 import './home.scss';
 import { Routes } from '../../routes';
-import { SignupRequest } from '../../components/signupRequest';
+import { SignupRequest } from '../../components/signup-request';
 
 const Welcome = ({ history }) => {
   const [email, setEmail] = useState('');

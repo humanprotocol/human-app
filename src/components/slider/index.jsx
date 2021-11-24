@@ -2,7 +2,7 @@ import React from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import PropTypes from 'prop-types';
 import 'keen-slider/keen-slider.min.css';
-import './slider.scss';
+import './index.scss';
 
 const Slider = ({ slides, type }) => {
   const [currentSlide, setCurrentSlide] = React.useState(0);

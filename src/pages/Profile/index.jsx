@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap';
+import { ProfileValidationSchema } from './schema';
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
-import { ProfileValidationSchema } from '../../validationSchema/user.schema';
 import { countries, errors as errorsConstants } from '../../constants';
-import './profile.scss';
+import './index.scss';
 
 const ProfilePage = (props) => {
   const { history } = props;
@@ -77,7 +77,6 @@ const ProfilePage = (props) => {
       <div className="container">
         <div className="page-title d-flex justify-content-between mb-4">
           <h2>{editing ? 'Edit Profile' : 'Profile'}</h2>
-          {/* <Link to='/'><i className='material-icons close'>clear</i></Link> */}
         </div>
         {alertMsg && (
           <Alert variant="danger" onClose={() => setAlertMsg('')} dismissible>

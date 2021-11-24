@@ -1,6 +1,6 @@
 import React from 'react';
 import ReadMoreIcon from '../../assets/icons/readmore.svg';
-import './footer.scss';
+import './index.scss';
 
 export const Footer = () => (
   <div id="footer" className="py-2">

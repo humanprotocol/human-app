@@ -5,10 +5,10 @@ import { Field, Form, Formik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import notifier from '../../service/notify.service';
-import { WithdrawSchema } from '../../validationSchema/withdraw.schema';
+import { WithdrawSchema } from './schema';
 import { sendWithdraw } from '../../service/withdraw.service';
 
-import './withdraw.scss';
+import './index.scss';
 import { getMyAccount } from '../../service/user.service';
 
 export const Withdraw = ({ show, user, toggle }) => {

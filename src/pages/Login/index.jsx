@@ -8,8 +8,8 @@ import { useFormik } from 'formik';
 import { Password } from '../../ui/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
-import './login.scss';
-import { LoginValidationSchema } from '../../validationSchema/login.schema';
+import { LoginValidationSchema } from './schema';
+import './index.scss';
 
 const LoginPage = (props) => {
   const dispatch = useDispatch();

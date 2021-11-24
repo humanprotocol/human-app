@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { SignupInterestAlert } from '../alert/signupInterest';
+import { SignupInterestAlert } from '../alert/signup-interest';
 import notifier from '../../service/notify.service';
 import { registerSignupRequest } from '../../service/user.service';
 

@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Routes } from '../../routes';
 import { resendEmailVerification, verifyEmail } from '../../service/user.service';
-import './login.scss';
+import './index.scss';
 
 const VerifyEmail = ({ history }) => {
   const dispatch = useDispatch();

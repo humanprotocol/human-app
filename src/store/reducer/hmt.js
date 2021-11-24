@@ -1,4 +1,4 @@
-import * as TYPES from '../actionType';
+import * as TYPES from '../action-type';
 
 const initValue = {
   htmCounts: 0,

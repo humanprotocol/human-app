@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { Field, Form, Formik } from 'formik';
-import { Password } from '../../components/inputs/password/password';
-import './login.scss';
+import { Password } from '../../ui/password';
+import './index.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
 import { Routes } from '../../routes';
-import { RegisterValidationSchema } from '../../validationSchema/login.schema';
+import { RegisterValidationSchema } from './schema';
 import { countries } from '../../constants';
 
 const RegisterPage = (props) => {

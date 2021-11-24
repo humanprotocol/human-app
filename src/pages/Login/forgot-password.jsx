@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { Alert, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
-import './login.scss';
 import { errors as errorsConstants } from '../../constants';
 import { Routes } from '../../routes';
 import { forgotPassword, resetPassword } from '../../service/user.service';
 import { Password } from '../../ui/password';
-import {
-  EmailValidationSchema,
-  ResetPasswordValidationSchema,
-} from '../../validationSchema/login.schema';
+import { EmailValidationSchema, ResetPasswordValidationSchema } from './schema';
+
+import './index.scss';
 
 export const resetPasswordStep = {
   verifyEmail: 'verifyEmail',

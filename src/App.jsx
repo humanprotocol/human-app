@@ -5,20 +5,20 @@ import SmoothScroll from 'smooth-scroll';
 import { createBrowserHistory } from 'history';
 import { ToastContainer } from 'react-toastify';
 
-import Navigation from './components/navigation/navigation';
+import Navigation from './components/navigation';
 import HomePage from './pages/Home/home';
-import LoginPage from './pages/Login/login';
+import LoginPage from './pages/Login';
 // import RegisterPage from './pages/Login/register';
-import ForgotPasswordPage from './pages/Login/forgotPassword';
-import ProfilePage from './pages/Profile/profile';
+import ForgotPasswordPage from './pages/Login/forgot-password';
+import ProfilePage from './pages/Profile';
 // import VerifyEmail from './pages/Login/verifyEmail';
 
 import { Subscribe } from './pages/Home/subscribe';
 import { Routes } from './routes';
 import ScrollToTop from './ui/scroll-to-top';
 
-import './App.scss';
-import Job from './pages/Job/job';
+import './app.scss';
+import Job from './pages/Job';
 
 import 'react-toastify/dist/ReactToastify.css';
 
