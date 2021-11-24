@@ -6,19 +6,19 @@ import { createBrowserHistory } from 'history';
 import { ToastContainer } from 'react-toastify';
 
 import Navigation from './components/navigation';
-import HomePage from './pages/Home/home';
+import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
-// import RegisterPage from './pages/Login/register';
+// import RegisterPage from './pages/login/register';
 import ForgotPasswordPage from './pages/Login/forgot-password';
 import ProfilePage from './pages/Profile';
-// import VerifyEmail from './pages/Login/verifyEmail';
+// import VerifyEmail from './pages/login/verifyEmail';
 
 import { Subscribe } from './pages/Home/subscribe';
 import { Routes } from './routes';
 import ScrollToTop from './ui/scroll-to-top';
 
 import './app.scss';
-import Workspace from './pages/workspace';
+import Workspace from './pages/Workspace';
 
 import 'react-toastify/dist/ReactToastify.css';
 

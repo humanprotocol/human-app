@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from '../../../components/slider';
-import './intro.scss';
+import './index.scss';
 import { textMessages } from '../../../constants';
 
 export const IntroSection = () => (
