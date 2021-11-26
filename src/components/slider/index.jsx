@@ -17,34 +17,33 @@ const Slider = ({ slides, type }) => {
     <div className="slider-container">
       <div className="navigation-wrapper">
         <div ref={sliderRef} className="keen-slider  ">
-          {slides &&
-            slides.length &&
-            slides.map((slide) => (
-              <div className="keen-slider__slide">
-                <div className="row  max-height-100 h-100">
-                  {type && type === 'humanJobs' && (
-                    <div className=" col-md-6 col-sm-12 image">
-                      <div className="image">
-                        <img src={slide.image} alt="image" />
-                      </div>
-                    </div>
-                  )}
-                  <div className="col-md-6 col-sm-12">
-                    <div className="content d-flex flex-column justify-content-center h-100">
-                      <h3 className="subtitle">{slide.subTitle}</h3>
-                      <p className="description">{slide.content}</p>
+          {slides.map((slide, idx) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div key={idx} className="keen-slider__slide">
+              <div className="row  max-height-100 h-100">
+                {type && type === 'humanJobs' && (
+                  <div className=" col-md-6 col-sm-12 image">
+                    <div className="image">
+                      <img src={slide.image} alt="image" />
                     </div>
                   </div>
-                  {type && type === 'humanAbout' && (
-                    <div className=" col-md-6 col-sm-12">
-                      <div className="image">
-                        <img src={slide.image} alt="image" />
-                      </div>
-                    </div>
-                  )}
+                )}
+                <div className="col-md-6 col-sm-12">
+                  <div className="content d-flex flex-column justify-content-center h-100">
+                    <h3 className="subtitle">{slide.subTitle}</h3>
+                    <p className="description">{slide.content}</p>
+                  </div>
                 </div>
+                {type && type === 'humanAbout' && (
+                  <div className=" col-md-6 col-sm-12">
+                    <div className="image">
+                      <img src={slide.image} alt="image" />
+                    </div>
+                  </div>
+                )}
               </div>
-            ))}
+            </div>
+          ))}
         </div>
         {slider && (
           <>
@@ -64,6 +63,7 @@ const Slider = ({ slides, type }) => {
           {[...Array(slider.details().size).keys()].map((idx) => (
             // eslint-disable-next-line react/button-has-type
             <button
+              key={idx}
               onClick={() => {
                 slider.moveToSlideRelative(idx);
               }}

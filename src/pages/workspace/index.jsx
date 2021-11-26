@@ -391,9 +391,13 @@ WorkSpace.propTypes = {
     location: PropTypes.shape({
       state: PropTypes.shape({
         jobOption: PropTypes.string,
-      }).isRequired,
-    }).isRequired,
-  }).isRequired,
+      }),
+    }),
+  }),
+};
+
+WorkSpace.defaultProps = {
+  history: { push: () => {}, location: { state: { jobOption: '' } } },
 };
 
 export default withRouter(WorkSpace);
