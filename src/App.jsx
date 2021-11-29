@@ -4,20 +4,22 @@ import ReactGA from 'react-ga4';
 import SmoothScroll from 'smooth-scroll';
 import { createBrowserHistory } from 'history';
 import { ToastContainer } from 'react-toastify';
+import { ThemeProvider } from '@mui/material/styles';
 
 import Navigation from './components/navigation';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
 // import RegisterPage from './pages/login/register';
-import ForgotPasswordPage from './pages/Login/forgot-password';
+import ForgotPasswordPage from './pages/ForgotPassword';
 import ProfilePage from './pages/Profile';
 // import VerifyEmail from './pages/login/verifyEmail';
 
 import { Subscribe } from './pages/Home/subscribe';
 import { Routes } from './routes';
 import ScrollToTop from './ui/scroll-to-top';
+import theme from './theme';
 
-import './app.scss';
+import './App.scss';
 import Workspace from './pages/Workspace';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,7 +39,7 @@ const App = () => {
   });
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Router history={history}>
         <Navigation />
         <ScrollToTop>
@@ -55,7 +57,7 @@ const App = () => {
         <Subscribe history={history} />
       </Router>
       <ToastContainer />
-    </div>
+    </ThemeProvider>
   );
 };
 

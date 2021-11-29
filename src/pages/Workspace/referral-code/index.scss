@@ -1,0 +1,15 @@
+.referral-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: auto;
+    .item {
+        margin-bottom: 10px;
+    }
+    .referral-code-card {
+        width: 100%;
+        text-align: center;
+        margin: 30px 5px 30px 5px;
+    }
+}

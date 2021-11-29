@@ -6,12 +6,12 @@ import { FormGroup, FormControl, Button, Form, Alert } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { SetupWalletAlert } from '../../components/alert/wallet';
 import { DisabledWithdrawAlert } from '../../components/alert/withdraw';
-import { URLInput } from '../../ui/url-input';
 import { Withdraw } from '../../components/withdraw';
 import { options, textMessages } from '../../constants';
 import { Routes } from '../../routes';
 import Profile from '../Profile';
 import UserStats from './user-stats';
+import ReferralCode from './referral-code';
 import { updateMisc } from '../../service/user.service';
 import { getWithdraws } from '../../service/withdraw.service';
 import notifier from '../../service/notify.service';
@@ -33,7 +33,6 @@ const WorkSpace = (props) => {
     history.push({ pathname: Routes.Home.path });
   }
   const [option, setOptions] = useState(options.jobOptions.questionare);
-  const [referralCode, setReferralCode] = useState(user ? user.referralCode || '' : '');
   const [errorText, setErrorText] = useState('');
   const [currentQuestion, setCurrentQuestion] = useState('task');
   const [taskOptions, setTaskOptions] = useState([]);
@@ -117,9 +116,6 @@ const WorkSpace = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case 'referral':
-        setReferralCode(value);
-        break;
       case 'otherQuestion':
         setOtherQuestion(value);
         if (currentQuestion === 'refer') {
@@ -181,7 +177,7 @@ const WorkSpace = (props) => {
   };
 
   return (
-    <div id="job" className="text-center">
+    <div id="job">
       <div className="blur-bg" />
       <div className="container job__container">
         <div className="row">
@@ -244,25 +240,7 @@ const WorkSpace = (props) => {
               </div>
             )}
             {option && option === options.jobOptions.referral && (
-              <div id="referral" className="text-center col-md-8 offset-md-2">
-                <p className="d-md-block">
-                  If you refer a friend you will receive 1 HMT. Note, you will receive the HMT only
-                  if your referral successfully signs up with their email and wallet address.
-                </p>
-                <p className="d-md-block">
-                  Copy the code below & ask your friend to use it while Signing up!
-                </p>
-                <URLInput
-                  className="text-center mb-3 referral-link"
-                  onChange={handleChange}
-                  name="referral"
-                  value={referralCode}
-                />
-                <Button className="mt-4 bg-blue w-100 form-control">
-                  Copy Referral Code
-                  <i className="material-icons text-white">share</i>
-                </Button>
-              </div>
+              <ReferralCode referralCode={user?.referralCode} />
             )}
             {option && option === options.jobOptions.questionare && (
               <div id="questions" className="m-auto text-left col-md-8 offset-md-2">
