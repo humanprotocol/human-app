@@ -20,20 +20,9 @@ export const register = async (user) => {
   if (user.email && !EmailValidator.validate(user.email)) {
     throw new Error('Invalid email');
   }
-  const locationData = { registration: {} };
-  const currentTime = new Date().getTime();
-  try {
-    const ipData = await axios.get('https://geolocation-db.com/json/');
-    if (ipData.status === 200) {
-      locationData.registration = ipData.data;
-      locationData.registration.timestamp = currentTime;
-    }
-  } catch (e) {
-    locationData.registration.error = 'Unable to get location data';
-    locationData.registration.timestamp = currentTime;
-  }
+
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/auth/register`, { ...user, misc: locationData })
+    .post(`${process.env.REACT_APP_API_URL}/auth/register`, { ...user })
     .then((response) => {
       if (response) {
         const { tokens } = response.data;
@@ -60,25 +49,10 @@ export const registerSignupRequest = async (email, hcaptchaToken) => {
 };
 
 export const signIn = async ({ email, password, hcaptchaToken }) => {
-  const currentTime = new Date().getTime();
-  const locationData = { logins: {} };
-
-  await axios
-    .get('https://geolocation-db.com/json/')
-    .then((ipData) => {
-      if (ipData.status === 200) {
-        locationData.logins[currentTime] = ipData.data;
-      }
-    })
-    .catch((err) => {
-      locationData.logins[currentTime] = { error: `Unable to get location data.${err.message}` };
-    });
-
   return axios
     .post(`${process.env.REACT_APP_API_URL}/auth/login`, {
       email,
       password,
-      misc: locationData,
       hcaptchaToken,
     })
     .then((response) => {
