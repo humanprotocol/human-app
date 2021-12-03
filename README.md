@@ -1,4 +1,5 @@
-# HUMAN App 
+# HUMAN App
+
 
 ## Description
 
@@ -29,6 +30,10 @@ $ `yarn`
 $ `yarn build`
 
 $ `serve -s build -p $PORT`
+
+
+# Note for developers
+Bootstrap framework is DEPRECATED. For newer components everyone should use material-ui ui-kit instead
 
 
 ## Found a bug?
