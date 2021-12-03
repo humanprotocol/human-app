@@ -4,24 +4,24 @@ import ReactGA from 'react-ga4';
 import SmoothScroll from 'smooth-scroll';
 import { createBrowserHistory } from 'history';
 import { ToastContainer } from 'react-toastify';
+import { ThemeProvider } from '@mui/material/styles';
 
-import Navigation from './components/navigation/navigation';
-import HomePage from './pages/Home/home';
-import LoginPage from './pages/Login/login';
-// import RegisterPage from './pages/Login/register';
-import ForgotPasswordPage from './pages/Login/forgotPassword';
-import ProfilePage from './pages/Profile/profile';
-import LinkWalletPage from './pages/Wallet/link';
-// import VerifyEmail from './pages/Login/verifyEmail';
+import Navigation from './components/navigation';
+import HomePage from './pages/Home';
+import LoginPage from './pages/Login';
+// import RegisterPage from './pages/login/register';
+import ForgotPasswordPage from './pages/ForgotPassword';
+// import VerifyEmail from './pages/login/verifyEmail';
 
 import { Subscribe } from './pages/Home/subscribe';
 import { Routes } from './routes';
+import ScrollToTop from './ui/scroll-to-top';
+import theme from './theme';
 
 import './App.scss';
-import Job from './pages/Job/job';
+import Workspace from './pages/Workspace';
 
 import 'react-toastify/dist/ReactToastify.css';
-import ScrollToTop from './components/scrollToTop/ScrollToTop';
 
 export const scroll = new SmoothScroll('a[href*="#"]', {
   speed: 1000,
@@ -38,7 +38,7 @@ const App = () => {
   });
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Router history={history}>
         <Navigation />
         <ScrollToTop>
@@ -46,19 +46,16 @@ const App = () => {
             <Route exact path={Routes.Home.path} component={HomePage} />
             <Route exact path={Routes.Login.path} component={LoginPage} />
             {/* <Route exact path={Routes.Register.path} component={RegisterPage} /> */}
-            <Route exact path={Routes.Profile.path} component={ProfilePage} />
-            <Route exact path={Routes.LinkWallet.path} component={LinkWalletPage} />
             <Route exact path={Routes.ForgotPassword.path} component={ForgotPasswordPage} />
             {/* <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} /> */}
-            <Route exact path={Routes.Earning.path} component={LinkWalletPage} />
-            <Route exact path={Routes.Job.path} component={Job} />
+            <Route path={Routes.Workspace.path} component={Workspace} />
             <Redirect from="*" to="/" />
           </Switch>
         </ScrollToTop>
         <Subscribe history={history} />
       </Router>
       <ToastContainer />
-    </div>
+    </ThemeProvider>
   );
 };
 

@@ -4,9 +4,9 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as EmailValidator from 'email-validator';
 import { FormControl, FormGroup, Button } from 'react-bootstrap';
-import './home.scss';
+import './index.scss';
 import { Routes } from '../../routes';
-import { SignupRequest } from '../../components/signupRequest';
+import { SignupRequest } from '../../components/signup-request';
 
 const Welcome = ({ history }) => {
   const [email, setEmail] = useState('');
@@ -67,7 +67,7 @@ const Welcome = ({ history }) => {
               <FormGroup>
                 <Button
                   className="form-control earn-hmt-btn"
-                  onClick={() => history.push({ pathname: Routes.Job.path })}
+                  onClick={() => history.push({ pathname: Routes.Workspace.path })}
                 >
                   Earn HMT
                 </Button>
