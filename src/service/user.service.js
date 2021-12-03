@@ -188,19 +188,32 @@ export const resendEmailVerification = async (token) =>
       else throw new Error('Network Error');
     });
 
-export const updateMisc = async (id, token, questionnaire) =>
-  axios
-    .post(
-      `${process.env.REACT_APP_API_URL}/users/${id}/misc`,
-      { questionnaire },
-      { headers: { Authorization: `Bearer ${token}` } },
-    )
-    .then((response) => {
-      if (response) {
-        return response.data;
-      }
-    })
+export const setQuestionnaire = async (
+  id,
+  taskQuestion,
+  tasks,
+  referQuestion,
+  referPlace,
+  token,
+) => {
+  const body = {
+    questionnaire: [
+      {
+        a: taskQuestion,
+        q: tasks,
+      },
+      {
+        a: referQuestion,
+        q: referPlace,
+      },
+    ],
+  };
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
+  return axios
+    .post(`${process.env.REACT_APP_API_URL}/users/${id}/misc`, body, headers)
+    .then((response) => response?.data)
     .catch((err) => {
       if (err.response) throw new Error(err.response.data.message);
       else throw new Error('Network Error');
     });
+};

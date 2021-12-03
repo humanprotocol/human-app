@@ -165,45 +165,7 @@
         }
     }
 }
-#questions {
-    .form-group {
-        .btn {
-            margin-bottom: 16px;
-            &.bg-white {
-                background-color: #FFFFFF!important;
-                border: 1px solid #6309ff!important;
-                color: #6309ff;
-                &:hover {
-                    background-color: #6309ff!important;
-                    color: #FFFFFF;
-                    opacity: 0.8;
-                }
-            }
-        }
-    }
-}
-#referral {
-    p {
-        text-align: left;
-    }
-    .referral-link {
-        margin-top: 64px;
-    }
-    .btn {
-        &:active {
-            background-color: #6309FF;
-            opacity: 0.8;
-        }
-        i {
-            float: right;
-            margin-top: 0.25em;
-        }
-    }
-    @media (min-width: 1800px) {
-        width: 25rem;
-        margin: auto;
-    }
-}
+
 // Stats CSS
 .stats {
     font-size: 16px;
@@ -229,10 +191,26 @@
     }
 }
 
-.shadow-box {
-    border: 1px solid #eeeeee;
-    border-radius: 10px;
-    box-shadow: 0px 23px 35px -12px rgba(31, 6, 87, 0.08);
-    background: linear-gradient(359.93deg, #FFFFFF 10.95%, #FCFBFF 121.59%);
-    padding: 32px 16px;
+.workspace-item {
+    max-width: 400px;
+    margin: auto;
+}
+
+.workspace-nav-item {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 36px;
+  background-color: transparent;
+  cursor: pointer;
+  user-select: none;
+  &.disabled {
+    cursor: not-allowed;
+  }
+  &.active {
+    color:#6309FF;
+  }
+}
+.workspace-nav-item:hover {
+  color: #6309FF;
 }

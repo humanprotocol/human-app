@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ShareSharpIcon from '@mui/icons-material/ShareSharp';
+import { useTheme } from '@mui/styles';
 import Button from '../../../ui/button';
 import Card from '../../../ui/card';
 import notifier from '../../../service/notify.service';
@@ -14,6 +15,14 @@ function copyToClipBoard(value) {
   return navigator.clipboard.writeText(value);
 }
 export default function ReferralCode({ referralCode }) {
+  const theme = useTheme();
+  const referralCodeStyles = {
+    paddingBottom: '10px',
+    paddingTop: '10px',
+    borderRadius: '0.5rem',
+    borderColor: theme.palette.primary.main,
+  };
+
   return (
     <div className="referral-container">
       <div className="item">
@@ -22,9 +31,7 @@ export default function ReferralCode({ referralCode }) {
       </div>
       <div className="item">Copy the code below & ask your friend to use it while Signing up!</div>
       <div className="item referral-code-card">
-        <Card styles={{ paddingBottom: '10px', paddingTop: '10px', borderRadius: '0.5rem' }}>
-          {referralCode}
-        </Card>
+        <Card styles={referralCodeStyles}>{referralCode}</Card>
       </div>
       <div className="item">
         <Button
