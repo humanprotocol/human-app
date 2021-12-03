@@ -6,3 +6,18 @@ export const SET_USER = 'SET_USER';
 export const INCREASE_HMT_COUNT = 'INCREASE_HMT_COUNT';
 export const DECREASE_HMT_COUNT = 'DECREASE_HMT_COUNT';
 export const SET_CAPTCHA_TOKEN = 'SET_CAPTCHA_TOKEN';
+
+export const setUserDetails = (user) => ({
+  type: SET_USER,
+  payload: user,
+});
+
+export const signIn = () => ({
+  type: AUTH_SIGN_IN,
+  payload: true,
+});
+
+export const signOut = () => ({
+  type: AUTH_SIGN_OUT,
+  payload: false,
+});

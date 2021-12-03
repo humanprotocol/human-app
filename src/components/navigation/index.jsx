@@ -1,13 +1,11 @@
 import React, { useSelector, useDispatch } from 'react-redux';
 import { Link, withRouter, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import jwtDecode from 'jwt-decode';
 import { Button } from 'react-bootstrap';
 import { colors } from '../../constants';
 import logImg from '../../assets/images/app_logo.svg';
 import { Routes } from '../../routes';
-import { getMyAccount, logOut } from '../../service/user.service';
+import { logOut } from '../../service/user.service';
 import './index.scss';
 
 const Navigation = ({ history }) => {
@@ -25,23 +23,6 @@ const Navigation = ({ history }) => {
       history.push({ pathname: Routes.Home.path });
     });
   };
-
-  useEffect(() => {
-    if (token) {
-      const { sub } = jwtDecode(token);
-      getMyAccount(sub, token)
-        .then((response) => {
-          if (response) {
-            dispatch({ type: 'SET_USER', payload: response });
-            dispatch({ type: 'AUTH_SIGN_IN', payload: response.isEmailVerified });
-          }
-        })
-        .catch((err) => {
-          // eslint-disable-next-line no-console
-          console.log(`Failed to get user details. ${err.message}`);
-        });
-    }
-  }, []);
 
   return (
     <nav id="menu" className="navbar navbar-default fixed-top mb-0">

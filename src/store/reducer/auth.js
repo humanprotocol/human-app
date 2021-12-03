@@ -1,13 +1,10 @@
-import * as TYPES from '../action-type';
-
-const token = localStorage.getItem('token');
-const refreshToken = localStorage.getItem('refreshToken');
+import * as TYPES from '../action';
 
 const initValue = {
   isAuthed: false,
   user: null,
-  token: token || null,
-  refreshToken: refreshToken || null,
+  token: null,
+  refreshToken: null,
 };
 
 const authReducer = (state = initValue, action) => {
