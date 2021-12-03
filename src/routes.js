@@ -4,7 +4,17 @@ export const Routes = {
   Register: { path: '/register' },
   ForgotPassword: { path: '/reset-password' },
   VerifyEmail: { path: '/verify-email' },
-  Profile: { path: '/profile' },
   Introduction: { path: '/introduction' },
-  Workspace: { path: '/workspace' },
+  Workspace: {
+    path: '/workspace',
+    Questionnaire: {
+      path: '/workspace/questionnaire',
+    },
+    Profile: {
+      path: '/workspace/profile',
+    },
+    Referral: {
+      path: '/workspace/referral',
+    },
+  },
 };
