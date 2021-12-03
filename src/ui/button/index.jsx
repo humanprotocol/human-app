@@ -15,6 +15,7 @@ export default function Button(props) {
       sx={{
         borderRadius: '0.5rem',
         width: '100%',
+        height: '46px',
       }}
     >
       {children}
