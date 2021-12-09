@@ -244,3 +244,9 @@ export const countryList = [
   { Code: 'ZM', Name: 'Zambia' },
   { Code: 'ZW', Name: 'Zimbabwe' },
 ];
+
+export const countryCodeToTitleMap = countryList.reduce((accum, country) => {
+  // eslint-disable-next-line no-param-reassign
+  accum[country.Code] = country.Name;
+  return accum;
+}, {});
