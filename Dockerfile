@@ -15,7 +15,9 @@ RUN yarn install
 
 COPY --chown=node:node . .
 
-RUN echo "REACT_APP_API_URL=$API_URL" > ./.env && echo "REACT_APP_HCAPTCHA_SITE_KEY=$HCAPTCHA_SITE_KEY" >> ./.env
+RUN echo "REACT_APP_API_URL=$API_URL" > ./.env && \
+    echo "REACT_APP_HCAPTCHA_SITE_KEY=$HCAPTCHA_SITE_KEY" >> ./.env && \
+    echo "CIVIC_APP_ID=$CIVIC_APP_ID" >> ./.env
 
 RUN yarn build
 

@@ -13,6 +13,7 @@ import UserStats from './user-stats';
 import ReferralCode from './referral-code';
 import Questionnaire from './questionnaire';
 import { getWithdraws } from '../../service/withdraw.service';
+import { verifyKyc, getMyAccount } from '../../service/user.service';
 import notifier from '../../service/notify.service';
 
 import './index.scss';
@@ -62,12 +63,32 @@ const WorkSpace = () => {
   };
 
   useEffect(() => {
-    if (user || Object.entries(user).length > 0) {
+    if (user && Object.entries(user).length > 0) {
       getWithdraws('pending', token)
         .then((result) => setPendingWithdrawals(result))
         .catch((err) => notifier.error(err.message));
     }
   }, []);
+
+  const onPassedKyc = (kycToken) => {
+    verifyKyc(kycToken, token)
+      .then((response) => {
+        if (response.isKYCed) {
+          notifier.success('Your identity successfuly verified');
+          getMyAccount(user.id, token).then((updatedUser) => dispatch(setUserDetails(updatedUser)));
+        }
+      })
+      .catch((err) => {
+        notifier.error(
+          'Failed to verify your identity. Please, try again or contact the support',
+          err,
+        );
+      });
+  };
+
+  const onVerificationError = () => {
+    notifier.error('Something went wrong during your verification. Please, try again');
+  };
 
   return (
     <div id="job">
@@ -130,6 +151,9 @@ const WorkSpace = () => {
                 pendingTokens={user?.pendingTokens}
                 referredUsersAmount={user?.referredUsers?.length}
                 isQuestionnaireFilled={isQuestionnaireFilled}
+                isKYCed={user?.isKYCed}
+                onPassedKyc={onPassedKyc}
+                onVerificationError={onVerificationError}
               />
               <p>
                 <Button

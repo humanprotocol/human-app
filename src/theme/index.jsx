@@ -8,6 +8,10 @@ const theme = createTheme({
     secondary: {
       main: '#ae52d4',
     },
+    kyc: {
+      main: '#3ab03e',
+      secondary: '#255c27',
+    },
   },
 });
 

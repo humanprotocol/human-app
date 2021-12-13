@@ -217,3 +217,27 @@ export const setQuestionnaire = async (
       else throw new Error('Network Error');
     });
 };
+
+export const verifyKyc = async (kycToken, authToken) => {
+  const body = {
+    token: kycToken,
+  };
+  const options = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios
+    .post(`${process.env.REACT_APP_API_URL}/users/kyc`, body, options)
+    .then((response) => {
+      if (response) {
+        return {
+          isKYCed: response.data.isKYCed,
+        };
+      }
+    })
+    .catch((err) => {
+      throw new Error(err.response.data.message);
+    });
+};
