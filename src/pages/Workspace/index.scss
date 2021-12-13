@@ -169,6 +169,7 @@
 // Stats CSS
 .stats {
     font-size: 16px;
+
     &__container {
         @media screen and (max-width: 750px){
             margin-top: 50px;
@@ -189,6 +190,11 @@
             }
         }
     }
+}
+.stats__kyc {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
 }
 
 .workspace-item {
