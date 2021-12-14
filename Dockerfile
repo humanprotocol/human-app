@@ -2,6 +2,8 @@ FROM node:14.17.5
 
 ARG API_URL
 ARG HCAPTCHA_SITE_KEY
+ARG CIVIC_APP_ID
+
 RUN mkdir -p /usr/src/node-app \
     && chown -R node:node /usr/src/node-app
 
@@ -17,7 +19,8 @@ COPY --chown=node:node . .
 
 RUN echo "REACT_APP_API_URL=$API_URL" > ./.env && \
     echo "REACT_APP_HCAPTCHA_SITE_KEY=$HCAPTCHA_SITE_KEY" >> ./.env && \
-    echo "CIVIC_APP_ID=$CIVIC_APP_ID" >> ./.env
+    echo "REACT_APP_CIVIC_APP_ID=$CIVIC_APP_ID" >> ./.env
+
 
 RUN yarn build
 

@@ -2,6 +2,7 @@
   "name": "human-app",
   "private": true,
   "dependencies": {
+    "@emotion/styled": "^11.6.0",
     "@hcaptcha/react-hcaptcha": "^0.3.6",
     "@mui/icons-material": "^5.2.0",
     "@mui/material": "^5.2.1",
