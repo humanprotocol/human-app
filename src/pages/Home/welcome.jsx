@@ -6,11 +6,9 @@ import * as EmailValidator from 'email-validator';
 import { FormControl, FormGroup, Button } from 'react-bootstrap';
 import './index.scss';
 import { Routes } from '../../routes';
-import { SignupRequest } from '../../components/signup-request';
 
 const Welcome = ({ history }) => {
   const [email, setEmail] = useState('');
-  const [showSignupRequestModal, setShowSignupRequestModal] = useState(false);
   const [status, setStatus] = useState({ email: true, msg: '' });
   const { isAuthed, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -26,7 +24,7 @@ const Welcome = ({ history }) => {
     } else {
       const newUser = { ...user, email };
       dispatch({ type: 'SET_USER', payload: newUser });
-      setShowSignupRequestModal(true);
+      history.push({ pathname: Routes.Register.path });
     }
   };
 
@@ -44,7 +42,6 @@ const Welcome = ({ history }) => {
             Welcome to the <span className="color-blue">HUMAN App</span>
           </h1>
           <h4 className="text-center mb-4 font-weight-bold">Complete jobs; earn HMT</h4>
-
           <div className="row justify-content-center earning-container">
             {isAuthed && (
               <FormGroup>
@@ -76,13 +73,6 @@ const Welcome = ({ history }) => {
                   </Button>
                 </FormGroup>
               </>
-            )}
-            {showSignupRequestModal && (
-              <SignupRequest
-                email={email}
-                show={showSignupRequestModal}
-                toggle={setShowSignupRequestModal}
-              />
             )}
           </div>
         </div>
