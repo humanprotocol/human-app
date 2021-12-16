@@ -25,11 +25,11 @@ export default function UserStats(props) {
         {availableTokens}
       </p>
       <p className="stats">
-        <span>HMT Pending: </span>
+        <span>HMT pending: </span>
         {pendingTokens}
       </p>
       <p className="stats">
-        <span>Successful Referrals: </span>
+        <span>Successful referrals: </span>
         {referredUsersAmount}
       </p>
       <p className="stats">
