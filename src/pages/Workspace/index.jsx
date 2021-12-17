@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Switch, Route, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import NavLink from './nav-link';
-import { setUserDetails } from '../../store/action';
+import { setUserDetails, startGlobalLoading, finishGlobalLoading } from '../../store/action';
 import { Routes } from '../../routes';
 import { SetupWalletAlert } from '../../components/alert/wallet';
 import { DisabledWithdrawAlert } from '../../components/alert/withdraw';
@@ -63,14 +63,18 @@ const WorkSpace = () => {
   };
 
   useEffect(() => {
-    if (user && Object.entries(user).length > 0) {
-      getWithdraws('pending', token)
-        .then((result) => setPendingWithdrawals(result))
-        .catch((err) => notifier.error(err.message));
+    if (!user || Object.entries(user).length === 0) {
+      return null;
     }
+    dispatch(startGlobalLoading());
+    getWithdraws('pending', token)
+      .then((result) => setPendingWithdrawals(result))
+      .catch((err) => notifier.error(err.message))
+      .finally(() => dispatch(finishGlobalLoading()));
   }, []);
 
   const onPassedKyc = (kycToken) => {
+    dispatch(startGlobalLoading());
     verifyKyc(kycToken, token)
       .then((response) => {
         if (response.isKYCed) {
@@ -83,7 +87,8 @@ const WorkSpace = () => {
           'Failed to verify your identity. Please, try again or contact the support',
           err,
         );
-      });
+      })
+      .finally(() => dispatch(finishGlobalLoading()));
   };
 
   const onVerificationError = () => {

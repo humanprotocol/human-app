@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Routes } from '../../routes';
+import { startGlobalLoading, finishGlobalLoading } from '../../store/action';
 import { resendEmailVerification, verifyEmail } from '../../service/user.service';
 import './index.scss';
 
@@ -21,6 +22,7 @@ const VerifyEmail = ({ history }) => {
     e.preventDefault();
     if (!token) setAlertMsg('token requried');
     else {
+      dispatch(startGlobalLoading());
       return verifyEmail(token)
         .then(() => {
           setAlertMsg('');
@@ -31,18 +33,21 @@ const VerifyEmail = ({ history }) => {
             history.push({ pathname: Routes.Login.path });
           }, 3000);
         })
-        .catch((err) => setAlertMsg(err.message));
+        .catch((err) => setAlertMsg(err.message))
+        .finally(() => dispatch(finishGlobalLoading()));
     }
   };
 
   const resendVerification = (e) => {
     e.preventDefault();
+    dispatch(startGlobalLoading());
     return resendEmailVerification(accessToken)
       .then(() => {
         setAlertMsg('');
         setResentVerification(true);
       })
-      .catch((err) => setAlertMsg(err.message));
+      .catch((err) => setAlertMsg(err.message))
+      .finally(() => dispatch(finishGlobalLoading()));
   };
   return (
     <div

@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Button, FormControl, FormGroup, Modal } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import * as EmailValidator from 'email-validator';
 import { errors } from '../../constants';
 import SubscribeImg from '../../assets/images/subscribe.png';
 import { sendNewsletterSignup } from '../../service/user.service';
 import ReadMoreIcon from '../../assets/icons/readmore.svg';
+import { startGlobalLoading, finishGlobalLoading } from '../../store/action';
 
 export const Subscribe = () => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [error, setError] = useState('');
+  const dispatch = useDispatch();
   const currentYear = new Date().getFullYear();
 
   const handleChange = (e) => {
@@ -22,6 +25,7 @@ export const Subscribe = () => {
     e.preventDefault();
     setSubmitted(true);
     if (EmailValidator.validate(email)) {
+      dispatch(startGlobalLoading());
       return sendNewsletterSignup({ email, newsletter: true })
         .then(() => {
           setError('');
@@ -29,7 +33,8 @@ export const Subscribe = () => {
         })
         .catch((err) => {
           setError(err.message);
-        });
+        })
+        .finally(() => dispatch(finishGlobalLoading()));
     }
   };
 

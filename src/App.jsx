@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ReactGA from 'react-ga4';
 import SmoothScroll from 'smooth-scroll';
 import { createBrowserHistory } from 'history';
@@ -16,6 +17,7 @@ import ForgotPasswordPage from './pages/ForgotPassword';
 import { Subscribe } from './pages/Home/subscribe';
 import { Routes } from './routes';
 import ScrollToTop from './ui/scroll-to-top';
+import Loader from './ui/loader';
 import theme from './theme';
 
 import './App.scss';
@@ -30,6 +32,7 @@ export const scroll = new SmoothScroll('a[href*="#"]', {
 
 const App = () => {
   const history = createBrowserHistory();
+  const { isLoading } = useSelector((state) => state.app);
   // Google Analytics Setup
   ReactGA.initialize('G-YGBRX2Z0WB');
   history.listen((location) => {
@@ -53,6 +56,7 @@ const App = () => {
           </Switch>
         </ScrollToTop>
         <Subscribe history={history} />
+        <Loader isOpen={isLoading} />
       </Router>
       <ToastContainer />
     </ThemeProvider>
