@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { startGlobalLoading, finishGlobalLoading } from '../../../store/action';
 import ReferPlace from './refer-place';
 import DesiredTasks from './desired-tasks';
 import Card from '../../../ui/card';
@@ -12,12 +14,14 @@ const REFER_PLACE_TITLE = 'How did you get to know about the Human Protocol?';
 
 export default function Questionnaire({ styles, userId, authToken, onSubmit }) {
   const [step, setStep] = useState(DESIRED_TASK_STEP);
+  const dispatch = useDispatch();
   const [tasks, setTasks] = useState([]);
   const submitTasks = (submittedTasks) => {
     setTasks(submittedTasks);
     setStep(REFER_PLACE_STEP);
   };
-  const submitReferPlace = (submittedReferPlace) =>
+  const submitReferPlace = (submittedReferPlace) => {
+    dispatch(startGlobalLoading());
     setQuestionnaire(
       userId,
       DESIRED_TASK_TITLE,
@@ -25,7 +29,10 @@ export default function Questionnaire({ styles, userId, authToken, onSubmit }) {
       REFER_PLACE_TITLE,
       submittedReferPlace,
       authToken,
-    ).then(onSubmit);
+    )
+      .then(onSubmit)
+      .finally(() => dispatch(finishGlobalLoading()));
+  };
   return (
     <Card styles={styles}>
       {step === DESIRED_TASK_STEP && (

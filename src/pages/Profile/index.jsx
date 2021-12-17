@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import { FormGroup, FormControl, Button, Dropdown, Alert } from 'react-bootstrap';
+import { startGlobalLoading, finishGlobalLoading } from '../../store/action';
 import { ProfileValidationSchema } from './schema';
 import { Routes } from '../../routes';
 import { update } from '../../service/user.service';
@@ -39,6 +40,7 @@ const ProfilePage = (props) => {
   const handleUpdateProfile = ({ name, polygonWalletAddr, country }, { setSubmitting }) => {
     setSubmitting(true);
     if (token) {
+      dispatch(startGlobalLoading());
       update(user.id, token, {
         name,
         polygonWalletAddr,
@@ -56,7 +58,8 @@ const ProfilePage = (props) => {
         .catch((err) => {
           setAlertMsg(err.message);
           setSubmitting(false);
-        });
+        })
+        .finally(() => dispatch(finishGlobalLoading()));
     } else {
       setSubmitting(false);
       setAlertMsg(errorsConstants.ErrorMessage.requireAuthToken);

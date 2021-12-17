@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useFormik } from 'formik';
+import { startGlobalLoading, finishGlobalLoading } from '../../store/action';
 import { Password } from '../../ui/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
@@ -26,6 +27,7 @@ const LoginPage = (props) => {
     validationSchema: LoginValidationSchema,
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(true);
+      dispatch(startGlobalLoading());
       signIn({ ...values, hcaptchaToken })
         .then((res) => {
           if (res) {
@@ -53,7 +55,8 @@ const LoginPage = (props) => {
           setHcaptchaToken('');
           setSubmitting(false);
           captchaRef.current.resetCaptcha();
-        });
+        })
+        .finally(() => dispatch(finishGlobalLoading()));
     },
   });
 

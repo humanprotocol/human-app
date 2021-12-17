@@ -8,7 +8,13 @@ import * as serviceWorker from './serviceWorker';
 import configureStore from './store/index';
 import { getJwtPayload } from './utils/jwt';
 import { getMyAccount } from './service/user.service';
-import { signIn, signOut, setUserDetails } from './store/action';
+import {
+  signIn,
+  signOut,
+  setUserDetails,
+  startGlobalLoading,
+  finishGlobalLoading,
+} from './store/action';
 
 async function init() {
   const token = localStorage.getItem('token');
@@ -23,6 +29,7 @@ async function init() {
 
   if (token) {
     try {
+      store.dispatch(startGlobalLoading());
       const userId = getJwtPayload(token);
       const user = await getMyAccount(userId, token);
       store.dispatch(setUserDetails(user));
@@ -30,6 +37,7 @@ async function init() {
     } catch (err) {
       store.dispatch(signOut());
     }
+    store.dispatch(finishGlobalLoading());
   } else {
     store.dispatch(signOut());
   }
