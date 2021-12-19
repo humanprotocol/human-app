@@ -83,10 +83,13 @@ const WorkSpace = () => {
         }
       })
       .catch((err) => {
-        notifier.error(
-          'Failed to verify your identity. Please, try again or contact the support',
-          err,
-        );
+        if (err.message) {
+          notifier.error(err.message);
+        } else {
+          notifier.error(
+            'Failed to verify your identity. Please, try again or contact the support app@humanprotocol.org',
+          );
+        }
       })
       .finally(() => dispatch(finishGlobalLoading()));
   };
