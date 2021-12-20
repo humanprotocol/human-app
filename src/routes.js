@@ -16,5 +16,8 @@ export const Routes = {
     Referral: {
       path: '/workspace/referral',
     },
+    AdminPanel: {
+      path: '/workspace/admin-panel',
+    },
   },
 };

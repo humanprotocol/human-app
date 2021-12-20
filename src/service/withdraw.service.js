@@ -38,3 +38,25 @@ export const getWithdraws = async (status, token) => {
       } else throw new Error('Network Error');
     });
 };
+
+export const execute = async (maxGasPriceGwei, maxGasLimit, withdrawalsLimit, token) => {
+  const body = {
+    withdrawRecipientsLimit: withdrawalsLimit,
+    maxGasLimit,
+    maxGasPriceGwei,
+  };
+  return axios
+    .post(`${process.env.REACT_APP_API_URL}/withdrawal/execute`, body, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      if (response && response.data) {
+        return response.data;
+      }
+    })
+    .catch((err) => {
+      if (err.response) {
+        throw new Error(err.response.data.message);
+      } else throw new Error('Network Error');
+    });
+};

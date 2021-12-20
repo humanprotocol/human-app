@@ -12,6 +12,7 @@ import Profile from '../Profile';
 import UserStats from './user-stats';
 import ReferralCode from './referral-code';
 import Questionnaire from './questionnaire';
+import AdminPanel from './admin-panel';
 import { getWithdraws } from '../../service/withdraw.service';
 import { verifyKyc, getMyAccount } from '../../service/user.service';
 import notifier from '../../service/notify.service';
@@ -24,6 +25,7 @@ const WorkSpace = () => {
   const dispatch = useDispatch();
   const { user = {}, isAuthed, token } = useSelector((state) => state.auth);
   const availableTokens = user ? user.availableTokens || 0 : 0;
+  const isAdmin = user?.role === 'admin';
 
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
@@ -118,6 +120,11 @@ const WorkSpace = () => {
               <li>
                 <NavLink to={Routes.Workspace.Referral.path}>Referral</NavLink>
               </li>
+              {isAdmin && (
+                <li>
+                  <NavLink to={Routes.Workspace.AdminPanel.path}>Admin Panel</NavLink>
+                </li>
+              )}
             </ul>
           </div>
           <div className="col-md-6 section-content col-sm-12 job__col__main">
@@ -147,6 +154,11 @@ const WorkSpace = () => {
               <Route path={Routes.Workspace.Referral.path}>
                 <div className="workspace-item">
                   <ReferralCode referralCode={user?.referralCode} />
+                </div>
+              </Route>
+              <Route path={Routes.Workspace.AdminPanel.path}>
+                <div className="workspace-item">
+                  <AdminPanel isUserAdmin={isAdmin} authToken={token} />
                 </div>
               </Route>
               <Redirect from="*" to={defaultRoute} />
