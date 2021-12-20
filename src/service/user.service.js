@@ -199,12 +199,12 @@ export const setQuestionnaire = async (
   const body = {
     questionnaire: [
       {
-        a: taskQuestion,
-        q: tasks,
+        q: taskQuestion,
+        a: tasks,
       },
       {
-        a: referQuestion,
-        q: referPlace,
+        q: referQuestion,
+        a: referPlace,
       },
     ],
   };

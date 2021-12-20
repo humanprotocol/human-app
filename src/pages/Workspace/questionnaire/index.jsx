@@ -6,6 +6,7 @@ import ReferPlace from './refer-place';
 import DesiredTasks from './desired-tasks';
 import Card from '../../../ui/card';
 import { setQuestionnaire } from '../../../service/user.service';
+import notifier from '../../../service/notify.service';
 
 const DESIRED_TASK_STEP = 'desired-tasks';
 const REFER_PLACE_STEP = 'refer-place';
@@ -31,6 +32,13 @@ export default function Questionnaire({ styles, userId, authToken, onSubmit }) {
       authToken,
     )
       .then(onSubmit)
+      .catch((error) => {
+        if (error.message) {
+          notifier.error(error.message);
+        } else {
+          notifier.error('Something went wrong, please try again');
+        }
+      })
       .finally(() => dispatch(finishGlobalLoading()));
   };
   return (

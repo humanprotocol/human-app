@@ -41,6 +41,7 @@ const WorkSpace = () => {
   }
 
   const onSubmitQuestionnaire = (updatedUser) => {
+    notifier.success('Questionnaire has been completed');
     history.push({ pathname: Routes.Workspace.Profile.path });
     dispatch(setUserDetails(updatedUser));
   };
