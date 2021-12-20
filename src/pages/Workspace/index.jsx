@@ -30,7 +30,7 @@ const WorkSpace = () => {
   }
   const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
   const [showWithdraw, setShowWithdraw] = useState(false);
-  const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire);
+  const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire.length > 0);
   const isWalletFilled = Boolean(user?.polygonWalletAddr);
   const defaultRoute = !isQuestionnaireFilled
     ? Routes.Workspace.Questionnaire.path
