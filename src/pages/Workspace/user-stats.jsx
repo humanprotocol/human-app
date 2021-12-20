@@ -13,35 +13,43 @@ export default function UserStats(props) {
     onPassedKyc,
     onVerificationError,
   } = props;
+  const kycClasses = ['stats'];
+  if (!isKYCed) {
+    kycClasses.push('stats--stretch');
+  }
+
+  const kycClassString = kycClasses.join(' ');
 
   return (
     <>
       <p className="stats">
-        <span>Total HMT earned: </span>
-        {earnedTokens}
+        <span className="stats__item--bold">Total HMT earned: </span>
+        <span> {earnedTokens} </span>
       </p>
       <p className="stats">
-        <span>Available HMT to withdraw: </span>
-        {availableTokens}
+        <span className="stats__item--bold">Available HMT to withdraw: </span>
+        <span> {availableTokens} </span>
       </p>
       <p className="stats">
-        <span>HMT pending: </span>
-        {pendingTokens}
+        <span className="stats__item--bold">HMT pending: </span>
+        <span> {pendingTokens} </span>
       </p>
       <p className="stats">
-        <span>Successful referrals: </span>
-        {referredUsersAmount}
+        <span className="stats__item--bold">Successful referrals: </span>
+        <span> {referredUsersAmount} </span>
       </p>
       <p className="stats">
-        <span>Questionnaire: </span> {isQuestionnaireFilled ? 'Completed' : 'Incomplete'}
+        <span className="stats__item--bold">Questionnaire: </span>
+        <span> {isQuestionnaireFilled ? 'Completed' : 'Incomplete'} </span>
       </p>
-      <p className="stats stats__kyc">
-        <span> Verification status: {isKYCed ? 'passed' : 'N/A'} </span>
-        <KYCButton
-          active={!isKYCed}
-          onPassedKyc={onPassedKyc}
-          onVerificationError={onVerificationError}
-        />
+      <p className={kycClassString}>
+        <span>
+          <span className="stats__item--bold"> Verification status: </span>{' '}
+          <span> {isKYCed ? 'passed' : 'N/A'} </span>
+        </span>
+        {!isKYCed && (
+          <KYCButton onPassedKyc={onPassedKyc} onVerificationError={onVerificationError} />
+        )}
       </p>
     </>
   );
