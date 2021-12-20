@@ -44,23 +44,6 @@ const Welcome = ({ history }) => {
             Welcome to the <span className="color-blue">HUMAN App</span>
           </h1>
           <h4 className="text-center mb-4 font-weight-bold">Complete jobs; earn HMT</h4>
-          {!isAuthed && (
-            <p className="text-center mb-4">
-              {/* eslint-disable */}
-              Please verify your email. We will also need a KYC-verified crypto wallet for security,
-              and to send you HMT. You will receive 1 HMT when you register {/* eslint-enable */}
-              <a
-                href="https://humanprotocol.org/app/terms-and-conditions"
-                rel="noreferrer"
-                target="_blank"
-              >
-                (Only once per person)
-                <span>&#42;</span>
-                {/* eslint-disable-next-line */}
-              </a>{' '}
-              To earn more, complete tasks, or refer friends.
-            </p>
-          )}
 
           <div className="row justify-content-center earning-container">
             {isAuthed && (
