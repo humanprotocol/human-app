@@ -21,9 +21,10 @@ export default function AdminPanel({ isUserAdmin, authToken }) {
 
 AdminPanel.propTypes = {
   isUserAdmin: PropTypes.bool,
-  authToken: PropTypes.string.isRequired,
+  authToken: PropTypes.string,
 };
 
 AdminPanel.defaultProps = {
   isUserAdmin: false,
+  authToken: '',
 };
