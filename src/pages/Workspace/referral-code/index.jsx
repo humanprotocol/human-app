@@ -25,10 +25,6 @@ export default function ReferralCode({ referralCode }) {
 
   return (
     <div className="referral-container">
-      <div className="item">
-        If you refer a friend you will receive 1 HMT. Note, you will receive the HMT only if your
-        referral successfully signs up with their email and wallet address.
-      </div>
       <div className="item">Copy the code below & ask your friend to use it while Signing up!</div>
       <div className="item referral-code-card">
         <Card styles={referralCodeStyles}>{referralCode}</Card>
