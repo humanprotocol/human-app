@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { errors } from '../../constants';
+import { errors } from '../../../constants';
 
 export const WithdrawSchema = Yup.object()
   .shape({
