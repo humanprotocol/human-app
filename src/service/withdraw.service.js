@@ -20,16 +20,23 @@ export const sendWithdraw = async (amount, hcaptchaToken, token) => {
     });
 };
 
-export const getWithdraws = async (status, token) => {
+export const getWithdrawals = async (token) => {
   return axios
     .get(`${process.env.REACT_APP_API_URL}/withdrawal`, {
       headers: { Authorization: `Bearer ${token}` },
-      params: { status },
     })
     .then((response) => {
       if (response.status === http.httpStatus.NO_CONTENT) return [];
       if (response && response.data) {
-        return response.data;
+        return response.data.map((withdrawal) => ({
+          id: withdrawal.id,
+          status: withdrawal.status,
+          createdAt: new Date(withdrawal.createdAt),
+          network: withdrawal.network,
+          txId: withdrawal.txId,
+          amount: withdrawal.amount,
+          walletAddr: withdrawal.walletAddr,
+        }));
       }
     })
     .catch((err) => {
