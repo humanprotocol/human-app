@@ -13,12 +13,16 @@ import UserStats from './user-stats';
 import ReferralCode from './referral-code';
 import Questionnaire from './questionnaire';
 import AdminPanel from './admin-panel';
-import { getWithdraws } from '../../service/withdraw.service';
+import Withdrawals from './withdrawals';
+import { getWithdrawals } from '../../service/withdraw.service';
 import { verifyKyc, getMyAccount } from '../../service/user.service';
 import notifier from '../../service/notify.service';
 
 import './index.scss';
 
+function getPendingWithdrawals(withdrawals = []) {
+  return withdrawals.map((withdraw) => withdraw.status === 'pending');
+}
 const WorkSpace = () => {
   const history = useHistory();
   const location = useLocation();
@@ -30,7 +34,7 @@ const WorkSpace = () => {
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
   }
-  const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
+  const [withdrawals, setWithdrawals] = useState([]);
   const [showWithdraw, setShowWithdraw] = useState(false);
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire.length > 0);
   const isWalletFilled = Boolean(user?.polygonWalletAddr);
@@ -49,7 +53,7 @@ const WorkSpace = () => {
   };
 
   const tryShowWithdrawModal = () => {
-    const userHasPendingWithdrawals = pendingWithdrawals.length > 0;
+    const userHasPendingWithdrawals = getPendingWithdrawals(withdrawals).length > 0;
     const userHasAvailableTokens = availableTokens > 0;
 
     if (!isQuestionnaireFilled) {
@@ -70,8 +74,8 @@ const WorkSpace = () => {
       return null;
     }
     dispatch(startGlobalLoading());
-    getWithdraws('pending', token)
-      .then((result) => setPendingWithdrawals(result))
+    getWithdrawals(token)
+      .then((result) => setWithdrawals(result))
       .catch((err) => notifier.error(err.message))
       .finally(() => dispatch(finishGlobalLoading()));
   }, []);
@@ -102,7 +106,7 @@ const WorkSpace = () => {
   };
 
   return (
-    <div id="job">
+    <div id="workspace">
       <div className="blur-bg" />
       <div className="container job__container">
         <div className="row">
@@ -125,6 +129,9 @@ const WorkSpace = () => {
                   <NavLink to={Routes.Workspace.AdminPanel.path}>Admin Panel</NavLink>
                 </li>
               )}
+              <li>
+                <NavLink to={Routes.Workspace.Withdrawals.path}>Your withdrawals</NavLink>
+              </li>
             </ul>
           </div>
           <div className="col-md-6 section-content col-sm-12 job__col__main">
@@ -159,6 +166,11 @@ const WorkSpace = () => {
               <Route path={Routes.Workspace.AdminPanel.path}>
                 <div className="workspace-item">
                   <AdminPanel isUserAdmin={isAdmin} authToken={token} />
+                </div>
+              </Route>
+              <Route path={Routes.Workspace.Withdrawals.path}>
+                <div className="workspace-item">
+                  <Withdrawals withdrawals={withdrawals} />
                 </div>
               </Route>
               <Redirect from="*" to={defaultRoute} />

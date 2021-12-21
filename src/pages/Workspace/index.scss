@@ -1,8 +1,9 @@
-#job {
+#workspace {
     margin-top: 96px;
     padding: 4% 0;
     background-position: bottom center, center left;
     background-size: cover, 60%;
+    height: auto !important;
     @media screen and (max-width: 768px) {
         margin-top: 6rem !important;
         height: auto !important;
@@ -137,7 +138,6 @@
         }
     }
     @media (min-width: 1800px) {
-        max-height: 800px;
         padding: 88px 0;
     }
     @media only screen and (max-width: 768px) {

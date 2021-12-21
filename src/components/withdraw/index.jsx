@@ -7,6 +7,7 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import notifier from '../../service/notify.service';
 import { WithdrawSchema } from './schema';
 import { sendWithdraw } from '../../service/withdraw.service';
+import NetworkBadge from '../network-badge';
 
 import './index.scss';
 import { getMyAccount } from '../../service/user.service';
@@ -79,7 +80,7 @@ export const Withdraw = ({ show, user, toggle }) => {
         <Modal.Title>Withdraw HMT</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="mark mb-3">Polygon Mainnet</div>
+        <NetworkBadge title="Polygon Mainnet" />
         <Formik
           initialValues={initialValues}
           validationSchema={WithdrawSchema}
