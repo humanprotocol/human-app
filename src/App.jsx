@@ -10,9 +10,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import Navigation from './components/navigation';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
-// import RegisterPage from './pages/login/register';
+import RegisterPage from './pages/Register';
 import ForgotPasswordPage from './pages/ForgotPassword';
-// import VerifyEmail from './pages/login/verifyEmail';
+import VerifyEmail from './pages/VerifyEmail';
 
 import { Subscribe } from './pages/Home/subscribe';
 import { Routes } from './routes';
@@ -48,9 +48,9 @@ const App = () => {
           <Switch>
             <Route exact path={Routes.Home.path} component={HomePage} />
             <Route exact path={Routes.Login.path} component={LoginPage} />
-            {/* <Route exact path={Routes.Register.path} component={RegisterPage} /> */}
+            <Route exact path={Routes.Register.path} component={RegisterPage} />
             <Route exact path={Routes.ForgotPassword.path} component={ForgotPasswordPage} />
-            {/* <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} /> */}
+            <Route exact path={Routes.VerifyEmail.path} component={VerifyEmail} />
             <Route path={Routes.Workspace.path} component={Workspace} />
             <Redirect from="*" to="/" />
           </Switch>
