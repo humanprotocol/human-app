@@ -3,34 +3,43 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Switch, Route, useHistory, useLocation, Redirect } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 import NavLink from './nav-link';
-import { setUserDetails, startGlobalLoading, finishGlobalLoading } from '../../store/action';
+import {
+  setUserDetails,
+  startGlobalLoading,
+  finishGlobalLoading,
+  setWithdrawals,
+} from '../../store/action';
 import { Routes } from '../../routes';
 import { SetupWalletAlert } from '../../components/alert/wallet';
 import { DisabledWithdrawAlert } from '../../components/alert/withdraw';
-import { Withdraw } from '../../components/withdraw';
+import { Withdraw } from './withdrawal-request';
 import Profile from '../Profile';
 import UserStats from './user-stats';
 import ReferralCode from './referral-code';
 import Questionnaire from './questionnaire';
 import AdminPanel from './admin-panel';
-import { getWithdraws } from '../../service/withdraw.service';
+import Withdrawals from './withdrawals';
+import { getWithdrawals } from '../../service/withdraw.service';
 import { verifyKyc, getMyAccount } from '../../service/user.service';
 import notifier from '../../service/notify.service';
 
 import './index.scss';
 
+function getPendingWithdrawals(withdrawals = []) {
+  return withdrawals.filter((withdrawal) => withdrawal.status === 'pending');
+}
 const WorkSpace = () => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
   const { user = {}, isAuthed, token } = useSelector((state) => state.auth);
+  const { items: withdrawals } = useSelector((state) => state.withdrawal);
   const availableTokens = user ? user.availableTokens || 0 : 0;
   const isAdmin = user?.role === 'admin';
 
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
   }
-  const [pendingWithdrawals, setPendingWithdrawals] = useState([]);
   const [showWithdraw, setShowWithdraw] = useState(false);
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire.length > 0);
   const isWalletFilled = Boolean(user?.polygonWalletAddr);
@@ -49,7 +58,7 @@ const WorkSpace = () => {
   };
 
   const tryShowWithdrawModal = () => {
-    const userHasPendingWithdrawals = pendingWithdrawals.length > 0;
+    const userHasPendingWithdrawals = getPendingWithdrawals(withdrawals).length > 0;
     const userHasAvailableTokens = availableTokens > 0;
 
     if (!isQuestionnaireFilled) {
@@ -59,10 +68,30 @@ const WorkSpace = () => {
     } else if (!userHasAvailableTokens) {
       notifier.warning('You have no available HMTs to withdraw.');
     } else if (userHasPendingWithdrawals) {
-      notifier.warning('Your previous withdrawal request has not been processed yet.');
+      notifier.warning(
+        'Your previous withdrawal request has not been processed yet. Please, retry later',
+      );
     } else {
       setShowWithdraw(true);
     }
+  };
+  const updateWithdrawals = () => {
+    return getWithdrawals(token)
+      .then((result) => dispatch(setWithdrawals(result)))
+      .catch((err) => notifier.error(err.message));
+  };
+
+  const setUserProfile = () => {
+    return getMyAccount(user.id, token)
+      .then((updatedUser) => dispatch(setUserDetails(updatedUser)))
+      .catch((error) => notifier.error(error.message));
+  };
+
+  const updateUserAndWithdrawals = () => {
+    dispatch(startGlobalLoading());
+    Promise.all([updateWithdrawals(), setUserProfile()]).finally(() =>
+      dispatch(finishGlobalLoading()),
+    );
   };
 
   useEffect(() => {
@@ -70,10 +99,7 @@ const WorkSpace = () => {
       return null;
     }
     dispatch(startGlobalLoading());
-    getWithdraws('pending', token)
-      .then((result) => setPendingWithdrawals(result))
-      .catch((err) => notifier.error(err.message))
-      .finally(() => dispatch(finishGlobalLoading()));
+    updateWithdrawals().finally(() => dispatch(finishGlobalLoading()));
   }, []);
 
   const onPassedKyc = (kycToken) => {
@@ -102,7 +128,7 @@ const WorkSpace = () => {
   };
 
   return (
-    <div id="job">
+    <div id="workspace">
       <div className="blur-bg" />
       <div className="container job__container">
         <div className="row">
@@ -125,6 +151,9 @@ const WorkSpace = () => {
                   <NavLink to={Routes.Workspace.AdminPanel.path}>Admin Panel</NavLink>
                 </li>
               )}
+              <li>
+                <NavLink to={Routes.Workspace.Withdrawals.path}>Your withdrawals</NavLink>
+              </li>
             </ul>
           </div>
           <div className="col-md-6 section-content col-sm-12 job__col__main">
@@ -161,6 +190,11 @@ const WorkSpace = () => {
                   <AdminPanel isUserAdmin={isAdmin} authToken={token} />
                 </div>
               </Route>
+              <Route path={Routes.Workspace.Withdrawals.path}>
+                <div className="workspace-item">
+                  <Withdrawals withdrawals={withdrawals} />
+                </div>
+              </Route>
               <Redirect from="*" to={defaultRoute} />
             </Switch>
           </div>
@@ -180,13 +214,20 @@ const WorkSpace = () => {
                 <Button
                   className="form-control bg-blue btn btn-primary"
                   onClick={tryShowWithdrawModal}
-                  disabled
                 >
                   Withdraw
                 </Button>
               </p>
             </div>
-            {showWithdraw && <Withdraw user={user} show={showWithdraw} toggle={setShowWithdraw} />}
+            {showWithdraw && (
+              <Withdraw
+                user={user}
+                show={showWithdraw}
+                toggle={setShowWithdraw}
+                onSubmitWithdrawal={updateUserAndWithdrawals}
+                authToken={token}
+              />
+            )}
           </div>
         </div>
       </div>

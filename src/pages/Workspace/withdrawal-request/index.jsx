@@ -2,42 +2,26 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, FormGroup, Button, FormControl, FormLabel } from 'react-bootstrap';
 import { Field, Form, Formik } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import notifier from '../../service/notify.service';
+import notifier from '../../../service/notify.service';
 import { WithdrawSchema } from './schema';
-import { sendWithdraw } from '../../service/withdraw.service';
+import { sendWithdraw } from '../../../service/withdraw.service';
+import NetworkBadge from '../../../components/network-badge';
 
 import './index.scss';
-import { getMyAccount } from '../../service/user.service';
 
-export const Withdraw = ({ show, user, toggle }) => {
-  const dispatch = useDispatch();
-  const { auth } = useSelector((state) => state);
+export const Withdraw = ({ show, user, toggle, onSubmitWithdrawal, authToken }) => {
   const captchaRef = useRef(null);
-
-  const updateUserProfile = () => {
-    return getMyAccount(auth.user.id, auth.token)
-      .then((profile) => {
-        dispatch({
-          type: 'SET_USER',
-          payload: profile,
-        });
-      })
-      .catch((err) => {
-        notifier.error(`Failed to update user profile. ${err.message}`);
-      });
-  };
 
   const onSubmit = async ({ amount, hcaptchaToken }, { setSubmitting }) => {
     setSubmitting(true);
     try {
-      await sendWithdraw(parseFloat(amount), hcaptchaToken, auth.token);
+      await sendWithdraw(parseFloat(amount), hcaptchaToken, authToken);
       captchaRef.current.resetCaptcha();
       setSubmitting(false);
       toggle(false);
       notifier.success(`Your withdraw request(${amount} HMT) has been accepted for processing`);
-      updateUserProfile();
+      onSubmitWithdrawal();
     } catch (err) {
       setSubmitting(false);
       notifier.error(err.message);
@@ -79,7 +63,7 @@ export const Withdraw = ({ show, user, toggle }) => {
         <Modal.Title>Withdraw HMT</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="mark mb-3">Polygon Mainnet</div>
+        <NetworkBadge title="Polygon Mainnet" />
         <Formik
           initialValues={initialValues}
           validationSchema={WithdrawSchema}
@@ -145,9 +129,15 @@ export const Withdraw = ({ show, user, toggle }) => {
 
 Withdraw.propTypes = {
   show: PropTypes.bool.isRequired,
+  authToken: PropTypes.string.isRequired,
   user: PropTypes.shape({
     availableTokens: PropTypes.number.isRequired,
     polygonWalletAddr: PropTypes.string.isRequired,
   }).isRequired,
   toggle: PropTypes.func.isRequired,
+  onSubmitWithdrawal: PropTypes.func,
+};
+
+Withdraw.defaultProps = {
+  onSubmitWithdrawal: () => {},
 };

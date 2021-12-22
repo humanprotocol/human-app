@@ -40,14 +40,6 @@ export const register = async (user) => {
     });
 };
 
-export const registerSignupRequest = async (email, hcaptchaToken) => {
-  return axios
-    .post(`${process.env.REACT_APP_API_URL}/auth/register`, { email, hcaptchaToken })
-    .catch((err) => {
-      throw new Error(err.response.data.message);
-    });
-};
-
 export const signIn = async ({ email, password, hcaptchaToken }) => {
   return axios
     .post(`${process.env.REACT_APP_API_URL}/auth/login`, {
