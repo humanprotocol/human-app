@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormGroup, FormControl, Button, Alert, Dropdown } from 'react-bootstrap';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
 import { Field, Form, Formik } from 'formik';
 import { Password } from '../../ui/password';
 import './index.scss';
@@ -28,12 +30,13 @@ const RegisterPage = (props) => {
     country: '',
     refCode: '',
     hcaptchaToken: '',
+    areTermsAndConditionsAccepted: false,
   };
   const [alertMsg, setAlertMsg] = useState('');
   const [countryName, setCountryName] = useState('');
 
   const handleRegister = (
-    { userName, email, password, country, hcaptchaToken, refCode },
+    { userName, email, password, country, hcaptchaToken, refCode, areTermsAndConditionsAccepted },
     { setSubmitting, setFieldValue },
   ) => {
     setSubmitting(true);
@@ -43,6 +46,7 @@ const RegisterPage = (props) => {
       password,
       country,
       hcaptchaToken,
+      areTermsAndConditionsAccepted,
     };
 
     if (refCode) newUser.refCode = refCode;
@@ -213,6 +217,29 @@ const RegisterPage = (props) => {
                   </FormControl.Feedback>
                 )}
               </FormGroup>
+              <FormGroup className="d-flex align-items-center mb-3">
+                <Checkbox
+                  id="terms-and-conditions"
+                  size="small"
+                  checked={values.areTermsAndConditionsAccepted}
+                  onChange={() =>
+                    setFieldValue(
+                      'areTermsAndConditionsAccepted',
+                      !values.areTermsAndConditionsAccepted,
+                    )
+                  }
+                />
+                <span>
+                  I agree to the&nbsp;
+                  <Link
+                    href="https://humanprotocol.org/app/terms-and-conditions"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    terms and conditions
+                  </Link>
+                </span>
+              </FormGroup>
               <FormGroup className="text-center">
                 <HCaptcha
                   // eslint-disable-next-line no-undef
@@ -226,6 +253,7 @@ const RegisterPage = (props) => {
                   </FormControl.Feedback>
                 )}
               </FormGroup>
+
               <FormGroup className="actions d-flex justify-content-between m-0">
                 <Button
                   className="form-control btn mr-2 bg-white"
