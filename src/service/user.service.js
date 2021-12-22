@@ -17,6 +17,8 @@ export const register = async (user) => {
   if (!user.password) throw new Error('password required');
   if (user.password.length < 5) throw new Error('password is at least 5 length');
   if (!user.email) throw new Error('email required');
+  if (!user.areTermsAndConditionsAccepted)
+    throw new Error('Terms and conditions should be accepted');
   if (user.email && !EmailValidator.validate(user.email)) {
     throw new Error('Invalid email');
   }
