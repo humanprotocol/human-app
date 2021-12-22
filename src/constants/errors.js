@@ -33,4 +33,5 @@ export const errorMessage = {
   sactionListError: 'The app is not available in your location. Please refer to our T&Cs',
   requiredWithdrawAmount: 'Amount required',
   invalidWithdrawAmount: 'Amount should be positive float value',
+  tcRequired: 'The terms and conditions should be accepted',
 };
