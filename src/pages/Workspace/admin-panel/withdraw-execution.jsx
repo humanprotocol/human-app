@@ -42,7 +42,7 @@ export default function ExecuteWithdrawals({ authToken }) {
             </FormControl>
             <FormControl margin="normal" className="execution__input">
               <TextField
-                id="maxGasPrice"
+                id="maxGasPriceInGwei"
                 label="Max gas price in GWEI"
                 size="small"
                 value={formikObj.values.maxGasPriceInGwei}
