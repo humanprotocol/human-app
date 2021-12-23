@@ -18,10 +18,12 @@ const Navigation = ({ history }) => {
     if (!isAuthed) {
       return history.push({ pathname: Routes.Login.path });
     }
-    return logOut(token, refreshToken).then(() => {
-      dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
-      history.push({ pathname: Routes.Home.path });
-    });
+    logOut(token, refreshToken)
+      .catch(() => {})
+      .finally(() => {
+        dispatch({ type: 'AUTH_SIGN_OUT', payload: false });
+        history.push({ pathname: Routes.Home.path });
+      });
   };
 
   return (

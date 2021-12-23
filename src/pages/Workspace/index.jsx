@@ -11,7 +11,6 @@ import {
 } from '../../store/action';
 import { Routes } from '../../routes';
 import { SetupWalletAlert } from '../../components/alert/wallet';
-import { DisabledWithdrawAlert } from '../../components/alert/withdraw';
 import { Withdraw } from './withdrawal-request';
 import Profile from '../Profile';
 import UserStats from './user-stats';
@@ -162,9 +161,6 @@ const WorkSpace = () => {
                 <SetupWalletAlert />
               </div>
             )}
-            <div className="workspace-item">
-              <DisabledWithdrawAlert />
-            </div>
             <Switch>
               <Route path={Routes.Workspace.Questionnaire.path}>
                 <div className="workspace-item">
