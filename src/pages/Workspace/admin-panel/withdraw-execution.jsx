@@ -15,13 +15,14 @@ export default function ExecuteWithdrawals({ authToken }) {
   return (
     <Formik
       initialValues={{
-        withdrawalsLimit: 5,
-        maxGasPriceInGwei: 55,
+        withdrawalsLimit: 100,
+        maxGasPriceInGwei: 1000,
+        exactGasPriceInGwei: 0,
         maxGasLimit: 100000,
       }}
-      onSubmit={({ withdrawalsLimit, maxGasPriceInGwei, maxGasLimit }) => {
+      onSubmit={({ withdrawalsLimit, maxGasPriceInGwei, exactGasPriceInGwei, maxGasLimit }) => {
         dispatch(startGlobalLoading());
-        execute(maxGasPriceInGwei, maxGasLimit, withdrawalsLimit, authToken)
+        execute(maxGasPriceInGwei, exactGasPriceInGwei, maxGasLimit, withdrawalsLimit, authToken)
           .then((data) => notifier.success(data.message))
           .catch((error) => notifier.error(error.message))
           .finally(() => dispatch(finishGlobalLoading()));
@@ -46,6 +47,15 @@ export default function ExecuteWithdrawals({ authToken }) {
                 label="Max gas price in GWEI"
                 size="small"
                 value={formikObj.values.maxGasPriceInGwei}
+                onChange={formikObj.handleChange}
+              />
+            </FormControl>
+            <FormControl margin="normal" className="execution__input">
+              <TextField
+                id="exactGasPriceInGwei"
+                label="Exact gas price in GWEI. Specify this to overrite the maximum gas value"
+                size="small"
+                value={formikObj.values.exactGasPriceInGwei}
                 onChange={formikObj.handleChange}
               />
             </FormControl>

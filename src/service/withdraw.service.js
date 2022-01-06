@@ -46,11 +46,18 @@ export const getWithdrawals = async (token) => {
     });
 };
 
-export const execute = async (maxGasPriceGwei, maxGasLimit, withdrawalsLimit, token) => {
+export const execute = async (
+  maxGasPriceGwei,
+  exactGasPriceGwei,
+  maxGasLimit,
+  withdrawalsLimit,
+  token,
+) => {
   const body = {
     withdrawRecipientsLimit: withdrawalsLimit,
     maxGasLimit,
     maxGasPriceGwei,
+    exactGasPriceGwei,
   };
   return axios
     .post(`${process.env.REACT_APP_API_URL}/withdrawal/execute`, body, {
