@@ -17,7 +17,7 @@ export function VerificationPromotionMessage() {
   return (
     <Alert variant="primary">
       <p>
-        Pass the verification in the Civic App before January 17, 09:00 AM UTC and get 1 free HMT!
+        Pass the verification in the Civic App before January 17, 05:00 PM GMT and get 1 free HMT!
       </p>
     </Alert>
   );
