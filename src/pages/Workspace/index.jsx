@@ -10,7 +10,7 @@ import {
   setWithdrawals,
 } from '../../store/action';
 import { Routes } from '../../routes';
-import { SetupWalletAlert } from '../../components/alert/wallet';
+import { SetupWalletAlert, VerificationPromotionMessage } from './alerts';
 import { Withdraw } from './withdrawal-request';
 import Profile from '../Profile';
 import UserStats from './user-stats';
@@ -159,6 +159,11 @@ const WorkSpace = () => {
             {!isWalletFilled && (
               <div className="workspace-item">
                 <SetupWalletAlert />
+              </div>
+            )}
+            {!user?.isKYCed && (
+              <div className="workspace-item">
+                <VerificationPromotionMessage />
               </div>
             )}
             <Switch>
