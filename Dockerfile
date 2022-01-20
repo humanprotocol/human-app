@@ -22,6 +22,6 @@ RUN echo "REACT_APP_API_URL=$API_URL" > ./.env && \
     echo "REACT_APP_CIVIC_APP_ID=$CIVIC_APP_ID" >> ./.env
 
 
-RUN yarn build
+RUN yarn build && cp serve.json build/
 
 CMD yarn start-prod
