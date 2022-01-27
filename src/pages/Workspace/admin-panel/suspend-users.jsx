@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
@@ -51,6 +50,7 @@ export default function SuspendUsers({ authToken }) {
                 id="userEmails"
                 label="User emails"
                 size="small"
+                helperText="Input emails separated by a comma"
                 value={formikObj.values.userEmails}
                 onChange={formikObj.handleChange}
               />

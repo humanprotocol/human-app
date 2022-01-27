@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
-import { TextField, FormControl, MenuItem } from '@mui/material';
+import { TextField, FormControl } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import Button from '../../../ui/button';
 import { unsuspendUsers } from '../../../service/user.service';
@@ -35,6 +34,7 @@ export default function UnsuspendUsers({ authToken }) {
                 id="userEmails"
                 label="User emails"
                 size="small"
+                helperText="Input emails separated by a comma"
                 value={formikObj.values.userEmails}
                 onChange={formikObj.handleChange}
               />
