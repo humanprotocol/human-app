@@ -25,7 +25,9 @@ import notifier from '../../service/notify.service';
 import './index.scss';
 
 function getPendingWithdrawals(withdrawals = []) {
-  return withdrawals.filter((withdrawal) => withdrawal.status === 'pending');
+  return withdrawals.filter(
+    (withdrawal) => withdrawal.status === 'pendingOnBC' || withdrawal.status === 'waitsExecution',
+  );
 }
 const WorkSpace = () => {
   const history = useHistory();
