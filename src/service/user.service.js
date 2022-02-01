@@ -235,3 +235,52 @@ export const verifyKyc = async (kycToken, authToken) => {
       throw new Error(err.response.data.message);
     });
 };
+
+export const suspendUsers = async (userEmails, suspendStatus, authToken) => {
+  const emails = userEmails.split(',').map((item) => item.trim());
+  const body = {
+    userEmails: emails,
+    suspendStatus,
+  };
+  const options = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios
+    .post(`${process.env.REACT_APP_API_URL}/users/suspend`, body, options)
+    .then((response) => {
+      if (response) {
+        return {
+          suspendStatus: response.data.suspendStatus,
+        };
+      }
+    })
+    .catch((err) => {
+      throw new Error(err.response.data.message);
+    });
+};
+
+export const unsuspendUsers = async (userEmails, authToken) => {
+  const emails = userEmails.split(',').map((item) => item.trim());
+  const body = {
+    userEmails: emails,
+  };
+  const options = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios
+    .post(`${process.env.REACT_APP_API_URL}/users/unsuspend`, body, options)
+    .then((response) => {
+      if (response && response.status === 200) {
+        return true;
+      }
+    })
+    .catch((err) => {
+      throw new Error(err.response.data.message);
+    });
+};

@@ -9,7 +9,10 @@ export const blockchainScanner = {
 };
 
 export const withdrawalStatusToTitle = {
-  pending: 'Pending',
+  waitsPolygonAddr: 'Waiting polygon wallet address',
+  waitsExecution: 'Waiting execution',
+  pendingOnBC: 'Waiting blockchain confirmation',
+  failed: 'Failed',
   success: 'Success',
   cancelled: 'Cancelled',
   waitsKYC: 'Waiting profile verification',
