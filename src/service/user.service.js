@@ -284,3 +284,27 @@ export const unsuspendUsers = async (userEmails, authToken) => {
       throw new Error(err.response.data.message);
     });
 };
+
+export const deleteFakeReferralUsers = async (violatorEmail, userEmails, authToken) => {
+  const emails = userEmails.split(',').map((item) => item.trim());
+  const body = {
+    violatorEmail,
+    referredEmails: emails,
+  };
+  const options = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios
+    .post(`${process.env.REACT_APP_API_URL}/users/cleanViolators`, body, options)
+    .then((response) => {
+      if (response && response.status === 200) {
+        return { message: 'Users has been deleted' };
+      }
+    })
+    .catch((err) => {
+      throw new Error(err.response.data.message);
+    });
+};
