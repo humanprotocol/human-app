@@ -4,22 +4,22 @@ import { Formik, Form } from 'formik';
 import { TextField, FormControl } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import Button from '../../../ui/button';
-import { deleteFakeReferralUsers } from '../../../service/user.service';
+import { deleteUsersByEmail } from '../../../service/user.service';
 import notifier from '../../../service/notify.service';
 import { startGlobalLoading, finishGlobalLoading } from '../../../store/action';
 import './index.scss';
 
-export default function DeleteFakeReferredUsers({ authToken }) {
+export default function DeleteUsersByEmail({ authToken }) {
   const dispatch = useDispatch();
 
   return (
     <Formik
       initialValues={{
-        userEmails: '',
+        emails: '',
       }}
-      onSubmit={({ violatorEmail, userEmails }) => {
+      onSubmit={({ emails }) => {
         dispatch(startGlobalLoading());
-        deleteFakeReferralUsers(violatorEmail, userEmails, authToken)
+        deleteUsersByEmail(emails, authToken)
           .then((data) => notifier.success(data.message))
           .catch((error) => notifier.error(error.message))
           .finally(() => dispatch(finishGlobalLoading()));
@@ -27,28 +27,19 @@ export default function DeleteFakeReferredUsers({ authToken }) {
     >
       {(formikObj) => {
         return (
-          <Form className="deleteFakeReferralUsers">
-            <h4>Remove fake referred users</h4>
+          <Form className="deleteUsersByEmail">
+            <h4>Remove users by emails</h4>
             <FormControl margin="normal" className="execution__input">
               <TextField
-                id="violatorEmail"
-                label="Violator's email"
-                size="small"
-                value={formikObj.values.violatorEmail}
-                onChange={formikObj.handleChange}
-              />
-            </FormControl>
-            <FormControl margin="normal" className="execution__input">
-              <TextField
-                id="userEmails"
+                id="emails"
                 label="User emails"
                 size="small"
                 helperText="Input emails separated by a comma"
-                value={formikObj.values.userEmails}
+                value={formikObj.values.emails}
                 onChange={formikObj.handleChange}
               />
             </FormControl>
-            <Button onClick={formikObj.submitForm}>Remove</Button>
+            <Button onClick={formikObj.submitForm}>Delete users</Button>
           </Form>
         );
       }}
@@ -56,6 +47,6 @@ export default function DeleteFakeReferredUsers({ authToken }) {
   );
 }
 
-DeleteFakeReferredUsers.propTypes = {
+DeleteUsersByEmail.propTypes = {
   authToken: PropTypes.string.isRequired,
 };
