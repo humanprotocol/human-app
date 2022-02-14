@@ -284,3 +284,29 @@ export const unsuspendUsers = async (userEmails, authToken) => {
       throw new Error(err.response.data.message);
     });
 };
+
+export const deleteUsersByEmail = async (userEmails, authToken) => {
+  const emails = userEmails.split(',').map((item) => item.trim());
+  const body = {
+    emails,
+  };
+  const options = {
+    headers: {
+      Authorization: `Bearer ${authToken}`,
+    },
+  };
+
+  return axios
+    .post(`${process.env.REACT_APP_API_URL}/users/delete/emails`, body, options)
+    .then((response) => {
+      if (response && response.status === 200) {
+        return {
+          message: 'Users has been deleted',
+          failedUsers: response.data.failedUsers,
+        };
+      }
+    })
+    .catch((err) => {
+      throw new Error(err.response.data.message);
+    });
+};
