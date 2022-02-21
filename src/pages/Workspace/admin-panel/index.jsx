@@ -5,6 +5,7 @@ import { Routes } from '../../../routes';
 import ExecuteWithdrawals from './withdraw-execution';
 import SuspendUsers from './suspend-users';
 import UnsuspendUsers from './unsuspend-users';
+import DeleteUsersByEmail from './delete-users-by-email';
 
 export default function AdminPanel({ isUserAdmin, authToken }) {
   const history = useHistory();
@@ -22,6 +23,9 @@ export default function AdminPanel({ isUserAdmin, authToken }) {
       </div>
       <div>
         <UnsuspendUsers authToken={authToken} />
+      </div>
+      <div>
+        <DeleteUsersByEmail authToken={authToken} />
       </div>
     </>
   );
