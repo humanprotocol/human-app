@@ -72,7 +72,7 @@ const VerifyEmail = ({ history }) => {
           {!verified && resentVerification && !token && accessToken && (
             <p>Verification email is resent. Please check your email.</p>
           )}
-          {!verified && token && <p> Please click Verify Email below to continue </p>}
+          {!verified && token && <p> Please click below to continue </p>}
           <form name="form">
             {!verified && (
               <FormGroup className="actions d-flex justify-content-between m-0">
