@@ -13,6 +13,8 @@ export const errorType = {
 };
 
 export const errorMessage = {
+  weakPassword:
+    'Password must be at least 8 characters and contain at least 1 uppercase, 1 lowercase, 1 numeric and 1 special character',
   invalidPasswordLength: 'Password must be at least 8 characters',
   invalidWalletAddress: 'Invalid Wallet Address',
   invalidLengthWalletAddress: 'Wallet Address length must be 42',
