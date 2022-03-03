@@ -7,6 +7,7 @@ import { createBrowserHistory } from 'history';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
 
+import CookieConsent from 'react-cookie-consent';
 import Navigation from './components/navigation';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
@@ -58,6 +59,16 @@ const App = () => {
         <Subscribe history={history} />
         <Loader isOpen={isLoading} />
       </Router>
+      <CookieConsent
+        location="bottom"
+        buttonText="I understand"
+        cookieName="cookiesConsent"
+        style={{ background: '#2B373B' }}
+        buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
+        expires={30}
+      >
+        This website uses cookies to enhance the user experience.
+      </CookieConsent>
       <ToastContainer />
     </ThemeProvider>
   );
