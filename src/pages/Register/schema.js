@@ -7,10 +7,12 @@ export const RegisterValidationSchema = Yup.object().shape({
     .required(errors.errorMessage.requireEmail),
   password: Yup.string()
     .required(errors.errorMessage.requirePassword)
-    .min(8, errors.errorMessage.invalidPasswordLength),
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+      errors.errorMessage.weakPassword,
+    ),
   repeatPassword: Yup.string()
     .required(errors.errorMessage.requirePassword)
-    .min(8, errors.errorMessage.invalidPasswordLength)
     .when('password', {
       is: (password) => !!(password && password.length > 0),
       then: Yup.string().oneOf([Yup.ref('password')], errors.errorMessage.notConfirmedPassword),

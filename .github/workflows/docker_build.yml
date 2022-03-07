@@ -1,0 +1,58 @@
+name: Docker build
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Build image
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # - name: Configure AWS credentials
+    #   uses: aws-actions/configure-aws-credentials@v1
+    #   with:
+    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #     aws-region: ap-south-1
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::340792883311:role/GithubActionsRoleECR
+        role-session-name: GithubActionsSession
+        aws-region: eu-west-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    # - name: Check envs
+    #   id: check_envs
+    #   run: |
+    #     echo $GITHUB_REF_NAME
+    #     echo ${GITHUB_SHA::7}
+
+    - name: Build, tag, and push the image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: human-app-ui
+        IMAGE_TAG: "$GITHUB_REF_NAME-${GITHUB_SHA::7}"
+      run: |
+        # Build a docker container and push it to ECR
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_REF_NAME-${GITHUB_SHA::7} -f Dockerfile .
+        echo "Pushing image to ECR..."
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_REF_NAME-${GITHUB_SHA::7}
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_REF_NAME-${GITHUB_SHA::7}"
+
