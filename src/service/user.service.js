@@ -2,16 +2,6 @@ import axios from 'axios';
 import * as EmailValidator from 'email-validator';
 import { errors } from '../constants';
 
-export const authHeader = () => {
-  // return authorization header with jwt token
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  if (user && user.token) {
-    return { Authorization: `Bearer ${user.token}` };
-  }
-  return {};
-};
-
 export const register = async (user) => {
   if (!user.name) throw new Error('name required');
   if (!user.password) throw new Error('password required');

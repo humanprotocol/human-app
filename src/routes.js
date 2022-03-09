@@ -7,6 +7,10 @@ export const Routes = {
   Introduction: { path: '/introduction' },
   Workspace: {
     path: '/workspace',
+    Labeling: {
+      path: '/workspace/labeling',
+      HCaptcha: '/workspace/labeling/hcaptcha',
+    },
     Questionnaire: {
       path: '/workspace/questionnaire',
     },
