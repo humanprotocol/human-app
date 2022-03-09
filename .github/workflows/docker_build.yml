@@ -2,9 +2,9 @@ name: Docker build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
 
 permissions:
   id-token: write
@@ -48,10 +48,11 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: human-app-ui
+        IMAGE_TAG: "$GITHUB_REF_NAME-${GITHUB_SHA::7}"
       run: |
         # Build a docker container and push it to ECR
-        export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_REF_NAME-${GITHUB_SHA::7} -f Dockerfile .
         echo "Pushing image to ECR..."
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}"
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_REF_NAME-${GITHUB_SHA::7}
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_REF_NAME-${GITHUB_SHA::7}"
+
