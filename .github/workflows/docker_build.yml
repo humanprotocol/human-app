@@ -32,10 +32,12 @@ jobs:
         role-to-assume: arn:aws:iam::340792883311:role/GithubActionsRoleECR
         role-session-name: GithubActionsSession
         aws-region: eu-west-1
+      if: github.event_name != 'pull_request'
 
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+      if: github.event_name != 'pull_request'
 
     # - name: Check envs
     #   id: check_envs
@@ -51,10 +53,10 @@ jobs:
 
     - name: Build and push the image to Amazon ECR
       id: build-push-image
-      if: github.event_name != 'pull_request'
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: human-app-ui
+      if: github.event_name != 'pull_request'
       run: |
         export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
