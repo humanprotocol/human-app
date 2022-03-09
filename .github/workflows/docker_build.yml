@@ -44,15 +44,22 @@ jobs:
         echo ${GITHUB_SHA::7}
         echo ${GITHUB_REF#refs/*/}
 
-    # - name: Build, tag, and push the image to Amazon ECR
-    #   id: build-image
-    #   env:
-    #     ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-    #     ECR_REPOSITORY: human-app-ui
-    #   run: |
-    #     # Build a docker container and push it to ECR
-    #     export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
-    #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
-    #     echo "Pushing image to ECR..."
-    #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
-    #     echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}"
+    - name: Build and tag the image
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: human-app-ui
+      run: |
+        export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
+
+    - name: Push the image to Amazon ECR
+      id: push-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: human-app-ui
+      if: github.event_name != 'pull_request'
+      run: |
+        echo "Pushing image to ECR..."
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}"
