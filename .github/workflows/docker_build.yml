@@ -3,6 +3,8 @@ name: Docker build
 on:
   push:
     branches: [ develop, master, ci-develop, ci-develop-test ]
+  pull_request:
+    branches: [ develop, master, ci-develop, ci-develop-test ]
 
 permissions:
   id-token: write
@@ -35,15 +37,21 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Check envs
-      id: check_envs
-      run: |
-        echo $GITHUB_REF_NAME
-        echo ${GITHUB_SHA::7}
-        echo ${GITHUB_REF#refs/*/}
+    # - name: Check envs
+    #   id: check_envs
+    #   run: |
+    #     echo $GITHUB_REF_NAME
+    #     echo ${GITHUB_SHA::7}
 
-    - name: Build, tag, and push the image to Amazon ECR
+    - name: Build the image
       id: build-image
+      if: github.event_name == 'pull_request'
+      run: |
+        docker build -f Dockerfile .
+
+    - name: Build and push the image to Amazon ECR
+      id: push-image
+      if: github.event_name != 'pull_request'
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: human-app-ui
