@@ -2,9 +2,9 @@ name: Docker build
 
 on:
   push:
-    branches: [ develop, master, ci-develop, ci-develop-test ]
+    branches: [ develop, master, ci-develop ]
   pull_request:
-    branches: [ develop, master, ci-develop, ci-develop-test ]
+    branches: [ develop, master, ci-develop ]
 
 permissions:
   id-token: write
