@@ -2,9 +2,9 @@ name: Docker build
 
 on:
   push:
-    branches: [ develop, master, ci-develop, ci-develop-test ]
+    branches: [ develop, master, ci-develop ]
   pull_request:
-    branches: [ develop, master, ci-develop, ci-develop-test ]
+    branches: [ develop, master, ci-develop ]
 
 permissions:
   id-token: write
@@ -50,7 +50,7 @@ jobs:
         docker build -f Dockerfile .
 
     - name: Build and push the image to Amazon ECR
-      id: push-image
+      id: build-push-image
       if: github.event_name != 'pull_request'
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
