@@ -18,6 +18,7 @@ import ReferralCode from './referral-code';
 import Questionnaire from './questionnaire';
 import AdminPanel from './admin-panel';
 import Withdrawals from './withdrawals';
+import Labeling from './labeling';
 import { getWithdrawals } from '../../service/withdraw.service';
 import { verifyKyc, getMyAccount } from '../../service/user.service';
 import notifier from '../../service/notify.service';
@@ -44,6 +45,7 @@ const WorkSpace = () => {
   const [showWithdraw, setShowWithdraw] = useState(false);
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire.length > 0);
   const isWalletFilled = Boolean(user?.polygonWalletAddr);
+  const isLabellingEnabled = user?.isKYCed && user?.polygonWalletAddr;
   const defaultRoute = !isQuestionnaireFilled
     ? Routes.Workspace.Questionnaire.path
     : Routes.Workspace.Profile.path;
@@ -137,6 +139,19 @@ const WorkSpace = () => {
             <h4 className="title mb-4">More jobs coming soon</h4>
             <ul className="m-0">
               <li>
+                <NavLink
+                  to={Routes.Workspace.Labeling.path}
+                  disabled={!isLabellingEnabled}
+                  tooltip={
+                    isLabellingEnabled
+                      ? ''
+                      : 'To access jobs fill the wallet address and pass the verification'
+                  }
+                >
+                  Data Labelling Jobs
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to={Routes.Workspace.Questionnaire.path} disabled={isQuestionnaireFilled}>
                   Questionnaire
                 </NavLink>
@@ -164,6 +179,16 @@ const WorkSpace = () => {
               </div>
             )}
             <Switch>
+              <Route path={Routes.Workspace.Labeling.path}>
+                <div className="workspace-item">
+                  <Labeling
+                    authToken={token}
+                    hcaptchaSiteKey={user?.hcaptchaSiteKey}
+                    userId={user?.id}
+                    isKYCed={user?.isKYCed}
+                  />
+                </div>
+              </Route>
               <Route path={Routes.Workspace.Questionnaire.path}>
                 <div className="workspace-item">
                   <Questionnaire

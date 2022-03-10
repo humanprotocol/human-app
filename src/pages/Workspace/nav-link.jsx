@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouteMatch, useHistory } from 'react-router-dom';
+import Tooltip from '@mui/material/Tooltip';
 
-export default function WorkSpaceNavLink({ to, disabled, children }) {
+export default function WorkSpaceNavLink({ to, disabled, children, tooltip }) {
   const history = useHistory();
   const match = useRouteMatch({
     path: to,
@@ -24,9 +25,11 @@ export default function WorkSpaceNavLink({ to, disabled, children }) {
     history.push({ pathname: to });
   };
   return (
-    <span className={`${classes.join(' ')}`} to={to} onClick={onClick}>
-      {children}
-    </span>
+    <Tooltip title={tooltip}>
+      <span className={`${classes.join(' ')}`} to={to} onClick={onClick}>
+        {children}
+      </span>
+    </Tooltip>
   );
 }
 
@@ -34,9 +37,11 @@ WorkSpaceNavLink.propTypes = {
   to: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   children: PropTypes.node,
+  tooltip: PropTypes.string,
 };
 
 WorkSpaceNavLink.defaultProps = {
   disabled: false,
   children: '',
+  tooltip: '',
 };

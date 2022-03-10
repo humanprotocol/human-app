@@ -11,7 +11,7 @@ import notifier from '../../../service/notify.service';
 const DESIRED_TASK_STEP = 'desired-tasks';
 const REFER_PLACE_STEP = 'refer-place';
 const DESIRED_TASK_TITLE = 'What tasks would you prefer to do on the HUMAN App?';
-const REFER_PLACE_TITLE = 'How did you get to know about the Human Protocol?';
+const REFER_PLACE_TITLE = 'How did you hear about HUMAN Protocol?';
 
 export default function Questionnaire({ styles, userId, authToken, onSubmit }) {
   const [step, setStep] = useState(DESIRED_TASK_STEP);
