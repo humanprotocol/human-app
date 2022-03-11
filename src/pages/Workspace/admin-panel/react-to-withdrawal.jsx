@@ -28,7 +28,13 @@ export default function ReactToWithdrawal({ authToken }) {
       {(formikObj) => {
         return (
           <Form>
-            <h4>React To Withdrawal</h4>
+            <h4>Sync Withdrawal With Blockchain</h4>
+            <p color="grey">
+              This is intended for syncing transactions in the blockchain and withdrawals in the
+              system in case of errors on the human app side. This functionality should be used only
+              when withdrawals have a transaction in the blockchain, but user tokens and withdrawal
+              status are not updated in the system
+            </p>
             <FormControl margin="normal" className="execution__input">
               <TextField
                 id="withdrawalId"
@@ -48,7 +54,7 @@ export default function ReactToWithdrawal({ authToken }) {
                 onChange={formikObj.handleChange}
               />
             </FormControl>
-            <Button onClick={formikObj.submitForm}>React</Button>
+            <Button onClick={formikObj.submitForm}>Sync</Button>
           </Form>
         );
       }}
