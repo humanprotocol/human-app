@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import WithdrawalRow from './row';
 
-export default function Withdrawals({ withdrawals }) {
+export default function Withdrawals({ withdrawals, authToken }) {
   const requestsLength = withdrawals.length;
   const sortedWithdrawals = [...withdrawals].sort((w1, w2) => w2.createdAt - w1.createdAt);
   return (
@@ -39,6 +39,7 @@ export default function Withdrawals({ withdrawals }) {
                   txId={withdraw.txId}
                   walletAddr={withdraw.walletAddr}
                   amount={withdraw.amount}
+                  authToken={authToken}
                 />
               ))}
             </TableBody>
@@ -60,6 +61,7 @@ Withdrawals.propTypes = {
       txId: PropTypes.string,
     }),
   ),
+  authToken: PropTypes.string.isRequired,
 };
 
 Withdrawals.defaultProps = {
