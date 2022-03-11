@@ -110,7 +110,6 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
                   reportapi="https://foundation-accounts.hmt.ai"
                   custom
                   className="hcaptcha-labeling-item"
-                  host="vkomodey.com"
                   sitekey={siteKey}
                   ref={captchaRef}
                   onVerify={onVerifyToken}
