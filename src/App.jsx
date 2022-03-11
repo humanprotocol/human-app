@@ -61,13 +61,18 @@ const App = () => {
       </Router>
       <CookieConsent
         location="bottom"
+        buttonClasses="btn btn-custom form-control"
         buttonText="I understand"
         cookieName="cookiesConsent"
-        style={{ background: '#2B373B' }}
-        buttonStyle={{ color: '#4e503b', fontSize: '13px' }}
+        style={{ background: 'rgba(50, 10, 141, 0.8)' }}
         expires={30}
       >
-        This website uses cookies to enhance the user experience.
+        We use cookies. By using this site, you consent to our{' '}
+        <span>
+          <a href="https://humanprotocol.org/app/privacy-policy" style={{ fontSize: '14px' }}>
+            Privacy Policy
+          </a>
+        </span>
       </CookieConsent>
       <ToastContainer />
     </ThemeProvider>
