@@ -59,7 +59,7 @@ jobs:
       if: github.event_name != 'pull_request'
       run: |
         export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
+        docker build $(for i in `cat build.args`; do out+="--build-arg $i " ; done; echo $out;out="") -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}"
