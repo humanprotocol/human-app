@@ -2,7 +2,7 @@ name: Docker build
 
 on:
   push:
-    branches: [ develop, master, ci-develop ]
+    branches: [ develop, master ]
   pull_request:
     branches: [ develop, master ]
 
@@ -56,7 +56,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: human-app-ui
-      if: github.ref == 'refs/heads/ci-develop'
+      if: github.ref == 'refs/heads/develop'
       run: |
         export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
         docker build \
