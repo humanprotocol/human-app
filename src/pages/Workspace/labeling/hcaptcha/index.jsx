@@ -17,6 +17,7 @@ import { verifyToken, connect, getStats } from '../../../../service/labelingHcap
 import { startGlobalLoading, finishGlobalLoading, setUserDetails } from '../../../../store/action';
 import notifier from '../../../../service/notify.service';
 import { getMyAccount } from '../../../../service/user.service';
+import { hcaptchaConstants } from '../../../../constants';
 
 import './index.scss';
 
@@ -106,11 +107,10 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
               </Typography>
               {siteKey && (
                 <HCaptcha
-                  endpoint="https://foundation-exchange.hmt.ai"
-                  reportapi="https://foundation-accounts.hmt.ai"
+                  endpoint={hcaptchaConstants.endpoint}
+                  reportapi={hcaptchaConstants.reportapi}
                   custom
                   className="hcaptcha-labeling-item"
-                  host="vkomodey.com"
                   sitekey={siteKey}
                   ref={captchaRef}
                   onVerify={onVerifyToken}
