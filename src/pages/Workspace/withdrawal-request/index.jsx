@@ -7,6 +7,7 @@ import notifier from '../../../service/notify.service';
 import { WithdrawSchema } from './schema';
 import { sendWithdraw } from '../../../service/withdraw.service';
 import NetworkBadge from '../../../components/network-badge';
+import { hcaptchaConstants } from '../../../constants';
 
 import './index.scss';
 
@@ -100,6 +101,9 @@ export const Withdraw = ({ show, user, toggle, onSubmitWithdrawal, authToken }) 
               <FormGroup className="hcaptcha-container">
                 <HCaptcha
                   sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+                  endpoint={hcaptchaConstants.endpoint}
+                  reportapi={hcaptchaConstants.reportapi}
+                  custom
                   onVerify={(token) => setFieldValue('hcaptchaToken', token)}
                   onError={onHcaptchaError}
                   onExpire={onHcaptchaError}
