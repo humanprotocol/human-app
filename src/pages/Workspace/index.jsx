@@ -215,7 +215,7 @@ const WorkSpace = () => {
               </Route>
               <Route path={Routes.Workspace.Withdrawals.path}>
                 <div className="workspace-item">
-                  <Withdrawals withdrawals={withdrawals} />
+                  <Withdrawals withdrawals={withdrawals} authToken={token} />
                 </div>
               </Route>
               <Redirect from="*" to={defaultRoute} />
