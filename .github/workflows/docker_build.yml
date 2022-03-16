@@ -2,9 +2,9 @@ name: Docker build
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop, master ]
   pull_request:
-    branches: [ develop ]
+    branches: [ develop, master ]
 
 permissions:
   id-token: write
@@ -32,10 +32,12 @@ jobs:
         role-to-assume: arn:aws:iam::340792883311:role/GithubActionsRoleECR
         role-session-name: GithubActionsSession
         aws-region: eu-west-1
+      if: github.event_name != 'pull_request'
 
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+      if: github.event_name != 'pull_request'
 
     # - name: Check envs
     #   id: check_envs
@@ -43,16 +45,42 @@ jobs:
     #     echo $GITHUB_REF_NAME
     #     echo ${GITHUB_SHA::7}
 
-    - name: Build, tag, and push the image to Amazon ECR
+    - name: Build the image
       id: build-image
+      if: github.event_name == 'pull_request'
+      run: |
+        docker build -f Dockerfile .
+
+    - name: Build and push the develop image to Amazon ECR
+      id: build-push-image-develop
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: human-app-ui
-        IMAGE_TAG: "$GITHUB_REF_NAME-${GITHUB_SHA::7}"
+      if: github.ref == 'refs/heads/develop'
       run: |
-        # Build a docker container and push it to ECR
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_REF_NAME-${GITHUB_SHA::7} -f Dockerfile .
+        export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
+        docker build \
+          --build-arg REACT_APP_API_URL="http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1" \
+          --build-arg REACT_APP_HCAPTCHA_SITE_KEY="c8e519a2-032a-4e45-9bf1-4f10f6af1b1f" \
+          --build-arg REACT_APP_CIVIC_APP_ID="9CXmtYJvd" \
+          -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
         echo "Pushing image to ECR..."
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_REF_NAME-${GITHUB_SHA::7}
-        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$GITHUB_REF_NAME-${GITHUB_SHA::7}"
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}"
 
+    - name: Build and push the master image to Amazon ECR
+      id: build-push-image-master
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: human-app-ui
+      if: github.ref == 'refs/heads/master'
+      run: |
+        export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
+        docker build \
+          --build-arg REACT_APP_API_URL="https://api.humanprotocol.org/v1" \
+          --build-arg REACT_APP_HCAPTCHA_SITE_KEY="10cd757e-a469-4302-9ee2-a89e024da91a" \
+          --build-arg REACT_APP_CIVIC_APP_ID="9CXmtYJvd" \
+          -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
+        echo "Pushing image to ECR..."
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
+        echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}"
