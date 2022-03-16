@@ -69,7 +69,12 @@ const App = () => {
       >
         We use cookies. By using this site, you consent to our{' '}
         <span>
-          <a href="https://humanprotocol.org/app/privacy-policy" style={{ fontSize: '14px' }}>
+          <a
+            href="https://humanprotocol.org/app/privacy-policy"
+            target="_blank"
+            rel="noreferrer noopener"
+            style={{ fontSize: '14px' }}
+          >
             Privacy Policy
           </a>
         </span>
