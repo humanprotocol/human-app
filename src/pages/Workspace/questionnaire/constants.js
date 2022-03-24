@@ -12,5 +12,5 @@ export const desiredTasks = [
   'Code review and Bug bounties.',
   'Market research surveys.',
   'Partake in predictions markets.',
-  'Data labelling on video and/or text.',
+  'Data labeling on video and/or text.',
 ];

@@ -3,7 +3,7 @@
 
 ## Description
 
-The HUMAN App is the frontend interface which allows earners to connect to HUMAN Protocol and solve labelling tasks for $HMT rewards. 
+The HUMAN App is the frontend interface which allows earners to connect to HUMAN Protocol and solve labeling tasks for $HMT rewards. 
 It is written in the React.js. Please visit [humanprotocol.org](https://humanprotocol.org) for more information
 
 ## Note:
