@@ -102,7 +102,7 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
             <form>
               <Typography variant="h5">hCaptcha Labeling</Typography>
               <Typography sx={{ fontSize: '14px', lineHeight: 2 }}>
-                To earn HMT, you must complete data-labelling tasks. Rewards will be automatically
+                To earn HMT, you must complete data-labeling tasks. Rewards will be automatically
                 sent to your wallet according to a predefined schedule.
               </Typography>
               {siteKey && (
@@ -119,7 +119,7 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
               )}
               {!siteKey && <Button onClick={connectUserToHcaptchaJobsPool}>Connect</Button>}
               <Typography variant="subtitle2" sx={{ marginTop: '20px' }}>
-                Important note: not all data-labelling tasks are billed. You can find relevant
+                Important note: not all data-labeling tasks are billed. You can find relevant
                 information in the section below.
               </Typography>
             </form>
