@@ -74,3 +74,45 @@ export const execute = async (
       } else throw new Error('Network Error');
     });
 };
+
+export const updateWithdrawal = async (token, id, newStatus) => {
+  return axios
+    .patch(
+      `${process.env.REACT_APP_API_URL}/withdrawal/${id}`,
+      { newStatus },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+    .then((response) => {
+      if (response && response.data) {
+        return response.data;
+      }
+    })
+    .catch((err) => {
+      if (err.response) {
+        throw new Error(err.response.data.message);
+      } else throw new Error('Network Error');
+    });
+};
+
+export const reactToWithdrawal = async (token, id, txHash) => {
+  return axios
+    .post(
+      `${process.env.REACT_APP_API_URL}/withdrawal/react/${id}`,
+      { txHash },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+    .then((response) => {
+      if (response && response.data) {
+        return response.data;
+      }
+    })
+    .catch((err) => {
+      if (err.response) {
+        throw new Error(err.response.data.message);
+      } else throw new Error('Network Error');
+    });
+};

@@ -7,6 +7,7 @@ import { createBrowserHistory } from 'history';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
 
+import CookieConsent from 'react-cookie-consent';
 import Navigation from './components/navigation';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
@@ -58,6 +59,26 @@ const App = () => {
         <Subscribe history={history} />
         <Loader isOpen={isLoading} />
       </Router>
+      <CookieConsent
+        location="bottom"
+        buttonClasses="btn btn-custom form-control"
+        buttonText="I understand"
+        cookieName="cookiesConsent"
+        style={{ background: 'rgba(50, 10, 141, 0.8)' }}
+        expires={30}
+      >
+        We use cookies. By using this site, you consent to our{' '}
+        <span>
+          <a
+            href="https://humanprotocol.org/app/privacy-policy"
+            target="_blank"
+            rel="noreferrer noopener"
+            style={{ fontSize: '14px' }}
+          >
+            Privacy Policy
+          </a>
+        </span>
+      </CookieConsent>
       <ToastContainer />
     </ThemeProvider>
   );

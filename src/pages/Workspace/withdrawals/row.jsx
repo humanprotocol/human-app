@@ -1,20 +1,37 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Collapse, IconButton, TableCell, TableRow, Box } from '@mui/material';
+import { Collapse, IconButton, TableCell, TableRow, Box, Button } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Divider from '@mui/material/Divider';
 import Link from '@mui/material/Link';
+import { useDispatch } from 'react-redux';
 import { humanNetworkName, blockchainScanner, withdrawalStatusToTitle } from './constants';
+import notifier from '../../../service/notify.service';
 
 import './index.scss';
+import { finishGlobalLoading, startGlobalLoading } from '../../../store/action';
+import { updateWithdrawal } from '../../../service/withdraw.service';
 
 export default function WithdrawalRow(props) {
-  const { id, amount, status, walletAddr, network, createdAt, txId } = props;
+  const dispatch = useDispatch();
+  const { id, amount, status, walletAddr, network, createdAt, txId, authToken } = props;
+  const [withdrawalStatus, setWithdrawalStatus] = useState(status);
   const [open, setOpen] = useState(false);
   const txUrl = `${blockchainScanner[network]}/tx/${txId}`;
   const walletUrl = `${blockchainScanner[network]}/address/${walletAddr}`;
-  const humanStatus = withdrawalStatusToTitle[status] || 'N/A';
+  const humanStatus = withdrawalStatusToTitle[withdrawalStatus] || 'N/A';
+
+  const cancelWithdrawal = () => {
+    dispatch(startGlobalLoading());
+    updateWithdrawal(authToken, id, 'cancelled')
+      .then((data) => {
+        notifier.success(data.message);
+        setWithdrawalStatus('cancelled');
+      })
+      .catch((error) => notifier.error(error.message))
+      .finally(() => dispatch(finishGlobalLoading()));
+  };
   return (
     <>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }} hover onClick={() => setOpen(!open)}>
@@ -59,6 +76,12 @@ export default function WithdrawalRow(props) {
                   </div>
                 </div>
               )}
+              {withdrawalStatus === 'waitsExecution' && (
+                <div>
+                  <Divider />
+                  <Button onClick={cancelWithdrawal}>cancel</Button>
+                </div>
+              )}
             </Box>
           </Collapse>
         </TableCell>
@@ -75,6 +98,7 @@ WithdrawalRow.propTypes = {
   network: PropTypes.string.isRequired,
   createdAt: PropTypes.instanceOf(Date).isRequired,
   txId: PropTypes.string,
+  authToken: PropTypes.string.isRequired,
 };
 
 WithdrawalRow.defaultProps = {

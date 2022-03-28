@@ -45,7 +45,7 @@ const WorkSpace = () => {
   const [showWithdraw, setShowWithdraw] = useState(false);
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire.length > 0);
   const isWalletFilled = Boolean(user?.polygonWalletAddr);
-  const isLabellingEnabled = user?.isKYCed && user?.polygonWalletAddr;
+  const isLabelingEnabled = user?.isKYCed && user?.polygonWalletAddr;
   const defaultRoute = !isQuestionnaireFilled
     ? Routes.Workspace.Questionnaire.path
     : Routes.Workspace.Profile.path;
@@ -141,14 +141,14 @@ const WorkSpace = () => {
               <li>
                 <NavLink
                   to={Routes.Workspace.Labeling.path}
-                  disabled={!isLabellingEnabled}
+                  disabled={!isLabelingEnabled}
                   tooltip={
-                    isLabellingEnabled
+                    isLabelingEnabled
                       ? ''
                       : 'To access jobs fill the wallet address and pass the verification'
                   }
                 >
-                  Data Labelling Jobs
+                  Data Labeling Jobs
                 </NavLink>
               </li>
               <li>
@@ -168,7 +168,7 @@ const WorkSpace = () => {
                 </li>
               )}
               <li>
-                <NavLink to={Routes.Workspace.Withdrawals.path}>Your withdrawals</NavLink>
+                <NavLink to={Routes.Workspace.Withdrawals.path}>Your Withdrawals</NavLink>
               </li>
             </ul>
           </div>
@@ -215,7 +215,7 @@ const WorkSpace = () => {
               </Route>
               <Route path={Routes.Workspace.Withdrawals.path}>
                 <div className="workspace-item">
-                  <Withdrawals withdrawals={withdrawals} />
+                  <Withdrawals withdrawals={withdrawals} authToken={token} />
                 </div>
               </Route>
               <Redirect from="*" to={defaultRoute} />
