@@ -28,8 +28,7 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
   const { isAuthed } = useSelector((state) => state.auth);
   const [servedCaptchas, setServedCaptchas] = useState(0);
   const [solvedCaptchas, setSolvedCaptchas] = useState(0);
-  const [availableTokens, setAvailableTokens] = useState(0);
-  const [estimatedTokens, setEstimatedTokens] = useState(0);
+  const [walletTokens, setWalletTokens] = useState(0);
 
   const getCaptchaStats = () => {
     dispatch(startGlobalLoading());
@@ -38,8 +37,7 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
       .then((stats) => {
         setServedCaptchas(stats.served);
         setSolvedCaptchas(stats.solved);
-        setEstimatedTokens(stats?.balance?.estimated || 0);
-        setAvailableTokens(stats?.balance?.available || 0);
+        setWalletTokens(stats?.balance?.available || 0);
       })
       .catch((error) => {
         if (error.message) {
@@ -145,12 +143,8 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
                 <div>{solvedCaptchas}</div>
               </div>
               <div className="withdrawal-item">
-                <Divider> Estimated HMT </Divider>
-                <div> {estimatedTokens} </div>
-              </div>
-              <div className="withdrawal-item">
-                <Divider> Available HMT </Divider>
-                <div> {availableTokens} </div>
+                <Divider> Wallet HMT Balance </Divider>
+                <div> {walletTokens} </div>
               </div>
             </Box>
             <Typography variant="subtitle2">
