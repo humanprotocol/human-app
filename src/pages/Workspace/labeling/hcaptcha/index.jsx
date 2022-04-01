@@ -39,7 +39,7 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
         setServedCaptchas(stats.served);
         setSolvedCaptchas(stats.solved);
         setEstimatedTokens(stats?.balance?.estimated || 0);
-        setAvailableTokens(stats?.balance?.earned || 0);
+        setAvailableTokens(stats?.balance?.available || 0);
       })
       .catch((error) => {
         if (error.message) {
