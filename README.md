@@ -13,6 +13,7 @@ The application is in active development state and can have breaking changes.
 
 * `REACT_APP_API_URL`: Human APP API
 * `REACT_APP_HCAPTCHA_SITE_KEY`: Site Key for HCaptcha widget
+* `REACT_APP_CIVIC_APP_ID`: Civic Integration APP ID
 
 
 ### Running locally:
@@ -23,13 +24,11 @@ $ `yarn`
 $ `yarn start`
 
 ### Running in the production:
-$ `cp .env.example .env`
-
 $ `yarn`
 
 $ `yarn build`
 
-$ `serve -s build -p $PORT`
+$ `REACT_APP_API_URL=${API_URL} PORT=${PORT} yarn start-prod`
 
 
 # Note for developers
