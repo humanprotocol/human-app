@@ -21,7 +21,7 @@ app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: [
       "'self'",
-      '*.civic.com'
+      '*.civic.com',
       'https://googleads.g.doubleclick.net',
       'https://newassets.hcaptcha.com',
       'https://hcaptcha.com',
