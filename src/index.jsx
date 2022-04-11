@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/index';
-import { getJwtPayload } from './utils/jwt';
+import { getJwtPayload, isJwtExpired } from './utils/jwt';
 import { getMyAccount } from './service/user.service';
 import {
   signIn,
@@ -28,7 +28,7 @@ async function init() {
   };
   const store = configureStore(initialState);
 
-  if (token) {
+  if (token && !isJwtExpired(token)) {
     try {
       store.dispatch(startGlobalLoading());
       const userId = getJwtPayload(token);
