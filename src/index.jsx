@@ -28,13 +28,15 @@ async function init() {
   };
   const store = configureStore(initialState);
 
-  if (token && !isJwtExpired(token)) {
+  if (token) {
     try {
-      store.dispatch(startGlobalLoading());
-      const userId = getJwtPayload(token);
-      const user = await getMyAccount(userId, token);
-      store.dispatch(setUserDetails(user));
-      store.dispatch(signIn());
+      if (!isJwtExpired(token)) {
+        store.dispatch(startGlobalLoading());
+        const userId = getJwtPayload(token);
+        const user = await getMyAccount(userId, token);
+        store.dispatch(setUserDetails(user));
+        store.dispatch(signIn());
+      }
     } catch (err) {
       notifier.error(err.message);
       store.dispatch(signOut());
