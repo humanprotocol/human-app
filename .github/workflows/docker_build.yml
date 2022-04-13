@@ -109,7 +109,7 @@ jobs:
     - name: Remove Github Actions IP from Staging security group
       if: github.ref == 'refs/heads/ci-develop'
       run: |
-        aws ec2 revoke-security-group-ingress --group-name "Human App Staging SG" --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        aws ec2 revoke-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
     
     - name: Execute a script throuh SSM Run Command on Staging
       id: execute-script-staging
