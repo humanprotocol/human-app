@@ -4,10 +4,11 @@ set -eo pipefail
 
 REGISTRY="340792883311.dkr.ecr.us-east-2.amazonaws.com"
 IMAGE_NAME="human-app-ui"
-IMAGE="$REGISTRY/$IMAGE_NAME:$1"
+IMAGE_TAG="$1"
+IMAGE="$REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
 CONTAINER_NAME="$IMAGE_NAME"
 
-echo "$IMAGE" "$CONTAINER_NAME" $1 $2
+echo "$IMAGE" "$CONTAINER_NAME"
 # docker pull $IMAGE
 
 # if [ $? -eq 0 ]; then

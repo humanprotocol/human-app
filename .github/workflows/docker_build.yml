@@ -116,13 +116,6 @@ jobs:
       run: |
         IMAGE_TAG="340792883311.dkr.ecr.us-east-2.amazonaws.com/human-app-ui:2b098a6"
         ssh staging 'bash -s' < .github/workflows/common/deploy.sh $IMAGE_TAG
-# <<\EOF
-# REGISTRY="340792883311.dkr.ecr.us-east-2.amazonaws.com"
-# IMAGE_NAME="human-app-ui"
-# IMAGE="$REGISTRY/$IMAGE_NAME:${IMAGE_TAG}"
-# CONTAINER_NAME="$IMAGE_NAME"
-# echo "$IMAGE" "$CONTAINER_NAME" ${IMAGE_TAG}
-# EOF
  
     - name: Remove Github Actions IP from Staging security group
       if: github.ref == 'refs/heads/ci-develop'
