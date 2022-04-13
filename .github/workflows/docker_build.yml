@@ -57,7 +57,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: human-app-ui
-      if: github.ref == 'refs/heads/develop'
+      #if: github.ref == 'refs/heads/develop'
       run: |
         export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
         docker build \
@@ -111,7 +111,7 @@ jobs:
       run: |
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-    - name: Deploy to prod server
+    - name: Deploy to Staging server
       if: github.ref == 'refs/heads/ci-develop'
       run: |
         export IMAGE_TAG="${{ env.image_tag }}"
@@ -121,12 +121,3 @@ jobs:
       if: github.ref == 'refs/heads/ci-develop'
       run: |
         aws ec2 revoke-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
-    
-    # - name: Execute a script throuh SSM Run Command on Staging
-    #   id: execute-script-staging
-    #   env:
-    #     INSTANCE_IDS: "i-04772cfd99decdcb3"
-    #   if: github.ref == 'refs/heads/develop'
-    #   run: |
-    #     export IMAGE_TAG="${{ env.image_tag }}"
-    #     .github/workflows/common/ssm_run_script.sh
