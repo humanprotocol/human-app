@@ -88,6 +88,9 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}"
         echo "image_tag=${IMAGE_TAG}" >> $GITHUB_ENV
 
+    - name: Get Github action IP
+      id: ip
+      uses: haythem/public-ip@v1.2
 
     - name: Add Github Actions IP to Staging Security group
       if: github.ref == 'refs/heads/ci-develop'
