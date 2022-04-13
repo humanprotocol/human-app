@@ -114,8 +114,8 @@ jobs:
     - name: Deploy to Staging server
       if: github.ref == 'refs/heads/ci-develop'
       run: |
-        IMAGE_TAG="340792883311.dkr.ecr.us-east-2.amazonaws.com/human-app-ui:2b098a6 "
-        ssh staging 'bash -s' < .github/workflows/common/deploy.sh --tag=$IMAGE_TAG
+        IMAGE_TAG="340792883311.dkr.ecr.us-east-2.amazonaws.com/human-app-ui:2b098a6"
+        ssh staging 'bash -s' < .github/workflows/common/deploy.sh $IMAGE_TAG
 # <<\EOF
 # REGISTRY="340792883311.dkr.ecr.us-east-2.amazonaws.com"
 # IMAGE_NAME="human-app-ui"
