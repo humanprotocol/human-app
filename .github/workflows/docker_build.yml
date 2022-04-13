@@ -92,7 +92,7 @@ jobs:
     - name: Add Github Actions IP to Staging Security group
       if: github.ref == 'refs/heads/ci-develop'
       run: |
-        aws ec2 authorize-security-group-ingress --group-name "Human App Staging SG" --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
         echo "SSH_KEY_FOR_CD=$(aws ssm get-parameter --region us-east-2 --name 'SSH_KEY_FOR_CD' --with-decryption --query 'Parameter.Value')" >> $GITHUB_ENV
 
