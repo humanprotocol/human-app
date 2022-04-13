@@ -1,12 +1,11 @@
 name: Docker build
 
 on:
+  push:
+    branches: [ develop, master, ci-develop ]
+  pull_request:
+    branches: [ develop, master ]
   workflow_dispatch:
-  # push:
-  #   branches: [ develop, master ]
-  # pull_request:
-  #   branches: [ develop, master ]
-  # workflow_dispatch:
 
 permissions:
   id-token: write
@@ -89,6 +88,29 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}"
         echo "image_tag=${IMAGE_TAG}" >> $GITHUB_ENV
 
+
+    - name: Add Github Actions IP to Staging Security group
+      if: github.ref == 'ci-develop'
+      run: |
+        aws ec2 authorize-security-group-ingress --group-name "Human App Staging SG" --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+
+        echo "SSH_KEY_FOR_CD=$(aws ssm get-parameter --region us-east-2 --name 'SSH_KEY_FOR_CD' --with-decryption --query 'Parameter.Value')" >> $GITHUB_ENV
+
+    - name: Deploy to Staging server
+      if: github.ref == 'ci-develop'
+      uses: appleboy/ssh-action@master
+      with:
+        host: ec2-18-220-126-12.us-east-2.compute.amazonaws.com
+        username: ubuntu
+        key: ${{ env.SSH_KEY_FOR_CD }}
+        script: |
+          docker ps -a
+              
+    - name: Remove Github Actions IP from Staging security group
+      if: github.ref == 'ci-develop'
+      run: |
+        aws ec2 revoke-security-group-ingress --group-name "Human App Staging SG" --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+    
     - name: Execute a script throuh SSM Run Command on Staging
       id: execute-script-staging
       env:
