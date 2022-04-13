@@ -1,6 +1,18 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --tag=*)   tag="${1#*=}"  ;;
+    *) echo "$(basename $0): ERROR: Invalid argument ${1}"; exit 1 ;;
+  esac
+  shift
+done
+
 REGISTRY="340792883311.dkr.ecr.us-east-2.amazonaws.com"
 IMAGE_NAME="human-app-ui"
-IMAGE="$REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
+IMAGE="$REGISTRY/$IMAGE_NAME:$tag"
 CONTAINER_NAME="$IMAGE_NAME"
 
 echo "$IMAGE" "$CONTAINER_NAME"
