@@ -93,6 +93,7 @@ jobs:
       uses: haythem/public-ip@v1.2
 
     - name: Configure SSH
+      id: configure-ssh
       if: github.ref == 'refs/heads/ci-develop'
       run: |
         mkdir -p ~/.ssh/
@@ -107,17 +108,20 @@ jobs:
         END
 
     - name: Add Github Actions IP to Staging Security group
+      id: add-ip-to-staging-sg
       if: github.ref == 'refs/heads/ci-develop'
       run: |
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
     - name: Deploy to Staging server
+      id: deploy-to-staging
       if: github.ref == 'refs/heads/ci-develop'
       run: |
-        IMAGE_TAG="340792883311.dkr.ecr.us-east-2.amazonaws.com/human-app-ui:2b098a6"
+        IMAGE_TAG="2b098a6" # "${{ env.image_tag }}"
         ssh staging 'bash -s' < .github/workflows/common/deploy.sh $IMAGE_TAG
  
     - name: Remove Github Actions IP from Staging security group
+      id: remove-ip-to-staging-sg
       if: github.ref == 'refs/heads/ci-develop'
       run: |
         aws ec2 revoke-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
