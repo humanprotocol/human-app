@@ -1,11 +1,11 @@
 name: Docker build
 
-on:
-  push:
-    branches: [ develop, master ]
-  pull_request:
-    branches: [ develop, master ]
-  workflow_dispatch:
+on: [workflow_dispatch]
+  # push:
+  #   branches: [ develop, master ]
+  # pull_request:
+  #   branches: [ develop, master ]
+  # workflow_dispatch:
 
 permissions:
   id-token: write
