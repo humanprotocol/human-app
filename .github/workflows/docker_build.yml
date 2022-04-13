@@ -97,8 +97,6 @@ jobs:
       run: |
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-      # echo "SSH_KEY_FOR_CD=$(aws ssm get-parameter --region us-east-2 --name 'SSH_KEY_FOR_CD' --with-decryption --query 'Parameter.Value')" >> $GITHUB_ENV
-
         mkdir -p ~/.ssh/
         aws ssm get-parameter --region us-east-2 --name 'SSH_KEY_FOR_CD' --with-decryption --query 'Parameter.Value' --output text > ~/.ssh/staging.key
         chmod 600 ~/.ssh/staging.key
@@ -111,16 +109,6 @@ jobs:
         END
 
         ssh staging 'docker ps -a'
-
-    # - name: Deploy to Staging server
-    #   if: github.ref == 'refs/heads/ci-develop'
-    #   uses: appleboy/ssh-action@master
-    #   with:
-    #     host: ec2-18-220-126-12.us-east-2.compute.amazonaws.com
-    #     username: ubuntu
-    #     key: ${{ env.SSH_KEY_FOR_CD }}
-    #     script: |
-    #       docker ps -a
               
     - name: Remove Github Actions IP from Staging security group
       if: github.ref == 'refs/heads/ci-develop'
