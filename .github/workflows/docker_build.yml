@@ -112,7 +112,7 @@ jobs:
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
     - name: Deploy to prod server
-      if: github.ref == 'refs/heads/develop'
+      if: github.ref == 'refs/heads/ci-develop'
       run: |
         export IMAGE_TAG="${{ env.image_tag }}"
         ssh staging 'bash -s' < .github/workflows/common/deploy.sh
