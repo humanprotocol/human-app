@@ -120,7 +120,7 @@ jobs:
         IMAGE_NAME="human-app-ui"
         IMAGE="$REGISTRY/$IMAGE_NAME:${IMAGE_TAG}"
         CONTAINER_NAME="$IMAGE_NAME"
-        echo "$IMAGE" "$CONTAINER_NAME"
+        echo "$IMAGE" "$CONTAINER_NAME" ${IMAGE_TAG}
         EOF
  
     - name: Remove Github Actions IP from Staging security group
