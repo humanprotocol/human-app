@@ -15,7 +15,6 @@ import {
   startGlobalLoading,
   finishGlobalLoading,
 } from './store/action';
-import notifier from './service/notify.service';
 
 async function init() {
   const token = localStorage.getItem('token');
@@ -38,7 +37,6 @@ async function init() {
         store.dispatch(signIn());
       }
     } catch (err) {
-      notifier.error(err.message);
       store.dispatch(signOut());
     }
     store.dispatch(finishGlobalLoading());
