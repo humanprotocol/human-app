@@ -114,11 +114,11 @@ jobs:
     - name: Deploy to Staging server
       if: github.ref == 'refs/heads/ci-develop'
       run: |
-        export IMAGE_TAG="${{ env.image_tag }}"
+        export IMAGE_TAG="340792883311.dkr.ecr.us-east-2.amazonaws.com/human-app-ui:2b098a6 "
         ssh staging 'bash -s' <<\EOF
         REGISTRY="340792883311.dkr.ecr.us-east-2.amazonaws.com"
         IMAGE_NAME="human-app-ui"
-        IMAGE="$REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
+        IMAGE="$REGISTRY/$IMAGE_NAME:${IMAGE_TAG}"
         CONTAINER_NAME="$IMAGE_NAME"
         echo "$IMAGE" "$CONTAINER_NAME"
         EOF
