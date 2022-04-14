@@ -19,7 +19,6 @@ if [ $? -eq 0 ]; then
     -d \
     -p 80:8080 \
     -e PORT=8080 \
-    -e REACT_APP_API_URL="http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000" \
     -e ENABLE_CSP_FF=true \
     --network=human-protocol-staging \
     --restart=on-failure \
