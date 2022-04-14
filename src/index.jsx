@@ -37,6 +37,8 @@ async function init() {
         store.dispatch(signIn());
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
       store.dispatch(signOut());
     }
     store.dispatch(finishGlobalLoading());
