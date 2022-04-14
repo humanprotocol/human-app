@@ -6,17 +6,17 @@ on:
   pull_request:
     branches: [ develop, master ]
   workflow_dispatch:
-    inputs:
-      stage_REACT_APP_API_URL:   
-        default: "http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1"
-      stage_REACT_APP_HCAPTCHA_SITE_KEY:
-        default: "c8e519a2-032a-4e45-9bf1-4f10f6af1b1f"
-      prod_REACT_APP_API_URL:   
-        default: "https://api.humanprotocol.org/v1"
-      prod_REACT_APP_HCAPTCHA_SITE_KEY:
-        default: "10cd757e-a469-4302-9ee2-a89e024da91a"
-      REACT_APP_CIVIC_APP_ID:    
-        default: "9CXmtYJvd"
+    # inputs:
+    #   stage_REACT_APP_API_URL:   
+    #     default: "http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1"
+    #   stage_REACT_APP_HCAPTCHA_SITE_KEY:
+    #     default: "c8e519a2-032a-4e45-9bf1-4f10f6af1b1f"
+    #   prod_REACT_APP_API_URL:   
+    #     default: "https://api.humanprotocol.org/v1"
+    #   prod_REACT_APP_HCAPTCHA_SITE_KEY:
+    #     default: "10cd757e-a469-4302-9ee2-a89e024da91a"
+    #   REACT_APP_CIVIC_APP_ID:    
+    #     default: "9CXmtYJvd"
 
 permissions:
   id-token: write
@@ -68,14 +68,13 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: human-app-ui
-      if: github.ref == 'refs/heads/ci-develop'
+      if: github.ref == 'refs/heads/develop'
       run: |
         export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
-        echo "${{ github.event.inputs.stage_REACT_APP_API_URL }}" "${{ github.event.inputs.stage_REACT_APP_HCAPTCHA_SITE_KEY }}" "${{ github.event.inputs.REACT_APP_CIVIC_APP_ID }}"
         docker build \
-          --build-arg REACT_APP_API_URL="${{ github.event.inputs.stage_REACT_APP_API_URL }}" \
-          --build-arg REACT_APP_HCAPTCHA_SITE_KEY="${{ github.event.inputs.stage_REACT_APP_HCAPTCHA_SITE_KEY }}" \
-          --build-arg REACT_APP_CIVIC_APP_ID="${{ github.event.inputs.REACT_APP_CIVIC_APP_ID }}" \
+          --build-arg REACT_APP_API_URL="http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1" \
+          --build-arg REACT_APP_HCAPTCHA_SITE_KEY="c8e519a2-032a-4e45-9bf1-4f10f6af1b1f" \
+          --build-arg REACT_APP_CIVIC_APP_ID="9CXmtYJvd" \
           -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
@@ -91,9 +90,9 @@ jobs:
       run: |
         export IMAGE_TAG=$GITHUB_REF_NAME-${GITHUB_SHA::7}-$(date +%s)
         docker build \
-          --build-arg REACT_APP_API_URL="${{ github.event.inputs.prod_REACT_APP_API_URL }}" \
-          --build-arg REACT_APP_HCAPTCHA_SITE_KEY="${{ github.event.inputs.prod_REACT_APP_HCAPTCHA_SITE_KEY }}" \
-          --build-arg REACT_APP_CIVIC_APP_ID="${{ github.event.inputs.REACT_APP_CIVIC_APP_ID }}" \
+          --build-arg REACT_APP_API_URL="https://api.humanprotocol.org/v1" \
+          --build-arg REACT_APP_HCAPTCHA_SITE_KEY="10cd757e-a469-4302-9ee2-a89e024da91a" \
+          --build-arg REACT_APP_CIVIC_APP_ID="9CXmtYJvd" \
           -t $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG} -f Dockerfile .
         echo "Pushing image to ECR..."
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
@@ -131,7 +130,6 @@ jobs:
       if: github.ref == 'refs/heads/ci-develop'
       continue-on-error: true
       run: |
-        echo "${{ env.image_tag }}"
         IMAGE_TAG="2b098a6" # "${{ env.image_tag }}"
         # ssh staging 'bash -s' < .github/workflows/common/deploy.sh $IMAGE_TAG
  
