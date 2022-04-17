@@ -70,7 +70,7 @@ jobs:
         echo "tagged_image=${TAGGED_IMAGE}" >> $GITHUB_ENV
 
     - name: Prepare .env values for Staging
-      id: prepare-env
+      id: prepare-env-staging
       if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/develop'
       run: |
         echo 'REACT_APP_API_URL="http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1"' >> $GITHUB_ENV
@@ -78,7 +78,7 @@ jobs:
         echo 'REACT_APP_CIVIC_APP_ID="9CXmtYJvd"' >> $GITHUB_ENV
 
     - name: Prepare .env values for Prod
-      id: prepare-env
+      id: prepare-env-prod
       if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/master'
       run: |
         echo 'REACT_APP_API_URL="https://api.humanprotocol.org/v1"' >> $GITHUB_ENV
@@ -86,7 +86,7 @@ jobs:
         echo 'REACT_APP_CIVIC_APP_ID="9CXmtYJvd"' >> $GITHUB_ENV
 
     - name: Prepare .env values for Staging manually
-      id: prepare-env
+      id: prepare-env-staging-manually
       if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop'
       run: |
         echo 'REACT_APP_API_URL="${{ github.event.inputs.STAGING_REACT_APP_API_URL }}"' >> $GITHUB_ENV
@@ -94,7 +94,7 @@ jobs:
         echo 'REACT_APP_CIVIC_APP_ID="${{ github.event.inputs.STAGING_REACT_APP_CIVIC_APP_ID }}"' >> $GITHUB_ENV
 
     - name: Prepare .env values for Prod manually
-      id: prepare-env
+      id: prepare-env-prod-manually
       if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
       run: |
         echo 'REACT_APP_API_URL="${{ github.event.inputs.PROD_REACT_APP_API_URL }}"' >> $GITHUB_ENV
