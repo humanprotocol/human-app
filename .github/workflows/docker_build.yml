@@ -2,7 +2,7 @@ name: Docker build
 
 on:
   push:
-    branches: [ develop, master, ci-develop ]
+    branches: [ develop, master ]
   pull_request:
     branches: [ develop, master ]
   workflow_dispatch:
@@ -71,7 +71,7 @@ jobs:
 
     - name: Prepare .env values for Staging
       id: prepare-env-staging
-      if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/ci-develop'
+      if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/develop'
       run: |
         echo "REACT_APP_API_URL=http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1" >> $GITHUB_ENV
         echo "REACT_APP_HCAPTCHA_SITE_KEY=c8e519a2-032a-4e45-9bf1-4f10f6af1b1f" >> $GITHUB_ENV
@@ -117,7 +117,7 @@ jobs:
 
     - name: Build and push the image to Amazon ECR
       id: build-push-image-develop
-      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ci-develop'
+      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v2
       with:
         context: .
@@ -137,7 +137,7 @@ jobs:
 
     - name: Configure SSH
       id: configure-ssh
-      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/ci-develop'
+      if: github.ref == 'refs/heads/develop'
       run: |
         mkdir -p ~/.ssh/
         aws ssm get-parameter --region us-east-2 --name 'SSH_KEY_FOR_CD' --with-decryption --query 'Parameter.Value' --output text > ~/.ssh/staging.key
@@ -152,19 +152,19 @@ jobs:
 
     - name: Add Github Actions IP to Staging Security group
       id: add-ip-to-staging-sg
-      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/ci-develop'
+      if: github.ref == 'refs/heads/develop'
       run: |
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
     - name: Deploy to Staging server
       id: deploy-to-staging
-      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/ci-develop'
+      if: github.ref == 'refs/heads/develop'
       continue-on-error: true
       run: |
         ssh staging 'bash -s' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
  
     - name: Remove Github Actions IP from Staging security group
       id: remove-ip-to-staging-sg
-      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/ci-develop'
+      if: github.ref == 'refs/heads/develop'
       run: |
         aws ec2 revoke-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
