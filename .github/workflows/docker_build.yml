@@ -71,7 +71,7 @@ jobs:
 
     - name: Prepare .env values for Staging
       id: prepare-env-staging
-      if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/develop'
+      if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/ci-develop'
       run: |
         echo 'REACT_APP_API_URL="http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1"' >> $GITHUB_ENV
         echo 'REACT_APP_HCAPTCHA_SITE_KEY="c8e519a2-032a-4e45-9bf1-4f10f6af1b1f"' >> $GITHUB_ENV
