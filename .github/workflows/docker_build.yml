@@ -6,6 +6,19 @@ on:
   pull_request:
     branches: [ develop, master ]
   workflow_dispatch:
+    inputs:
+      STAGING_REACT_APP_API_URL:
+        default: "http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1"
+      STAGING_REACT_APP_HCAPTCHA_SITE_KEY:
+        default: "c8e519a2-032a-4e45-9bf1-4f10f6af1b1f"
+      STAGING_REACT_APP_CIVIC_APP_ID:
+        default: "9CXmtYJvd"
+      PROD_REACT_APP_API_URL:
+        default: "https://api.humanprotocol.org/v1"
+      PROD_REACT_APP_HCAPTCHA_SITE_KEY:
+        default: "10cd757e-a469-4302-9ee2-a89e024da91a"
+      PROD_REACT_APP_CIVIC_APP_ID:
+        default: "9CXmtYJvd"
 
 permissions:
   id-token: write
@@ -56,6 +69,38 @@ jobs:
         TAGGED_IMAGE=$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
         echo "tagged_image=${TAGGED_IMAGE}" >> $GITHUB_ENV
 
+    - name: Prepare .env values for Staging
+      id: prepare-env
+      if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/develop'
+      run: |
+        echo 'REACT_APP_API_URL="http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1"' >> $GITHUB_ENV
+        echo 'REACT_APP_HCAPTCHA_SITE_KEY="c8e519a2-032a-4e45-9bf1-4f10f6af1b1f"' >> $GITHUB_ENV
+        echo 'REACT_APP_CIVIC_APP_ID="9CXmtYJvd"' >> $GITHUB_ENV
+
+    - name: Prepare .env values for Prod
+      id: prepare-env
+      if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/master'
+      run: |
+        echo 'REACT_APP_API_URL="https://api.humanprotocol.org/v1"' >> $GITHUB_ENV
+        echo 'REACT_APP_HCAPTCHA_SITE_KEY="10cd757e-a469-4302-9ee2-a89e024da91a"' >> $GITHUB_ENV
+        echo 'REACT_APP_CIVIC_APP_ID="9CXmtYJvd"' >> $GITHUB_ENV
+
+    - name: Prepare .env values for Staging manually
+      id: prepare-env
+      if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop'
+      run: |
+        echo 'REACT_APP_API_URL="${{ github.event.inputs.STAGING_REACT_APP_API_URL }}"' >> $GITHUB_ENV
+        echo 'REACT_APP_HCAPTCHA_SITE_KEY="${{ github.event.inputs.STAGING_REACT_APP_HCAPTCHA_SITE_KEY }}"' >> $GITHUB_ENV
+        echo 'REACT_APP_CIVIC_APP_ID="${{ github.event.inputs.STAGING_REACT_APP_CIVIC_APP_ID }}"' >> $GITHUB_ENV
+
+    - name: Prepare .env values for Prod manually
+      id: prepare-env
+      if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
+      run: |
+        echo 'REACT_APP_API_URL="${{ github.event.inputs.PROD_REACT_APP_API_URL }}"' >> $GITHUB_ENV
+        echo 'REACT_APP_HCAPTCHA_SITE_KEY="${{ github.event.inputs.PROD_REACT_APP_HCAPTCHA_SITE_KEY }}"' >> $GITHUB_ENV
+        echo 'REACT_APP_CIVIC_APP_ID="${{ github.event.inputs.PROD_REACT_APP_CIVIC_APP_ID }}"' >> $GITHUB_ENV
+
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v1
@@ -70,9 +115,9 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-    - name: Build and push the develop image to Amazon ECR
+    - name: Build and push the image to Amazon ECR
       id: build-push-image-develop
-      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/ci-develop'
+      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/ci-develop'
       uses: docker/build-push-action@v2
       with:
         context: .
@@ -81,21 +126,9 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
         build-args: |
-          REACT_APP_API_URL="http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1"
-          REACT_APP_HCAPTCHA_SITE_KEY="c8e519a2-032a-4e45-9bf1-4f10f6af1b1f"
-          REACT_APP_CIVIC_APP_ID="9CXmtYJvd"
-
-    - name: Build and push the master image to Amazon ECR
-      id: build-push-image-master
-      if: github.ref == 'refs/heads/master'
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: ${{ env.tagged_image }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
-        build-args: REACT_APP_API_URL="https://api.humanprotocol.org/v1", REACT_APP_HCAPTCHA_SITE_KEY="10cd757e-a469-4302-9ee2-a89e024da91a", REACT_APP_CIVIC_APP_ID="9CXmtYJvd"
+          REACT_APP_API_URL="${{ env.REACT_APP_API_URL }}"
+          REACT_APP_HCAPTCHA_SITE_KEY="${{ env.REACT_APP_HCAPTCHA_SITE_KEY }}"
+          REACT_APP_CIVIC_APP_ID="${{ env.REACT_APP_CIVIC_APP_ID }}"
 
     - name: Get Github action IP
       id: ip
