@@ -2,23 +2,23 @@ name: Docker build
 
 on:
   push:
-    branches: [ develop, master ]
+    branches: [ develop, master, ci-develop ]
   pull_request:
     branches: [ develop, master ]
   workflow_dispatch:
     inputs:
       STAGING_REACT_APP_API_URL:
-        default: "http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1"
+        default: "${{ secrets.STAGING_REACT_APP_API_URL }}"
       STAGING_REACT_APP_HCAPTCHA_SITE_KEY:
-        default: "c8e519a2-032a-4e45-9bf1-4f10f6af1b1f"
+        default: "${{ secrets.STAGING_REACT_APP_HCAPTCHA_SITE_KEY }}"
       STAGING_REACT_APP_CIVIC_APP_ID:
-        default: "9CXmtYJvd"
+        default: "${{ secrets.STAGING_REACT_APP_CIVIC_APP_ID }}"
       PROD_REACT_APP_API_URL:
-        default: "https://api.humanprotocol.org/v1"
+        default: "${{ secrets.PROD_REACT_APP_API_URL }}"
       PROD_REACT_APP_HCAPTCHA_SITE_KEY:
-        default: "10cd757e-a469-4302-9ee2-a89e024da91a"
+        default: "${{ secrets.PROD_REACT_APP_HCAPTCHA_SITE_KEY }}"
       PROD_REACT_APP_CIVIC_APP_ID:
-        default: "9CXmtYJvd"
+        default: "${{ secrets.PROD_REACT_APP_CIVIC_APP_ID }}"
 
 permissions:
   id-token: write
@@ -33,17 +33,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    # - name: Configure AWS credentials
-    #   uses: aws-actions/configure-aws-credentials@v1
-    #   with:
-    #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #     aws-region: ap-south-1
-
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: arn:aws:iam::340792883311:role/GithubActionsRoleECR
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
         role-session-name: GithubActionsSession
         aws-region: us-east-2
       if: github.event_name != 'pull_request'
@@ -73,17 +66,17 @@ jobs:
       id: prepare-env-staging
       if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/develop'
       run: |
-        echo "REACT_APP_API_URL=http://ec2-18-220-126-12.us-east-2.compute.amazonaws.com:3000/v1" >> $GITHUB_ENV
-        echo "REACT_APP_HCAPTCHA_SITE_KEY=c8e519a2-032a-4e45-9bf1-4f10f6af1b1f" >> $GITHUB_ENV
-        echo "REACT_APP_CIVIC_APP_ID=9CXmtYJvd" >> $GITHUB_ENV
+        echo "REACT_APP_API_URL=${{ secrets.STAGING_REACT_APP_API_URL }}" >> $GITHUB_ENV
+        echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ secrets.STAGING_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
+        echo "REACT_APP_CIVIC_APP_ID=${{ secrets.STAGING_REACT_APP_CIVIC_APP_ID }}" >> $GITHUB_ENV
 
     - name: Prepare .env values for Prod
       id: prepare-env-prod
       if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/master'
       run: |
-        echo "REACT_APP_API_URL=https://api.humanprotocol.org/v1" >> $GITHUB_ENV
-        echo "REACT_APP_HCAPTCHA_SITE_KEY=10cd757e-a469-4302-9ee2-a89e024da91a" >> $GITHUB_ENV
-        echo "REACT_APP_CIVIC_APP_ID=9CXmtYJvd" >> $GITHUB_ENV
+        echo "REACT_APP_API_URL=${{ secrets.PROD_REACT_APP_API_URL }}" >> $GITHUB_ENV
+        echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ secrets.PROD_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
+        echo "REACT_APP_CIVIC_APP_ID=${{ secrets.PROD_REACT_APP_CIVIC_APP_ID }}" >> $GITHUB_ENV
 
     - name: Prepare .env values for Staging manually
       id: prepare-env-staging-manually
@@ -156,12 +149,12 @@ jobs:
       run: |
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-    - name: Deploy to Staging server
-      id: deploy-to-staging
-      if: github.ref == 'refs/heads/develop'
-      continue-on-error: true
-      run: |
-        ssh staging 'bash -s' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
+    # - name: Deploy to Staging server
+    #   id: deploy-to-staging
+    #   if: github.ref == 'refs/heads/develop'
+    #   continue-on-error: true
+    #   run: |
+    #     ssh staging 'bash -s' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
  
     - name: Remove Github Actions IP from Staging security group
       id: remove-ip-to-staging-sg
