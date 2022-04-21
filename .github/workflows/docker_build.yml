@@ -51,7 +51,7 @@ jobs:
 
     - name: Prepare .env values for Staging
       id: prepare-env-staging
-      if: github.ref == 'refs/heads/develop'
+      if: github.ref == 'refs/heads/ci-develop'
       run: |
         echo "REACT_APP_API_URL=${{ secrets.STAGING_REACT_APP_API_URL }}" >> $GITHUB_ENV
         echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ secrets.STAGING_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
@@ -81,7 +81,7 @@ jobs:
 
     - name: Build and push the image to Amazon ECR
       id: build-push-image-develop
-      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/ci-develop' || github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v2
       with:
         context: .
