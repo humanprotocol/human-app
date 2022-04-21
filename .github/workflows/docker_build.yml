@@ -2,7 +2,7 @@ name: Docker build
 
 on:
   push:
-    branches: [ develop, master, ci-develop ]
+    branches: [ develop, master ]
   pull_request:
     branches: [ develop, master ]
   workflow_dispatch:
@@ -33,12 +33,6 @@ jobs:
       uses: aws-actions/amazon-ecr-login@v1
       if: github.event_name != 'pull_request'
 
-    # - name: Check envs
-    #   id: check_envs
-    #   run: |
-    #     echo $GITHUB_REF_NAME
-    #     echo ${GITHUB_SHA::7}
-
     - name: Prepare values
       id: prepare
       env:
@@ -51,7 +45,7 @@ jobs:
 
     - name: Prepare .env values for Staging
       id: prepare-env-staging
-      if: github.ref == 'refs/heads/ci-develop'
+      if: github.ref == 'refs/heads/develop'
       run: |
         echo "REACT_APP_API_URL=${{ secrets.STAGING_REACT_APP_API_URL }}" >> $GITHUB_ENV
         echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ secrets.STAGING_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
@@ -81,7 +75,7 @@ jobs:
 
     - name: Build and push the image to Amazon ECR
       id: build-push-image-develop
-      if: github.ref == 'refs/heads/ci-develop' || github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v2
       with:
         context: .
@@ -120,12 +114,12 @@ jobs:
       run: |
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-    # - name: Deploy to Staging server
-    #   id: deploy-to-staging
-    #   if: github.ref == 'refs/heads/develop'
-    #   continue-on-error: true
-    #   run: |
-    #     ssh staging 'bash -s' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
+    - name: Deploy to Staging server
+      id: deploy-to-staging
+      if: github.ref == 'refs/heads/develop'
+      continue-on-error: true
+      run: |
+        ssh staging 'bash -s' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
  
     - name: Remove Github Actions IP from Staging security group
       id: remove-ip-to-staging-sg
