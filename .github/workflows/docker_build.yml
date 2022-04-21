@@ -6,19 +6,6 @@ on:
   pull_request:
     branches: [ develop, master ]
   workflow_dispatch:
-    inputs:
-      STAGING_REACT_APP_API_URL:
-        default: "${{ secrets.STAGING_REACT_APP_API_URL }}"
-      STAGING_REACT_APP_HCAPTCHA_SITE_KEY:
-        default: "${{ secrets.STAGING_REACT_APP_HCAPTCHA_SITE_KEY }}"
-      STAGING_REACT_APP_CIVIC_APP_ID:
-        default: "${{ secrets.STAGING_REACT_APP_CIVIC_APP_ID }}"
-      PROD_REACT_APP_API_URL:
-        default: "${{ secrets.PROD_REACT_APP_API_URL }}"
-      PROD_REACT_APP_HCAPTCHA_SITE_KEY:
-        default: "${{ secrets.PROD_REACT_APP_HCAPTCHA_SITE_KEY }}"
-      PROD_REACT_APP_CIVIC_APP_ID:
-        default: "${{ secrets.PROD_REACT_APP_CIVIC_APP_ID }}"
 
 permissions:
   id-token: write
@@ -64,7 +51,7 @@ jobs:
 
     - name: Prepare .env values for Staging
       id: prepare-env-staging
-      if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/develop'
+      if: github.ref == 'refs/heads/develop'
       run: |
         echo "REACT_APP_API_URL=${{ secrets.STAGING_REACT_APP_API_URL }}" >> $GITHUB_ENV
         echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ secrets.STAGING_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
@@ -72,27 +59,11 @@ jobs:
 
     - name: Prepare .env values for Prod
       id: prepare-env-prod
-      if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'
       run: |
         echo "REACT_APP_API_URL=${{ secrets.PROD_REACT_APP_API_URL }}" >> $GITHUB_ENV
         echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ secrets.PROD_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
         echo "REACT_APP_CIVIC_APP_ID=${{ secrets.PROD_REACT_APP_CIVIC_APP_ID }}" >> $GITHUB_ENV
-
-    - name: Prepare .env values for Staging manually
-      id: prepare-env-staging-manually
-      if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop'
-      run: |
-        echo "REACT_APP_API_URL=${{ github.event.inputs.STAGING_REACT_APP_API_URL }}" >> $GITHUB_ENV
-        echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ github.event.inputs.STAGING_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
-        echo "REACT_APP_CIVIC_APP_ID=${{ github.event.inputs.STAGING_REACT_APP_CIVIC_APP_ID }}" >> $GITHUB_ENV
-
-    - name: Prepare .env values for Prod manually
-      id: prepare-env-prod-manually
-      if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master'
-      run: |
-        echo "REACT_APP_API_URL=${{ github.event.inputs.PROD_REACT_APP_API_URL }}" >> $GITHUB_ENV
-        echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ github.event.inputs.PROD_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
-        echo "REACT_APP_CIVIC_APP_ID=${{ github.event.inputs.PROD_REACT_APP_CIVIC_APP_ID }}" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx
       id: buildx
