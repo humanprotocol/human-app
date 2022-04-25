@@ -125,11 +125,7 @@ export const Subscribe = () => {
       </div>
       <Modal show={modalShow} onHide={() => setModalShow(false)} centered>
         <Modal.Header closeButton />
-        <Modal.Body>
-          Thank you for expressing interest in the HUMAN App. We are currently experiencing a large
-          volume of traffic, and it may take a few days to get your account setup. We will be in
-          touch through your registered email address.
-        </Modal.Body>
+        <Modal.Body>Thank you for expressing interest in the HUMAN App!</Modal.Body>
       </Modal>
     </div>
   );
