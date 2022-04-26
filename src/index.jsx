@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/index';
-import { getJwtPayload } from './utils/jwt';
+import { getJwtPayload, isJwtExpired } from './utils/jwt';
 import { getMyAccount } from './service/user.service';
 import {
   signIn,
@@ -15,7 +15,6 @@ import {
   startGlobalLoading,
   finishGlobalLoading,
 } from './store/action';
-import notifier from './service/notify.service';
 
 async function init() {
   const token = localStorage.getItem('token');
@@ -30,13 +29,16 @@ async function init() {
 
   if (token) {
     try {
-      store.dispatch(startGlobalLoading());
-      const userId = getJwtPayload(token);
-      const user = await getMyAccount(userId, token);
-      store.dispatch(setUserDetails(user));
-      store.dispatch(signIn());
+      if (!isJwtExpired(token)) {
+        store.dispatch(startGlobalLoading());
+        const userId = getJwtPayload(token);
+        const user = await getMyAccount(userId, token);
+        store.dispatch(setUserDetails(user));
+        store.dispatch(signIn());
+      }
     } catch (err) {
-      notifier.error(err.message);
+      // eslint-disable-next-line no-console
+      console.error(err);
       store.dispatch(signOut());
     }
     store.dispatch(finishGlobalLoading());
