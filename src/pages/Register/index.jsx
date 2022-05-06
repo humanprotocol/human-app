@@ -28,7 +28,6 @@ const RegisterPage = (props) => {
     password: '',
     repeatPassword: '',
     country: '',
-    refCode: '',
     hcaptchaToken: '',
     areTermsAndConditionsAccepted: false,
   };
@@ -36,7 +35,7 @@ const RegisterPage = (props) => {
   const [countryName, setCountryName] = useState('');
 
   const handleRegister = (
-    { userName, email, password, country, hcaptchaToken, refCode, areTermsAndConditionsAccepted },
+    { userName, email, password, country, hcaptchaToken, areTermsAndConditionsAccepted },
     { setSubmitting, setFieldValue },
   ) => {
     setSubmitting(true);
@@ -48,8 +47,6 @@ const RegisterPage = (props) => {
       hcaptchaToken,
       areTermsAndConditionsAccepted,
     };
-
-    if (refCode) newUser.refCode = refCode;
 
     return register(newUser)
       .then((response) => {
@@ -124,19 +121,6 @@ const RegisterPage = (props) => {
                 {errors.userName && touched.userName && (
                   <FormControl.Feedback type="invalid" className="d-block">
                     {errors.userName}
-                  </FormControl.Feedback>
-                )}
-              </FormGroup>
-              <FormGroup>
-                <Field
-                  className="form-control"
-                  placeholder="refCode"
-                  name="refCode"
-                  value={values.refCode}
-                />
-                {errors.refCode && touched.refCode && (
-                  <FormControl.Feedback type="invalid" className="d-block">
-                    {values.refCode}
                   </FormControl.Feedback>
                 )}
               </FormGroup>

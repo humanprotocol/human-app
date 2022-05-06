@@ -19,7 +19,6 @@ export const RegisterValidationSchema = Yup.object().shape({
     }),
   userName: Yup.string().required(errors.errorMessage.requireUserName),
   country: Yup.string().required(errors.errorMessage.requireCountry),
-  refCode: Yup.string().nullable(true),
   hcaptchaToken: Yup.string().required(errors.errorMessage.captchaPassRequired),
   areTermsAndConditionsAccepted: Yup.boolean()
     .required(errors.errorMessage.tcRequired)
