@@ -74,7 +74,7 @@ jobs:
         cache-to: type=gha,mode=max
 
     - name: Build and push the image to Amazon ECR
-      id: build-push-image-develop
+      id: build-push-image
       if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
       uses: docker/build-push-action@v2
       with:
@@ -95,16 +95,21 @@ jobs:
 
     - name: Configure SSH
       id: configure-ssh
-      if: github.ref == 'refs/heads/develop'
+      if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
       run: |
         mkdir -p ~/.ssh/
-        aws ssm get-parameter --region us-east-2 --name 'SSH_KEY_FOR_CD' --with-decryption --query 'Parameter.Value' --output text > ~/.ssh/staging.key
-        chmod 600 ~/.ssh/staging.key
+        aws ssm get-parameter --region us-east-2 --name 'SSH_KEY_FOR_CD' --with-decryption --query 'Parameter.Value' --output text > ~/.ssh/deploy.key
+        chmod 600 ~/.ssh/deploy.key
         cat >>~/.ssh/config <<END
         Host staging
-          HostName ec2-18-220-126-12.us-east-2.compute.amazonaws.com
+          HostName ${{ secrets.STAGING_VM_IP }}
           User ubuntu
-          IdentityFile ~/.ssh/staging.key
+          IdentityFile ~/.ssh/deploy.key
+          StrictHostKeyChecking no
+        Host prod
+          HostName ${{ secrets.PROD_VM_IP }}
+          User ubuntu
+          IdentityFile ~/.ssh/deploy.key
           StrictHostKeyChecking no
         END
 
@@ -114,15 +119,34 @@ jobs:
       run: |
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
+    - name: Add Github Actions IP to Prod Security group
+      id: add-ip-to-prod-sg
+      if: github.ref == 'refs/heads/master'
+      run: |
+        aws ec2 authorize-security-group-ingress --group-id sg-0d64e67dc586078f0 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+
     - name: Deploy to Staging server
       id: deploy-to-staging
       if: github.ref == 'refs/heads/develop'
       continue-on-error: true
       run: |
-        ssh staging 'bash -s' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
+        ssh staging 'bash -s' < .github/workflows/common/staging_deploy.sh ${{ env.tagged_image }}
+
+    - name: Deploy to Prod server
+      id: deploy-to-prod
+      if: github.ref == 'refs/heads/master'
+      continue-on-error: true
+      run: |
+        ssh prod 'bash -s' < .github/workflows/common/prod_deploy.sh ${{ env.tagged_image }}
  
     - name: Remove Github Actions IP from Staging security group
-      id: remove-ip-to-staging-sg
+      id: remove-ip-from-staging-sg
       if: github.ref == 'refs/heads/develop'
       run: |
         aws ec2 revoke-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+
+    - name: Remove Github Actions IP from Prod security group
+      id: remove-ip-from-prod-sg
+      if: github.ref == 'refs/heads/master'
+      run: |
+        aws ec2 revoke-security-group-ingress --group-id sg-0d64e67dc586078f0 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
