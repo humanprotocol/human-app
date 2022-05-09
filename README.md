@@ -14,7 +14,8 @@ The application is in active development state and can have breaking changes.
 * `REACT_APP_API_URL`: Human APP API
 * `REACT_APP_HCAPTCHA_SITE_KEY`: Site Key for HCaptcha widget
 * `REACT_APP_CIVIC_APP_ID`: Civic Integration APP ID
-
+* `REACT_APP_TAWK_PROPERTY_ID`: Tawk Property ID
+* `REACT_APP_TAWK_WIDGET_ID`: Tawk Widget ID
 
 ### Running locally:
 $ `cp .env.example .env`
