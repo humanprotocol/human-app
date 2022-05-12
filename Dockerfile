@@ -3,6 +3,8 @@ FROM node:14.17.5-alpine AS builder
 ARG REACT_APP_API_URL
 ARG REACT_APP_HCAPTCHA_SITE_KEY
 ARG REACT_APP_CIVIC_APP_ID
+ARG REACT_APP_TAWK_PROPERTY_ID
+ARG REACT_APP_TAWK_WIDGET_ID
 
 WORKDIR /usr/src/node-app
 
@@ -18,7 +20,9 @@ COPY --chown=node:node . .
 
 RUN echo "REACT_APP_API_URL=${REACT_APP_API_URL}" > ./.env && \
     echo "REACT_APP_HCAPTCHA_SITE_KEY=${REACT_APP_HCAPTCHA_SITE_KEY}" >> ./.env && \
-    echo "REACT_APP_CIVIC_APP_ID=${REACT_APP_CIVIC_APP_ID}" >> ./.env
+    echo "REACT_APP_CIVIC_APP_ID=${REACT_APP_CIVIC_APP_ID}" >> ./.env \
+    echo "REACT_APP_TAWK_PROPERTY_ID=${REACT_APP_TAWK_PROPERTY_ID}" >> ./.env \
+    echo "REACT_APP_TAWK_WIDGET_ID=${REACT_APP_TAWK_WIDGET_ID}" >> ./.env
 
 RUN yarn install && yarn build
 

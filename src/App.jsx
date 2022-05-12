@@ -6,6 +6,7 @@ import SmoothScroll from 'smooth-scroll';
 import { createBrowserHistory } from 'history';
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '@mui/material/styles';
+import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 
 import CookieConsent from 'react-cookie-consent';
 import Navigation from './components/navigation';
@@ -43,6 +44,10 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <TawkMessengerReact
+        propertyId={process.env.REACT_APP_TAWK_PROPERTY_ID}
+        widgetId={process.env.REACT_APP_TAWK_WIDGET_ID}
+      />
       <Router history={history}>
         <Navigation />
         <ScrollToTop>

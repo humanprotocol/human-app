@@ -50,6 +50,8 @@ jobs:
         echo "REACT_APP_API_URL=${{ secrets.STAGING_REACT_APP_API_URL }}" >> $GITHUB_ENV
         echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ secrets.STAGING_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
         echo "REACT_APP_CIVIC_APP_ID=${{ secrets.STAGING_REACT_APP_CIVIC_APP_ID }}" >> $GITHUB_ENV
+        echo "REACT_APP_TAWK_PROPERTY_ID=${{ secrets.STAGING_REACT_APP_TAWK_PROPERTY_ID }}" >> $GITHUB_ENV
+        echo "REACT_APP_TAWK_WIDGET_ID=${{ secrets.STAGING_REACT_APP_TAWK_WIDGET_ID }}" >> $GITHUB_ENV
 
     - name: Prepare .env values for Prod
       id: prepare-env-prod
@@ -58,6 +60,8 @@ jobs:
         echo "REACT_APP_API_URL=${{ secrets.PROD_REACT_APP_API_URL }}" >> $GITHUB_ENV
         echo "REACT_APP_HCAPTCHA_SITE_KEY=${{ secrets.PROD_REACT_APP_HCAPTCHA_SITE_KEY }}" >> $GITHUB_ENV
         echo "REACT_APP_CIVIC_APP_ID=${{ secrets.PROD_REACT_APP_CIVIC_APP_ID }}" >> $GITHUB_ENV
+        echo "REACT_APP_TAWK_PROPERTY_ID=${{ secrets.PROD_REACT_APP_TAWK_PROPERTY_ID }}" >> $GITHUB_ENV
+        echo "REACT_APP_TAWK_WIDGET_ID=${{ secrets.PROD_REACT_APP_TAWK_WIDGET_ID }}" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx
       id: buildx
@@ -87,6 +91,8 @@ jobs:
           REACT_APP_API_URL="${{ env.REACT_APP_API_URL }}"
           REACT_APP_HCAPTCHA_SITE_KEY="${{ env.REACT_APP_HCAPTCHA_SITE_KEY }}"
           REACT_APP_CIVIC_APP_ID="${{ env.REACT_APP_CIVIC_APP_ID }}"
+          REACT_APP_TAWK_PROPERTY_ID="${{ env.REACT_APP_TAWK_PROPERTY_ID }}"
+          REACT_APP_TAWK_WIDGET_ID="${{ env.REACT_APP_TAWK_WIDGET_ID }}"
 
     - name: Get Github action IP
       id: ip
