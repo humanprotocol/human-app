@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
+set -x # verbose
+set -e # quit on error
 set -eo pipefail
 
-REGISTRY="340792883311.dkr.ecr.us-east-2.amazonaws.com"
-IMAGE="$1"
-CONTAINER_NAME="human-app-ui"
+readonly REGISTRY="340792883311.dkr.ecr.us-east-2.amazonaws.com"
+readonly IMAGE="$1"
+readonly CONTAINER_NAME="human-app-ui"
 
 docker pull $IMAGE
 

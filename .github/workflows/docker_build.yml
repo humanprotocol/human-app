@@ -125,14 +125,14 @@ jobs:
       if: github.ref == 'refs/heads/develop'
       continue-on-error: true
       run: |
-        ssh staging 'cat > /home/ubuntu/human-app-ui/deploy.sh' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
+        ssh staging 'cat > /home/ubuntu/human-app-ui/deploy.bash' < .github/workflows/common/deploy.bash ${{ env.tagged_image }}
 
    - name: Run on Staging server
       id: run-on-staging
       if: github.ref == 'refs/heads/develop'
       continue-on-error: true
       run: |
-        ssh staging 'bash -s' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
+        ssh staging 'bash -s' < .github/workflows/common/deploy.bash ${{ env.tagged_image }}
  
     - name: Remove Github Actions IP from Staging security group
       id: remove-ip-to-staging-sg
