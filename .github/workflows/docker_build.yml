@@ -120,12 +120,19 @@ jobs:
       run: |
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-    - name: Deploy to Staging server
-      id: deploy-to-staging
+    - name: Copy launcher to Staging server
+      id: launcher-to-staging
       if: github.ref == 'refs/heads/develop'
       continue-on-error: true
       run: |
-        ssh staging 'bash -s' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
+        ssh staging 'cat > /home/ubuntu/human-app-ui/deploy.bash' < .github/workflows/common/deploy.bash ${{ env.tagged_image }}
+
+   - name: Run on Staging server
+      id: run-on-staging
+      if: github.ref == 'refs/heads/develop'
+      continue-on-error: true
+      run: |
+        ssh staging 'bash -s' < .github/workflows/common/deploy.bash ${{ env.tagged_image }}
  
     - name: Remove Github Actions IP from Staging security group
       id: remove-ip-to-staging-sg
