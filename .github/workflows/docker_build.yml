@@ -120,8 +120,15 @@ jobs:
       run: |
         aws ec2 authorize-security-group-ingress --group-id sg-07faaf04fdd809052 --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-    - name: Deploy to Staging server
-      id: deploy-to-staging
+    - name: Copy launcher to Staging server
+      id: launcher-to-staging
+      if: github.ref == 'refs/heads/develop'
+      continue-on-error: true
+      run: |
+        ssh staging 'cat > /home/ubuntu/human-app-ui/deploy.sh' < .github/workflows/common/deploy.sh ${{ env.tagged_image }}
+
+   - name: Run on Staging server
+      id: run-on-staging
       if: github.ref == 'refs/heads/develop'
       continue-on-error: true
       run: |

@@ -24,5 +24,5 @@ if [ $? -eq 0 ]; then
     --restart=on-failure \
     $IMAGE
 else
-  echo "Failed to pool docker image"
+  echo "Failed to pull docker image"
 fi
