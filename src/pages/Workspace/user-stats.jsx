@@ -23,7 +23,7 @@ export default function UserStats(props) {
   return (
     <>
       <p className="stats">
-        <span className="stats__item--bold">Total HMT earned: </span>
+        <span className="stats__item--bold">Referral HMT Earned: </span>
         <span> {earnedTokens} </span>
       </p>
       <p className="stats">
