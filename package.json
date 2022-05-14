@@ -2,6 +2,7 @@
   "name": "human-app",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.4.3",
     "@emotion/styled": "^11.6.0",
     "@hcaptcha/react-hcaptcha": "^0.3.6",
     "@mui/icons-material": "^5.2.0",
@@ -28,6 +29,7 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.6.1",
     "react-cookie-consent": "^7.3.1",
+    "react-dev-utils": "^12.0.1",
     "react-dom": "^17.0.1",
     "react-ga4": "^1.0.5",
     "react-redux": "^7.2.4",
@@ -42,10 +44,11 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "craco start",
     "start-prod": "node server.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "build": "craco build && craco build --esm",
+    "test": "craco test --env=jsdom",
+    "build:web": "craco build",
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:fix": "yarn lint --fix",
