@@ -45,7 +45,7 @@ const WorkSpace = () => {
     history.push({ pathname: Routes.Home.path });
   }
 
-  const { balance } = useContractAbi({ walletAddress: polygonWalletAddr });
+  const { balance } = useContractAbi({ walletAddr: polygonWalletAddr });
   const [showWithdraw, setShowWithdraw] = useState(false);
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire.length > 0);
   const isWalletFilled = Boolean(user?.polygonWalletAddr);
