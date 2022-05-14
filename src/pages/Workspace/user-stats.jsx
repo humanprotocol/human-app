@@ -54,7 +54,7 @@ export default function UserStats({
 }
 
 UserStats.propTypes = {
-  balance: PropTypes.number,
+  balance: PropTypes.string,
   earnedTokens: PropTypes.number,
   availableTokens: PropTypes.number,
   referredUsersAmount: PropTypes.number,
@@ -65,7 +65,7 @@ UserStats.propTypes = {
 };
 
 UserStats.defaultProps = {
-  balance: 0,
+  balance: '0',
   earnedTokens: 0,
   availableTokens: 0,
   referredUsersAmount: 0,

@@ -7,7 +7,7 @@ const providerUrl = process.env.REACT_APP_POLYGON_MAINNET;
 const tokenArrd = process.env.REACT_APP_HUMAN_HMT_TOKEN_CONTRACT_ADDRESS;
 
 export const useContractAbi = ({ walletAddr }) => {
-  const [balance, setBalance] = useState();
+  const [balance, setBalance] = useState('');
   useEffect(() => {
     (async () => {
       try {
