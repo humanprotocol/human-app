@@ -22,11 +22,9 @@ fi
 
 echo "Runing new frontend container: $IMAGE"
 docker run \
---name=$CONTAINER_NAME \
--d \
--p 80:8080 \
--e PORT=8080 \
--e ENABLE_CSP_FF=true \
---network=human-protocol-staging \
---restart=on-failure \
-$IMAGE
+  --name=$CONTAINER_NAME \
+  -d \
+  -p 80:8080 \
+  --network=human-protocol-staging \
+  --restart=on-failure \
+  $IMAGE
