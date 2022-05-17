@@ -9,6 +9,7 @@ const tokenAddr = process.env.REACT_APP_HUMAN_HMT_TOKEN_CONTRACT_ADDRESS;
 export const useContractAbi = ({ walletAddr }) => {
   const [balance, setBalance] = useState('');
   useEffect(() => {
+    if (!walletAddr) return;
     (async () => {
       try {
         const Web3Client = new Web3(providerUrl);
