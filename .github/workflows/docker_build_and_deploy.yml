@@ -44,27 +44,9 @@ jobs:
         TAGGED_IMAGE=$ECR_REGISTRY/$ECR_REPOSITORY:${IMAGE_TAG}
         echo "tagged_image=${TAGGED_IMAGE}" >> $GITHUB_ENV
 
-    - name: Prepare .env values for Staging
-      id: prepare-env-staging
-      if: github.ref == 'refs/heads/develop'
-      run: |
-        aws ssm get-parameter --region us-east-2 --name 'STAGING_HP_UI_ENV_FILE' --with-decryption --query 'Parameter.Value' --output text > .env
-
-    - name: Prepare .env values for Prod
-      id: prepare-env-prod
-      if: github.ref == 'refs/heads/master'
-      run: |
-        aws ssm get-parameter --region us-east-2 --name 'PROD_HP_UI_ENV_FILE' --with-decryption --query 'Parameter.Value' --output text > .env
-
     - name: Set up Docker Buildx
       id: buildx
       uses: docker/setup-buildx-action@v1
-
-    - name: Prepare .env values for build image on pull_request
-      id: prepare-env-on-pull-request
-      if: github.event_name == 'pull_request'
-      run: |
-        cp .env.example .env
 
     - name: Build the image
       id: build-image
@@ -137,6 +119,9 @@ jobs:
       id: launcher-to-staging
       if: github.ref == 'refs/heads/develop'
       run: |
+        env_file=$(mktemp)
+        aws ssm get-parameter --region us-east-2 --name 'STAGING_HP_UI_ENV_FILE' --with-decryption --query 'Parameter.Value' --output text > $env_file
+        scp $env_file staging:~/human-app-ui/env
         scp .github/workflows/common/staging_deploy.bash staging:~/human-app-ui/deploy.bash
 
     - name: Run on Staging server
@@ -149,6 +134,9 @@ jobs:
       id: launcher-to-prod
       if: github.ref == 'refs/heads/master'
       run: |
+        env_file=$(mktemp)
+        aws ssm get-parameter --region us-east-2 --name 'PROD_HP_UI_ENV_FILE' --with-decryption --query 'Parameter.Value' --output text > $env_file
+        scp $env_file prod:~/human-app-ui/env
         scp .github/workflows/common/prod_deploy.bash prod:~/human-app-ui/deploy.bash
 
     - name: Run on Prod server
