@@ -22,7 +22,5 @@ export const useContractAbi = ({ walletAddr }) => {
     })();
   }, []);
 
-  return {
-    balance,
-  };
+  return balance;
 };

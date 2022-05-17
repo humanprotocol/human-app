@@ -38,14 +38,14 @@ const WorkSpace = () => {
   const { user = {}, isAuthed, token } = useSelector((state) => state.auth);
   const { items: withdrawals } = useSelector((state) => state.withdrawal);
   const availableTokens = user ? user.availableTokens || 0 : 0;
-  const polygonWalletAddr = user?.polygonWalletAddr || 0;
+  const polygonWalletAddr = user?.polygonWalletAddr;
   const isAdmin = user?.role === 'admin';
 
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
   }
 
-  const { balance } = useContractAbi({ walletAddr: polygonWalletAddr });
+  const balance = polygonWalletAddr ? useContractAbi({ walletAddr: polygonWalletAddr }) : '0';
   const [showWithdraw, setShowWithdraw] = useState(false);
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire.length > 0);
   const isWalletFilled = Boolean(user?.polygonWalletAddr);
