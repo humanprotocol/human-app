@@ -16,6 +16,8 @@ The application is in active development state and can have breaking changes.
 * `REACT_APP_CIVIC_APP_ID`: Civic Integration APP ID
 * `REACT_APP_TAWK_PROPERTY_ID`: Tawk Property ID
 * `REACT_APP_TAWK_WIDGET_ID`: Tawk Widget ID
+* `REACT_APP_POLYGON_MAINNET`: Polygon Mainnnet URL
+* `REACT_APP_HUMAN_HMT_TOKEN_CONTRACT_ADDRESS`: Human hmt token contract ADDRESS
 
 ### Running locally:
 $ `cp .env.example .env`
