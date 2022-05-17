@@ -4,7 +4,6 @@ set -x # verbose
 set -e # quit on error with last exit code
 set -eo pipefail
 
-readonly REGISTRY="340792883311.dkr.ecr.us-east-2.amazonaws.com"
 readonly IMAGE="$1"
 readonly CONTAINER_NAME="human-app-ui"
 
@@ -21,9 +20,11 @@ if [ "$(docker ps -aq -f status=exited -f name=${CONTAINER_NAME})" ]; then
 fi
 
 echo "Runing new frontend container: $IMAGE"
+cd $HOME/human-app-ui
 docker run \
   --name=$CONTAINER_NAME \
   -d \
   -p 80:8080 \
   --restart=on-failure \
+  --env-file=./env \
   $IMAGE
