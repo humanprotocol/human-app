@@ -222,7 +222,6 @@ const WorkSpace = () => {
                 earnedTokens={user?.earnedTokens}
                 availableTokens={user?.availableTokens}
                 pendingTokens={user?.pendingTokens}
-                referredUsersAmount={user?.referredUsers?.length}
                 isQuestionnaireFilled={isQuestionnaireFilled}
                 isKYCed={user?.isKYCed}
                 balance={balance}
