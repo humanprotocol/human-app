@@ -15,7 +15,6 @@ import { Withdraw } from './withdrawal-request';
 import { useContractAbi } from '../../hooks/useContractAbi';
 import Profile from '../Profile';
 import UserStats from './user-stats';
-import ReferralCode from './referral-code';
 import Questionnaire from './questionnaire';
 import AdminPanel from './admin-panel';
 import Withdrawals from './withdrawals';
@@ -163,9 +162,6 @@ const WorkSpace = () => {
               <li>
                 <NavLink to={Routes.Workspace.Profile.path}>Profile</NavLink>
               </li>
-              <li>
-                <NavLink to={Routes.Workspace.Referral.path}>Referral</NavLink>
-              </li>
               {isAdmin && (
                 <li>
                   <NavLink to={Routes.Workspace.AdminPanel.path}>Admin Panel</NavLink>
@@ -207,11 +203,6 @@ const WorkSpace = () => {
                   <Profile />
                 </div>
               </Route>
-              <Route path={Routes.Workspace.Referral.path}>
-                <div className="workspace-item">
-                  <ReferralCode referralCode={user?.referralCode} />
-                </div>
-              </Route>
               <Route path={Routes.Workspace.AdminPanel.path}>
                 <div className="workspace-item">
                   <AdminPanel isUserAdmin={isAdmin} authToken={token} />
@@ -231,7 +222,6 @@ const WorkSpace = () => {
                 earnedTokens={user?.earnedTokens}
                 availableTokens={user?.availableTokens}
                 pendingTokens={user?.pendingTokens}
-                referredUsersAmount={user?.referredUsers?.length}
                 isQuestionnaireFilled={isQuestionnaireFilled}
                 isKYCed={user?.isKYCed}
                 balance={balance}

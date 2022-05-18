@@ -9,7 +9,6 @@ export default function UserStats({
   earnedTokens,
   availableTokens,
   onVerificationError,
-  referredUsersAmount,
   isQuestionnaireFilled,
 }) {
   const kycClasses = ['stats'];
@@ -21,7 +20,7 @@ export default function UserStats({
   return (
     <>
       <p className="stats">
-        <span className="stats__item--bold">Referral HMT Earned: </span>
+        <span className="stats__item--bold">Total HMT Earned: </span>
         <span> {earnedTokens} </span>
       </p>
       <p className="stats">
@@ -31,10 +30,6 @@ export default function UserStats({
       <p className="stats">
         <span className="stats__item--bold">Wallet HMT Balance: </span>
         <span> {balance} </span>
-      </p>
-      <p className="stats">
-        <span className="stats__item--bold">Successful referrals: </span>
-        <span> {referredUsersAmount} </span>
       </p>
       <p className="stats">
         <span className="stats__item--bold">Questionnaire: </span>
@@ -57,7 +52,6 @@ UserStats.propTypes = {
   balance: PropTypes.string,
   earnedTokens: PropTypes.number,
   availableTokens: PropTypes.number,
-  referredUsersAmount: PropTypes.number,
   isQuestionnaireFilled: PropTypes.bool,
   isKYCed: PropTypes.bool,
   onPassedKyc: PropTypes.func,
@@ -68,7 +62,6 @@ UserStats.defaultProps = {
   balance: '0',
   earnedTokens: 0,
   availableTokens: 0,
-  referredUsersAmount: 0,
   isQuestionnaireFilled: false,
   isKYCed: false,
   onPassedKyc: () => {},
