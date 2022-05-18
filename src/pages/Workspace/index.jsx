@@ -12,9 +12,9 @@ import {
 import { Routes } from '../../routes';
 import { SetupWalletAlert } from './alerts';
 import { Withdraw } from './withdrawal-request';
+import { useContractAbi } from '../../hooks/useContractAbi';
 import Profile from '../Profile';
 import UserStats from './user-stats';
-import ReferralCode from './referral-code';
 import Questionnaire from './questionnaire';
 import AdminPanel from './admin-panel';
 import Withdrawals from './withdrawals';
@@ -37,11 +37,14 @@ const WorkSpace = () => {
   const { user = {}, isAuthed, token } = useSelector((state) => state.auth);
   const { items: withdrawals } = useSelector((state) => state.withdrawal);
   const availableTokens = user ? user.availableTokens || 0 : 0;
+  const polygonWalletAddr = user?.polygonWalletAddr || 0;
   const isAdmin = user?.role === 'admin';
 
   if (!isAuthed) {
     history.push({ pathname: Routes.Home.path });
   }
+
+  const { balance } = useContractAbi({ walletAddr: polygonWalletAddr });
   const [showWithdraw, setShowWithdraw] = useState(false);
   const isQuestionnaireFilled = Boolean(user?.misc && user.misc.questionnaire.length > 0);
   const isWalletFilled = Boolean(user?.polygonWalletAddr);
@@ -159,9 +162,6 @@ const WorkSpace = () => {
               <li>
                 <NavLink to={Routes.Workspace.Profile.path}>Profile</NavLink>
               </li>
-              <li>
-                <NavLink to={Routes.Workspace.Referral.path}>Referral</NavLink>
-              </li>
               {isAdmin && (
                 <li>
                   <NavLink to={Routes.Workspace.AdminPanel.path}>Admin Panel</NavLink>
@@ -203,11 +203,6 @@ const WorkSpace = () => {
                   <Profile />
                 </div>
               </Route>
-              <Route path={Routes.Workspace.Referral.path}>
-                <div className="workspace-item">
-                  <ReferralCode referralCode={user?.referralCode} />
-                </div>
-              </Route>
               <Route path={Routes.Workspace.AdminPanel.path}>
                 <div className="workspace-item">
                   <AdminPanel isUserAdmin={isAdmin} authToken={token} />
@@ -227,9 +222,9 @@ const WorkSpace = () => {
                 earnedTokens={user?.earnedTokens}
                 availableTokens={user?.availableTokens}
                 pendingTokens={user?.pendingTokens}
-                referredUsersAmount={user?.referredUsers?.length}
                 isQuestionnaireFilled={isQuestionnaireFilled}
                 isKYCed={user?.isKYCed}
+                balance={balance}
                 onPassedKyc={onPassedKyc}
                 onVerificationError={onVerificationError}
               />
