@@ -33,7 +33,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://www.google-analytics.com',
       'https://polygon-mainnet.infura.io',
       '*.tawk.to',
-      'wss://vsa41.tawk.to',
+      'wss://*.tawk.to',
       apiUrl,
     ],
     scriptSrc: [
