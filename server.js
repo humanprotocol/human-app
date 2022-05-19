@@ -67,6 +67,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://googleads.g.doubleclick.net',
       'https://www.google.com',
       '*.tawk.to',
+      'https://cdn.jsdelivr.net',
     ]
   },
   reportOnly: !isCspEnabled,
