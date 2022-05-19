@@ -55,13 +55,15 @@ app.use(helmet.contentSecurityPolicy({
       "'self'",
       "'unsafe-inline'",
       'https://cdnjs.cloudflare.com',
-      'https://fonts.googleapis.com'
+      'https://fonts.googleapis.com',
+      '*.tawk.to',
     ],
     imgSrc: [
       "'self'",
       'data:',
       'https://googleads.g.doubleclick.net',
-      'https://www.google.com'
+      'https://www.google.com',
+      '*.tawk.to',
     ]
   },
   reportOnly: !isCspEnabled,
