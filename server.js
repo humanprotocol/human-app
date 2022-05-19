@@ -32,7 +32,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://api.civic.com',
       'https://www.google-analytics.com',
       'https://polygon-mainnet.infura.io',
-      'https://va.tawk.to'
+      'https://va.tawk.to',
       apiUrl,
     ],
     scriptSrc: [
