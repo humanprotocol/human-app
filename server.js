@@ -22,7 +22,6 @@ app.use(helmet.contentSecurityPolicy({
     defaultSrc: [
       "'self'",
       '*.civic.com',
-      '*.tawk.to',
       'https://googleads.g.doubleclick.net',
       'https://newassets.hcaptcha.com',
       'https://hcaptcha.com',
@@ -34,6 +33,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://www.google-analytics.com',
       'https://polygon-mainnet.infura.io',
       '*.tawk.to',
+      'wss://vsa41.tawk.to',
       apiUrl,
     ],
     scriptSrc: [
@@ -45,6 +45,7 @@ app.use(helmet.contentSecurityPolicy({
       '*.tawk.to',
       'https://www.google-analytics.com',
       'https://www.googletagmanager.com',
+      'https://cdn.jsdelivr.net/',
     ],
     fontSrc: [
       "'self'",
