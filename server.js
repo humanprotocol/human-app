@@ -31,6 +31,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://foundation-exchange.hmt.ai',
       'https://api.civic.com',
       'https://www.google-analytics.com',
+      'https://polygon-mainnet.infura.io',
       apiUrl,
     ],
     scriptSrc: [
@@ -39,6 +40,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://hcaptcha.com',
       '*.civic.com',
       '*.googleadservices.com',
+      '*.tawk.to',
       'https://www.google-analytics.com',
       'https://www.googletagmanager.com',
     ],
