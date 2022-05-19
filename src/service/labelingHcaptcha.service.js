@@ -3,7 +3,7 @@ import axios from 'axios';
 export const verifyToken = (hcaptchaToken, authToken) => {
   return axios
     .post(
-      `${process.env.REACT_APP_API_URL}/labeling/hcaptcha/verify`,
+      `${process.env.REACT_APP_API_URL}/v1/labeling/hcaptcha/verify`,
       {
         hcaptchaToken,
       },
@@ -27,7 +27,7 @@ export const verifyToken = (hcaptchaToken, authToken) => {
 
 export const connect = (authToken) => {
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/labeling/hcaptcha/enable`, null, {
+    .post(`${process.env.REACT_APP_API_URL}/v1/labeling/hcaptcha/enable`, null, {
       headers: {
         Authorization: `Bearer ${authToken}`,
       },
@@ -45,7 +45,7 @@ export const connect = (authToken) => {
 };
 
 export const getStats = (authToken) => {
-  const endpoint = `${process.env.REACT_APP_API_URL}/labeling/hcaptcha/user-stats`;
+  const endpoint = `${process.env.REACT_APP_API_URL}/v1/labeling/hcaptcha/user-stats`;
   return axios
     .get(endpoint, { headers: { Authorization: `Bearer ${authToken}` } })
     .then((response) => response.data)
