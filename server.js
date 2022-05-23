@@ -68,6 +68,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://www.google.com',
       '*.tawk.to',
       'https://cdn.jsdelivr.net',
+      'https://s3.amazonaws.com/tawk-to-pi',
     ]
   },
   reportOnly: !isCspEnabled,
