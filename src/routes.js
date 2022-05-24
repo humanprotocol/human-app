@@ -17,9 +17,6 @@ export const Routes = {
     Profile: {
       path: '/workspace/profile',
     },
-    Referral: {
-      path: '/workspace/referral',
-    },
     AdminPanel: {
       path: '/workspace/admin-panel',
     },

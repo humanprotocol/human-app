@@ -21,7 +21,6 @@ app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: [
       "'self'",
-      '*.civic.com',
       'https://googleads.g.doubleclick.net',
       'https://newassets.hcaptcha.com',
       'https://hcaptcha.com',
@@ -29,36 +28,43 @@ app.use(helmet.contentSecurityPolicy({
     connectSrc: [
       "'self'",
       'https://foundation-exchange.hmt.ai',
-      'https://api.civic.com',
       'https://www.google-analytics.com',
+      'https://polygon-mainnet.infura.io',
+      '*.tawk.to',
+      'wss://*.tawk.to',
       apiUrl,
     ],
     scriptSrc: [
       "'self'",
       "'unsafe-inline'",
       'https://hcaptcha.com',
-      '*.civic.com',
       '*.googleadservices.com',
+      '*.tawk.to',
       'https://www.google-analytics.com',
       'https://www.googletagmanager.com',
+      'https://cdn.jsdelivr.net/',
     ],
     fontSrc: [
       "'self'",
       'https://fonts.googleapis.com',
       'https://fonts.gstatic.com',
-      'https://cdnjs.cloudflare.com'
+      'https://cdnjs.cloudflare.com',
+      '*.tawk.to',
     ],
     styleSrc: [
       "'self'",
       "'unsafe-inline'",
       'https://cdnjs.cloudflare.com',
-      'https://fonts.googleapis.com'
+      'https://fonts.googleapis.com',
+      '*.tawk.to',
     ],
     imgSrc: [
       "'self'",
       'data:',
       'https://googleads.g.doubleclick.net',
-      'https://www.google.com'
+      'https://www.google.com',
+      '*.tawk.to',
+      'https://cdn.jsdelivr.net',
     ]
   },
   reportOnly: !isCspEnabled,
