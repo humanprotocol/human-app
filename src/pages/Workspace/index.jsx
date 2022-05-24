@@ -9,7 +9,7 @@ import {
   setWithdrawals,
 } from '../../store/action';
 import { Routes } from '../../routes';
-import { SetupWalletAlert } from './alerts';
+import { SetupWalletAlert, SetupWithdrawalsRemovalAlert } from './alerts';
 import { Withdraw } from './withdrawal-request';
 import { useContractAbi } from '../../hooks/useContractAbi';
 import Profile from '../Profile';
@@ -147,6 +147,9 @@ const WorkSpace = () => {
             </ul>
           </div>
           <div className="col-md-6 section-content col-sm-12 job__col__main">
+            <div className="workspace-item">
+              <SetupWithdrawalsRemovalAlert />
+            </div>
             {!isWalletFilled && (
               <div className="workspace-item">
                 <SetupWalletAlert />

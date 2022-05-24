@@ -12,3 +12,14 @@ export function SetupWalletAlert() {
     </Alert>
   );
 }
+
+export function SetupWithdrawalsRemovalAlert() {
+  return (
+    <Alert variant="danger">
+      <p>
+        We are going to remove the withdrawal functionality by June 10th, 2022. Please make sure to
+        withdraw your HMT before that date.
+      </p>
+    </Alert>
+  );
+}
