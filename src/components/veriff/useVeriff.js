@@ -14,8 +14,7 @@ export const useVeriff = ({ show }) => {
   useEffect(() => {
     if (!show) return;
 
-    const storagedVendorData = veriffUserId || nanoid();
-
+    const storagedVendorData = veriffUserId || nanoid(30);
     const veriff = Veriff({
       apiKey: process.env.REACT_APP_VERIFF_API_KEY,
       parentId: 'veriff-root',
@@ -24,15 +23,15 @@ export const useVeriff = ({ show }) => {
 
         if (status === RESPONSE_MESSAGE.SUCCESS) {
           const {
-            verification: { url, id },
+            verification: { url },
           } = response;
 
           createVeriffFrame({ url });
 
           const token = localStorage.getItem('token');
 
-          if (id) {
-            postVeriffSessionId({ veriffUserId: id, token })
+          if (storagedVendorData) {
+            postVeriffSessionId({ veriffUserId: storagedVendorData, token })
               .then((data) => notifier.success(data.message))
               .catch((error) => notifier.error(error.message));
           } else {
