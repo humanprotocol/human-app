@@ -9,7 +9,7 @@ import { RESPONSE_MESSAGE } from './constants';
 
 export const useVeriff = ({ show }) => {
   const dispatch = useDispatch();
-  const { veriffUserId } = useSelector((state) => state?.user || '');
+  const { veriffUserId } = useSelector((state) => state?.auth?.user || '');
 
   useEffect(() => {
     if (!show) return;
