@@ -14,7 +14,7 @@ export const useVeriff = ({ show }) => {
   useEffect(() => {
     if (!show) return;
 
-    const storagedVendorData = nanoid(30);
+    const storagedVendorData = veriffUserId || nanoid(30);
 
     const veriff = Veriff({
       apiKey: process.env.REACT_APP_VERIFF_API_KEY,
@@ -35,8 +35,6 @@ export const useVeriff = ({ show }) => {
             postVeriffSessionId({ veriffUserId: storagedVendorData, token })
               .then((data) => notifier.success(data.message))
               .catch((error) => notifier.error(error.message));
-          } else {
-            notifier.error('Something went wrong during your verification. Please, try again');
           }
         }
       },
