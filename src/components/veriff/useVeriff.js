@@ -14,7 +14,8 @@ export const useVeriff = ({ show }) => {
   useEffect(() => {
     if (!show) return;
 
-    const storagedVendorData = veriffUserId || nanoid(30);
+    const storagedVendorData = nanoid(30);
+
     const veriff = Veriff({
       apiKey: process.env.REACT_APP_VERIFF_API_KEY,
       parentId: 'veriff-root',
@@ -30,7 +31,7 @@ export const useVeriff = ({ show }) => {
 
           const token = localStorage.getItem('token');
 
-          if (storagedVendorData) {
+          if (!veriffUserId) {
             postVeriffSessionId({ veriffUserId: storagedVendorData, token })
               .then((data) => notifier.success(data.message))
               .catch((error) => notifier.error(error.message));
