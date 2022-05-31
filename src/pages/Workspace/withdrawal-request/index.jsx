@@ -100,7 +100,7 @@ export const Withdraw = ({ show, user, toggle, onSubmitWithdrawal, authToken }) 
               </FormGroup>
               <FormGroup className="hcaptcha-container">
                 <HCaptcha
-                  sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+                  sitekey={window._env_.REACT_APP_HCAPTCHA_SITE_KEY}
                   endpoint={hcaptchaConstants.endpoint}
                   reportapi={hcaptchaConstants.reportapi}
                   custom

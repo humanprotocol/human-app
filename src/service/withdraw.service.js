@@ -4,7 +4,7 @@ import { http } from '../constants';
 export const sendWithdraw = async (amount, hcaptchaToken, token) => {
   return axios
     .post(
-      `${process.env.REACT_APP_API_URL}/v1/withdrawal`,
+      `${window._env_.REACT_APP_API_URL}/v1/withdrawal`,
       { amount, hcaptchaToken },
       { headers: { Authorization: `Bearer ${token}` } },
     )
@@ -22,7 +22,7 @@ export const sendWithdraw = async (amount, hcaptchaToken, token) => {
 
 export const getWithdrawals = async (token) => {
   return axios
-    .get(`${process.env.REACT_APP_API_URL}/v1/withdrawal`, {
+    .get(`${window._env_.REACT_APP_API_URL}/v1/withdrawal`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
@@ -60,7 +60,7 @@ export const execute = async (
     exactGasPriceGwei,
   };
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/withdrawal/execute`, body, {
+    .post(`${window._env_.REACT_APP_API_URL}/v1/withdrawal/execute`, body, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
@@ -78,7 +78,7 @@ export const execute = async (
 export const updateWithdrawal = async (token, id, newStatus) => {
   return axios
     .patch(
-      `${process.env.REACT_APP_API_URL}/v1/withdrawal/${id}`,
+      `${window._env_.REACT_APP_API_URL}/v1/withdrawal/${id}`,
       { newStatus },
       {
         headers: { Authorization: `Bearer ${token}` },
@@ -99,7 +99,7 @@ export const updateWithdrawal = async (token, id, newStatus) => {
 export const reactToWithdrawal = async (token, id, txHash) => {
   return axios
     .post(
-      `${process.env.REACT_APP_API_URL}/v1/withdrawal/react/${id}`,
+      `${window._env_.REACT_APP_API_URL}/v1/withdrawal/react/${id}`,
       { txHash },
       {
         headers: { Authorization: `Bearer ${token}` },

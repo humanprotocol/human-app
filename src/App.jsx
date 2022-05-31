@@ -45,8 +45,8 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <TawkMessengerReact
-        propertyId={process.env.REACT_APP_TAWK_PROPERTY_ID}
-        widgetId={process.env.REACT_APP_TAWK_WIDGET_ID}
+        propertyId={window._env_.REACT_APP_TAWK_PROPERTY_ID}
+        widgetId={window._env_.REACT_APP_TAWK_WIDGET_ID}
       />
       <Router history={history}>
         <Navigation />

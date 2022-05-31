@@ -114,7 +114,7 @@ const LoginPage = (props) => {
           </FormGroup>
           <FormGroup className="text-center">
             <HCaptcha
-              sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+              sitekey={window._env_.REACT_APP_HCAPTCHA_SITE_KEY}
               endpoint={hcaptchaConstants.endpoint}
               reportapi={hcaptchaConstants.reportapi}
               custom

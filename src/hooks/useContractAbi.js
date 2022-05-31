@@ -3,8 +3,8 @@ import Web3 from 'web3';
 import HMTokenABI from '../artifacts/HMTokenABI.json';
 import notifier from '../service/notify.service';
 
-const providerUrl = process.env.REACT_APP_POLYGON_MAINNET;
-const tokenAddr = process.env.REACT_APP_HUMAN_HMT_TOKEN_CONTRACT_ADDRESS;
+const providerUrl = window._env_.REACT_APP_POLYGON_MAINNET;
+const tokenAddr = window._env_.REACT_APP_HUMAN_HMT_TOKEN_CONTRACT_ADDRESS;
 
 export const useContractAbi = ({ walletAddr }) => {
   const [balance, setBalance] = useState('0');
