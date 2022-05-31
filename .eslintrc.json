@@ -19,7 +19,8 @@
     "jsx-a11y/control-has-associated-label": 0,
     "react/no-unescaped-entities": 0,
     "no-case-declarations": 0,
-    "import/prefer-default-export": 0
+    "import/prefer-default-export": 0,
+    "no-underscore-dangle": 0
   },
   "env": {
     "browser": true,
