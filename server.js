@@ -26,6 +26,7 @@ app.use(
         'https://newassets.hcaptcha.com',
         'https://hcaptcha.com',
         '*.veriff.com',
+        'https://api.veriff.me/v1/sessions',
       ],
       connectSrc: [
         "'self'",
