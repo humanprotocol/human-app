@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import KYCButton from '../../components/kyc-button';
+import { Button } from 'react-bootstrap';
+import VeriffButton from '../../components/veriff';
 
 export default function UserStats({
   balance,
   isKYCed,
-  onPassedKyc,
   earnedTokens,
   availableTokens,
-  onVerificationError,
+  tryShowWithdrawModal,
   isQuestionnaireFilled,
 }) {
   const kycClasses = ['stats'];
@@ -40,22 +40,25 @@ export default function UserStats({
           <span className="stats__item--bold"> Verification status: </span>{' '}
           <span> {isKYCed ? 'passed' : 'N/A'} </span>
         </span>
-        {!isKYCed && (
-          <KYCButton onPassedKyc={onPassedKyc} onVerificationError={onVerificationError} />
-        )}
       </p>
+      {isKYCed ? (
+        <Button className="form-control bg-blue btn btn-primary" onClick={tryShowWithdrawModal}>
+          Withdraw
+        </Button>
+      ) : (
+        <VeriffButton />
+      )}
     </>
   );
 }
 
 UserStats.propTypes = {
+  tryShowWithdrawModal: PropTypes.func,
   balance: PropTypes.string,
   earnedTokens: PropTypes.number,
   availableTokens: PropTypes.number,
   isQuestionnaireFilled: PropTypes.bool,
   isKYCed: PropTypes.bool,
-  onPassedKyc: PropTypes.func,
-  onVerificationError: PropTypes.func,
 };
 
 UserStats.defaultProps = {
@@ -64,6 +67,5 @@ UserStats.defaultProps = {
   availableTokens: 0,
   isQuestionnaireFilled: false,
   isKYCed: false,
-  onPassedKyc: () => {},
-  onVerificationError: () => {},
+  tryShowWithdrawModal: () => {},
 };

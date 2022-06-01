@@ -2666,6 +2666,19 @@
     "@typescript-eslint/types" "4.33.0"
     eslint-visitor-keys "^2.0.0"
 
+"@veriff/incontext-sdk@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@veriff/incontext-sdk/-/incontext-sdk-1.3.1.tgz#b671b52e4f239e62c3b38941e17ce1380c76ff5b"
+  integrity sha512-n59bTwrKVKNYoxI5ZhOrncQexWtKsc3MBvUSEsuG6XuXE1VIXbKG4z3PfU8ZTVHf3WarFpKrsfwMTWkBVPJSAg==
+  dependencies:
+    dom-focus-lock "^1.0.4"
+    tua-body-scroll-lock "1.0.0"
+
+"@veriff/js-sdk@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@veriff/js-sdk/-/js-sdk-1.3.1.tgz#8f1cfb5dc398fdcbbef3da7672fa10dba00ca86b"
+  integrity sha512-6D8U8XFkvhUmD9ApAwtkJ2/4GFXW4Sj2/W7piH4hxUzwvf/67SzSiUzQBrJ34bmee/CzTXj0y9laSAIjWSlYcg==
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"
@@ -5194,6 +5207,13 @@ dom-converter@^0.2.0:
   dependencies:
     utila "~0.4"
 
+dom-focus-lock@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/dom-focus-lock/-/dom-focus-lock-1.0.4.tgz#1a6f900399efa4e8cc9d7078ba40acf080fc10d8"
+  integrity sha512-Tiz2EYedB14UW0/lY5PEzFAie66e9itoEVKhz0M9xz1cHqP4Jd0XUg/AT2m6DtbhCFa9DHo6nQyePuLH7Mx9+A==
+  dependencies:
+    focus-lock "^0.6.2"
+
 dom-helpers@^5.0.1, dom-helpers@^5.2.0, dom-helpers@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.2.1.tgz#d9400536b2bf8225ad98fe052e029451ac40e902"
@@ -6381,6 +6401,11 @@ flush-write-stream@^1.0.0:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
+
+focus-lock@^0.6.2:
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.6.8.tgz#61985fadfa92f02f2ee1d90bc738efaf7f3c9f46"
+  integrity sha512-vkHTluRCoq9FcsrldC0ulQHiyBYgVJB2CX53I8r0nTC6KnEij7Of0jpBspjt3/CuNb6fyoj3aOh9J2HgQUM0og==
 
 follow-redirects@^1.0.0, follow-redirects@^1.14.0, follow-redirects@^1.14.6:
   version "1.15.0"
@@ -9559,7 +9584,7 @@ nanoclone@^0.2.1:
   resolved "https://registry.yarnpkg.com/nanoclone/-/nanoclone-0.2.1.tgz#dd4090f8f1a110d26bb32c49ed2f5b9235209ed4"
   integrity sha512-wynEP02LmIbLpcYw8uBKpcfF6dmg2vcpKqxeH5UcoKEYdExslsdUA4ugFauuaeYdTB76ez6gJW8XAZ6CgkXYxA==
 
-nanoid@^3.3.3:
+nanoid@^3.3.3, nanoid@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
   integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
@@ -9708,10 +9733,10 @@ node-releases@^2.0.3:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.4.tgz#f38252370c43854dc48aa431c766c6c398f40476"
   integrity sha512-gbMzqQtTtDz/00jQzZ21PQzdI9PyLYqUSvD0p3naOhX4odFji0ZxYdnVwPTxmSwkmxhcFImpozceidSG+AgoPQ==
 
-node-sass@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-5.0.0.tgz#4e8f39fbef3bac8d2dc72ebe3b539711883a78d2"
-  integrity sha512-opNgmlu83ZCF792U281Ry7tak9IbVC+AKnXGovcQ8LG8wFaJv6cLnRlc6DIHlmNxWEexB5bZxi9SZ9JyUuOYjw==
+node-sass@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-6.0.0.tgz#f30da3e858ad47bfd138bc0e0c6f924ed2f734af"
+  integrity sha512-GDzDmNgWNc9GNzTcSLTi6DU6mzSPupVJoStIi7cF3GjwSE9q1cVakbvAAVSt59vzUjV9JJoSZFKoo9krbjKd2g==
   dependencies:
     async-foreach "^0.1.3"
     chalk "^1.1.1"
@@ -11895,6 +11920,11 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
+redux-devtools-extension@^2.13.9:
+  version "2.13.9"
+  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz#6b764e8028b507adcb75a1cae790f71e6be08ae7"
+  integrity sha512-cNJ8Q/EtjhQaZ71c8I9+BPySIBVEKssbPpskBfsXqb8HJ002A3KRVHfeRzwRo6mGPqsm7XuHTqNSNeS1Khig0A==
+
 redux@^4.0.0, redux@^4.1.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.2.0.tgz#46f10d6e29b6666df758780437651eeb2b969f13"
@@ -13642,6 +13672,11 @@ tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
   integrity sha1-oVe6QC2iTpv5V/mqadUk7tQpAaY=
+
+tua-body-scroll-lock@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/tua-body-scroll-lock/-/tua-body-scroll-lock-1.0.0.tgz#77bfefa58846fe49f2ef03fe8eb39e15e5e93f45"
+  integrity sha512-3ohEBWgwbFCtpt2Dls2dzgmMdAS3CmytbAsiIdh9OvGL91h0JSlbayJ7zG4wuf8KFEQtce2nFAd5/+pw7+Dc9w==
 
 tunnel-agent@^0.6.0:
   version "0.6.0"

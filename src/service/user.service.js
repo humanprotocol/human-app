@@ -202,25 +202,16 @@ export const setQuestionnaire = async (
     });
 };
 
-export const verifyKyc = async (kycToken, authToken) => {
+export const postVeriffSessionId = async ({ veriffUserId, token }) => {
   const body = {
-    token: kycToken,
-  };
-  const options = {
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-    },
+    veriffUserId,
   };
 
+  const headers = { headers: { Authorization: `Bearer ${token}` } };
+
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/users/kyc`, body, options)
-    .then((response) => {
-      if (response) {
-        return {
-          isKYCed: response.data.isKYCed,
-        };
-      }
-    })
+    .post(`${process.env.REACT_APP_API_URL}/v1/users/kyc/started`, body, headers)
+    .then((response) => response?.data)
     .catch((err) => {
       throw new Error(err.response.data.message);
     });
