@@ -7,7 +7,7 @@ export default function VeriffButton() {
   const [show, setShow] = useState(false);
   const onVIClick = () => setShow((prev) => !prev);
 
-  useVeriff({ show });
+  useVeriff({ show, disableVeriffModal: setShow });
 
   return (
     <>
