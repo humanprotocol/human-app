@@ -19,6 +19,7 @@ import {
 async function init() {
   const token = localStorage.getItem('token');
   const refreshToken = localStorage.getItem('refreshToken');
+
   const initialState = {
     auth: {
       token,
