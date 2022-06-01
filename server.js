@@ -25,6 +25,7 @@ app.use(
         'https://googleads.g.doubleclick.net',
         'https://newassets.hcaptcha.com',
         'https://hcaptcha.com',
+        '*.veriff.com',
       ],
       connectSrc: [
         "'self'",
@@ -34,6 +35,7 @@ app.use(
         '*.tawk.to',
         'wss://*.tawk.to',
         apiUrl,
+        '*.veriff.com',
       ],
       scriptSrc: [
         "'self'",
@@ -44,6 +46,7 @@ app.use(
         'https://www.google-analytics.com',
         'https://www.googletagmanager.com',
         'https://cdn.jsdelivr.net/',
+        '*.veriff.com',
       ],
       fontSrc: [
         "'self'",
@@ -51,6 +54,7 @@ app.use(
         'https://fonts.gstatic.com',
         'https://cdnjs.cloudflare.com',
         '*.tawk.to',
+        '*.veriff.com',
       ],
       styleSrc: [
         "'self'",
@@ -58,6 +62,7 @@ app.use(
         'https://cdnjs.cloudflare.com',
         'https://fonts.googleapis.com',
         '*.tawk.to',
+        '*.veriff.com',
       ],
       imgSrc: [
         "'self'",
@@ -67,6 +72,7 @@ app.use(
         '*.tawk.to',
         'https://cdn.jsdelivr.net',
         'https://s3.amazonaws.com',
+        '*.veriff.com',
       ],
     },
     reportOnly: !isCspEnabled,
