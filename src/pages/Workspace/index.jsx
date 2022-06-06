@@ -83,7 +83,10 @@ const WorkSpace = () => {
   const updateWithdrawals = () => {
     return getWithdrawals(token)
       .then((result) => dispatch(setWithdrawals(result)))
-      .catch((err) => notifier.error(err.message));
+      .catch((err) => {
+        history.push({ pathname: Routes.Login.path });
+        notifier.error(err.message);
+      });
   };
 
   const setUserProfile = () => {
