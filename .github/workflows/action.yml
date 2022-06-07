@@ -21,7 +21,7 @@ jobs:
        # Install Node.js
       - uses: actions/setup-node@v1
         with:
-          node-version: 14.15.0
+          node-version: 16.15.0
 
       # Install your dependencies
       - run: yarn

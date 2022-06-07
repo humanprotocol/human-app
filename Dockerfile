@@ -1,4 +1,4 @@
-FROM node:14.17.5-alpine AS builder
+FROM node:16.15.0-alpine AS builder
 
 WORKDIR /usr/src/node-app
 
@@ -14,7 +14,7 @@ COPY --chown=node:node . .
 
 RUN yarn install && yarn build
 
-FROM node:14.17.5-alpine AS release
+FROM node:16.15.0-alpine AS release
 
 WORKDIR /usr/src/node-app
 

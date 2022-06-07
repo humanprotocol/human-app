@@ -186,6 +186,11 @@
         &--bold {
             font-weight: 600;
         }
+        &--veriff {
+            font-weight: 400;
+            font-size: 14px;
+            text-transform: capitalize;
+        }
     }
     &__withdraw {
         margin-top: 20px !important;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Switch, Route, useHistory, useLocation, Redirect } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
 import NavLink from './nav-link';
 import {
   setUserDetails,
@@ -20,7 +19,7 @@ import AdminPanel from './admin-panel';
 import Withdrawals from './withdrawals';
 import Labeling from './labeling';
 import { getWithdrawals } from '../../service/withdraw.service';
-import { verifyKyc, getMyAccount } from '../../service/user.service';
+import { getMyAccount } from '../../service/user.service';
 import notifier from '../../service/notify.service';
 
 import './index.scss';
@@ -107,31 +106,6 @@ const WorkSpace = () => {
     dispatch(startGlobalLoading());
     updateWithdrawals().finally(() => dispatch(finishGlobalLoading()));
   }, []);
-
-  const onPassedKyc = (kycToken) => {
-    dispatch(startGlobalLoading());
-    verifyKyc(kycToken, token)
-      .then((response) => {
-        if (response.isKYCed) {
-          notifier.success('Your identity successfuly verified');
-          getMyAccount(user.id, token).then((updatedUser) => dispatch(setUserDetails(updatedUser)));
-        }
-      })
-      .catch((err) => {
-        if (err.message) {
-          notifier.error(err.message);
-        } else {
-          notifier.error(
-            'Failed to verify your identity. Please, try again or contact the support app@humanprotocol.org',
-          );
-        }
-      })
-      .finally(() => dispatch(finishGlobalLoading()));
-  };
-
-  const onVerificationError = () => {
-    notifier.error('Something went wrong during your verification. Please, try again');
-  };
 
   return (
     <div id="workspace">
@@ -222,23 +196,14 @@ const WorkSpace = () => {
           <div className="col-md-3 section-details text-left d-flex flex-column justify-content-between col-sm-12 stats__container job__col__stats">
             <div className="mb-5">
               <UserStats
+                tryShowWithdrawModal={tryShowWithdrawModal}
                 earnedTokens={user?.earnedTokens}
                 availableTokens={user?.availableTokens}
                 pendingTokens={user?.pendingTokens}
                 isQuestionnaireFilled={isQuestionnaireFilled}
                 isKYCed={user?.isKYCed}
                 balance={balance}
-                onPassedKyc={onPassedKyc}
-                onVerificationError={onVerificationError}
               />
-              <p>
-                <Button
-                  className="form-control bg-blue btn btn-primary"
-                  onClick={tryShowWithdrawModal}
-                >
-                  Withdraw
-                </Button>
-              </p>
             </div>
             {showWithdraw && (
               <Withdraw
