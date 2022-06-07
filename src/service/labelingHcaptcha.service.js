@@ -36,8 +36,9 @@ export const connect = (authToken) => {
       return response.data;
     })
     .catch((error) => {
-      if (error.response) {
-        throw new Error(error.response.data.message);
+      if (error) {
+        const { response } = error;
+        throw response;
       } else {
         throw new Error('Network Error');
       }

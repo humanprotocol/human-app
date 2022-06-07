@@ -1,0 +1,4 @@
+export const STATUS_CODE = {
+  NOT_AUTHENTICATED: 401,
+  NOT_COMPLETED_AUTH: 400,
+};
