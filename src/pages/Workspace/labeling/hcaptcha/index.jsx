@@ -18,6 +18,7 @@ import { startGlobalLoading, finishGlobalLoading, setUserDetails } from '../../.
 import notifier from '../../../../service/notify.service';
 import { getMyAccount } from '../../../../service/user.service';
 import { hcaptchaConstants } from '../../../../constants';
+import { STATUS_CODE } from '../../../../service/constants';
 
 import './index.scss';
 
@@ -82,10 +83,16 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
     connect(authToken)
       .then(() => notifier.success('Your account has been connected to HCaptcha jobs pool'))
       .then(() => getMyAccount(userId, authToken))
-      .then((user) => dispatch(setUserDetails(user)))
+      .then((user) => {
+        dispatch(setUserDetails(user));
+      })
       .catch((error) => {
-        if (error.message) {
-          notifier.error(error.message);
+        const { data: errorData } = error;
+        if (errorData.message) {
+          if (errorData.code === STATUS_CODE.NOT_AUTHENTICATED) {
+            history.push({ pathname: Routes.Login.path });
+          }
+          notifier.error(errorData.message);
         } else {
           notifier.error('Something went wrong, please try again');
         }
