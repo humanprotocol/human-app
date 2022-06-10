@@ -11,3 +11,14 @@ export function SetupWalletAlert() {
     </Alert>
   );
 }
+
+export function SetupIdentityVerificationIssueAlert() {
+  return (
+    <Alert variant="danger">
+      <p>
+        Currently HUMAN App is having issues with its identity verification system. Our team is
+        working on the solution, so it should be fixed soon.
+      </p>
+    </Alert>
+  );
+}
