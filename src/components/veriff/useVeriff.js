@@ -7,7 +7,7 @@ import notifier from '../../service/notify.service';
 import { postVeriffSessionId } from '../../service/user.service';
 import { RESPONSE_MESSAGE } from './constants';
 
-export const useVeriff = ({ show, disableVeriffModal }) => {
+export const useVeriff = ({ show, setShow }) => {
   const dispatch = useDispatch();
   const { veriffUserId } = useSelector((state) => state?.auth?.user || '');
 
@@ -33,10 +33,10 @@ export const useVeriff = ({ show, disableVeriffModal }) => {
               // eslint-disable-next-line default-case
               switch (msg) {
                 case MESSAGES.CANCELED:
-                  disableVeriffModal((prev) => !prev);
+                  setShow((prev) => !prev);
                   break;
                 case MESSAGES.FINISHED:
-                  disableVeriffModal((prev) => !prev);
+                  setShow((prev) => !prev);
                   break;
               }
             },
