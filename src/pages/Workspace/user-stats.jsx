@@ -1,16 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 import VeriffButton from '../../components/veriff';
 
-export default function UserStats({
-  balance,
-  isKYCed,
-  earnedTokens,
-  availableTokens,
-  tryShowWithdrawModal,
-  isQuestionnaireFilled,
-}) {
+export default function UserStats({ balance, isKYCed, isQuestionnaireFilled }) {
   const kycClasses = ['stats'];
   if (!isKYCed) {
     kycClasses.push('stats--stretch');
@@ -19,14 +11,6 @@ export default function UserStats({
 
   return (
     <>
-      <p className="stats">
-        <span className="stats__item--bold">Total HMT Earned: </span>
-        <span> {earnedTokens} </span>
-      </p>
-      <p className="stats">
-        <span className="stats__item--bold">HMT available to withdraw: </span>
-        <span> {availableTokens} </span>
-      </p>
       <p className="stats">
         <span className="stats__item--bold">Wallet HMT Balance: </span>
         <span> {balance} </span>
@@ -41,31 +25,19 @@ export default function UserStats({
           <span> {isKYCed ? 'passed' : 'N/A'} </span>
         </span>
       </p>
-      {isKYCed ? (
-        <Button className="form-control bg-blue btn btn-primary" onClick={tryShowWithdrawModal}>
-          Withdraw
-        </Button>
-      ) : (
-        <VeriffButton />
-      )}
+      {!isKYCed && <VeriffButton />}
     </>
   );
 }
 
 UserStats.propTypes = {
-  tryShowWithdrawModal: PropTypes.func,
   balance: PropTypes.string,
-  earnedTokens: PropTypes.number,
-  availableTokens: PropTypes.number,
   isQuestionnaireFilled: PropTypes.bool,
   isKYCed: PropTypes.bool,
 };
 
 UserStats.defaultProps = {
   balance: '0',
-  earnedTokens: 0,
-  availableTokens: 0,
   isQuestionnaireFilled: false,
   isKYCed: false,
-  tryShowWithdrawModal: () => {},
 };
