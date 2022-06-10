@@ -2,12 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { Routes } from '../../../routes';
-import ExecuteWithdrawals from './withdraw-execution';
 import SuspendUsers from './suspend-users';
 import UnsuspendUsers from './unsuspend-users';
 import DeleteUsersByEmail from './delete-users-by-email';
-import UpdateWithdrawal from './update-withdrawal';
-import ReactToWithdrawal from './react-to-withdrawal';
 
 export default function AdminPanel({ isUserAdmin, authToken }) {
   const history = useHistory();
@@ -17,15 +14,6 @@ export default function AdminPanel({ isUserAdmin, authToken }) {
   return (
     <>
       <h2> Admin Panel </h2>
-      <div>
-        <ExecuteWithdrawals authToken={authToken} />
-      </div>
-      <div>
-        <UpdateWithdrawal authToken={authToken} />
-      </div>
-      <div>
-        <ReactToWithdrawal authToken={authToken} />
-      </div>
       <div>
         <SuspendUsers authToken={authToken} />
       </div>

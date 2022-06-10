@@ -20,8 +20,5 @@ export const Routes = {
     AdminPanel: {
       path: '/workspace/admin-panel',
     },
-    Withdrawals: {
-      path: '/workspace/withdrawals',
-    },
   },
 };

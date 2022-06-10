@@ -14,10 +14,6 @@ const suspendStatuses = [
     value: 'FAKE_USER',
     label: 'Fake user',
   },
-  {
-    value: 'REFERRAL_PROGRAM_VIOLATOR',
-    label: 'Referral program violator',
-  },
 ];
 
 export default function SuspendUsers({ authToken }) {

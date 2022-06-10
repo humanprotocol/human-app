@@ -8,7 +8,6 @@ export const DECREASE_HMT_COUNT = 'DECREASE_HMT_COUNT';
 export const SET_CAPTCHA_TOKEN = 'SET_CAPTCHA_TOKEN';
 export const START_GLOBAL_LOADING = 'START_GLOBAL_LOADING';
 export const FINISH_GLOBAL_LOADING = 'FINISH_GLOBAL_LOADING';
-export const SET_WITHDRAWALS = 'SET_WITHDRAWALS';
 
 export const setUserDetails = (user) => ({
   type: SET_USER,
@@ -31,9 +30,4 @@ export const startGlobalLoading = () => ({
 
 export const finishGlobalLoading = () => ({
   type: FINISH_GLOBAL_LOADING,
-});
-
-export const setWithdrawals = (withdrawals) => ({
-  type: SET_WITHDRAWALS,
-  payload: withdrawals,
 });
