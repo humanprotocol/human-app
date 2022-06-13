@@ -4,7 +4,7 @@ import { Switch, Route, useHistory, useLocation, Redirect } from 'react-router-d
 import NavLink from './nav-link';
 import { setUserDetails } from '../../store/action';
 import { Routes } from '../../routes';
-import { SetupIdentityVerificationIssueAlert, SetupWalletAlert } from './alerts';
+import { SetupWalletAlert } from './alerts';
 import { useContractAbi } from '../../hooks/useContractAbi';
 import Profile from '../Profile';
 import UserStats from './user-stats';
@@ -82,11 +82,6 @@ const WorkSpace = () => {
             </ul>
           </div>
           <div className="col-md-6 section-content col-sm-12 job__col__main">
-            {!user?.isKYCed && (
-              <div className="workspace-item">
-                <SetupIdentityVerificationIssueAlert />
-              </div>
-            )}
             {!isWalletFilled && (
               <div className="workspace-item">
                 <SetupWalletAlert />
