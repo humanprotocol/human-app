@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useFormik } from 'formik';
+import { config } from '../../config';
 import { startGlobalLoading, finishGlobalLoading } from '../../store/action';
 import { Password } from '../../ui/password';
 import { signIn } from '../../service/user.service';
@@ -114,7 +115,7 @@ const LoginPage = (props) => {
           </FormGroup>
           <FormGroup className="text-center">
             <HCaptcha
-              sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+              sitekey={config.hcaptchaSiteKey}
               endpoint={hcaptchaConstants.endpoint}
               reportapi={hcaptchaConstants.reportapi}
               custom

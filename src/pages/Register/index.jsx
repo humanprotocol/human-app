@@ -7,6 +7,7 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import { Field, Form, Formik } from 'formik';
+import { config } from '../../config';
 import { Password } from '../../ui/password';
 import './index.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
@@ -226,7 +227,7 @@ const RegisterPage = (props) => {
               </FormGroup>
               <FormGroup className="text-center">
                 <HCaptcha
-                  sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
+                  sitekey={config.hcaptchaSiteKey}
                   endpoint={hcaptchaConstants.endpoint}
                   reportapi={hcaptchaConstants.reportapi}
                   custom
