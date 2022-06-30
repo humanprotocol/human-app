@@ -228,8 +228,8 @@ const RegisterPage = (props) => {
               <FormGroup className="text-center">
                 <HCaptcha
                   sitekey={config.hcaptchaSiteKey}
-                  endpoint={config.endpoint}
-                  reportapi={config.reportapi}
+                  endpoint={config.hcaptchaExchangeUrl}
+                  reportapi={config.hcaptchaLabelingBaseUrl}
                   custom
                   onVerify={(token) => setFieldValue('hcaptchaToken', token)}
                   ref={captchaRef}

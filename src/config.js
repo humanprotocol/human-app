@@ -6,6 +6,6 @@ export const config = {
   polygonMainnet: window.env.REACT_APP_POLYGON_MAINNET,
   hmtTokenContractAddress: window.env.REACT_APP_HUMAN_HMT_TOKEN_CONTRACT_ADDRESS,
   veriffApiKey: window.env.REACT_APP_VERIFF_API_KEY,
-  reportapi: window.env.REACT_APP_HCAPTCHA_REPORT_API_URL,
-  endpoint: window.env.REACT_APP_HCAPTCHA_ENDPOINT_URL,
+  hcaptchaLabelingBaseUrl: window.env.REACT_APP_HCAPTCHA_LABELING_BASE_URL,
+  hcaptchaExchangeUrl: window.env.REACT_APP_HCAPTCHA_EXCHANGE_URL,
 };

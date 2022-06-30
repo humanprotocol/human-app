@@ -105,8 +105,8 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
               </Typography>
               {siteKey && (
                 <HCaptcha
-                  endpoint={config.endpoint}
-                  reportapi={config.reportapi}
+                  endpoint={config.hcaptchaExchangeUrl}
+                  reportapi={config.hcaptchaLabelingBaseUrl}
                   custom
                   className="hcaptcha-labeling-item"
                   sitekey={siteKey}
