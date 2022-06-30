@@ -17,7 +17,7 @@ import { verifyToken, connect, getStats } from '../../../../service/labelingHcap
 import { startGlobalLoading, finishGlobalLoading, setUserDetails } from '../../../../store/action';
 import notifier from '../../../../service/notify.service';
 import { getMyAccount } from '../../../../service/user.service';
-import { hcaptchaConstants } from '../../../../constants';
+import { config } from '../../../../config';
 
 import './index.scss';
 
@@ -105,8 +105,8 @@ const FoundationHcaptcha = ({ siteKey, authToken, userId, isKYCed }) => {
               </Typography>
               {siteKey && (
                 <HCaptcha
-                  endpoint={hcaptchaConstants.endpoint}
-                  reportapi={hcaptchaConstants.reportapi}
+                  endpoint={config.endpoint}
+                  reportapi={config.reportapi}
                   custom
                   className="hcaptcha-labeling-item"
                   sitekey={siteKey}
