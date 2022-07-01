@@ -11,7 +11,6 @@ import { Password } from '../../ui/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
 import { LoginValidationSchema } from './schema';
-import { hcaptchaConstants } from '../../constants';
 import './index.scss';
 
 const LoginPage = (props) => {
@@ -116,8 +115,8 @@ const LoginPage = (props) => {
           <FormGroup className="text-center">
             <HCaptcha
               sitekey={config.hcaptchaSiteKey}
-              endpoint={hcaptchaConstants.endpoint}
-              reportapi={hcaptchaConstants.reportapi}
+              endpoint={config.hcaptchaExchangeUrl}
+              reportapi={config.hcaptchaLabelingBaseUrl}
               custom
               onVerify={(token) => handleVerificationToken(token)}
               ref={captchaRef}

@@ -13,7 +13,7 @@ import './index.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
 import { Routes } from '../../routes';
 import { RegisterValidationSchema } from './schema';
-import { countries, hcaptchaConstants } from '../../constants';
+import { countries } from '../../constants';
 
 const RegisterPage = (props) => {
   const { history } = props;
@@ -228,8 +228,8 @@ const RegisterPage = (props) => {
               <FormGroup className="text-center">
                 <HCaptcha
                   sitekey={config.hcaptchaSiteKey}
-                  endpoint={hcaptchaConstants.endpoint}
-                  reportapi={hcaptchaConstants.reportapi}
+                  endpoint={config.hcaptchaExchangeUrl}
+                  reportapi={config.hcaptchaLabelingBaseUrl}
                   custom
                   onVerify={(token) => setFieldValue('hcaptchaToken', token)}
                   ref={captchaRef}
