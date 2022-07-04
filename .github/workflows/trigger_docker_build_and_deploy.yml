@@ -1,0 +1,34 @@
+name: Trigger docker build and deploy
+
+on:
+  push:
+    branches: [ develop, master ]
+  pull_request:
+    branches: [ develop, master ]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  trigger-build-and-deploy:
+    name: Trigger build and deploy image
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: humanprotocol
+        repo: multi-repo-cicd
+        github_token: ${{ secrets.GH_TOKEN }}
+        workflow_file_name: docker_build_and_deploy.yml
+        ref: human-app
+        wait_interval: 15
+        client_payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "repository": "${{ github.repository }}", "trigger": "${{  github.event_name }}"}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true
