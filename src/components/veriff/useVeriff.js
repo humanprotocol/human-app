@@ -3,6 +3,7 @@ import { Veriff } from '@veriff/js-sdk';
 import { createVeriffFrame, MESSAGES } from '@veriff/incontext-sdk';
 import { nanoid } from 'nanoid';
 import { useSelector, useDispatch } from 'react-redux';
+import { config } from '../../config';
 import notifier from '../../service/notify.service';
 import { postVeriffSessionId } from '../../service/user.service';
 import { RESPONSE_MESSAGE } from './constants';
@@ -17,7 +18,7 @@ export const useVeriff = ({ show, setShow }) => {
     const storagedVendorData = veriffUserId || nanoid(30);
 
     const veriff = Veriff({
-      apiKey: process.env.REACT_APP_VERIFF_API_KEY,
+      apiKey: config.veriffApiKey,
       parentId: 'veriff-root',
       onSession(err, response) {
         const { status } = response;

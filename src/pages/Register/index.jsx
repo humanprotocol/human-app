@@ -7,12 +7,13 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import { Field, Form, Formik } from 'formik';
+import { config } from '../../config';
 import { Password } from '../../ui/password';
 import './index.scss';
 import { register, resendEmailVerification } from '../../service/user.service';
 import { Routes } from '../../routes';
 import { RegisterValidationSchema } from './schema';
-import { countries, hcaptchaConstants } from '../../constants';
+import { countries } from '../../constants';
 
 const RegisterPage = (props) => {
   const { history } = props;
@@ -226,9 +227,9 @@ const RegisterPage = (props) => {
               </FormGroup>
               <FormGroup className="text-center">
                 <HCaptcha
-                  sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-                  endpoint={hcaptchaConstants.endpoint}
-                  reportapi={hcaptchaConstants.reportapi}
+                  sitekey={config.hcaptchaSiteKey}
+                  endpoint={config.hcaptchaExchangeUrl}
+                  reportapi={config.hcaptchaLabelingBaseUrl}
                   custom
                   onVerify={(token) => setFieldValue('hcaptchaToken', token)}
                   ref={captchaRef}

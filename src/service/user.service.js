@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as EmailValidator from 'email-validator';
+import { config } from '../config';
 import { errors } from '../constants';
 
 export const register = async (user) => {
@@ -14,7 +15,7 @@ export const register = async (user) => {
   }
 
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/auth/register`, { ...user })
+    .post(`${config.apiUrl}/v1/auth/register`, { ...user })
     .then((response) => {
       if (response) {
         const { tokens } = response.data;
@@ -34,7 +35,7 @@ export const register = async (user) => {
 
 export const signIn = async ({ email, password, hcaptchaToken }) => {
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/auth/login`, {
+    .post(`${config.apiUrl}/v1/auth/login`, {
       email,
       password,
       hcaptchaToken,
@@ -53,7 +54,7 @@ export const signIn = async ({ email, password, hcaptchaToken }) => {
 
 export const update = async (id, token, user) =>
   axios
-    .patch(`${process.env.REACT_APP_API_URL}/v1/users/${id}`, user, {
+    .patch(`${config.apiUrl}/v1/users/${id}`, user, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -71,7 +72,7 @@ export const update = async (id, token, user) =>
 export const logOut = async (token, refreshToken) =>
   axios
     .post(
-      `${process.env.REACT_APP_API_URL}/v1/auth/logout`,
+      `${config.apiUrl}/v1/auth/logout`,
       { refreshToken },
       { headers: { Authorization: `Bearer ${token}` } },
     )
@@ -90,12 +91,10 @@ export const logOut = async (token, refreshToken) =>
 export const forgotPassword = async (email) => {
   if (!email) throw new Error('email required');
 
-  return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/auth/forgot-password`, { email })
-    .catch((err) => {
-      if (err.response) throw new Error(err.response.data.message);
-      else throw new Error('Network Error');
-    });
+  return axios.post(`${config.apiUrl}/v1/auth/forgot-password`, { email }).catch((err) => {
+    if (err.response) throw new Error(err.response.data.message);
+    else throw new Error('Network Error');
+  });
 };
 
 export const resetPassword = async (password, token) => {
@@ -103,11 +102,7 @@ export const resetPassword = async (password, token) => {
   if (!token) throw new Error(errors.errorMessage.requireRestPasswordToken);
 
   return axios
-    .post(
-      `${process.env.REACT_APP_API_URL}/v1/auth/reset-password`,
-      { password },
-      { params: { token } },
-    )
+    .post(`${config.apiUrl}/v1/auth/reset-password`, { password }, { params: { token } })
     .catch((err) => {
       if (err.response) throw new Error(err.response.data.message);
       else throw new Error('Network Error');
@@ -116,7 +111,7 @@ export const resetPassword = async (password, token) => {
 
 export const getMyAccount = async (id, token) =>
   axios
-    .get(`${process.env.REACT_APP_API_URL}/v1/users/${id}`, {
+    .get(`${config.apiUrl}/v1/users/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
@@ -130,7 +125,7 @@ export const getMyAccount = async (id, token) =>
 
 export const verifyEmail = async (token) =>
   axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/auth/verify-email`, null, { params: { token } })
+    .post(`${config.apiUrl}/v1/auth/verify-email`, null, { params: { token } })
     .then((response) => {
       if (response && response.status === 204) {
         return true;
@@ -144,7 +139,7 @@ export const verifyEmail = async (token) =>
 
 export const sendNewsletterSignup = async (data) =>
   axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/auth/register-interest`, data)
+    .post(`${config.apiUrl}/v1/auth/register-interest`, data)
     .then((response) => {
       if (response && response.status === 204) {
         return true;
@@ -158,7 +153,7 @@ export const sendNewsletterSignup = async (data) =>
 
 export const resendEmailVerification = async (token) =>
   axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/auth/send-verification-email`, null, {
+    .post(`${config.apiUrl}/v1/auth/send-verification-email`, null, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((response) => {
@@ -194,7 +189,7 @@ export const setQuestionnaire = async (
   };
   const headers = { headers: { Authorization: `Bearer ${token}` } };
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/users/${id}/misc`, body, headers)
+    .post(`${config.apiUrl}/v1/users/${id}/misc`, body, headers)
     .then((response) => response?.data)
     .catch((err) => {
       if (err.response) throw new Error(err.response.data.message);
@@ -210,7 +205,7 @@ export const postVeriffSessionId = async ({ veriffUserId, token }) => {
   const headers = { headers: { Authorization: `Bearer ${token}` } };
 
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/users/kyc/started`, body, headers)
+    .post(`${config.apiUrl}/v1/users/kyc/started`, body, headers)
     .then((response) => response?.data)
     .catch((err) => {
       throw new Error(err.response.data.message);
@@ -230,7 +225,7 @@ export const suspendUsers = async (userEmails, suspendStatus, authToken) => {
   };
 
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/users/suspend`, body, options)
+    .post(`${config.apiUrl}/v1/users/suspend`, body, options)
     .then((response) => {
       if (response) {
         return {
@@ -255,7 +250,7 @@ export const unsuspendUsers = async (userEmails, authToken) => {
   };
 
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/users/unsuspend`, body, options)
+    .post(`${config.apiUrl}/v1/users/unsuspend`, body, options)
     .then((response) => {
       if (response && response.status === 200) {
         return true;
@@ -278,7 +273,7 @@ export const deleteUsersByEmail = async (userEmails, authToken) => {
   };
 
   return axios
-    .post(`${process.env.REACT_APP_API_URL}/v1/users/delete/emails`, body, options)
+    .post(`${config.apiUrl}/v1/users/delete/emails`, body, options)
     .then((response) => {
       if (response && response.status === 200) {
         return {

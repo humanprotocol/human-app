@@ -5,12 +5,12 @@ import { useDispatch } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { useFormik } from 'formik';
+import { config } from '../../config';
 import { startGlobalLoading, finishGlobalLoading } from '../../store/action';
 import { Password } from '../../ui/password';
 import { signIn } from '../../service/user.service';
 import { Routes } from '../../routes';
 import { LoginValidationSchema } from './schema';
-import { hcaptchaConstants } from '../../constants';
 import './index.scss';
 
 const LoginPage = (props) => {
@@ -114,9 +114,9 @@ const LoginPage = (props) => {
           </FormGroup>
           <FormGroup className="text-center">
             <HCaptcha
-              sitekey={process.env.REACT_APP_HCAPTCHA_SITE_KEY}
-              endpoint={hcaptchaConstants.endpoint}
-              reportapi={hcaptchaConstants.reportapi}
+              sitekey={config.hcaptchaSiteKey}
+              endpoint={config.hcaptchaExchangeUrl}
+              reportapi={config.hcaptchaLabelingBaseUrl}
               custom
               onVerify={(token) => handleVerificationToken(token)}
               ref={captchaRef}
