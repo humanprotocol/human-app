@@ -4,7 +4,7 @@ on:
   push:
     branches: [ develop, master ]
   pull_request:
-    branches: [ develop, master ]
+    branches: [ develop, master, test-ci-fix ]
   workflow_dispatch:
 
 permissions:
@@ -26,7 +26,7 @@ jobs:
         repo: multi-repo-cicd
         github_token: ${{ secrets.GH_TOKEN }}
         workflow_file_name: docker_build_and_deploy.yml
-        ref: human-app
+        ref: human-app-ci-fix
         wait_interval: 15
         client_payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "repository": "${{ github.repository }}", "trigger": "${{  github.event_name }}"}'
         propagate_failure: true
